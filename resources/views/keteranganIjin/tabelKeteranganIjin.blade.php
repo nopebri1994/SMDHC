@@ -1,21 +1,45 @@
-<table class="table table-bordered table-sm">
+<style type="text/css">
+table>thead>tr>th{
+    text-align: center;
+    height: 3rem;
+};
+
+</style>
+<table class="table table-bordered table-sm table-striped">
     <thead>
-          <tr>
-              <th>#</th>
-              <th>Kode</th>
-              <th>Keterangan</th>
-              <th>status</th>
+          <tr> 
+              <th class="align-middle">#</th>
+              <th class="align-middle">Kode</th>
+              <th class="align-middle">Keterangan</th>
+              <th class="align-middle">status</th>
+              <th class="align-middle"></th>
           </tr>
       </thead>
       <tbody>
+      
+    
+               @if(empty($dataTable))
+                <tr>
+                    <td colspan="4" align="center">
+                        Data not available
+                    </td>
+                 <tr>
+                @endif
           @foreach($dataTable as $key => $dt)
           <tr>
-              <td>{{$dataTable->firstItem() + $key}}</td>
-              <td>{{$dt->kode}}</td>
-              <td>{{$dt->keterangan}}</td>
-              <td>{{$dt->status}}</td>
+              <td align="center" class="align-middle">{{$dataTable->firstItem() + $key}}</td>
+              <td class="align-middle">{{$dt->kode}}</td>
+              <td class="align-middle">{{$dt->keterangan}}</td>
+              <td class="align-middle">{{$dt->status}}</td>
+              <td align="center" width="25%">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</button>
+                    <button type="button" class="btn btn-danger btn-sm" id="btnDelete" onclick="deleteData({{$dt->id}},'{{$dt->kode}}')"><i class="fas fa-trash-alt"></i> Delete</button>
+                  </div>
+              </td>
           </tr>
           @endforeach
+        
       </tbody>
   </table>
   {{ $dataTable->links() }}

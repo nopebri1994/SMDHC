@@ -14,6 +14,8 @@
 
     <link rel="stylesheet" href="assets/adminlte/css/adminlte.min.css?v=3.2.0">
 
+    <link rel="stylesheet" href="vendor/flasher/flasher.min.css">
+
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
 

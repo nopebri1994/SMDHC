@@ -1,11 +1,11 @@
 @extends('_main/main')
 @section('container')
-
+@flasher_render()
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Keterangan Ijin</h1>
+                    <h1 class="m-0"></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -22,9 +22,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        {{-- <div class="card-header">
-                            <h5 class="m-0"></h5>
-                        </div> --}}
+                        <div class="card-header">
+                            <h5 class="m-0">Keterangan Ijin</h5>
+                        </div>
                         <div class="card-body">
                         <div class="row justify-content-between">
                             <div class="col-md-5">
@@ -51,11 +51,12 @@
                                 </div>
                                 <div class="mt-3" align="right">
                                     <input type="hidden" id="token" value={{csrf_token()}}>
-                                    <button type="button" class="btn btn-primary" id="btnSaveData">Simpan Data</button>
+                                    <button type="button" class="btn btn-primary" id="btnSaveData">
+                                        <span class="far fa-save" id="load" aria-hidden="true"></span>
+                                        Simpan Data</button>
                                 </div>
                             </div>
-                            <div class="col-md-6" id="listView">
-                             
+                            <div class="col-md-6 pt-2 shadow table-responsive" id="listView">
                             </div>
                         </div>
                         </div>
@@ -86,6 +87,29 @@ const load = () => {
     })
 }
 
+  let loadBtnSave =()=> {
+    let x = document.getElementById('load');
+    x.classList.remove('far','fa-save');
+    x.classList.add('spinner-border','spinner-border-sm');
+    document.getElementById('btnSaveData').disabled=true;
+    }
+
+    let removeBtnSave =()=> {
+    let x = document.getElementById('load');
+    x.classList.remove('spinner-border','spinner-border-sm');
+    x.classList.add('far','fa-save');
+    document.getElementById('btnSaveData').disabled=false;
+    }
+
+    let addInvalid = () => {
+        document.getElementById('kode').classList.add('is-invalid');
+        document.getElementById('kode').focus();
+    }
+
+    let removeInvalid = () => {
+        document.getElementById('kode').classList.remove('is-invalid');
+    }
+
  document.getElementById('btnSaveData').onclick = () => { 
     let token   = $('#token').val();
     let data = {
@@ -94,25 +118,37 @@ const load = () => {
         'status': $('#status').val(),
         "_token": token,
     };
-    
+
     $.ajax({
+        beforeSend:function(){
+         loadBtnSave();
+        },
         type:'get',
         url:'keterangan-ijin/insert',
         data:data,
         success:function(sdata){
+                $('#kode').val('');
+                $('#ket').val('');
             let obj = JSON.parse(sdata);
-            alert(obj.status);
-            load();
+            flasher.success('Data Berhasil disimpan');
+            removeInvalid();
+            removeBtnSave();
         },
         error:function(error){
-          let notes = error.responseJSON.errors; 
-          alert(notes.kode);
-          console.log(notes.responseJSON)
+        //   let notes = error.responseJSON.errors; 
+        //   flasher.error(notes.kode.toString());
+        addInvalid();
+        flasher.error(`${error.responseJSON.errors.kode}`);
+        removeBtnSave();
         }
     })
-
  }
 
+ let deleteData = (id,kode) =>{
+    console.log(kode)
+ }
+
+//pagination ajax
  const urlPage = () => {
     $(window).on('hashchange', function() {
         if (window.location.hash) {
@@ -150,8 +186,9 @@ const load = () => {
             location.hash = page;
         })
         .fail(function(jqXHR, ajaxOptions, thrownError){
-              alert('No response from server');
+            flasher.error("Oops! Something went wrong!");
         });
     }
+    //end pagination
 </script>
 @endsection

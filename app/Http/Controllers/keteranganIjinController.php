@@ -5,23 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\keteranganIjinModel;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Pagination\Paginator;
+
 
 class keteranganIjinController extends Controller
 {
     public function index(){
-      
+       
         $data = [
             // 'dataTable' => keteranganIjinModel::paginate(5),
             'title'=>'Data Keterangan Ijin ',
         ];
+
+ 
         return view('keteranganIjin/v_keteranganIjin',$data);
     }
 
     function tabelData(Request $request){
         
         $data=[
-            'dataTable'=>keteranganIjinModel::orderByDesc('id')->paginate(5),
+            'dataTable'=>keteranganIjinModel::orderByDesc('id')->paginate(10),
         ];
         
         //pagination ajax
@@ -38,7 +40,6 @@ class keteranganIjinController extends Controller
         // $this->validate($request,[
         //     'kode'=>'required|unique:keteranganijin',
         // ]);
-
         $validator = Validator::make($request->all(), 
         [
             'kode'=>'required|unique:keteranganijin',
@@ -48,6 +49,7 @@ class keteranganIjinController extends Controller
             'unique'=>'Kode tidak Boleh sama',
         ])->validate();
 
+  
         //ambilData
         keteranganIjinModel::create([
             'kode' => $request->kode,
@@ -56,9 +58,8 @@ class keteranganIjinController extends Controller
         ]);
 
         $sendToView = array(
-            'status' =>1
+            'status' =>1,
         );
-        
         echo json_encode($sendToView);
         
     }
