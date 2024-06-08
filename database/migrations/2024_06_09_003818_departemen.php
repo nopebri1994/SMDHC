@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('keteranganIjin', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('kode', length: 5)->unique();
-            $table->text('keterangan');
-            $table->string('status');
+        Schema::create('departemen', function (Blueprint $table) {
+            $table->id();
+            $table->string('kode');
+            $table->string('namaDepartemen');
             $table->timestamps();
+            $table->unsignedBigInteger('idPerusahaan');
+            $table->foreign('idPerusahaan')->references('id')->on('perusahaan');
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('keteranganIjin');
+        Schema::dropIfExists('departemen');
     }
 };

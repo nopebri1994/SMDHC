@@ -27,30 +27,32 @@
                         <div class="card-body">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-3">Kode Ijin</div>
+                                    <div class="col-md-4">Kode Departemen</div>
                                     <div class="col-md-3">
                                         <input type="text" name="kode" id="kode" placeholder="kode"
                                             class="form-control">
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-md-3">Keterangan</div>
-                                    <div class="col-md-9">
-                                        <textarea name="ket" id="ket" cols="400" rows="4" class="form-control"></textarea>
+                                    <div class="col-md-4">Nama Departemen</div>
+                                    <div class="col-md-8">
+                                        <input type="text" name="nama" autocomplete="off" id="nama"
+                                            placeholder="nama departemen" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-md-3">Status</div>
-                                    <div class="col-md-9">
-                                        <select name="status" class="form-control" id="status">
-                                            <option value="0">Tidak Aktif</option>
-                                            <option value="1" selected>Aktif</option>
+                                    <div class="col-md-4">Nama Perusahaan</div>
+                                    <div class="col-md-8">
+                                        <select name="idPerusahaan" id="idPerusahaan" class="form-control">
+                                            @foreach ($perusahaan as $p)
+                                                <option value="{{ $p->id }}">{{ $p->namaPerusahaan }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="mt-3" align="right">
                                     <input type="hidden" id="token" value={{ csrf_token() }}>
-                                    <input type="hidden" id="idKeterangan">
+                                    <input type="hidden" id="idDepartemen">
                                     <input type="hidden" id="tmpKode">
                                     <button type="button" class="btn btn-primary" id="btnSaveData">
                                         <span class="far fa-save" id="load" aria-hidden="true"></span>
@@ -93,7 +95,7 @@
         const load = () => {
             $.ajax({
                 type: 'get',
-                url: 'keterangan-ijin/tabelData',
+                url: 'departemen/tabelData',
                 success: function(sdata) {
                     $('#listView').html(sdata);
                     document.getElementById('spin').style.display = 'none';
@@ -140,15 +142,15 @@
 
         let removeInvalid = () => {
             document.getElementById('kode').classList.remove('is-invalid');
-            document.getElementById('ket').classList.remove('is-invalid');
+            document.getElementById('nama').classList.remove('is-invalid');
         }
 
         document.getElementById('btnSaveData').onclick = () => {
             let token = $('#token').val();
             let data = {
                 'kode': $('#kode').val(),
-                'keterangan': $('#ket').val(),
-                'status': $('#status').val(),
+                'nama': $('#nama').val(),
+                'idPerusahaan': $('#idPerusahaan').val(),
                 "_token": token,
             };
 
@@ -157,11 +159,11 @@
                     loadBtnSave();
                 },
                 type: 'post',
-                url: 'keterangan-ijin/insert',
+                url: 'departemen/insert',
                 data: data,
                 success: function(sdata) {
                     $('#kode').val('');
-                    $('#ket').val('');
+                    $('#nama').val('');
                     let obj = JSON.parse(sdata);
                     flasher.success('Data Berhasil disimpan');
                     removeInvalid();
@@ -176,9 +178,9 @@
                         addInvalid();
                         flasher.error(`${error.responseJSON.errors.kode}`);
                     }
-                    if (error.responseJSON.errors.keterangan != undefined) {
-                        document.getElementById('ket').classList.add('is-invalid');
-                        flasher.error(`${error.responseJSON.errors.keterangan}`);
+                    if (error.responseJSON.errors.nama != undefined) {
+                        document.getElementById('nama').classList.add('is-invalid');
+                        flasher.error(`${error.responseJSON.errors.nama}`);
                     }
                     removeBtnSave();
                 }
@@ -204,9 +206,11 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: 'post',
-                        url: 'keterangan-ijin/delete',
+                        url: 'departemen/delete',
                         data: dataId,
                         success: function() {
+                            $('#kode').val('');
+                            $('#nama').val('');
                             load();
                             showButton();
                             flasher.success('Data Berhasil dihapus')
@@ -223,12 +227,12 @@
             });
         }
 
-        let editData = (kode, ket, status, id) => {
+        let editData = (kode, nama, id, idPerusahaan) => {
             $('#kode').val(kode);
             $('#tmpKode').val(kode);
-            $('#ket').val(ket);
-            $('#idKeterangan').val(id);
-            document.getElementById("status").value = status;
+            $('#nama').val(nama);
+            $('#idDepartemen').val(id);
+            document.getElementById("idPerusahaan").value = idPerusahaan;
             document.getElementById('btnUpdateData').classList.remove('d-none');
             document.getElementById('btnSaveData').classList.add('d-none');
             document.getElementById('showButton').classList.remove('d-none');
@@ -241,9 +245,8 @@
         let showButton = () => {
             $('#kode').val('');
             $('#tmpKode').val('');
-            $('#ket').val('');
-            $('#idKeterangan').val('');
-            $('#status').val('1');
+            $('#nama').val('');
+            $('#idDepartemen').val('');
             document.getElementById('btnSaveData').classList.remove('d-none');
             document.getElementById('btnUpdateData').classList.add('d-none');
             document.getElementById('showButton').classList.add('d-none');
@@ -252,10 +255,10 @@
         document.getElementById('btnUpdateData').onclick = () => {
             let token = $('#token').val();
             let data = {
-                'id': $('#idKeterangan').val(),
+                'id': $('#idDepartemen').val(),
                 'kode': $('#kode').val(),
-                'keterangan': $('#ket').val(),
-                'status': $('#status').val(),
+                'nama': $('#nama').val(),
+                'idPerusahaan': $('#idPerusahaan').val(),
                 "_token": token,
                 'tmpKode': $('#tmpKode').val(),
             };
@@ -265,11 +268,11 @@
                     loadBtnUpdate();
                 },
                 type: 'post',
-                url: 'keterangan-ijin/update',
+                url: 'departemen/update',
                 data: data,
                 success: function(sdata) {
                     $('#kode').val('');
-                    $('#ket').val('');
+                    $('#nama').val('');
                     flasher.success('Data Berhasil diperbarui');
                     removeBtnUpdate();
                     removeInvalid();
@@ -310,7 +313,7 @@
 
         const getData = (page) => {
             $.ajax({
-                    url: "keterangan-ijin/tabelData?page=" + page,
+                    url: "departemen/tabelData?page=" + page,
                     type: "get",
                     datatype: "html",
                 })

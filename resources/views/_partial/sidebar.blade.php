@@ -138,15 +138,25 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ URL::to('/') }}/dm/perusahaan"
+                                class="nav-link {{ request()->is('dm/perusahaan') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Departemen</p>
+                                <p>Perusahaan</p>
+                                <span class="right badge badge-success">Aktif</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ URL::to('/') }}/dm/departemen"
+                                class="nav-link {{ request()->is('dm/departemen') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Departemen</p>
+                                <span class="right badge badge-success">Aktif</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Bagian</p>
+                                <p>Bagian</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -156,18 +166,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="dm/keterangan-ijin"
-                                class="nav-link {{ request()->is('dm/keterangan-ijin') ? 'active' : 's' }}">
+                            <a href="{{ URL::to('/') }}/dm/keterangan-ijin"
+                                class="nav-link {{ request()->is('dm/keterangan-ijin') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Keterangan Ijin
-                                    <span class="right badge badge-success">ok</span>
+                                    <span class="right badge badge-success">Aktif</span>
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Hari Libur</p>
+                                <p>Hari Libur</p>
                             </a>
                         </li>
                         <li class="nav-item">
