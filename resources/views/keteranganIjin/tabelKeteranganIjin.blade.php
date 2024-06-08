@@ -15,12 +15,10 @@ table>thead>tr>th{
               <th class="align-middle"></th>
           </tr>
       </thead>
-      <tbody>
-      
-    
-               @if(empty($dataTable))
+      <tbody>   
+               @if($dataTable->count()==0)
                 <tr>
-                    <td colspan="4" align="center">
+                    <td colspan="5" align="center">
                         Data not available
                     </td>
                  <tr>
@@ -39,8 +37,8 @@ table>thead>tr>th{
               </td>
               <td align="center" width="25%">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-primary btn-sm" id="btnEdit" onclick="editData('{{$dt->kode}}','{{$dt->keterangan}}','{{$dt->status}}')"><i class="far fa-edit"></i> Edit</button>
-                    <button type="button" class="btn btn-danger btn-sm" id="btnDelete" onclick="deleteData({{$dt->id}},'{{$dt->kode}}')"><i class="fas fa-trash-alt"></i> Delete</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="btnEdit" onclick="editData('{{$dt->kode}}','{{$dt->keterangan}}','{{$dt->status}}','{{$dt->id}}')"><i class="far fa-edit"></i> Edit</button>
+                    <button type="button" class="btn btn-danger btn-sm" id="btnDelete" onclick="deleteData('{{$dt->id}}','{{$dt->kode}}')"><i class="fas fa-trash-alt"></i> Delete</button>
                   </div>
               </td>
           </tr>

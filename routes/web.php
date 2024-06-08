@@ -15,13 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home',[
-        'title'=>'Dashboard'
+    return view('home', [
+        'title' => 'Dashboard'
     ]);
 });
 
-Route::get('/keterangan-ijin',[keteranganIjinController::class, 'index' ]);
-Route::post('/keterangan-ijin/insert',[keteranganIjinController::class,'insert']);
-Route::get('/keterangan-ijin/tabelData',[keteranganIjinController::class,'tabelData']);
-Route::get('/keterangan-ijin/delete',[keteranganIjinController::class,'delete']);
-
+Route::get('/dm/keterangan-ijin', [keteranganIjinController::class, 'index']);
+Route::post('/dm/keterangan-ijin/insert', [keteranganIjinController::class, 'insert']);
+Route::get('/dm/keterangan-ijin/tabelData', [keteranganIjinController::class, 'tabelData']);
+Route::post('/dm/keterangan-ijin/delete', [keteranganIjinController::class, 'delete']);
+Route::post('/dm/keterangan-ijin/update', [keteranganIjinController::class, 'update']);

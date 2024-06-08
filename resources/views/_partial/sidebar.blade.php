@@ -1,7 +1,7 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4">
 
     <a href="index3.html" class="brand-link">
-        <img src="assets/img/logo.png" alt="LMW Logo" class="brand-image img-circle elevation-3"
+        <img src="{{ URL::to('/') }}/assets/img/logo.png" alt="LMW Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">SDMHC</span>
     </a>
@@ -10,7 +10,7 @@
 
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="assets/img/icon.png" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ URL::to('/') }}/assets/img/icon.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">Nopebri Ade Candra</a>
@@ -33,19 +33,18 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{URL::to('/')}}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                    <a href="{{ URL::to('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-home"></i>
                         <p>
                             Home
                         </p>
                     </a>
                 </li>
-                
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fas fa-user-cog"></i>
                         <p>
-                           Data Master
+                            Data Karyawan
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -53,20 +52,143 @@
                         <li class="nav-item">
                             <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Karyawan</p>
+                                <p>Daftar Karyawan</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fas fa-users"></i>
+                        <p>
+                            Personalia
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Proses Absensi</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="keterangan-ijin" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Keterangan Ijin</p>
+                                <p>Data Absensi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sync Mesin Absen</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Potongan Cuti</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Cuti Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Hutang Cuti Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kontrak Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Penghargaan Masa Kerja</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Surat Peringatan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Advance</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item {{ request()->is('dm/*') ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('dm/*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-database"></i>
+                        <p>
+                            Data Master
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Departemen</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Bagian</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jabatan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="dm/keterangan-ijin"
+                                class="nav-link {{ request()->is('dm/keterangan-ijin') ? 'active' : 's' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Keterangan Ijin
+                                    <span class="right badge badge-success">ok</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Hari Libur</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jam Kerja</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Mesin Absen</p>
                             </a>
                         </li>
                     </ul>
                 </li>
             </ul>
         </nav>
-
     </div>
-
+    {{-- <div class="sidebar-custom">
+        <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
+        <a href="#" class="btn btn-secondary hide-on-collapse pos-right">Help</a>
+    </div> --}}
 </aside>

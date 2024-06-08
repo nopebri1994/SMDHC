@@ -4,7 +4,7 @@
 
 <div class="content-wrapper">
 
-@yield('container');
+@yield('container')
 
 </div>
 

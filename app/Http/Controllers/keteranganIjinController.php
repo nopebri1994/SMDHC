@@ -42,17 +42,19 @@ class keteranganIjinController extends Controller
         // ]);
         $validator = Validator::make($request->all(), 
         [
-            'kode'=>'required|unique:keteranganijin',
+            'kode'=>'required|unique:keteranganijin|max:5',
+            'keterangan'=>'required',
         ],
         $messages = [
-            'required' => 'Input data tidak boleh Kosong.',
-            'unique'=>'Kode tidak Boleh sama',
+            'kode.required' => 'Input data tidak boleh Kosong.',
+            'kode.unique'=>'Kode tidak Boleh sama',
+            'keterangan.required' => 'Keterangan tidak boleh Kosong.',
         ])->validate();
 
   
         //ambilData
         keteranganIjinModel::create([
-            'kode' => $request->kode,
+            'kode' => strtoupper($request->kode),
             'status' =>$request->status,
             'keterangan'=>$request->keterangan,
         ]);
@@ -66,6 +68,26 @@ class keteranganIjinController extends Controller
 
     function delete(Request $request){
         keteranganIjinModel::where('id',$request->id)->delete();
+    }
+
+    function update(Request $request){
+
+        if($request->kode!=$request->tmpKode){
+            $validator = Validator::make($request->all(), 
+            [
+                'kode'=>'required|unique:keteranganijin',
+            ],
+            $messages = [
+                'required' => 'Input data tidak boleh Kosong.',
+                'unique'=>'Kode sudah digunakan',
+            ])->validate();
+        }
+        keteranganIjinModel::where('id',$request->id)->update([
+            'kode' => strtoupper($request->kode),
+            'status' =>$request->status,
+            'keterangan'=>$request->keterangan,
+        ]);
+
     }
 
 }

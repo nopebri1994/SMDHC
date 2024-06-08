@@ -5,19 +5,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SDMHC | {{$title}}</title>
+    <title>SDMHC | {{ $title }}</title>
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-    <link rel="stylesheet" href="assets/adminlte//css/all.min.css">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte//css/all.min.css">
 
-    <link rel="stylesheet" href="assets/adminlte/css/adminlte.min.css?v=3.2.0">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/adminlte.min.css?v=3.2.0">
 
-    <link rel="stylesheet" href="vendor/flasher/flasher.min.css">
-    <link rel="icon" href="assets/img/icon.png">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/vendor/flasher/flasher.min.css">
+    <link rel="icon" href="{{ URL::to('/') }}/assets/img/icon.png">
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -27,12 +28,12 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
+                {{-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="index3.html" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
-                </li>
+                </li> --}}
             </ul>
 
             <ul class="navbar-nav ml-auto">

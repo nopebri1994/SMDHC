@@ -1,4 +1,3 @@
-
 <aside class="control-sidebar control-sidebar-dark">
 
     <div class="p-3">
@@ -17,10 +16,12 @@
 </footer>
 </div>
 
-<script src="assets/adminlte/js/jquery.min.js"></script>
-<script src="assets/adminlte/js/bootstrap.bundle.min.js"></script>
-<script src="assets/adminlte/js/adminlte.min.js?v=3.2.0"></script>
-<script src="vendor/sweetalert/js/sweetalert2@11.js"></script>
+<script src="{{ URL::to('/') }}/assets/adminlte/js/jquery.min.js"></script>
+<script src="{{ URL::to('/') }}/assets/adminlte/js/bootstrap.bundle.min.js"></script>
+<script src="{{ URL::to('/') }}/assets/adminlte/js/adminlte.min.js?v=3.2.0"></script>
+<script src="{{ URL::to('/') }}/assets/adminlte/js/jquery.overlayScrollbars.min.js"></script>
+<script src="{{ URL::to('/') }}/vendor/sweetalert/js/sweetalert2@11.js"></script>
 @yield('js')
 </body>
+
 </html>
