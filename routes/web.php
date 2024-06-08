@@ -21,6 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/keterangan-ijin',[keteranganIjinController::class, 'index' ]);
-Route::get('/keterangan-ijin/insert',[keteranganIjinController::class,'insert']);
+Route::post('/keterangan-ijin/insert',[keteranganIjinController::class,'insert']);
 Route::get('/keterangan-ijin/tabelData',[keteranganIjinController::class,'tabelData']);
+Route::get('/keterangan-ijin/delete',[keteranganIjinController::class,'delete']);
 

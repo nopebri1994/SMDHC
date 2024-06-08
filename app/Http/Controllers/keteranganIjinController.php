@@ -61,7 +61,11 @@ class keteranganIjinController extends Controller
             'status' =>1,
         );
         echo json_encode($sendToView);
-        
+
+    }
+
+    function delete(Request $request){
+        keteranganIjinModel::where('id',$request->id)->delete();
     }
 
 }

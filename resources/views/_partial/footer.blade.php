@@ -20,7 +20,7 @@
 <script src="assets/adminlte/js/jquery.min.js"></script>
 <script src="assets/adminlte/js/bootstrap.bundle.min.js"></script>
 <script src="assets/adminlte/js/adminlte.min.js?v=3.2.0"></script>
-<script src="vendor/flasher/flasher.min.js"></script>
+<script src="vendor/sweetalert/js/sweetalert2@11.js"></script>
 @yield('js')
 </body>
 </html>
