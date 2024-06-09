@@ -154,15 +154,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ URL::to('/') }}/dm/bagian"
+                                class="nav-link {{ request()->is('dm/bagian') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Bagian</p>
+                                <span class="right badge badge-success">Aktif</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ URL::to('/') }}/dm/jabatan"
+                                class="nav-link nav-link {{ request()->is('dm/jabatan') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Jabatan</p>
+                                <span class="right badge badge-danger">Aktif</span>
                             </a>
                         </li>
                         <li class="nav-item">

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\bagianController;
 use App\Http\Controllers\departemenController;
+use App\Http\Controllers\jabatanController;
 use App\Http\Controllers\keteranganIjinController;
 use App\Http\Controllers\perusahaanController;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +34,18 @@ Route::get('/dm/perusahaan/tabelData', [perusahaanController::class, 'tabelData'
 Route::post('/dm/perusahaan/insert', [perusahaanController::class, 'insert']);
 Route::post('/dm/perusahaan/delete', [perusahaanController::class, 'delete']);
 Route::post('/dm/perusahaan/update', [perusahaanController::class, 'update']);
+
+//bagian
+Route::get('/dm/bagian', [bagianController::class, 'index']);
+Route::get('/dm/bagian/tabelData', [bagianController::class, 'tabelData']);
+Route::post('/dm/bagian/insert', [bagianController::class, 'insert']);
+Route::post('/dm/bagian/delete', [bagianController::class, 'delete']);
+Route::post('/dm/bagian/update', [bagianController::class, 'update']);
+Route::get('/dm/bagian/selectPerusahaan', [bagianController::class, 'selectPerusahaan']);
+
+//jabatan
+Route::get('/dm/jabatan', [jabatanController::class, 'index']);
+Route::get('/dm/jabatan/tabelData', [jabatanController::class, 'tabelData']);
+Route::post('/dm/jabatan/insert', [jabatanController::class, 'insert']);
+Route::post('/dm/jabatan/delete', [jabatanController::class, 'delete']);
+Route::post('/dm/jabatan/update', [jabatanController::class, 'update']);

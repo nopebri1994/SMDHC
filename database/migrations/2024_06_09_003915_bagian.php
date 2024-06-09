@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('bagian', function (Blueprint $table) {
             $table->id();
+            $table->string('kode');
             $table->string('namaBagian');
             $table->unsignedBigInteger('idDepartemen');
             $table->timestamps();
