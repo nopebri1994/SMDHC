@@ -1,18 +1,19 @@
 <aside class="control-sidebar control-sidebar-dark">
 
     <div class="p-3">
-        <h5>Title</h5>
-        <p>Sidebar content</p>
+        <h5>Status</h5>
+        <p></p>
     </div>
 </aside>
 
 <footer class="main-footer">
 
     <div class="float-right d-none d-sm-inline">
-        Anything you want
+        Departemen General
+        Affair (Bagian IT).
     </div>
 
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2024 <a href="https://nopebri.my.id">Nopebri Ade Candra</a>.</strong>
 </footer>
 </div>
 

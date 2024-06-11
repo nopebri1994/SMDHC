@@ -3,6 +3,8 @@
 use App\Http\Controllers\bagianController;
 use App\Http\Controllers\departemenController;
 use App\Http\Controllers\jabatanController;
+use App\Http\Controllers\jamKerjaController;
+use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\keteranganIjinController;
 use App\Http\Controllers\perusahaanController;
 use Illuminate\Support\Facades\Route;
@@ -49,3 +51,11 @@ Route::get('/dm/jabatan/tabelData', [jabatanController::class, 'tabelData']);
 Route::post('/dm/jabatan/insert', [jabatanController::class, 'insert']);
 Route::post('/dm/jabatan/delete', [jabatanController::class, 'delete']);
 Route::post('/dm/jabatan/update', [jabatanController::class, 'update']);
+
+//jam-kerja
+Route::get('dm/jam-kerja', [jamKerjaController::class, 'index']);
+Route::get('dm/jam-kerja/tabelData', [jamKerjaController::class, 'tabelData']);
+Route::post('/dm/jam-kerja/insert', [jamKerjaController::class, 'insert']);
+
+//karyawan
+Route::get('/dk/karyawan', [karyawanController::class, 'index']);

@@ -26,7 +26,7 @@ class jabatanController extends Controller
 
         //pagination ajax
         if ($request->ajax()) {
-            return view('jabatan/tabeljabatan', $data);
+            return view('jabatan/tabelJabatan', $data);
         }
         return view('dataTable', $data);
         //end
@@ -47,7 +47,7 @@ class jabatanController extends Controller
             ],
             $messages = [
                 'kode.required' => 'Input data tidak boleh Kosong.',
-                'nama.required' => 'Keterangan tidak boleh Kosong.',
+                'nama.required' => 'Nama tidak boleh Kosong.',
             ]
         )->validate();
 

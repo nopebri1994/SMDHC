@@ -40,8 +40,8 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item  {{ request()->is('dk/*') ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('dk/*') ? 'active' : '' }}">
                         <i class="nav-icon fas fas fa-user-cog"></i>
                         <p>
                             Data Karyawan
@@ -50,7 +50,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ URL::to('/') }}/dk/karyawan"
+                                class="nav-link  {{ request()->is('dk/karyawan') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Daftar Karyawan</p>
                             </a>
@@ -166,7 +167,7 @@
                                 class="nav-link nav-link {{ request()->is('dm/jabatan') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Jabatan</p>
-                                <span class="right badge badge-danger">Aktif</span>
+                                <span class="right badge badge-success">Aktif</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -179,21 +180,23 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Hari Libur</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ URL::to('/') }}/dm/jam-kerja"
+                                class="nav-link {{ request()->is('dm/jam-kerja') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Jam Kerja</p>
+                                <span class="right badge badge-danger">progres</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Mesin Absen</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Hari Libur</p>
                             </a>
                         </li>
                     </ul>
