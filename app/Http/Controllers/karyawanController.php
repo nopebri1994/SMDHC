@@ -13,4 +13,13 @@ class karyawanController extends Controller
         ];
         return View('karyawan.v_karyawan', $data);
     }
+
+    function addData()
+    {
+        $data = [
+            'title' => 'Tambah Data Karyawan',
+        ];
+
+        return View('karyawan.addDataKaryawan', $data);
+    }
 }

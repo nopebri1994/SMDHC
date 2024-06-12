@@ -34,17 +34,17 @@
             <tr>
                 <td align="center" class="align-middle">{{ $dataTable->firstItem() + $key }}</td>
                 <td class="align-middle text-center">{{ $dt->kodeJamKerja }}</td>
-                <td class="align-middle">{{ $dt->jamMasukSJ }}</td>
-                <td class="align-middle">{{ $dt->jamPulangSJ }}</td>
-                <td class="align-middle">{{ $dt->jamMasukS }}</td>
-                <td class="align-middle">{{ $dt->jamPulangS }}</td>
+                <td class="align-middle text-center">{{ $dt->jamMasukSJ }}</td>
+                <td class="align-middle text-center">{{ $dt->jamPulangSJ }}</td>
+                <td class="align-middle text-center">{{ $dt->jamMasukS }}</td>
+                <td class="align-middle text-center">{{ $dt->jamPulangS }}</td>
                 <td align="center" width="25%">
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary btn-sm" id="btnEdit"
-                            onclick="editData('{{ $dt->kodeJabatan }}','{{ $dt->namaJabatan }}','{{ $dt->id }}')"><i
+                            onclick="editData('{{ $dt->id }}','{{ $dt->kodeJamKerja }}','{{ $dt->jamMasukSJ }}','{{ $dt->jamPulangSJ }}','{{ $dt->jamMasukS }}','{{ $dt->jamPulangS }}')"><i
                                 class="far fa-edit"></i> Edit</button>
                         <button type="button" class="btn btn-danger btn-sm" id="btnDelete"
-                            onclick="deleteData('{{ $dt->id }}','{{ $dt->kodeJabatan }}')"><i
+                            onclick="deleteData('{{ $dt->id }}','{{ $dt->kodeJamKerja }}')"><i
                                 class="fas fa-trash-alt"></i> Delete</button>
                     </div>
                 </td>

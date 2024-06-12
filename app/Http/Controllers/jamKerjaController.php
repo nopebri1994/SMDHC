@@ -20,7 +20,7 @@ class jamKerjaController extends Controller
     {
 
         $data = [
-            'dataTable' => jamKerjaModel::orderByDesc('id')->paginate(8),
+            'dataTable' => jamKerjaModel::orderBy('id')->paginate(8),
         ];
 
         //pagination ajax
@@ -79,14 +79,14 @@ class jamKerjaController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'kodeJamKerja' => 'required|max:5',
+                'kode' => 'required|max:5',
                 'jamMasukSJ' => 'required',
                 'jamPulangSJ' => 'required',
                 'jamMasukS' => 'required',
                 'jamPulangS' => 'required',
             ],
             $messages = [
-                'kodeJamKerja.required' => 'Input data tidak boleh Kosong.',
+                'kode' => 'Input data tidak boleh Kosong.',
                 'jamMasukSJ.required' => 'Input data tidak boleh Kosong.',
                 'jamPulangSJ.required' => 'Input data tidak boleh Kosong.',
                 'jamMasukS.required' => 'Input data tidak boleh Kosong.',

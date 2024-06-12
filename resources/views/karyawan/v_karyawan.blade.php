@@ -26,8 +26,9 @@
                         </div>
                         <div class="card-body">
                             <div class="d-flex  justify-content-end">
-                                <button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>
-                                    Add Data</button>
+                                <a href="{{ URL::to('/') }}/dk/karyawan/addData" class="btn-sm btn-primary"><i
+                                        class="fa fa-plus"></i>
+                                    Add Data</a>
                             </div>
                             <div class="mt-3">
                                 <table class="table table-bordered table-stripped">

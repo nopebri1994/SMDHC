@@ -51,9 +51,11 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ URL::to('/') }}/dk/karyawan"
-                                class="nav-link  {{ request()->is('dk/karyawan') ? 'active' : '' }}">
+                                class="nav-link  {{ request()->is('dk/karyawan') ? 'active' : '' }}
+                                {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Daftar Karyawan</p>
+                                <span class="right badge badge-danger">progres</span>
                             </a>
                         </li>
                     </ul>
@@ -184,7 +186,7 @@
                                 class="nav-link {{ request()->is('dm/jam-kerja') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Jam Kerja</p>
-                                <span class="right badge badge-danger">progres</span>
+                                <span class="right badge badge-success">Aktif</span>
                             </a>
                         </li>
                         <li class="nav-item">

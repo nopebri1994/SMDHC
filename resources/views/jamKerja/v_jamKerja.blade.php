@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="mt-3" align="right">
                                     <input type="hidden" id="token" value={{ csrf_token() }}>
-                                    <input type="hidden" id="idJabatan">
+                                    <input type="hidden" id="idJamKerja">
                                     <button type="button" class="btn btn-primary" id="btnSaveData">
                                         <span class="far fa-save" id="load" aria-hidden="true"></span>
                                         Simpan Data</button>
@@ -200,7 +200,7 @@
                 "_token": token,
             };
             Swal.fire({
-                title: "Do you want to delete kode jabatan " + kode + "?",
+                title: "Do you want to delete kode jam kerja " + kode + "?",
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: "Delete",
@@ -231,10 +231,13 @@
             });
         }
 
-        let editData = (kode, nama, id) => {
+        let editData = (id, kode, jamMasukSJ, jamPulangSJ, jamMasukS, jamPulangS) => {
             $('#kode').val(kode);
-            $('#nama').val(nama);
-            $('#idJabatan').val(id);
+            $('#jamMasukSJ').val(jamMasukSJ);
+            $('#jamPulangSJ').val(jamPulangSJ);
+            $('#jamMasukS').val(jamMasukS);
+            $('#jamPulangS').val(jamPulangS);
+            $('#idJamKerja').val(id);
             document.getElementById('btnUpdateData').classList.remove('d-none');
             document.getElementById('btnSaveData').classList.add('d-none');
             document.getElementById('showButton').classList.remove('d-none');
@@ -246,8 +249,11 @@
 
         let showButton = () => {
             $('#kode').val('');
-            $('#nama').val('');
-            $('#idJabatan').val('');
+            $('#jamMasukSJ').val('');
+            $('#jamPulangSJ').val('')
+            $('#jamMasukS').val('')
+            $('#jamPulangS').val('');
+            $('#idJamKerja').val('');
             document.getElementById('btnSaveData').classList.remove('d-none');
             document.getElementById('btnUpdateData').classList.add('d-none');
             document.getElementById('showButton').classList.add('d-none');
@@ -256,9 +262,12 @@
         document.getElementById('btnUpdateData').onclick = () => {
             let token = $('#token').val();
             let data = {
-                'id': $('#idJabatan').val(),
+                'id': $('#idJamKerja').val(),
                 'kode': $('#kode').val(),
-                'nama': $('#nama').val(),
+                'jamMasukSJ': $('#jamMasukSJ').val(),
+                'jamPulangSJ': $('#jamPulangSJ').val(),
+                'jamMasukS': $('#jamMasukS').val(),
+                'jamPulangS': $('#jamPulangS').val(),
                 "_token": token,
             };
 
@@ -271,7 +280,11 @@
                 data: data,
                 success: function(sdata) {
                     $('#kode').val('');
-                    $('#nama').val('');
+                    $('#jamMasukSJ').val('');
+                    $('#jamPulangSJ').val('')
+                    $('#jamMasukS').val('')
+                    $('#jamPulangS').val('');
+                    $('#idJamKerja').val('');
                     flasher.success('Data Berhasil diperbarui');
                     removeBtnUpdate();
                     removeInvalid();

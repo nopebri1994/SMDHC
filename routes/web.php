@@ -56,6 +56,9 @@ Route::post('/dm/jabatan/update', [jabatanController::class, 'update']);
 Route::get('dm/jam-kerja', [jamKerjaController::class, 'index']);
 Route::get('dm/jam-kerja/tabelData', [jamKerjaController::class, 'tabelData']);
 Route::post('/dm/jam-kerja/insert', [jamKerjaController::class, 'insert']);
+Route::post('/dm/jam-kerja/delete', [jamKerjaController::class, 'delete']);
+Route::post('dm/jam-kerja/update', [jamKerjaController::class, 'update']);
 
 //karyawan
 Route::get('/dk/karyawan', [karyawanController::class, 'index']);
+Route::get('dk/karyawan/addData', [karyawanController::class, 'addData']);
