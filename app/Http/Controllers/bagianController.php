@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\bagianModel;
-use App\Models\departemenModel;
 use App\Models\perusahaanModel;
 
 class bagianController extends Controller
@@ -17,15 +16,6 @@ class bagianController extends Controller
             'perusahaan' => perusahaanModel::all(),
         ];
         return view('bagian/v_bagian', $data);
-    }
-
-    function selectPerusahaan(Request $request)
-    {
-
-        $departemen = departemenModel::where('idPerusahaan', $request->idPerusahaan)->get();
-        foreach ($departemen as $d) {
-            echo "<option value='$d->id'>$d->namaDepartemen</option>";
-        }
     }
 
     function tabelData(Request $request)
@@ -92,5 +82,13 @@ class bagianController extends Controller
             'idDepartemen' => $request->idDepartemen,
             'kode' => strtoupper($request->kode),
         ]);
+    }
+    function selectBagian(Request $request)
+    {
+        $bagian = bagianModel::where('idDepartemen', $request->idDepartemen)->get();
+        echo "<option value='0'>--- none ---</option>";
+        foreach ($bagian as $b) {
+            echo "<option val='$b->id'>$b->namaBagian</option>";
+        }
     }
 }

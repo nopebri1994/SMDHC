@@ -296,7 +296,7 @@
             }
             $.ajax({
                 type: 'get',
-                url: 'bagian/selectPerusahaan',
+                url: 'departemen/selectDepartemen',
                 data: data,
                 success: function(sdata) {
                     $('select#idDepartemen').html(sdata);

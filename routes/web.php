@@ -29,6 +29,7 @@ Route::get('/dm/departemen/tabelData', [departemenController::class, 'tabelData'
 Route::post('/dm/departemen/insert', [departemenController::class, 'insert']);
 Route::post('/dm/departemen/delete', [departemenController::class, 'delete']);
 Route::post('/dm/departemen/update', [departemenController::class, 'update']);
+Route::get('/dm/departemen/selectDepartemen', [departemenController::class, 'selectDepartemen']);
 
 //perusahaan
 Route::get('/dm/perusahaan', [perusahaanController::class, 'index']);
@@ -43,7 +44,8 @@ Route::get('/dm/bagian/tabelData', [bagianController::class, 'tabelData']);
 Route::post('/dm/bagian/insert', [bagianController::class, 'insert']);
 Route::post('/dm/bagian/delete', [bagianController::class, 'delete']);
 Route::post('/dm/bagian/update', [bagianController::class, 'update']);
-Route::get('/dm/bagian/selectPerusahaan', [bagianController::class, 'selectPerusahaan']);
+Route::get('/dm/bagian/selectBagian', [bagianController::class, 'selectBagian']);
+
 
 //jabatan
 Route::get('/dm/jabatan', [jabatanController::class, 'index']);

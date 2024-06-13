@@ -89,4 +89,12 @@ class departemenController extends Controller
             'idPerusahaan' => $request->idPerusahaan,
         ]);
     }
+    function selectDepartemen(Request $request)
+    {
+
+        $departemen = departemenModel::where('idPerusahaan', $request->idPerusahaan)->get();
+        foreach ($departemen as $d) {
+            echo "<option value='$d->id'>$d->namaDepartemen</option>";
+        }
+    }
 }
