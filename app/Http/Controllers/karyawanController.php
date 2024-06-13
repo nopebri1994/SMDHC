@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\perusahaanModel;
 use App\Models\jabatanModel;
 use App\Models\jamKerjaModel;
+use Illuminate\Support\Facades\Validator;
 
 class karyawanController extends Controller
 {
@@ -30,5 +31,28 @@ class karyawanController extends Controller
         ];
 
         return View('karyawan.addDataKaryawan', $data);
+    }
+
+    function storeData(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nikKerja' => 'required',
+                'nama' => 'required',
+                'tmt' => 'required',
+                'fpId' => 'required'
+            ],
+            $messages = [
+                'nikKerja.required' => 'NIK tidak boleh Kosong.',
+                'nama.required' => 'Nama tidak boleh kosong.',
+                'tmt.required' => 'Tanggal Masuk tidak boleh kosong',
+            ]
+        );
+        if ($validator->fails()) {
+            return redirect('dk/karyawan/addData')
+                ->withErrors($validator)
+                ->withInput();
+        }
     }
 }

@@ -86,4 +86,10 @@ class jabatanController extends Controller
             'namaJabatan' => $request->nama,
         ]);
     }
+
+    function detailJabatan(Request $request)
+    {
+        $detailJabatan = jabatanModel::where('id', $request->idJabatan)->first();
+        echo $detailJabatan->namaJabatan;
+    }
 }

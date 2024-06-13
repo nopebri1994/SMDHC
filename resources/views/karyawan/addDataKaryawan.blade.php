@@ -16,10 +16,11 @@
             </div>
         </div>
     </div>
-
     <div class="content">
         <div class="container-fluid">
-            <form action="{{ URL::to('/karyawan/storData') }}" method="post">
+
+            {{-- {{ $errors->first('nikKerja') }} --}}
+            <form action="{{ URL::to('/dk/karyawan/storeData') }}" method="get">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <div class="row">
                     <div class="col-lg-6">
@@ -36,7 +37,8 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <input type='text' name="nikKerja" id="nikKerja"
-                                                    placeholder="Nomor Induk Kerja" class="form-control">
+                                                    placeholder="Nomor Induk Kerja" value="{{ old('nikKerja') }}"
+                                                    class="form-control {{ $errors->has('nikKerja') ? 'is-invalid' : '' }}">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -45,7 +47,8 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" name="nama" id="nama"
-                                                    placeholder="Nama Lengkap" class="form-control">
+                                                    placeholder="Nama Lengkap" value="{{ old('nama') }}"
+                                                    class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -64,7 +67,9 @@
                                                 Tanggal Masuk
                                             </div>
                                             <div class="col-md-4">
-                                                <input type="date" name="tmt" id="tmt" class="form-control">
+                                                <input type="date" name="tmt" id="tmt"
+                                                    value="{{ old('tmt') }}"
+                                                    class="form-control {{ $errors->has('tmt') ? 'is-invalid' : '' }}">
                                             </div>
                                         </div>
 
@@ -94,7 +99,8 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <input type="number" placeholder="Finger/SA ID" name="fpId"
-                                                    id="fpId" class="form-control">
+                                                    id="fpId" value="{{ old('fpId') }}"
+                                                    class="form-control {{ $errors->has('fpId') ? 'is-invalid' : '' }}">
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +109,7 @@
                                             <div class="col-md-4">
                                                 Perusahaan
                                             </div>
-                                            <div class="col-md-7">
+                                            <div class="col-md-6">
                                                 <select name="perusahaan" id="perusahaan" class="form-control">
                                                     @foreach ($perusahaan as $p)
                                                         <option value="{{ $p->id }}">{{ $p->namaPerusahaan }}
@@ -118,7 +124,7 @@
                                             <div class="col-md-4">
                                                 Departemen
                                             </div>
-                                            <div class="col-md-8">
+                                            <div class="col-md-5">
                                                 <select name="departemen" id="departemen" class="form-control">
 
                                                 </select>
@@ -130,7 +136,7 @@
                                             <div class="col-md-4">
                                                 Bagian
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-7">
                                                 <select name="bagian" id="bagian" class="form-control">
 
                                                 </select>
@@ -160,7 +166,8 @@
                                             <div class="col-md-2">
                                                 <select name="jabatan" id="jabatan" class="form-control">
                                                     @foreach ($jabatan as $j)
-                                                        <option value="{{ $j->id }}">{{ $j->kodeJabatan }}</option>
+                                                        <option value="{{ $j->id }}">{{ $j->kodeJabatan }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -197,6 +204,11 @@
     <script>
         $(document).ready(function() {
             listDepartemen();
+            detailJabatan();
+            let x = '{{ $errors->any() }}';
+            if (x > 0) {
+                flasher.error('Data tidak boleh kosonng / tidak sesuai.');
+            }
         });
 
         document.getElementById('perusahaan').onchange = () => {
@@ -245,5 +257,29 @@
                 }
             })
         };
+
+        document.getElementById('jabatan').onchange = () => {
+            detailJabatan();
+        }
+
+        let detailJabatan = () => {
+            let jabatan = $('#jabatan').val();
+            let route = '{{ URL::to('/dm/jabatan/detailJabatan') }}';
+            let data = {
+                'idJabatan': jabatan,
+            };
+            $.ajax({
+                type: 'get',
+                url: route,
+                data: data,
+                success: function(sdata) {
+                    $('#namaJabatan').val(sdata);
+                },
+                error: function(error) {
+                    alert('Data Not Found');
+                }
+
+            });
+        }
     </script>
 @endsection

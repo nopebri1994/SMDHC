@@ -53,6 +53,7 @@ Route::get('/dm/jabatan/tabelData', [jabatanController::class, 'tabelData']);
 Route::post('/dm/jabatan/insert', [jabatanController::class, 'insert']);
 Route::post('/dm/jabatan/delete', [jabatanController::class, 'delete']);
 Route::post('/dm/jabatan/update', [jabatanController::class, 'update']);
+ROute::get('/dm/jabatan/detailJabatan', [jabatanController::class, 'detailJabatan']);
 
 //jam-kerja
 Route::get('dm/jam-kerja', [jamKerjaController::class, 'index']);
@@ -64,3 +65,4 @@ Route::post('dm/jam-kerja/update', [jamKerjaController::class, 'update']);
 //karyawan
 Route::get('/dk/karyawan', [karyawanController::class, 'index']);
 Route::get('dk/karyawan/addData', [karyawanController::class, 'addData']);
+Route::get('dk/karyawan/storeData', [karyawanController::class, 'storeData']);
