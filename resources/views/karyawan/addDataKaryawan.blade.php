@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"></h1>
+                    <h1 class="m-0">{{ $title }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -26,7 +26,13 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="m-0">{{ $title }}</h5>
+                                <div class="d-flex justify-content-between">
+                                    <a href="{{ URL::to('/') }}/dk/karyawan" class="btn btn-danger"><i
+                                            class="fas fa-backward"></i>
+                                        Back</a>
+                                    <button class="btn btn-primary"><i class="fas fa-save"></i> Save Data
+                                        Karyawan</button>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -39,6 +45,7 @@
                                                 <input type='text' name="nikKerja" id="nikKerja"
                                                     placeholder="Nomor Induk Kerja" value="{{ old('nikKerja') }}"
                                                     class="form-control {{ $errors->has('nikKerja') ? 'is-invalid' : '' }}">
+                                                <div class="invalid-feedback">{{ $errors->first('nikKerja') }}</div>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -49,6 +56,7 @@
                                                 <input type="text" name="nama" id="nama"
                                                     placeholder="Nama Lengkap" value="{{ old('nama') }}"
                                                     class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}">
+                                                <div class="invalid-feedback">{{ $errors->first('nama') }}</div>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -66,10 +74,11 @@
                                             <div class="col-md-4">
                                                 Tanggal Masuk
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <input type="date" name="tmt" id="tmt"
                                                     value="{{ old('tmt') }}"
                                                     class="form-control {{ $errors->has('tmt') ? 'is-invalid' : '' }}">
+                                                <div class="invalid-feedback">{{ $errors->first('tmt') }}</div>
                                             </div>
                                         </div>
 
@@ -82,12 +91,6 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <div class="d-flex justify-content-end">
-                                    <div>
-                                        <button class="btn btn-primary"><i class="fas fa-save"></i> Save Data
-                                            Karyawan</button>
-                                    </div>
-                                </div>
                                 {{-- <h5 class="m-0"></h5> --}}
                             </div>
                             <div class="card-body">
@@ -97,10 +100,11 @@
                                             <div class="col-md-4">
                                                 Finger Print ID
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <input type="number" placeholder="Finger/SA ID" name="fpId"
                                                     id="fpId" value="{{ old('fpId') }}"
                                                     class="form-control {{ $errors->has('fpId') ? 'is-invalid' : '' }}">
+                                                <div class="invalid-feedback">{{ $errors->first('fpId') }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -151,9 +155,9 @@
                                             <div class="col-md-4">
                                                 <select name="statusKaryawan" id="statusKaryawan" class="form-control">
                                                     <option value="1">Kontrak</option>
-                                                    <option value="1">Tetap</option>
-                                                    <option value="1">Honorer</option>
-                                                    <option value="1">Harian</option>
+                                                    <option value="2">Tetap</option>
+                                                    <option value="3">Honorer</option>
+                                                    <option value="4">Harian</option>
                                                 </select>
                                             </div>
                                         </div>

@@ -1,5 +1,22 @@
 @extends('_main/main')
 @section('container')
+    <style type="text/css">
+        .hidden {
+            visibility: hidden;
+            opacity: 0;
+            display: none,
+        }
+
+        @keyframes alertHide {
+            0% {
+                transition: visibility 0s 2s, opacity 2s linear;
+            }
+
+            100% {
+                display: none,
+            }
+        }
+    </style>
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -31,34 +48,45 @@
                                     Add Data</a>
                             </div>
                             <div class="mt-3">
+                                @if (session('status'))
+                                    <div class="alert alert-dismissible fade show" style="background-color: #bee6ff">
+                                        {{ session('status') }}
+                                        <button type="button" class="close" data-dismiss="alert" id='alert'
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                @endif
                                 <table class="table table-bordered table-stripped">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>NIK</th>
-                                            <th>Nama Karyawn</th>
+                                            <th>Nama Karyawan</th>
                                             <th>Jabatan</th>
                                             <th>Dept. / Bagian</th>
                                             <th>Tanggal Masuk</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td rowspan="2">1.</td>
-                                            <td>1111504021</td>
-                                            <td>Nopebri Ade Candra</td>
-                                            <td>STF</td>
-                                            <td>GA / IT</td>
-                                            <td>01-04-2015</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="1">Finger ID : 6</td>
-                                            <td colspan="1">Kode Jam Kerja : STF1</td>
-                                            <td colspan="1">STatus : Tetap</td>
-                                            <td colspan="2" style="text-align: right">Perusahaan : <i>PT Lion Metal Works
-                                                    Tbk</i>
-                                            </td>
-                                        </tr>
+                                        @foreach ($karyawan as $key => $k)
+                                            <tr>
+                                                <td rowspan="2">{{ $key + 1 }}</td>
+                                                <td>{{ $k->nikKerja }}</td>
+                                                <td>{{ $k->namaKaryawan }}</td>
+                                                <td>{{ $k->jabatan->namaJabatan }}</td>
+                                                <td>{{ $k->departemen->kode }} / {{ $k->bagian->kode }}</td>
+                                                <td>{{ $k->tglMasuk }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="1">Finger ID : {{ $k->fpId }}</td>
+                                                <td colspan="1">Kode Jam Kerja : {{ $k->jamKerja->kodeJamKerja }}</td>
+                                                <td colspan="1">Status : Tetap</td>
+                                                <td colspan="2" style="text-align: right">Perusahaan :
+                                                    <i>{{ $k->perusahaan->namaPerusahaan }}</i>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -70,4 +98,16 @@
     </div>
 @endsection
 @section('js')
+    <script>
+        $(document).ready(function() {
+            alert();
+        })
+
+        let alert = () => {
+            let x = document.getElementById("alert");
+            setTimeout(() => {
+                x.click();
+            }, 10000);
+        }
+    </script>
 @endsection
