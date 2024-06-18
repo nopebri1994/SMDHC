@@ -71,20 +71,12 @@
                                     <tbody>
                                         @foreach ($karyawan as $key => $k)
                                             <tr>
-                                                <td rowspan="2">{{ $key + 1 }}</td>
+                                                <td>{{ $key + 1 }}</td>
                                                 <td>{{ $k->nikKerja }}</td>
                                                 <td>{{ $k->namaKaryawan }}</td>
                                                 <td>{{ $k->jabatan->namaJabatan }}</td>
                                                 <td>{{ $k->departemen->kode }} / {{ $k->bagian->kode }}</td>
-                                                <td>{{ $k->tglMasuk }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="1">Finger ID : {{ $k->fpId }}</td>
-                                                <td colspan="1">Kode Jam Kerja : {{ $k->jamKerja->kodeJamKerja }}</td>
-                                                <td colspan="1">Status : Tetap</td>
-                                                <td colspan="2" style="text-align: right">Perusahaan :
-                                                    <i>{{ $k->perusahaan->namaPerusahaan }}</i>
-                                                </td>
+                                                <td>{{ varHelper::formatDate($k->tglMasuk) }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
