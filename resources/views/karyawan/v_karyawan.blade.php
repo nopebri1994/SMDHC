@@ -57,30 +57,61 @@
                                         </button>
                                     </div>
                                 @endif
-                                <table class="table table-bordered table-stripped">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>NIK</th>
-                                            <th>Nama Karyawan</th>
-                                            <th>Jabatan</th>
-                                            <th>Dept. / Bagian</th>
-                                            <th>Tanggal Masuk</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($karyawan as $key => $k)
-                                            <tr>
-                                                <td>{{ $key + 1 }}</td>
-                                                <td>{{ $k->nikKerja }}</td>
-                                                <td>{{ $k->namaKaryawan }}</td>
-                                                <td>{{ $k->jabatan->namaJabatan }}</td>
-                                                <td>{{ $k->departemen->kode }} / {{ $k->bagian->kode }}</td>
-                                                <td>{{ varHelper::formatDate($k->tglMasuk) }}</td>
+                                <div class="table-responsive-md">
+                                    <table class="table table-bordered table-stripped">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>#</th>
+                                                <th>NIK</th>
+                                                <th>Nama Karyawan</th>
+                                                <th>Jabatan</th>
+                                                <th>Dept. / Bagian</th>
+                                                <th>Jenis Kelamin</th>
+                                                <th>Tanggal Masuk</th>
+                                                <th></th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($karyawan as $key => $k)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $k->nikKerja }}</td>
+                                                    <td>{{ $k->namaKaryawan }}</td>
+                                                    <td>{{ $k->jabatan->namaJabatan }}</td>
+                                                    <td>{{ $k->departemen->kode }} / {{ $k->bagian->kode }}</td>
+                                                    <td class="align-middle" align="center">
+                                                        @if ($k->jenisKelamin == '1')
+                                                            <span class="badge badge-success" style="font-size:0.8rem">
+                                                                {{ varHelper::varJK($k->jenisKelamin) }}
+                                                            </span>
+                                                        @else
+                                                            <span class="badge badge-danger" style="font-size:0.8rem">
+                                                                {{ varHelper::varJK($k->jenisKelamin) }}
+                                                            </span>
+                                                        @endif
+
+                                                    </td>
+                                                    <td align="center">{{ varHelper::formatDate($k->tglMasuk) }}</td>
+                                                    <td align="center" class="align-middle">
+                                                        <div class="btn-group" role="group">
+                                                            <button id="btnGroupDrop1" type="button"
+                                                                class="btn btn-primary dropdown-toggle btn-sm"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                Action
+                                                            </button>
+                                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                                <a class="dropdown-item" href="#">Detail Data</a>
+                                                                <a class="dropdown-item" href="#">Edit</a>
+                                                                {{-- <a class="dropdown-item" href="#">Delete</a> --}}
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
