@@ -11,14 +11,18 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte//css/all.min.css">
-
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/adminlte.min.css?v=3.2.0">
-
+    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/css/my.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/vendor/flasher/flasher.min.css">
     <link rel="icon" href="{{ URL::to('/') }}/assets/img/icon.png">
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed text-sm">
+    <div class="loader">
+        <div class="textloader">
+            <i>Sedang Memuat Halaman</i>
+        </div>
+    </div>
     <div class="wrapper">
 
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">

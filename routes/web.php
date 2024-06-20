@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\bagianController;
 use App\Http\Controllers\departemenController;
+use App\Http\Controllers\homeController;
 use App\Http\Controllers\jabatanController;
 use App\Http\Controllers\jamKerjaController;
 use App\Http\Controllers\karyawanController;
@@ -9,11 +10,14 @@ use App\Http\Controllers\keteranganIjinController;
 use App\Http\Controllers\perusahaanController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home', [
-        'title' => 'Dashboard'
-    ]);
-});
+// Route::get('/', function () {
+//     return view('home', [
+//         'title' => 'Dashboard'
+//     ]);
+// });
+
+//home
+Route::get('/', [homeController::class, 'index']);
 
 //keterangan-ijin
 Route::get('/dm/keterangan-ijin', [keteranganIjinController::class, 'index']);
@@ -66,3 +70,4 @@ Route::post('dm/jam-kerja/update', [jamKerjaController::class, 'update']);
 Route::get('/dk/karyawan', [karyawanController::class, 'index']);
 Route::get('dk/karyawan/addData', [karyawanController::class, 'addData']);
 Route::get('dk/karyawan/storeData', [karyawanController::class, 'storeData']);
+Route::get('dk/karyawan/detail-data/{id}', [karyawanController::class, 'detailData'])->name('detail-data');

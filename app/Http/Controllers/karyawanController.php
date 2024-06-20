@@ -77,4 +77,24 @@ class karyawanController extends Controller
         karyawanModel::create($tmpSave);
         return redirect('dk/karyawan')->with('status', 'Data berhasil disimpan');
     }
+    function detailData(Request $request)
+    {
+
+        $uuid = $request->id;
+        $detailData = karyawanModel::where('uuid', $uuid)->first();
+
+        $perusahaan = perusahaanModel::all();
+        $jabatan    = jabatanModel::all();
+        $jamKerja   = jamKerjaModel::all();
+
+        $data = [
+            'title'         => 'Detail Data Karyawan',
+            'detailData'    => $detailData,
+            'perusahaan'    => $perusahaan,
+            'jabatan'       => $jabatan,
+            'jamKerja'      => $jamKerja,
+        ];
+
+        return View('karyawan.detailDataKaryawan', $data);
+    }
 }

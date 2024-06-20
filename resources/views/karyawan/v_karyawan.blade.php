@@ -58,28 +58,28 @@
                                     </div>
                                 @endif
                                 <div class="table-responsive-md">
-                                    <table class="table table-bordered table-stripped">
+                                    <table class="table table-sm table-bordered table-striped">
                                         <thead>
-                                            <tr class="text-center">
-                                                <th>#</th>
-                                                <th>NIK</th>
-                                                <th>Nama Karyawan</th>
-                                                <th>Jabatan</th>
-                                                <th>Dept. / Bagian</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Tanggal Masuk</th>
-                                                <th></th>
+                                            <tr class="text-center align-middle" style="height: 3rem">
+                                                <th class="align-middle">#</th>
+                                                <th class="align-middle">NIK</th>
+                                                <th class="align-middle">Nama Karyawan</th>
+                                                <th class="align-middle">Jabatan</th>
+                                                <th class="align-middle">Dept. / Bagian</th>
+                                                <th class="align-middle">Jenis Kelamin</th>
+                                                <th class="align-middle">Tanggal Masuk</th>
+                                                <th class="align-middle"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($karyawan as $key => $k)
                                                 <tr>
-                                                    <td>{{ $key + 1 }}</td>
+                                                    <td class="text-center">{{ $key + 1 }}</td>
                                                     <td>{{ $k->nikKerja }}</td>
                                                     <td>{{ $k->namaKaryawan }}</td>
                                                     <td>{{ $k->jabatan->namaJabatan }}</td>
                                                     <td>{{ $k->departemen->kode }} / {{ $k->bagian->kode }}</td>
-                                                    <td class="align-middle" align="center">
+                                                    <td class="align-middle text-center">
                                                         @if ($k->jenisKelamin == '1')
                                                             <span class="badge badge-success" style="font-size:0.8rem">
                                                                 {{ varHelper::varJK($k->jenisKelamin) }}
@@ -91,8 +91,8 @@
                                                         @endif
 
                                                     </td>
-                                                    <td align="center">{{ varHelper::formatDate($k->tglMasuk) }}</td>
-                                                    <td align="center" class="align-middle">
+                                                    <td class="text-center">{{ varHelper::formatDate($k->tglMasuk) }}</td>
+                                                    <td class="align-middle text-center">
                                                         <div class="btn-group" role="group">
                                                             <button id="btnGroupDrop1" type="button"
                                                                 class="btn btn-primary dropdown-toggle btn-sm"
@@ -101,7 +101,9 @@
                                                                 Action
                                                             </button>
                                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                                <a class="dropdown-item" href="#">Detail Data</a>
+                                                                <a class="dropdown-item"
+                                                                    href="{{ URL::to("dk/karyawan/detail-data/$k->uuid") }}">Detail
+                                                                    Data</a>
                                                                 <a class="dropdown-item" href="#">Edit</a>
                                                                 {{-- <a class="dropdown-item" href="#">Delete</a> --}}
                                                             </div>

@@ -6,8 +6,8 @@
 
     ;
 </style>
-<div class="table-responsive">
-    <table class="table table-bordered table-sm table-striped shadow display no-wrap">
+<div class="table-responsive-lg">
+    <table class="nowrap table table-bordered table-sm table-striped shadow">
         <thead>
             <tr>
                 <th class="align-middle">#</th>
@@ -31,10 +31,11 @@
                 <tr>
                     <td align="center" class="align-middle" width="4%">{{ $dataTable->firstItem() + $key }}</td>
                     <td class="align-middle" align="center" width="5%">{{ $dt->kode }}</td>
-                    <td class="align-middle" width="20%">{{ $dt->namaBagian }}</td>
+                    <td class="align-middle" width="25%">{{ $dt->namaBagian }}</td>
                     <td class="align-middle" width="20%">{{ $dt->departemen->namaDepartemen }}</td>
-                    <td class="align-middle">{{ $dt->departemen->perusahaan->namaPerusahaan }}</td>
-                    <td align="center" class="align-middle" width="20%">
+                    <td class="align-middle" style="font-size:0.9em">
+                        {{ $dt->departemen->perusahaan->namaPerusahaan }}</td>
+                    <td align="center" class="align-middle" width="22%">
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-primary btn-sm" id="btnEdit"
                                 onclick="editData('{{ $dt->namaBagian }}',{{ $dt->id }},'{{ $dt->idDepartemen }}','{{ $dt->kode }}')"><i
