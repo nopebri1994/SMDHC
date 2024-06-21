@@ -74,7 +74,7 @@
                                         <tbody>
                                             @foreach ($karyawan as $key => $k)
                                                 <tr>
-                                                    <td class="text-center">{{ $key + 1 }}</td>
+                                                    <td class="text-center">{{ $karyawan->firstItem() + $key }}</td>
                                                     <td>{{ $k->nikKerja }}</td>
                                                     <td>{{ $k->namaKaryawan }}</td>
                                                     <td>{{ $k->jabatan->namaJabatan }}</td>
@@ -104,7 +104,8 @@
                                                                 <a class="dropdown-item"
                                                                     href="{{ URL::to("dk/karyawan/detail-data/$k->uuid") }}">Detail
                                                                     Data</a>
-                                                                <a class="dropdown-item" href="#">Edit</a>
+                                                                <a class="dropdown-item"
+                                                                    href="{{ URL::to("dk/karyawan/edit-data/$k->uuid") }}">Edit</a>
                                                                 {{-- <a class="dropdown-item" href="#">Delete</a> --}}
                                                             </div>
                                                         </div>
@@ -113,6 +114,9 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    <div class="d-flex justify-content-end">
+                                        {{ $karyawan->links() }}
+                                    </div>
                                 </div>
                             </div>
                         </div>

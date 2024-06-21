@@ -71,3 +71,5 @@ Route::get('/dk/karyawan', [karyawanController::class, 'index']);
 Route::get('dk/karyawan/addData', [karyawanController::class, 'addData']);
 Route::get('dk/karyawan/storeData', [karyawanController::class, 'storeData']);
 Route::get('dk/karyawan/detail-data/{id}', [karyawanController::class, 'detailData'])->name('detail-data');
+Route::get('dk/karyawan/edit-data/{id}', [karyawanController::class, 'editData'])->name('edit-data');
+Route::get('dk/karyawan/update-data/{id}', [karyawanController::class, 'updateData'])->name('edit-data');

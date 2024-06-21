@@ -56,7 +56,7 @@
                                 {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Daftar Karyawan</p>
-                                <span class="right badge badge-danger">progres</span>
+                                <span class="right badge badge-success">Aktif</span>
                             </a>
                         </li>
                     </ul>
@@ -92,6 +92,7 @@
                             <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Potongan Cuti</p>
+                                <span class="right badge badge-danger">progres</span>
                             </a>
                         </li>
                         <li class="nav-item">
