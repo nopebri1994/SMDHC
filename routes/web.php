@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\bagianController;
+use App\Http\Controllers\cutiController;
 use App\Http\Controllers\departemenController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\jabatanController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\jamKerjaController;
 use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\keteranganIjinController;
 use App\Http\Controllers\perusahaanController;
+use App\Http\Controllers\potonganController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -73,3 +75,13 @@ Route::get('dk/karyawan/storeData', [karyawanController::class, 'storeData']);
 Route::get('dk/karyawan/detail-data/{id}', [karyawanController::class, 'detailData'])->name('detail-data');
 Route::get('dk/karyawan/edit-data/{id}', [karyawanController::class, 'editData'])->name('edit-data');
 Route::get('dk/karyawan/update-data/{id}', [karyawanController::class, 'updateData'])->name('edit-data');
+
+//potongan-cuti
+Route::get('psn/potongan-cuti', [potonganController::class, 'index']);
+Route::get('psn/potongan-cuti/tabelData', [potonganController::class, 'tabelData']);
+Route::post('/psn/potongan-cuti/insert', [potonganController::class, 'insert']);
+Route::post('/psn/potongan-cuti/delete', [potonganController::class, 'delete']);
+Route::post('/psn/potongan-cuti/update', [potonganController::class, 'update']);
+
+//cuti
+Route::get('psn/cuti', [cutiController::class, 'index']);

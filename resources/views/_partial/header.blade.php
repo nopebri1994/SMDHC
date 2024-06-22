@@ -12,10 +12,10 @@
 
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte//css/all.min.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/adminlte.min.css?v=3.2.0">
-    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/css/my.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/vendor/flasher/flasher.min.css">
     <link rel="icon" href="{{ URL::to('/') }}/assets/img/icon.png">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/css/my.css">
 
 <body class="hold-transition sidebar-mini layout-fixed text-sm">
     <div class="loader">

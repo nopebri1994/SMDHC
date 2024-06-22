@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-
+        <hr>
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
@@ -56,13 +56,13 @@
                                 {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Daftar Karyawan</p>
-                                <span class="right badge badge-success">Aktif</span>
+                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item  {{ request()->is('psn/*') ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link  {{ request()->is('psn/*') ? 'active' : '' }}">
                         <i class="nav-icon fas fas fa-users"></i>
                         <p>
                             Personalia
@@ -79,7 +79,7 @@
                         <li class="nav-item">
                             <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Absensi</p>
+                                <p>Absensi Harian</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -89,16 +89,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ URL::to('/') }}/psn/potongan-cuti"
+                                class="nav-link {{ request()->is('psn/potongan-cuti') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Potongan Cuti</p>
-                                <span class="right badge badge-danger">progres</span>
+                                <p>Potongan Cuti Tahunan</p>
+                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ URL::to('/') }}/psn/cuti"
+                                class="nav-link {{ request()->is('psn/cuti') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Cuti Karyawan</p>
+                                <span class="right badge badge-danger">P</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -147,7 +150,7 @@
                                 class="nav-link {{ request()->is('dm/perusahaan') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Perusahaan</p>
-                                <span class="right badge badge-success">Aktif</span>
+                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -155,7 +158,7 @@
                                 class="nav-link {{ request()->is('dm/departemen') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Departemen</p>
-                                <span class="right badge badge-success">Aktif</span>
+                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -163,7 +166,7 @@
                                 class="nav-link {{ request()->is('dm/bagian') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Bagian</p>
-                                <span class="right badge badge-success">Aktif</span>
+                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -171,7 +174,7 @@
                                 class="nav-link nav-link {{ request()->is('dm/jabatan') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Jabatan</p>
-                                <span class="right badge badge-success">Aktif</span>
+                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -179,7 +182,7 @@
                                 class="nav-link {{ request()->is('dm/keterangan-ijin') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Keterangan Ijin
-                                    <span class="right badge badge-success">Aktif</span>
+                                    <span class="right badge badge-success">A</span>
                                 </p>
                             </a>
                         </li>
@@ -188,7 +191,7 @@
                                 class="nav-link {{ request()->is('dm/jam-kerja') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Jam Kerja</p>
-                                <span class="right badge badge-success">Aktif</span>
+                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                         <li class="nav-item">
