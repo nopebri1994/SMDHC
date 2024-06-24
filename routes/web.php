@@ -4,6 +4,8 @@ use App\Http\Controllers\bagianController;
 use App\Http\Controllers\cutiController;
 use App\Http\Controllers\departemenController;
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\hutangCuti;
+use App\Http\Controllers\hutangCutiController;
 use App\Http\Controllers\jabatanController;
 use App\Http\Controllers\jamKerjaController;
 use App\Http\Controllers\karyawanController;
@@ -85,3 +87,11 @@ Route::post('/psn/potongan-cuti/update', [potonganController::class, 'update']);
 
 //cuti
 Route::get('psn/cuti', [cutiController::class, 'index']);
+Route::get('psn/cuti/posting-cuti', [cutiController::class, 'postingCuti']);
+Route::get('psn/cuti/tabel-cuti', [cutiController::class, 'tabelCuti']);
+Route::get('psn/cuti/detail-data', [cutiController::class, 'detailData']);
+Route::get('psn/cuti/detail-cuti', [cutiController::class, 'detailCuti']);
+
+//hutangCuti
+Route::get('psn/hutang-cuti', [hutangCutiController::class, 'index']);
+Route::get('psn/hutang-cuti/posting-hutang', [hutangCutiController::class, 'postingHutang']);

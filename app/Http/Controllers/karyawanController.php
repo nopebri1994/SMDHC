@@ -64,7 +64,7 @@ class karyawanController extends Controller
 
         $tmpSave = [
             'nikKerja'          => $request->nikKerja,
-            'namaKaryawan'      => $request->nama,
+            'namaKaryawan'      => strtoupper($request->nama),
             'jenisKelamin'      => $request->JK,
             'tglMasuk'          => $request->tmt,
             'fpId'              => $request->fpId,
@@ -105,7 +105,7 @@ class karyawanController extends Controller
 
         $tmpSave = [
             'nikKerja'          => $request->nikKerja,
-            'namaKaryawan'      => $request->nama,
+            'namaKaryawan'      => strtoupper($request->nama),
             'jenisKelamin'      => $request->JK,
             'tglMasuk'          => $request->tmt,
             'fpId'              => $request->fpId,

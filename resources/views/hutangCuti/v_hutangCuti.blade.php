@@ -31,19 +31,11 @@
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
-                                        role="tab" aria-controls="home" aria-selected="true">Detail Cuti Tahunan</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tambah-tab" data-toggle="tab" href="#tambah" role="tab"
-                                        aria-controls="tambah" aria-selected="true">Tambah Cuti Tahunan perorang</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="potong-tab" data-toggle="tab" href="#potong" role="tab"
-                                        aria-controls="potong" aria-selected="true">Potong Cuti Tahunan Perorang</a>
+                                        role="tab" aria-controls="home" aria-selected="true">Detail Hutang Cuti</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="posting-tab" data-toggle="tab" href="#posting" role="tab"
-                                        aria-controls="posting" aria-selected="false">Posting Cuti Tahunan</a>
+                                        aria-controls="posting" aria-selected="false">Posting Hutang Cuti</a>
                                 </li>
                             </ul>
                         </div>
@@ -57,14 +49,14 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <div class="col-md-3 pt-2">NIK (Kerja)</div>
+                                                    <div class="col-md-4 pt-2">NIK (Kerja)</div>
                                                     <div class="col-md-8">
                                                         <input type="text" name="nikKerja" id="nikKerja"
                                                             autocomplete="off" placeholder="NIK" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-3">Nama Karyawan</div>
+                                                    <div class="col-md-4">Nama Karyawan</div>
                                                     <div class="col-md-8">
                                                         <input type="text" name="nama" id="nama"
                                                             placeholder="nama" class="form-control" disabled>
@@ -72,14 +64,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Dept / Bagian</div>
+                                                    <div class="col-md-4 pt-2">Dept / Bagian</div>
                                                     <div class="col-md-8">
                                                         <input type="text" name="dept" id="dept" placeholder=""
                                                             class="form-control" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Tahun Cuti</div>
+                                                    <div class="col-md-4 pt-2">Tahun Pemotongan Cuti</div>
                                                     <div class="col-md-8">
                                                         <select name="year" class="form-control bg-info" id="year">
                                                             @for ($i = 2020; $i < 2030; $i++)
@@ -89,7 +81,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-11">
+                                                    <div class="col-md-12">
                                                         <button class="btn btn-block btn-secondary" id="findCuti">Cari
                                                             Data... &nbsp;<i class="fas fa-search"></i></button>
                                                     </div>
@@ -168,48 +160,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="tambah" role="tabpanel" aria-labelledby="contact-tab">
-                            <div class="mt-3">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-body">
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card">
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="potong" role="tabpanel" aria-labelledby="contact-tab">
-                            <div class="mt-3">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-body">
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card">
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     {{-- endisi --}}
                 </div>
@@ -234,7 +184,7 @@
                     <div class="custom-control custom-checkbox">
                         <input class="custom-control-input custom-control-input-danger custom-control-input-outline"
                             type="checkbox" id="verifikasi">
-                        <label for="verifikasi" class="custom-control-label">Verifikasi posting cuti</label>
+                        <label for="verifikasi" class="custom-control-label">Verifikasi posting hutag cuti</label>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -248,89 +198,8 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            loadPostingCuti();
+
         });
-
-        let loadPostingCuti = () => {
-            let month = $('#postingMonth').val();
-            let year = $('#postingYear').val();
-
-            let data = {
-                'm': month,
-                'y': year
-            }
-            $.ajax({
-                type: 'get',
-                url: 'cuti/tabel-cuti',
-                data: data,
-                success: function(sData) {
-                    $('#postingTable').html(sData);
-                },
-                error: function() {
-                    flasher.error('Server Not Found')
-                }
-            })
-        }
-
-        document.getElementById('postingYear').onchange = () => {
-            loadPostingCuti();
-        }
-
-        document.getElementById('postingMonth').onchange = () => {
-            loadPostingCuti();
-        }
-
-        document.getElementById('nikKerja').oninput = () => {
-            let nik = $('#nikKerja').val();
-            getDetail(nik);
-        }
-
-        let getDetail = (x) => {
-            let data = {
-                'nik': x,
-            }
-            $.ajax({
-                type: 'get',
-                url: 'cuti/detail-data',
-                data: data,
-                success: function(sdata) {
-                    let obj = JSON.parse(sdata);
-                    if (obj.status == 1) {
-                        $('#nama').val(obj.namaKaryawan);
-                        $('#dept').val(obj.deptBagian);
-                        $('#idKaryawan').val(obj.idKaryawan);
-                    }
-                },
-            })
-        }
-
-        document.getElementById('findCuti').onclick = () => {
-            getCuti();
-        }
-
-        let getCuti = () => {
-            let id = $('#idKaryawan').val();
-            let year = $('#year').val();
-
-            let data = {
-                'id': id,
-                'year': year
-            };
-
-            $.ajax({
-                type: 'get',
-                url: 'cuti/detail-cuti',
-                data: data,
-                success: function(sdata) {
-                    $('#detailTable').html(sdata);
-                },
-                error: function(error) {
-                    $('#detailTable').html('');
-                    flasher.error('Data Not Found');
-                }
-            })
-        }
-
         document.getElementById('buttonVerifikasiPosting').onclick = () => {
             let verifikasi = document.getElementById('verifikasi');
             const date = new Date('{{ date('Y-m-d') }}');
@@ -357,11 +226,11 @@
                 }
                 $.ajax({
                     type: 'get',
-                    url: 'cuti/posting-cuti',
+                    url: 'hutang-cuti/posting-hutang',
                     data: data,
                     success: function(sData) {
-                        flasher.success('Posting Cuti Succes');
-                        loadPostingCuti();
+                        flasher.success('Posting hutang Cuti Succes');
+                        // loadPostingCuti();
                     },
                     error: function() {
                         flasher.error('Server Not Found')

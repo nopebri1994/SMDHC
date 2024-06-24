@@ -232,11 +232,12 @@
 @section('js')
     <script>
         $(document).ready(function() {
-
             $('#tmt').val('{{ $detailData->tglMasuk }}');
             $('#nama').val('{{ $detailData->namaKaryawan }}');
             $('#nikKerja').val('{{ $detailData->nikKerja }}');
             $('#fpId').val('{{ $detailData->fpId }}')
+            $('#jabatan').val('{{ $detailData->idJabatan }}')
+            $('#jamKerja').val('{{ $detailData->idJamKerja }}')
             detailJabatan();
             let x = '{{ $errors->any() }}';
             if (x > 0) {

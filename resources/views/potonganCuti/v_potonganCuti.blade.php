@@ -168,7 +168,6 @@
                 data: data,
                 success: function(sdata) {
                     $('#nama').val('');
-                    $('#year').val('');
                     $('#totalPotongan').val('')
                     $('#keterangan').val('')
                     let obj = JSON.parse(sdata);

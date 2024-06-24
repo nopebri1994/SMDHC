@@ -105,9 +105,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ URL::to('/') }}/psn/hutang-cuti"
+                                class="nav-link {{ request()->is('psn/hutang-cuti') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Hutang Cuti Karyawan</p>
+                                <span class="right badge badge-danger">P</span>
                             </a>
                         </li>
                         <li class="nav-item">
