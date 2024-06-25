@@ -22,6 +22,7 @@ class karyawanModel extends Model
     protected $table = 'datakaryawan';
     protected $fillable = [
         'nikKerja',
+        'id',
         'namaKaryawan',
         'tglMasuk',
         'jenisKelamin',

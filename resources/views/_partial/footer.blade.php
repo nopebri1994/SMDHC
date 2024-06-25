@@ -22,6 +22,12 @@
 <script src="{{ URL::to('/') }}/assets/adminlte/js/adminlte.min.js?v=3.2.0"></script>
 <script src="{{ URL::to('/') }}/assets/adminlte/js/jquery.overlayScrollbars.min.js"></script>
 <script src="{{ URL::to('/') }}/vendor/sweetalert/js/sweetalert2@11.js"></script>
+{{-- datatable --}}
+<script src="{{ URL::to('/') }}/assets/adminlte/js/popper.min.js"></script>
+<script src="{{ URL::to('/') }}/assets/adminlte/js/bootstrap.min.js"></script>
+<script src="{{ URL::to('/') }}/assets/adminlte/js/dataTables.js"></script>
+<script src="{{ URL::to('/') }}/assets/adminlte/js/dataTables.bootstrap4.js"></script>
+{{-- end --}}
 <script src="{{ URL::to('/') }}/assets/js/my.js"></script>
 
 @yield('js')

@@ -23,15 +23,15 @@ class cutiController extends Controller
         $m = $request->m;
         $y = $request->y;
         $now = date_create(date('Y-m-d', strtotime("$y-$m-01")));
-        $karyawan = karyawanModel::whereMonth('tglMasuk', $m)->get();
+        $karyawan = karyawanModel::whereMonth('tglMasuk', $m)->whereYear('tglMasuk', '<', $y)->get();
 
         foreach ($karyawan as $k) {
             $tglMasuk = date_create($k->tglMasuk);
             $selisih = date_diff($now, $tglMasuk);
             $hasilCuti = varHelper::varCuti($selisih->y);
             $potonganTahunan = potonganCutiModel::where('tahunPotongan', $y)->sum('totalPotongan');
-
             $cekData = cutiModel::where('month', $m)->where('year', $y)->where('idKaryawan', $k->id)->first();
+
             if (empty($cekData)) {
                 $sisaCuti = $hasilCuti['hak'] - $potonganTahunan;
                 $tmpSave = [

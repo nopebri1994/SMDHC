@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\karyawanImport;
 use App\Models\bagianModel;
 use App\Models\departemenModel;
 use Illuminate\Http\Request;
@@ -10,12 +11,14 @@ use App\Models\jabatanModel;
 use App\Models\jamKerjaModel;
 use Illuminate\Support\Facades\Validator;
 use App\Models\karyawanModel;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
 
 class karyawanController extends Controller
 {
     public function index()
     {
-        $karyawan   = karyawanModel::paginate(10);
+        $karyawan   = karyawanModel::orderBy('nikKerja')->paginate(10);
         $data = [
             'title'     => 'Daftar Karyawan',
             'karyawan'  => $karyawan,
@@ -156,5 +159,12 @@ class karyawanController extends Controller
         ];
 
         return View('karyawan.editDataKaryawan', $data);
+    }
+    function export(Request $request)
+    {
+        $file = $request->file('file');
+        $nama_file = rand() . $file->getClientOriginalName();
+        $file->move('assets/upload/file_karyawan', $nama_file);
+        Excel::import(new karyawanImport, public_path('/assets/upload/file_karyawan/' . $nama_file));
     }
 }

@@ -4,7 +4,8 @@
             <th>#</th>
             <th>Nama Karywan</th>
             <th>Tanggal Masuk</th>
-            <th>Hak Cuti</th>
+            <th>Maksimal Hutang</th>
+            <th>Expired</th>
             <th>Keterangan</th>
         </tr>
     </thead>
@@ -14,10 +15,9 @@
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $c->karyawan->namaKaryawan }}</td>
                 <td>{{ varHelper::formatDate($c->karyawan->tglMasuk) }}</td>
-                <td class="text-center">{{ $c->jumlahCuti }}</td>
-                <td width="35%">
-                    <i>{{ $c->keterangan }}</i>
-                </td>
+                <td class="text-center">{{ $c->jumlahHutangCuti }}</td>
+                <td>{{ varHelper::formatDate($c->expired) }}</td>
+                <td width="35%"> <i>{{ $c->keterangan }}</i></td>
             </tr>
         @endforeach
     </tbody>

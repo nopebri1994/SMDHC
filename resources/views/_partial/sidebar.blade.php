@@ -71,9 +71,11 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ URL::to('/') }}/psn/absensi"
+                                class="nav-link {{ request()->is('psn/absensi') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Proses Absensi</p>
+                                <span class="right badge badge-danger">P</span>
                             </a>
                         </li>
                         <li class="nav-item">

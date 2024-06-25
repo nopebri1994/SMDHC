@@ -20,7 +20,7 @@
         <div class="container-fluid">
 
             {{-- {{ $errors->first('nikKerja') }} --}}
-            <form action="{{ URL::to('/dk/karyawan/storeData') }}" method="get">
+            <form action="{{ URL::to('/dk/karyawan/storeData') }}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <div class="row">
                     <div class="col-lg-6">

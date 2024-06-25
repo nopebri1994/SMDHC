@@ -340,16 +340,16 @@
                 let month = $('#postingMonth').val();
                 let year = $('#postingYear').val();
 
-                if (month > date.getMonth() + 1) {
-                    flasher.error('Bulan posting Salah, Cek Input Data');
-                    $('#verifikasiPosting').modal('toggle');
-                    return;
-                }
-                if (+year != date.getFullYear()) {
-                    flasher.error('Tahun posting Salah, Cek Input Data');
-                    $('#verifikasiPosting').modal('toggle');
-                    return;
-                }
+                // if (month != date.getMonth() + 1) {
+                //     flasher.error('Bulan posting Salah, Cek Input Data');
+                //     $('#verifikasiPosting').modal('toggle');
+                //     return;
+                // }
+                // if (+year != date.getFullYear()) {
+                //     flasher.error('Tahun posting Salah, Cek Input Data');
+                //     $('#verifikasiPosting').modal('toggle');
+                //     return;
+                // }
 
                 let data = {
                     'm': month,

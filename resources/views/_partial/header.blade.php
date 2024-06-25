@@ -10,7 +10,11 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte//css/all.min.css">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/all.min.css">
+    {{-- datatable --}}
+    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/bootstrap.css">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/dataTables.bootstrap4.css">
+    {{-- end --}}
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/adminlte.min.css?v=3.2.0">
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/vendor/flasher/flasher.min.css">

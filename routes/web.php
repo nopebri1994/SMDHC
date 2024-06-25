@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\absensiController;
 use App\Http\Controllers\bagianController;
 use App\Http\Controllers\cutiController;
 use App\Http\Controllers\departemenController;
@@ -72,8 +73,9 @@ Route::post('dm/jam-kerja/update', [jamKerjaController::class, 'update']);
 
 //karyawan
 Route::get('/dk/karyawan', [karyawanController::class, 'index']);
+// Route::POST('/dk/karyawan/export', [karyawanController::class, 'export']); //sementara
 Route::get('dk/karyawan/addData', [karyawanController::class, 'addData']);
-Route::get('dk/karyawan/storeData', [karyawanController::class, 'storeData']);
+Route::post('dk/karyawan/storeData', [karyawanController::class, 'storeData']);
 Route::get('dk/karyawan/detail-data/{id}', [karyawanController::class, 'detailData'])->name('detail-data');
 Route::get('dk/karyawan/edit-data/{id}', [karyawanController::class, 'editData'])->name('edit-data');
 Route::get('dk/karyawan/update-data/{id}', [karyawanController::class, 'updateData'])->name('edit-data');
@@ -95,3 +97,9 @@ Route::get('psn/cuti/detail-cuti', [cutiController::class, 'detailCuti']);
 //hutangCuti
 Route::get('psn/hutang-cuti', [hutangCutiController::class, 'index']);
 Route::get('psn/hutang-cuti/posting-hutang', [hutangCutiController::class, 'postingHutang']);
+Route::get('psn/hutang-cuti/tabel-hutang', [hutangCutiController::class, 'tabelHutang']);
+Route::get('psn/hutang-cuti/detail-hutang', [hutangCutiController::class, 'detailHutang']);
+
+//absensi
+Route::get('psn/absensi', [absensiController::class, 'index']);
+Route::get('psn/absensi/detailData', [absensiController::class, 'detailData']);

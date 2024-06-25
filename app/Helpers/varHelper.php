@@ -128,4 +128,89 @@ class varHelper
         }
         return $tmp;
     }
+    public static function varHutangCuti($x)
+    {
+        $tmp = [];
+        switch ($x) {
+            case 5;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang I A',
+                    'hak'       => 25,
+                ];
+                break;
+            case 6;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang I B',
+                    'hak'       => 25,
+                ];
+                break;
+            case 11;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang II A',
+                    'hak'       => 25,
+                ];
+                break;
+            case 12;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang II B',
+                    'hak'       => 25,
+                ];
+                break;
+                break;
+            case 17;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang III A',
+                    'hak'       => 25,
+                ];
+                break;
+            case 18;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang III B',
+                    'hak'       => 25,
+                ];
+                break;
+            case 23;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang IV A',
+                    'hak'       => 25,
+                ];
+                break;
+            case 24;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang IV B',
+                    'hak'       => 25,
+                ];
+                break;
+            case 29;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang V A',
+                    'hak'       => 25,
+                ];
+                break;
+            case 30;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang V B',
+                    'hak'       => 25,
+                ];
+                break;
+            case 35;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang VI A',
+                    'hak'       => 25,
+                ];
+                break;
+            case 36;
+                $tmp = [
+                    'status'    => 'Hutang Cuti Panjang VI B',
+                    'hak'       => 25,
+                ];
+                break;
+            default:
+                $tmp = [
+                    'status'    => 'Hutang Cuti Tahunan',
+                    'hak'       => 12,
+                ];
+        }
+        return $tmp;
+    }
 }

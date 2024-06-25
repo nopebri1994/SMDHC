@@ -42,7 +42,15 @@
                             <h5 class="m-0">{{ $title }}</h5>
                         </div>
                         <div class="card-body">
+
+                            {{-- <form action="karyawan/export" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <input type="file" name="file">
+                                <button>export</button>
+                            </form> --}}
+
                             <div class="d-flex  justify-content-end">
+
                                 <a href="{{ URL::to('/') }}/dk/karyawan/addData" class="btn-sm btn-primary"><i
                                         class="fa fa-plus"></i>
                                     Add Data</a>

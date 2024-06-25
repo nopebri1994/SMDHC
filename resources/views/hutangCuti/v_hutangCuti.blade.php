@@ -82,7 +82,7 @@
                                                 </div>
                                                 <div class="row mt-2">
                                                     <div class="col-md-12">
-                                                        <button class="btn btn-block btn-secondary" id="findCuti">Cari
+                                                        <button class="btn btn-block btn-secondary" id="findHutang">Cari
                                                             Data... &nbsp;<i class="fas fa-search"></i></button>
                                                     </div>
                                                 </div>
@@ -126,7 +126,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Tahun</div>
+                                                    <div class="col-md-3 pt-2">Tahun Posting</div>
                                                     <div class="col-md-8">
                                                         <select name="postingYear" class="form-control bg-info"
                                                             id="postingYear">
@@ -198,8 +198,39 @@
 @section('js')
     <script>
         $(document).ready(function() {
-
+            loadPostingHutang();
         });
+
+        let loadPostingHutang = () => {
+            let month = $('#postingMonth').val();
+            let year = $('#postingYear').val();
+
+            let data = {
+                'm': month,
+                'y': year
+            }
+            $.ajax({
+                type: 'get',
+                url: 'hutang-cuti/tabel-hutang',
+                data: data,
+                success: function(sData) {
+                    $('#postingTable').html(sData);
+                },
+                error: function() {
+                    flasher.error('Server Not Found')
+                }
+            })
+        }
+
+        document.getElementById('postingYear').onchange = () => {
+            loadPostingHutang();
+        }
+
+        document.getElementById('postingMonth').onchange = () => {
+            loadPostingHutang();
+        }
+
+
         document.getElementById('buttonVerifikasiPosting').onclick = () => {
             let verifikasi = document.getElementById('verifikasi');
             const date = new Date('{{ date('Y-m-d') }}');
@@ -209,14 +240,14 @@
                 let month = $('#postingMonth').val();
                 let year = $('#postingYear').val();
 
-                if (month > date.getMonth() + 1) {
+                if (month != date.getMonth() + 1) {
                     flasher.error('Bulan posting Salah, Cek Input Data');
                     $('#verifikasiPosting').modal('toggle');
                     return;
                 }
                 if (+year != date.getFullYear()) {
                     flasher.error('Tahun posting Salah, Cek Input Data');
-                    $('#verifikasiPosting').modal('toggle');
+                    $('#verifikasiPosting').modal('toggle');    
                     return;
                 }
 
@@ -230,7 +261,7 @@
                     data: data,
                     success: function(sData) {
                         flasher.success('Posting hutang Cuti Succes');
-                        // loadPostingCuti();
+                        loadPostingHutang();
                     },
                     error: function() {
                         flasher.error('Server Not Found')
@@ -239,6 +270,57 @@
                 $('#verifikasiPosting').modal('toggle');
                 verifikasi.checked = false;
             }
+        }
+
+        document.getElementById('nikKerja').oninput = () => {
+            let nik = $('#nikKerja').val();
+            getDetail(nik);
+        }
+
+        let getDetail = (x) => {
+            let data = {
+                'nik': x,
+            }
+            $.ajax({
+                type: 'get',
+                url: 'cuti/detail-data',
+                data: data,
+                success: function(sdata) {
+                    let obj = JSON.parse(sdata);
+                    if (obj.status == 1) {
+                        $('#nama').val(obj.namaKaryawan);
+                        $('#dept').val(obj.deptBagian);
+                        $('#idKaryawan').val(obj.idKaryawan);
+                    }
+                },
+            })
+        }
+
+        document.getElementById('findHutang').onclick = () => {
+            getCuti();
+        }
+
+        let getCuti = () => {
+            let id = $('#idKaryawan').val();
+            let year = $('#year').val();
+
+            let data = {
+                'id': id,
+                'year': year
+            };
+
+            $.ajax({
+                type: 'get',
+                url: 'hutang-cuti/detail-hutang',
+                data: data,
+                success: function(sdata) {
+                    $('#detailTable').html(sdata);
+                },
+                error: function(error) {
+                    $('#detailTable').html('');
+                    flasher.error('Data Not Found');
+                }
+            })
         }
     </script>
 @endsection
