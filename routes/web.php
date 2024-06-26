@@ -11,6 +11,7 @@ use App\Http\Controllers\jabatanController;
 use App\Http\Controllers\jamKerjaController;
 use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\keteranganIjinController;
+use App\Http\Controllers\loginController;
 use App\Http\Controllers\perusahaanController;
 use App\Http\Controllers\potonganController;
 use Illuminate\Support\Facades\Route;
@@ -21,88 +22,96 @@ use Illuminate\Support\Facades\Route;
 //     ]);
 // });
 
-//home
-Route::get('/', [homeController::class, 'index']);
 
-//keterangan-ijin
-Route::get('/dm/keterangan-ijin', [keteranganIjinController::class, 'index']);
-Route::post('/dm/keterangan-ijin/insert', [keteranganIjinController::class, 'insert']);
-Route::get('/dm/keterangan-ijin/tabelData', [keteranganIjinController::class, 'tabelData']);
-Route::post('/dm/keterangan-ijin/delete', [keteranganIjinController::class, 'delete']);
-Route::post('/dm/keterangan-ijin/update', [keteranganIjinController::class, 'update']);
+//login
+Route::get('/login', [loginController::class, 'index']);
+Route::get('/login/prosesLogin', [loginController::class, 'login']);
+Route::get('/login/logout', [loginController::class, 'logout']);
+
+Route::middleware('authcheck')->group(function () {
+
+    //home
+    Route::get('/', [homeController::class, 'index']);
+
+    //keterangan-ijin
+    Route::get('/dm/keterangan-ijin', [keteranganIjinController::class, 'index']);
+    Route::post('/dm/keterangan-ijin/insert', [keteranganIjinController::class, 'insert']);
+    Route::get('/dm/keterangan-ijin/tabelData', [keteranganIjinController::class, 'tabelData']);
+    Route::post('/dm/keterangan-ijin/delete', [keteranganIjinController::class, 'delete']);
+    Route::post('/dm/keterangan-ijin/update', [keteranganIjinController::class, 'update']);
+
+    //departemen
+    Route::get('/dm/departemen', [departemenController::class, 'index']);
+    Route::get('/dm/departemen/tabelData', [departemenController::class, 'tabelData']);
+    Route::post('/dm/departemen/insert', [departemenController::class, 'insert']);
+    Route::post('/dm/departemen/delete', [departemenController::class, 'delete']);
+    Route::post('/dm/departemen/update', [departemenController::class, 'update']);
+    Route::get('/dm/departemen/selectDepartemen', [departemenController::class, 'selectDepartemen']);
+
+    //perusahaan
+    Route::get('/dm/perusahaan', [perusahaanController::class, 'index']);
+    Route::get('/dm/perusahaan/tabelData', [perusahaanController::class, 'tabelData']);
+    Route::post('/dm/perusahaan/insert', [perusahaanController::class, 'insert']);
+    Route::post('/dm/perusahaan/delete', [perusahaanController::class, 'delete']);
+    Route::post('/dm/perusahaan/update', [perusahaanController::class, 'update']);
+
+    //bagian
+    Route::get('/dm/bagian', [bagianController::class, 'index']);
+    Route::get('/dm/bagian/tabelData', [bagianController::class, 'tabelData']);
+    Route::post('/dm/bagian/insert', [bagianController::class, 'insert']);
+    Route::post('/dm/bagian/delete', [bagianController::class, 'delete']);
+    Route::post('/dm/bagian/update', [bagianController::class, 'update']);
+    Route::get('/dm/bagian/selectBagian', [bagianController::class, 'selectBagian']);
 
 
-//departemen
-Route::get('/dm/departemen', [departemenController::class, 'index']);
-Route::get('/dm/departemen/tabelData', [departemenController::class, 'tabelData']);
-Route::post('/dm/departemen/insert', [departemenController::class, 'insert']);
-Route::post('/dm/departemen/delete', [departemenController::class, 'delete']);
-Route::post('/dm/departemen/update', [departemenController::class, 'update']);
-Route::get('/dm/departemen/selectDepartemen', [departemenController::class, 'selectDepartemen']);
+    //jabatan
+    Route::get('/dm/jabatan', [jabatanController::class, 'index']);
+    Route::get('/dm/jabatan/tabelData', [jabatanController::class, 'tabelData']);
+    Route::post('/dm/jabatan/insert', [jabatanController::class, 'insert']);
+    Route::post('/dm/jabatan/delete', [jabatanController::class, 'delete']);
+    Route::post('/dm/jabatan/update', [jabatanController::class, 'update']);
+    ROute::get('/dm/jabatan/detailJabatan', [jabatanController::class, 'detailJabatan']);
 
-//perusahaan
-Route::get('/dm/perusahaan', [perusahaanController::class, 'index']);
-Route::get('/dm/perusahaan/tabelData', [perusahaanController::class, 'tabelData']);
-Route::post('/dm/perusahaan/insert', [perusahaanController::class, 'insert']);
-Route::post('/dm/perusahaan/delete', [perusahaanController::class, 'delete']);
-Route::post('/dm/perusahaan/update', [perusahaanController::class, 'update']);
+    //jam-kerja
+    Route::get('dm/jam-kerja', [jamKerjaController::class, 'index']);
+    Route::get('dm/jam-kerja/tabelData', [jamKerjaController::class, 'tabelData']);
+    Route::post('/dm/jam-kerja/insert', [jamKerjaController::class, 'insert']);
+    Route::post('/dm/jam-kerja/delete', [jamKerjaController::class, 'delete']);
+    Route::post('dm/jam-kerja/update', [jamKerjaController::class, 'update']);
 
-//bagian
-Route::get('/dm/bagian', [bagianController::class, 'index']);
-Route::get('/dm/bagian/tabelData', [bagianController::class, 'tabelData']);
-Route::post('/dm/bagian/insert', [bagianController::class, 'insert']);
-Route::post('/dm/bagian/delete', [bagianController::class, 'delete']);
-Route::post('/dm/bagian/update', [bagianController::class, 'update']);
-Route::get('/dm/bagian/selectBagian', [bagianController::class, 'selectBagian']);
+    //karyawan
+    Route::get('/dk/karyawan', [karyawanController::class, 'index']);
+    // Route::POST('/dk/karyawan/export', [karyawanController::class, 'export']); //sementara
+    Route::get('dk/karyawan/addData', [karyawanController::class, 'addData']);
+    Route::post('dk/karyawan/storeData', [karyawanController::class, 'storeData']);
+    Route::get('dk/karyawan/detail-data/{id}', [karyawanController::class, 'detailData'])->name('detail-data');
+    Route::get('dk/karyawan/edit-data/{id}', [karyawanController::class, 'editData'])->name('edit-data');
+    Route::get('dk/karyawan/update-data/{id}', [karyawanController::class, 'updateData'])->name('edit-data');
 
+    //potongan-cuti
+    Route::get('psn/potongan-cuti', [potonganController::class, 'index']);
+    Route::get('psn/potongan-cuti/tabelData', [potonganController::class, 'tabelData']);
+    Route::post('/psn/potongan-cuti/insert', [potonganController::class, 'insert']);
+    Route::post('/psn/potongan-cuti/delete', [potonganController::class, 'delete']);
+    Route::post('/psn/potongan-cuti/update', [potonganController::class, 'update']);
 
-//jabatan
-Route::get('/dm/jabatan', [jabatanController::class, 'index']);
-Route::get('/dm/jabatan/tabelData', [jabatanController::class, 'tabelData']);
-Route::post('/dm/jabatan/insert', [jabatanController::class, 'insert']);
-Route::post('/dm/jabatan/delete', [jabatanController::class, 'delete']);
-Route::post('/dm/jabatan/update', [jabatanController::class, 'update']);
-ROute::get('/dm/jabatan/detailJabatan', [jabatanController::class, 'detailJabatan']);
+    //cuti
+    Route::get('psn/cuti', [cutiController::class, 'index']);
+    Route::get('psn/cuti/posting-cuti', [cutiController::class, 'postingCuti']);
+    Route::get('psn/cuti/tabel-cuti', [cutiController::class, 'tabelCuti']);
+    Route::get('psn/cuti/detail-data', [cutiController::class, 'detailData']);
+    Route::get('psn/cuti/detail-cuti', [cutiController::class, 'detailCuti']);
 
-//jam-kerja
-Route::get('dm/jam-kerja', [jamKerjaController::class, 'index']);
-Route::get('dm/jam-kerja/tabelData', [jamKerjaController::class, 'tabelData']);
-Route::post('/dm/jam-kerja/insert', [jamKerjaController::class, 'insert']);
-Route::post('/dm/jam-kerja/delete', [jamKerjaController::class, 'delete']);
-Route::post('dm/jam-kerja/update', [jamKerjaController::class, 'update']);
+    //hutangCuti
+    Route::get('psn/hutang-cuti', [hutangCutiController::class, 'index']);
+    Route::get('psn/hutang-cuti/posting-hutang', [hutangCutiController::class, 'postingHutang']);
+    Route::get('psn/hutang-cuti/tabel-hutang', [hutangCutiController::class, 'tabelHutang']);
+    Route::get('psn/hutang-cuti/detail-hutang', [hutangCutiController::class, 'detailHutang']);
 
-//karyawan
-Route::get('/dk/karyawan', [karyawanController::class, 'index']);
-// Route::POST('/dk/karyawan/export', [karyawanController::class, 'export']); //sementara
-Route::get('dk/karyawan/addData', [karyawanController::class, 'addData']);
-Route::post('dk/karyawan/storeData', [karyawanController::class, 'storeData']);
-Route::get('dk/karyawan/detail-data/{id}', [karyawanController::class, 'detailData'])->name('detail-data');
-Route::get('dk/karyawan/edit-data/{id}', [karyawanController::class, 'editData'])->name('edit-data');
-Route::get('dk/karyawan/update-data/{id}', [karyawanController::class, 'updateData'])->name('edit-data');
-
-//potongan-cuti
-Route::get('psn/potongan-cuti', [potonganController::class, 'index']);
-Route::get('psn/potongan-cuti/tabelData', [potonganController::class, 'tabelData']);
-Route::post('/psn/potongan-cuti/insert', [potonganController::class, 'insert']);
-Route::post('/psn/potongan-cuti/delete', [potonganController::class, 'delete']);
-Route::post('/psn/potongan-cuti/update', [potonganController::class, 'update']);
-
-//cuti
-Route::get('psn/cuti', [cutiController::class, 'index']);
-Route::get('psn/cuti/posting-cuti', [cutiController::class, 'postingCuti']);
-Route::get('psn/cuti/tabel-cuti', [cutiController::class, 'tabelCuti']);
-Route::get('psn/cuti/detail-data', [cutiController::class, 'detailData']);
-Route::get('psn/cuti/detail-cuti', [cutiController::class, 'detailCuti']);
-
-//hutangCuti
-Route::get('psn/hutang-cuti', [hutangCutiController::class, 'index']);
-Route::get('psn/hutang-cuti/posting-hutang', [hutangCutiController::class, 'postingHutang']);
-Route::get('psn/hutang-cuti/tabel-hutang', [hutangCutiController::class, 'tabelHutang']);
-Route::get('psn/hutang-cuti/detail-hutang', [hutangCutiController::class, 'detailHutang']);
-
-//absensi
-Route::get('psn/absensi', [absensiController::class, 'index']);
-Route::get('psn/absensi/detailData', [absensiController::class, 'detailData']);
-Route::get('psn/absensi/prosesAbsensi', [absensiController::class, 'prosesData']);
-Route::get('psn/absensi/dataIjin', [absensiController::class, 'dataIjin']);
-Route::get('psn/absensi/addStatus', [absensiController::class, 'addStatus']);
+    //absensi
+    Route::get('psn/absensi', [absensiController::class, 'index']);
+    Route::get('psn/absensi/detailData', [absensiController::class, 'detailData']);
+    Route::get('psn/absensi/prosesAbsensi', [absensiController::class, 'prosesData']);
+    Route::get('psn/absensi/dataIjin', [absensiController::class, 'dataIjin']);
+    Route::get('psn/absensi/addStatus', [absensiController::class, 'addStatus']);
+});
