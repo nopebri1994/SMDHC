@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\karyawanModel;
 use App\Models\cutiModel;
+use App\Models\detailCutiModel;
+use App\Models\hutangCutiModel;
 use App\Models\potonganCutiModel;
 use varHelper;
 
@@ -26,14 +28,18 @@ class cutiController extends Controller
         $karyawan = karyawanModel::whereMonth('tglMasuk', $m)->whereYear('tglMasuk', '<', $y)->get();
 
         foreach ($karyawan as $k) {
+            $hutang = 0;
             $tglMasuk = date_create($k->tglMasuk);
             $selisih = date_diff($now, $tglMasuk);
             $hasilCuti = varHelper::varCuti($selisih->y);
             $potonganTahunan = potonganCutiModel::where('tahunPotongan', $y)->sum('totalPotongan');
             $cekData = cutiModel::where('month', $m)->where('year', $y)->where('idKaryawan', $k->id)->first();
-
+            $cekHutang = hutangCutiModel::where('year', $y)->where('idKaryawan', $k->id)->first();
+            if (!empty($cekHutang)) {
+                $hutang = $cekHutang->ambilHutangCuti;
+            }
             if (empty($cekData)) {
-                $sisaCuti = $hasilCuti['hak'] - $potonganTahunan;
+                $sisaCuti = $hasilCuti['hak'] - $potonganTahunan - $hutang;
                 $tmpSave = [
                     'idKaryawan' => $k->id,
                     'jumlahCuti' => $sisaCuti,
@@ -88,10 +94,16 @@ class cutiController extends Controller
         $m = $cuti->month;
         $now = date_create(date('Y-m-d', strtotime("$y-$m-01")));
         $selisih = date_diff($now, $tglMasuk);
+        $detail = detailCutiModel::where('idKaryawan', $id)->where('tahun', $y)->get();
+        $potonganTahunan = potonganCutiModel::where('tahunPotongan', $y)->sum('totalPotongan');
+        $detailHutang = hutangCutiModel::where('idKaryawan', $id)->where('year', $y)->first();
 
         $data = [
             'vCuti'     => $cuti,
+            'detail'    => $detail,
             'masaKerja' => $selisih->y,
+            'potongan' => $potonganTahunan,
+            'hutang'    => $detailHutang,
         ];
 
         return view('cuti.detailCuti', $data);

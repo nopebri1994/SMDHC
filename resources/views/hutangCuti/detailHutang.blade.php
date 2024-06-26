@@ -25,3 +25,26 @@
         </div>
     </div>
 </div>
+<hr>
+<div class="col-md-12 mt-2">
+    <table class="table table-striped" width="100%" id="tbl">
+        <thead>
+            <tr>
+                <th width="5%">#</th>
+                <th>Tanggal Hutang Cuti</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($detail as $key => $d)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ varHelper::formatDate($d->tanggalIjin) }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $('#tbl').DataTable();
+</script>

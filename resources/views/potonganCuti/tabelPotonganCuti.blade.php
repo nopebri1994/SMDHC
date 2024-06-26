@@ -42,7 +42,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="5"><i>keterangan :</i>{{ $dt->keterangan }}</td>
+                <td colspan="5"><i>keterangan : &nbsp;</i>{{ $dt->keterangan }}</td>
             </tr>
         @endforeach
 

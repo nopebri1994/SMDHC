@@ -73,7 +73,7 @@
                                     <div class="row mt-2">
                                         <div class="col-md-4">Keterangan</div>
                                         <div class="col-md-8">
-                                            <textarea name="" id="ket" class="form-control" disabled></textarea>
+                                            <textarea name="" id="ket" rows="5" class="form-control" disabled></textarea>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
@@ -98,7 +98,13 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="col-md-7">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div id="dataIjin"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,8 +113,13 @@
 @endsection
 @section('js')
     <script>
+        $(document).ready(function() {
+            dataIjin();
+        })
+
         document.getElementById('kodeIjin').onchange = () => {
             $('#ket').val('');
+            $('#year').val('');
             document.getElementById('btnSave').disabled = false;
             let kode = $('#kodeIjin').val();
             if (kode == 'AL' || kode == 'AD') {
@@ -122,6 +133,7 @@
 
         document.getElementById('nik').oninput = () => {
             $('#ket').val('');
+            $('#year').val('');
             let nik = $('#nik').val();
             getDetail(nik);
         }
@@ -180,12 +192,92 @@
             })
         }
 
+        let reset = () => {
+            $('#awal').val('');
+            $('#akhir').val('');
+            $('#idKaryawan').val('');
+            $('#kodeIjin').val('');
+            $('#nik').val('');
+            $('#ket').val('');
+            $('#year').val('');
+            document.getElementById('year').disabled = true;
+            document.getElementById('btnSave').disabled = true;
+            $('#nama').val('');
+        }
+
         document.getElementById('btnSave').onclick = () => {
             let awal = $('#awal').val();
+            let akhir = $('#akhir').val();
+            let id = $('#idKaryawan').val();
+            let kode = $('#kodeIjin').val();
+            let year = $('#year').val();
+
             if (awal == '') {
                 flasher.error('Tanggal Harus diisi')
                 return;
+                php
             }
+
+            let data = {
+                'id': id,
+                'kode': kode,
+                'y': year,
+                'awal': awal,
+                'akhir': akhir
+            }
+
+            $.ajax({
+                beforeSend: function() {
+                    openLoader();
+                },
+                type: 'get',
+                url: 'absensi/prosesAbsensi',
+                data: data,
+                success: function(sdata) {
+                    let obj = JSON.parse(sdata);
+                    if (obj.status == 0) {
+                        flasher.error(obj.message);
+                    } else {
+                        flasher.success(obj.message);
+                    }
+                    reset();
+                    dataIjin();
+                    closeLoader();
+                },
+                error: function(error) {
+                    flasher.error('Server Eror')
+                    closeLoader();
+                }
+            })
+        }
+        let dataIjin = () => {
+            $('#dataIjin').load('absensi/dataIjin');
+        }
+        let updateStatus = (x) => {
+            let status = document.getElementById('status' + x).checked;
+            if (status == true) {
+                addStatus(x, 1);
+            } else {
+                addStatus(x, 0);
+            }
+        }
+
+        let addStatus = (x, y) => {
+            let data = {
+                'id': x,
+                'status': y
+            }
+            $.ajax({
+                type: 'get',
+                url: 'absensi/addStatus',
+                data: data,
+                success: function(sdata) {
+                    flasher.success('update status');
+                },
+                error: function(error) {
+                    flasher.error('server Not Found');
+                }
+            })
         }
     </script>
 @endsection

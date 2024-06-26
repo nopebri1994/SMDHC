@@ -75,7 +75,7 @@
                                 class="nav-link {{ request()->is('psn/absensi') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Proses Absensi</p>
-                                <span class="right badge badge-danger">P</span>
+                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -111,7 +111,7 @@
                                 class="nav-link {{ request()->is('psn/hutang-cuti') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Hutang Cuti Karyawan</p>
-                                <span class="right badge badge-danger">P</span>
+                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                         <li class="nav-item">

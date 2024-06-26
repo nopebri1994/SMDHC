@@ -2,7 +2,8 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Nama Karywan</th>
+            <th>NIK</th>
+            <th>Nama Karyawan</th>
             <th>Tanggal Masuk</th>
             <th>Maksimal Hutang</th>
             <th>Expired</th>
@@ -13,11 +14,12 @@
         @foreach ($vCuti as $key => $c)
             <tr>
                 <td>{{ $key + 1 }}</td>
-                <td>{{ $c->karyawan->namaKaryawan }}</td>
+                <td>{{ $c->karyawan->nikKerja }}</td>
+                <td width="20%">{{ $c->karyawan->namaKaryawan }}</td>
                 <td>{{ varHelper::formatDate($c->karyawan->tglMasuk) }}</td>
-                <td class="text-center">{{ $c->jumlahHutangCuti }}</td>
+                <td class="text-center" width="10%">{{ $c->jumlahHutangCuti }}</td>
                 <td>{{ varHelper::formatDate($c->expired) }}</td>
-                <td width="35%"> <i>{{ $c->keterangan }}</i></td>
+                <td width="25%"> <i>{{ $c->keterangan }}</i></td>
             </tr>
         @endforeach
     </tbody>

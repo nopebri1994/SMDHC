@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Nama Karywan</th>
+            <th>Nama Karyawan</th>
             <th>Tanggal Masuk</th>
             <th>Hak Cuti</th>
             <th>Keterangan</th>

@@ -103,3 +103,6 @@ Route::get('psn/hutang-cuti/detail-hutang', [hutangCutiController::class, 'detai
 //absensi
 Route::get('psn/absensi', [absensiController::class, 'index']);
 Route::get('psn/absensi/detailData', [absensiController::class, 'detailData']);
+Route::get('psn/absensi/prosesAbsensi', [absensiController::class, 'prosesData']);
+Route::get('psn/absensi/dataIjin', [absensiController::class, 'dataIjin']);
+Route::get('psn/absensi/addStatus', [absensiController::class, 'addStatus']);

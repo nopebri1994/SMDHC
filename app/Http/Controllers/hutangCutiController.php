@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\detailHutangCutiModel;
 use App\Models\hutangCutiModel;
 use App\Models\karyawanModel;
 use App\Models\potonganCutiModel;
@@ -70,9 +71,11 @@ class hutangCutiController extends Controller
         $m = $cuti->month;
         $now = date_create(date('Y-m-d', strtotime("$y-$m-01")));
         $selisih = date_diff($now, $tglMasuk);
+        $detail = detailHutangCutiModel::where('idKaryawan', $id)->where('tahun', $y)->get();
 
         $data = [
             'vCuti'     => $cuti,
+            'detail'    => $detail,
             'masaKerjaTahun' => $selisih->y,
             'masaKerjaBulan' => $selisih->m,
         ];
