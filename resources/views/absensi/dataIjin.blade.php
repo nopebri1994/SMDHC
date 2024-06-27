@@ -21,19 +21,21 @@
                     <td>{{ $a->keteranganIjin->kode }}</td>
                     <td>{{ varHelper::formatDate($a->tanggalIjin) }}</td>
                     <td>
-                        @if ($a->status == 0)
-                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                <input type="checkbox" class="custom-control-input" id="status{{ $a->id }}"
-                                    onchange="updateStatus({{ $a->id }})">
-                                <label class="custom-control-label" for="status{{ $a->id }}"></label>
-                            </div>
-                        @else
-                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                <input type="checkbox" class="custom-control-input" id="status{{ $a->id }}"
-                                    onchange="updateStatus({{ $a->id }})" checked>
-                                <label class="custom-control-label" for="status{{ $a->id }}"></label>
-                            </div>
-                        @endif
+                        @can('hc')
+                            @if ($a->status == 0)
+                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" class="custom-control-input" id="status{{ $a->id }}"
+                                        onchange="updateStatus({{ $a->id }})">
+                                    <label class="custom-control-label" for="status{{ $a->id }}"></label>
+                                </div>
+                            @else
+                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" class="custom-control-input" id="status{{ $a->id }}"
+                                        onchange="updateStatus({{ $a->id }})" checked>
+                                    <label class="custom-control-label" for="status{{ $a->id }}"></label>
+                                </div>
+                            @endif
+                        @endcan
                     </td>
                 </tr>
             @endforeach

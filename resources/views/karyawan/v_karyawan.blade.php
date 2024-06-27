@@ -48,13 +48,15 @@
                                 <input type="file" name="file">
                                 <button>export</button>
                             </form> --}}
+                            @can('hc')
+                                <div class="d-flex  justify-content-end">
 
-                            <div class="d-flex  justify-content-end">
+                                    <a href="{{ URL::to('/') }}/dk/karyawan/addData" class="btn-sm btn-primary"><i
+                                            class="fa fa-plus"></i>
+                                        Add Data</a>
+                                </div>
+                            @endcan
 
-                                <a href="{{ URL::to('/') }}/dk/karyawan/addData" class="btn-sm btn-primary"><i
-                                        class="fa fa-plus"></i>
-                                    Add Data</a>
-                            </div>
                             <div class="mt-3">
                                 @if (session('status'))
                                     <div class="alert alert-dismissible fade show" style="background-color: #bee6ff">
@@ -112,8 +114,10 @@
                                                                 <a class="dropdown-item"
                                                                     href="{{ URL::to("dk/karyawan/detail-data/$k->uuid") }}">Detail
                                                                     Data</a>
-                                                                <a class="dropdown-item"
-                                                                    href="{{ URL::to("dk/karyawan/edit-data/$k->uuid") }}">Edit</a>
+                                                                @can('hc')
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ URL::to("dk/karyawan/edit-data/$k->uuid") }}">Edit</a>
+                                                                @endcan
                                                                 {{-- <a class="dropdown-item" href="#">Delete</a> --}}
                                                             </div>
                                                         </div>
@@ -139,7 +143,6 @@
         $(document).ready(function() {
             alert();
         })
-
         let alert = () => {
             let x = document.getElementById("alert");
             setTimeout(() => {

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\karyawanModel;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class loginController extends Controller
 {
@@ -18,31 +21,27 @@ class loginController extends Controller
         $nik = $request->nik;
         $pass = $request->pass;
 
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'nik' => 'required',
-                'pass' => 'required',
-            ],
-            $messages = [
-                'nik.required' => 'Input data tidak boleh Kosong.',
-                'pass.required' => 'Input data tidak boleh Kosong.',
-            ]
-        )->validate();
+        $credentials = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
 
-        if ($nik == 'a' and $pass == 'a') {
-            $request->session()->put('statusLogin', 1);
-            return redirect('/');
-        } else {
-            return redirect()->back();
+        if (Auth::attempt($credentials)) {
+
+            $request->session()->regenerate();
+            return redirect()->intended('/')->with('status', 'Selamat Datang di halaman SMDHC');
         }
+        return redirect('/login');
     }
 
     function logout()
     {
-        if (Session::has('statusLogin')) {
-            Session::pull('statusLogin');
-            return redirect('login');
-        }
+        Auth::logout();
+
+        request()->session()->invalidate();
+
+        request()->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }

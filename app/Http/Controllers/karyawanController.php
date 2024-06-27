@@ -14,11 +14,17 @@ use App\Models\karyawanModel;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 
+
+
 class karyawanController extends Controller
 {
     public function index()
     {
-        $karyawan   = karyawanModel::orderBy('nikKerja')->paginate(10);
+        if (auth()->user()->role == '5') {
+            $karyawan   = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->paginate(10);
+        } else {
+            $karyawan   = karyawanModel::orderBy('nikKerja')->paginate(10);
+        }
         $data = [
             'title'     => 'Daftar Karyawan',
             'karyawan'  => $karyawan,

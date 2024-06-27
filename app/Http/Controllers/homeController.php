@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\karyawanModel;
+use Illuminate\Support\Facades\Gate;
 
 class homeController extends Controller
 {
@@ -14,6 +15,7 @@ class homeController extends Controller
             'title' => 'Halaman Depan SMDHC',
             'countEmployee' => $count,
         ];
+
         return view('home', $data);
     }
 }

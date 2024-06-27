@@ -14,7 +14,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Nopebri Ade Candra</a>
+                <a href="#" class="d-block">{{ auth()->user()->karyawan->namaKaryawan }}</a>
             </div>
         </div>
 
@@ -84,134 +84,160 @@
                                 <p>Absensi Harian</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Sync Mesin Absen</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/psn/potongan-cuti"
-                                class="nav-link {{ request()->is('psn/potongan-cuti') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Potongan Cuti Tahunan</p>
-                                <span class="right badge badge-success">A</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/psn/cuti"
-                                class="nav-link {{ request()->is('psn/cuti') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Cuti Karyawan</p>
-                                <span class="right badge badge-danger">P</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/psn/hutang-cuti"
-                                class="nav-link {{ request()->is('psn/hutang-cuti') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Hutang Cuti Karyawan</p>
-                                <span class="right badge badge-success">A</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Kontrak Karyawan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Penghargaan Masa Kerja</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Surat Peringatan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Advance</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item {{ request()->is('dm/*') ? 'menu-is-opening menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('dm/*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-database"></i>
-                        <p>
-                            Data Master
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/dm/perusahaan"
-                                class="nav-link {{ request()->is('dm/perusahaan') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Perusahaan</p>
-                                <span class="right badge badge-success">A</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/dm/departemen"
-                                class="nav-link {{ request()->is('dm/departemen') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Departemen</p>
-                                <span class="right badge badge-success">A</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/dm/bagian"
-                                class="nav-link {{ request()->is('dm/bagian') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Bagian</p>
-                                <span class="right badge badge-success">A</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/dm/jabatan"
-                                class="nav-link nav-link {{ request()->is('dm/jabatan') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Jabatan</p>
-                                <span class="right badge badge-success">A</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/dm/keterangan-ijin"
-                                class="nav-link {{ request()->is('dm/keterangan-ijin') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Keterangan Ijin
+                        @can('hc')
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sync Mesin Absen</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/psn/potongan-cuti"
+                                    class="nav-link {{ request()->is('psn/potongan-cuti') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Potongan Cuti Tahunan</p>
                                     <span class="right badge badge-success">A</span>
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/dm/jam-kerja"
-                                class="nav-link {{ request()->is('dm/jam-kerja') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Jam Kerja</p>
-                                <span class="right badge badge-success">A</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Mesin Absen</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Hari Libur</p>
-                            </a>
-                        </li>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/psn/cuti"
+                                    class="nav-link {{ request()->is('psn/cuti') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Cuti Karyawan</p>
+                                    <span class="right badge badge-danger">P</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/psn/hutang-cuti"
+                                    class="nav-link {{ request()->is('psn/hutang-cuti') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Hutang Cuti Karyawan</p>
+                                    <span class="right badge badge-success">A</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Kontrak Karyawan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Penghargaan Masa Kerja</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Surat Peringatan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Advance</p>
+                                </a>
+                            </li>
+                        @endcan
                     </ul>
                 </li>
+                @can('hc')
+                    <li class="nav-item {{ request()->is('dm/*') ? 'menu-is-opening menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('dm/*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-database"></i>
+                            <p>
+                                Data Master
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/dm/perusahaan"
+                                    class="nav-link {{ request()->is('dm/perusahaan') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Perusahaan</p>
+                                    <span class="right badge badge-success">A</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/dm/departemen"
+                                    class="nav-link {{ request()->is('dm/departemen') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Departemen</p>
+                                    <span class="right badge badge-success">A</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/dm/bagian"
+                                    class="nav-link {{ request()->is('dm/bagian') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Bagian</p>
+                                    <span class="right badge badge-success">A</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/dm/jabatan"
+                                    class="nav-link nav-link {{ request()->is('dm/jabatan') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Jabatan</p>
+                                    <span class="right badge badge-success">A</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/dm/keterangan-ijin"
+                                    class="nav-link {{ request()->is('dm/keterangan-ijin') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Keterangan Ijin
+                                        <span class="right badge badge-success">A</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/dm/jam-kerja"
+                                    class="nav-link {{ request()->is('dm/jam-kerja') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Jam Kerja</p>
+                                    <span class="right badge badge-success">A</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Mesin Absen</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Hari Libur</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
+                @can('admin')
+                    <li class="nav-item  {{ request()->is('admin/*') ? 'menu-is-opening menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('admin/*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>
+                                Settings
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/admin/users"
+                                    class="nav-link  {{ request()->is('admin/users') ? 'active' : '' }}
+                                {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Daftar Pengguna</p>
+                                    <span class="right badge badge-danger">P</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
             </ul>
         </nav>
     </div>

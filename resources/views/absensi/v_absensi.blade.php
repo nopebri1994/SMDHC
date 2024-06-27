@@ -21,84 +21,92 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
-                        <div class="col-md-5">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4">Nomor Kerja</div>
-                                        <div class="col-md-4">
-                                            <input type="text" id="nik" class="form-control">
-                                            <input type="hidden" id="idKaryawan" class="form-control">
+                        @can('hc')
+                            <div class="col-md-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">Nomor Kerja</div>
+                                            <div class="col-md-4">
+                                                <input type="text" id="nik" class="form-control">
+                                                <input type="hidden" id="idKaryawan" class="form-control">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-4">Nama Karyawan</div>
-                                        <div class="col-md-7">
-                                            <input type="text" id="nama" class="form-control" disabled>
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">Nama Karyawan</div>
+                                            <div class="col-md-7">
+                                                <input type="text" id="nama" class="form-control" disabled>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-4">Keterangan Ijin</div>
-                                        <div class="col-md-6">
-                                            <select name="" id="kodeIjin" class="form-control">
-                                                <option value="">--- pilih data ---</option>
-                                                @foreach ($ket as $k)
-                                                    <option value="{{ $k->kode }}">{{ $k->kode }} |
-                                                        {{ $k->keterangan }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">Keterangan Ijin</div>
+                                            <div class="col-md-6">
+                                                <select name="" id="kodeIjin" class="form-control">
+                                                    <option value="">--- pilih data ---</option>
+                                                    @foreach ($ket as $k)
+                                                        <option value="{{ $k->kode }}">{{ $k->kode }} |
+                                                            {{ $k->keterangan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-4">Tanggal Ijin *
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">Tanggal Ijin *
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="date" name="awal" id="awal" class="form-control">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="date" name="akhir" id="akhir" class="form-control">
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input type="date" name="awal" id="awal" class="form-control">
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">Tahun Cuti / Pemotongan Cuti **</div>
+                                            <div class="col-md-8">
+                                                <select name="year" class="form-control " id="year" disabled>
+                                                    <option value="">--- pilih data ---</option>
+                                                    @for ($i = 2023; $i < 2030; $i++)
+                                                        <option>{{ $i }}</option>
+                                                    @endfor
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input type="date" name="akhir" id="akhir" class="form-control">
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">Keterangan</div>
+                                            <div class="col-md-8">
+                                                <textarea name="" id="ket" rows="5" class="form-control" disabled></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-4">Tahun Cuti / Pemotongan Cuti **</div>
-                                        <div class="col-md-8">
-                                            <select name="year" class="form-control " id="year" disabled>
-                                                <option value="">--- pilih data ---</option>
-                                                @for ($i = 2023; $i < 2030; $i++)
-                                                    <option>{{ $i }}</option>
-                                                @endfor
-                                            </select>
+                                        <div class="row mt-2">
+                                            <div class="col-md-12">
+                                                <button class="btn btn-sm btn-block btn-info" id="btnSave" disabled><span
+                                                        class="fa fa-save"></span>
+                                                    Simpan Data</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-4">Keterangan</div>
-                                        <div class="col-md-8">
-                                            <textarea name="" id="ket" rows="5" class="form-control" disabled></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-12">
-                                            <button class="btn btn-sm btn-block btn-info" id="btnSave" disabled><span
-                                                    class="fa fa-save"></span>
-                                                Simpan Data</button>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-12">
-                                            <i style="color:red">Keterangan :
-                                                <br> *) Isi hanya satu kolom tanggal jika ijin dilakukan hanya 1 hari /
-                                                jika lebih dari 1 hari maka isi kolom tanggal ke dua (sampai dengan
-                                                tanggal).
-                                                <br>
-                                                **) Tahun cuti / pemotongan diisi jika keterangan ijin menggunakan kode AL
-                                                (Cuti Tahunan) / AD (Hutang Cuti).
-                                            </i>
+                                        <div class="row mt-2">
+                                            <div class="col-md-12">
+                                                <i style="color:red">Keterangan :
+                                                    <br> *) Isi hanya satu kolom tanggal jika ijin dilakukan hanya 1 hari /
+                                                    jika lebih dari 1 hari maka isi kolom tanggal ke dua (sampai dengan
+                                                    tanggal).
+                                                    <br>
+                                                    **) Tahun cuti / pemotongan diisi jika keterangan ijin menggunakan kode AL
+                                                    (Cuti Tahunan) / AD (Hutang Cuti).
+                                                </i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-7">
+                        @endcan
+                        @can('adminBagian')
+                            <div class="d-none" id="kodeIjin"></div>
+                            <div class="d-none" id="nik"></div>
+                            <div class="d-none" id="year"></div>
+                            <div class="d-none" id="btnSave"></div>
+                        @endcan
+                        <div class="{{ auth()->user()->role > 3 ? 'col-md-12' : 'col-md-7' }}">
                             <div class="card">
                                 <div class="card-body">
                                     <div id="dataIjin"></div>

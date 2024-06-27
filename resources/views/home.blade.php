@@ -15,7 +15,6 @@
         </div>
     </div>
 
-
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -51,4 +50,14 @@
 
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            @if (session('status'))
+                flasher.success('{{ session('status') }}');
+            @endif
+        })
+    </script>
 @endsection

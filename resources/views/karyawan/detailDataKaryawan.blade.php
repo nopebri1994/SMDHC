@@ -27,9 +27,11 @@
                                 <a href="{{ URL::to('/') }}/dk/karyawan" class="btn btn-danger"><i
                                         class="fas fa-backward"></i>
                                     Back</a>
-                                <a href="{{ URL::to('/') }}/dk/karyawan/edit-data/{{ $detailData->uuid }}"
-                                    class="btn btn-success"><i class="fas fa-update"></i> Edit Data
-                                    Karyawan</a>
+                                @can('hc')
+                                    <a href="{{ URL::to('/') }}/dk/karyawan/edit-data/{{ $detailData->uuid }}"
+                                        class="btn btn-success"><i class="fas fa-update"></i> Edit Data
+                                        Karyawan</a>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body">
