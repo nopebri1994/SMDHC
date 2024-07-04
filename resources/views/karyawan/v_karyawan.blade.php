@@ -68,7 +68,7 @@
                                     </div>
                                 @endif
                                 <div class="table-responsive-md">
-                                    <table class="table table-sm table-bordered table-striped">
+                                    <table class="table table-sm table-bordered table-striped" id="tbl">
                                         <thead>
                                             <tr class="text-center align-middle" style="height: 3rem">
                                                 <th class="align-middle">#</th>
@@ -84,7 +84,7 @@
                                         <tbody>
                                             @foreach ($karyawan as $key => $k)
                                                 <tr>
-                                                    <td class="text-center">{{ $karyawan->firstItem() + $key }}</td>
+                                                    <td class="text-center">{{ $key + 1 }}</td>
                                                     <td>{{ $k->nikKerja }}</td>
                                                     <td>{{ $k->namaKaryawan }}</td>
                                                     <td>{{ $k->jabatan->namaJabatan }}</td>
@@ -126,9 +126,6 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    <div class="d-flex justify-content-end">
-                                        {{ $karyawan->links() }}
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -149,5 +146,6 @@
                 x.click();
             }, 10000);
         }
+        $('#tbl').DataTable();
     </script>
 @endsection

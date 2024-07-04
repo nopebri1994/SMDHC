@@ -7,7 +7,9 @@ use App\Models\cutiModel;
 use App\Models\detailCutiModel;
 use App\Models\detailHutangCutiModel;
 use App\Models\hutangCutiModel;
+use App\Models\karyawanModel;
 use App\Models\keteranganIjinModel;
+use App\Models\liburModel;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\RC4;
 use varHelper;
@@ -87,25 +89,40 @@ Bisa digunakan sebelum $exp",
     {
         $tglAwal = $request->awal;
         $tglAkhir = $request->akhir;
+        $bagian = karyawanModel::where('id', $request->id)->first();
+        $detailbagian = $bagian->bagian->kode;
 
         if ($tglAkhir == '') {
-            $parsing = [
-                'id'         => $request->id,
-                'kode'       => $request->kode,
-                'y'          => $request->y,
-                'tglAwal'    => $tglAwal,
-            ];
-            $json = $this->saveData($parsing);
-        } else {
-            while (strtotime($tglAwal) <= strtotime($tglAkhir)) {
+            $libur = liburModel::where('tanggalLibur', $tglAwal)->first();
+            $skipHoliday = date('l', strtotime($tglAwal));
+            if (empty($libur) and $skipHoliday != 'Sunday' or $detailbagian == 'SCT') {
                 $parsing = [
                     'id'         => $request->id,
                     'kode'       => $request->kode,
                     'y'          => $request->y,
                     'tglAwal'    => $tglAwal,
                 ];
-
                 $json = $this->saveData($parsing);
+            } else {
+                $sendToView = array(
+                    'status'        => 0,
+                    'message'       => 'Tanggal Yang dimasukan salah/ hari libur'
+                );
+                $json = json_encode($sendToView);
+            }
+        } else {
+            while (strtotime($tglAwal) <= strtotime($tglAkhir)) {
+                $libur = liburModel::where('tanggalLibur', $tglAwal)->first();
+                $skipHoliday = date('l', strtotime($tglAwal));
+                if (empty($libur) and $skipHoliday != 'Sunday' or $detailbagian == 'SCT') {
+                    $parsing = [
+                        'id'         => $request->id,
+                        'kode'       => $request->kode,
+                        'y'          => $request->y,
+                        'tglAwal'    => $tglAwal,
+                    ];
+                    $json = $this->saveData($parsing);
+                }
                 $tglAwal = date('Y-m-d', strtotime("+1 day", strtotime($tglAwal)));
             }
         }

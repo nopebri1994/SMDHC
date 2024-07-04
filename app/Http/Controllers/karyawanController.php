@@ -21,9 +21,9 @@ class karyawanController extends Controller
     public function index()
     {
         if (auth()->user()->role == '5') {
-            $karyawan   = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->paginate(10);
+            $karyawan   = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
         } else {
-            $karyawan   = karyawanModel::orderBy('nikKerja')->paginate(10);
+            $karyawan   = karyawanModel::orderBy('nikKerja')->get();
         }
         $data = [
             'title'     => 'Daftar Karyawan',
