@@ -1,12 +1,17 @@
+<style type="text/css">
+    .dt-search {
+        padding-bottom: 10px;
+    }
+</style>
 <div class="table-responsive">
-    <table class="table table-striped" width="100%" id="tbl">
-        <thead>
+    <table class="table table-striped nowrap" width="100%" id="tbl">
+        <thead class="pt-2">
             <tr>
                 {{-- <th>#</th> --}}
                 <th>NIK</th>
                 <th>Nama Karyawan</th>
                 <th>Bagian</th>
-                <th>Kode Ijin</th>
+                <th>Ijin</th>
                 <th>Tanggal</th>
                 <th>#</th>
             </tr>

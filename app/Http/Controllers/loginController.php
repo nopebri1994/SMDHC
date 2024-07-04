@@ -18,9 +18,6 @@ class loginController extends Controller
 
     function login(Request $request)
     {
-        $nik = $request->nik;
-        $pass = $request->pass;
-
         $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required',

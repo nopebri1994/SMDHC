@@ -10,6 +10,7 @@ use App\Http\Controllers\jabatanController;
 use App\Http\Controllers\jamKerjaController;
 use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\keteranganIjinController;
+use App\Http\Controllers\liburController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\perusahaanController;
 use App\Http\Controllers\potonganController;
@@ -114,6 +115,13 @@ Route::middleware('auth')->group(function () {
     Route::get('psn/absensi/prosesAbsensi', [absensiController::class, 'prosesData']);
     Route::get('psn/absensi/dataIjin', [absensiController::class, 'dataIjin']);
     Route::get('psn/absensi/addStatus', [absensiController::class, 'addStatus']);
+
+    //libur
+    Route::get('dm/libur', [liburController::class, 'index'])->middleware('can:hc');
+    Route::get('dm/libur/tabelData', [liburController::class, 'tabelData']);
+    Route::post('dm/libur/insert', [liburController::class, 'insert']);
+    Route::post('dm/libur/delete', [liburController::class, 'delete']);
+    Route::post('dm/libur/update', [liburController::class, 'update']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');

@@ -82,6 +82,7 @@
                             <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Absensi Harian</p>
+                                <span class="right badge badge-danger">P</span>
                             </a>
                         </li>
                         @can('hc')
@@ -207,10 +208,11 @@
                                     <p>Mesin Absen</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item {{ request()->is('dm/libur') ? 'active' : '' }}">
+                                <a href="{{ URL::to('/') }}/dm/libur" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Hari Libur</p>
+                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                         </ul>
