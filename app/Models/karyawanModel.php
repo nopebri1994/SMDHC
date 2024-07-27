@@ -47,7 +47,7 @@ class karyawanModel extends Model
 
     public function bagian(): BelongsTo
     {
-        return $this->belongsTo(bagianModel::class, 'idBagian');
+        return $this->belongsTo(bagianModel::class, 'idBagian')->withDefault();
     }
 
     public function perusahaan(): BelongsTo

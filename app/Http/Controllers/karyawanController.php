@@ -70,7 +70,11 @@ class karyawanController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         };
-
+        if ($request->bagian ==  'null') {
+            $tmp_bagian = null;
+        } else {
+            $tmp_bagian = $request->bagian;
+        }
         $tmpSave = [
             'nikKerja'          => $request->nikKerja,
             'namaKaryawan'      => strtoupper($request->nama),
@@ -79,7 +83,7 @@ class karyawanController extends Controller
             'fpId'              => $request->fpId,
             'idPerusahaan'      => $request->perusahaan,
             'idDepartemen'      => $request->departemen,
-            'idBagian'          => $request->bagian,
+            'idBagian'          => $tmp_bagian,
             'idJabatan'         => $request->jabatan,
             'statusKaryawan'    => $request->statusKaryawan,
             'idJamKerja'        => $request->jamKerja
@@ -112,6 +116,12 @@ class karyawanController extends Controller
                 ->withInput();
         };
 
+        if ($request->bagian ==  'null') {
+            $tmp_bagian = null;
+        } else {
+            $tmp_bagian = $request->bagian;
+        }
+
         $tmpSave = [
             'nikKerja'          => $request->nikKerja,
             'namaKaryawan'      => strtoupper($request->nama),
@@ -120,7 +130,7 @@ class karyawanController extends Controller
             'fpId'              => $request->fpId,
             'idPerusahaan'      => $request->perusahaan,
             'idDepartemen'      => $request->departemen,
-            'idBagian'          => $request->bagian,
+            'idBagian'          => $tmp_bagian,
             'idJabatan'         => $request->jabatan,
             'statusKaryawan'    => $request->statusKaryawan,
             'idJamKerja'        => $request->jamKerja

@@ -86,6 +86,7 @@ class bagianController extends Controller
     function selectBagian(Request $request)
     {
         $bagian = bagianModel::where('idDepartemen', $request->idDepartemen)->get();
+        echo "<option value='null'>-- none --</option>";
         foreach ($bagian as $b) {
             echo "<option value='$b->id'>$b->namaBagian</option>";
         }

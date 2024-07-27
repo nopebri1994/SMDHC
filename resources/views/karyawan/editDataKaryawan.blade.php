@@ -154,6 +154,7 @@
                                             </div>
                                             <div class="col-md-7">
                                                 <select name="bagian" id="bagian" class="form-control">
+                                                    <option value="null">-- none --</option>
                                                     @foreach ($bagian as $b)
                                                         <option value="{{ $b->id }}"
                                                             {{ $detailData->idBagian == $b->id ? 'selected' : '' }}>

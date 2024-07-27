@@ -27,6 +27,10 @@
 <script src="{{ URL::to('/') }}/assets/adminlte/js/bootstrap.min.js"></script>
 <script src="{{ URL::to('/') }}/assets/adminlte/js/dataTables.js"></script>
 <script src="{{ URL::to('/') }}/assets/adminlte/js/dataTables.bootstrap4.js"></script>
+<script src="{{ URL::to('/') }}/assets/adminlte/js/dataTables.responsive.js"></script>
+<script src="{{ URL::to('/') }}/assets/adminlte/js/responsive.dataTables.js"></script>
+
+
 {{-- end --}}
 <script src="{{ URL::to('/') }}/assets/js/my.js"></script>
 

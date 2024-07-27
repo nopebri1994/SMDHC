@@ -14,6 +14,7 @@
     {{-- datatable --}}
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/bootstrap.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/responsive.dataTables.css">
     {{-- end --}}
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/adminlte.min.css?v=3.2.0">
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/OverlayScrollbars.min.css">

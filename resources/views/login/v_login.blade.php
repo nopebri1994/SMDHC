@@ -28,7 +28,7 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
                 <form action="{{ URL::to('/') }}/login/prosesLogin" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                    @csrf <!-- {{ csrf_field() }} -->
                     <div class="input-group mb-3">
                         <input type="text" name="username"
                             class="form-control  {{ $errors->has('username') ? 'is-invalid' : '' }}"

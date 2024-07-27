@@ -134,12 +134,6 @@
                                     <p>Surat Peringatan</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Advance</p>
-                                </a>
-                            </li>
                         @endcan
                     </ul>
                 </li>
@@ -202,10 +196,11 @@
                                     <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item {{ request()->is('dm/mesinAbsensi') ? 'active' : '' }}">
+                                <a href="{{ URL::to('/') }}/dm/mesinAbsensi" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Mesin Absen</p>
+                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                             <li class="nav-item {{ request()->is('dm/libur') ? 'active' : '' }}">
