@@ -22,3 +22,8 @@
 .text-light {
     color: darkred !important;
 }
+
+.btn_orange {
+    background-color: rgb(253, 126, 20);
+    color: #fff;
+}

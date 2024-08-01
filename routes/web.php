@@ -130,6 +130,9 @@ Route::middleware('auth')->group(function () {
     Route::post('dm/mesinAbsensi/insert', [mesinAbsensiController::class, 'insert']);
     Route::post('dm/mesinAbsensi/delete', [mesinAbsensiController::class, 'delete']);
     Route::post('dm/mesinAbsensi/update', [mesinAbsensiController::class, 'update']);
+    Route::get('psn/mesinAbsensi-sync', [mesinAbsensiController::class, 'sync']);
+    Route::get('psn/mesinAbsensi-sync/connect', [mesinAbsensiController::class, 'connect']);
+    Route::get('psn/mesinAbsensi-sync/tarikData', [mesinAbsensiController::class, 'tarikDataMesin']);
 
 
     //Pengguna

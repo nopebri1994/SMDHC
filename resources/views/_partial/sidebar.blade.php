@@ -1,6 +1,6 @@
 <aside class="main-sidebar main-sidebar-custom sidebar-light-orange elevation-4">
 
-    <a href="index3.html" class="brand-link bg-gray-dark">
+    <a href="#" class="brand-link bg-gray-dark">
         <img src="{{ URL::to('/') }}/assets/img/logo.png" alt="LMW Logo" class="brand-image elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">SDMHC</span>
@@ -87,9 +87,11 @@
                         </li>
                         @can('hc')
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="{{ URL::to('/') }}/psn/mesinAbsensi-sync"
+                                    class="nav-link {{ request()->is('psn/mesinAbsensi-sync') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Sync Mesin Absen</p>
+                                    <span class="right badge badge-danger">P</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -200,7 +202,7 @@
                                 <a href="{{ URL::to('/') }}/dm/mesinAbsensi" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Mesin Absen</p>
-                                    <span class="right badge badge-success">A</span>
+                                    <span class="right badge badge-success  ">A</span>
                                 </a>
                             </li>
                             <li class="nav-item {{ request()->is('dm/libur') ? 'active' : '' }}">

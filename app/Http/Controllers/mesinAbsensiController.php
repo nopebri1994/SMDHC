@@ -91,4 +91,94 @@ class mesinAbsensiController extends Controller
             'keterangan'    => $keterangan
         ]);
     }
+
+    function sync()
+    {
+        $data = [
+            'title' => 'Sinkoronisasi Data Mesin Absensi',
+            'data' => mesinAbsensiModel::all(),
+        ];
+        return view('mesinAbsensi.sync', $data);
+    }
+
+    function connect(Request $request)
+    {
+        $id = $request->id;
+        $mesin = mesinAbsensiModel::where('id', $id)->first();
+        $connect = $this->connectMesin($mesin->ipAddress, $mesin->key);
+        if ($connect) {
+            $sendToView = array(
+                'status' => 'Connected',
+            );
+        } else {
+            $sendToView = array(
+                'status' => 'not-Conected',
+            );
+        }
+        echo json_encode($sendToView);
+    }
+
+    function connectMesin($ip)
+    {
+        $connect = fsockopen($ip, "80", $errno, $errstr, 1);
+        if ($connect) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function tarikDataMesin(Request $request)
+    {
+        $id = $request->id;
+        $mesin = mesinAbsensiModel::where('id', $id)->first();
+        $connect = fsockopen($mesin->ipAddress, "80", $errno, $errstr, 1);
+        $saop_request = "<GetAttLog>
+                                    <ArgComKey xsi:type=\"xsd:integer\">" . $mesin->key . "<ArgComKey>
+                                    <Arg>
+                                        <PIN xsi:type=\"xsd:integer\">All</PIN>
+                                    </Arg>
+                              </GetAttLog>";
+        $newline = "\r\n";
+        fputs($connect, "POST /iWsService HTTP/1.0" . $newline);
+        fputs($connect, "Content-Type:text/xml" . $newline);
+        fputs($connect, "Content-Length: " . strlen($saop_request) . $newline . $newline);
+        fputs($connect, $saop_request . $newline);
+        $buffer = "";
+        while ($response = fgets($connect, 1024)) {
+            $buffer = $buffer . $response;
+        }
+        $buffer = $this->parse_data($buffer, "<GetAttLogResponse>", "</GetAttLogResponse>");
+        $buffer = explode("\r\n", $buffer);
+        $myfile = fopen("log/Mesin_Absensi/" . date("Y-m-d") . ".txt", "w");
+        for ($a = 1; $a < count($buffer); $a++) {
+            $row = $this->parse_data($buffer[$a], "<Row>", "</Row>");
+            $pin = $this->parse_data($row, "<PIN>", "</PIN>");
+            $datetime = $this->parse_data($row, "<DateTime>", "</DateTime>");
+            $date2 = date("Y-m-d", strtotime($datetime));
+            $date3 = date("d/m/y", strtotime($datetime));
+            $time2 = date("H:i", strtotime($datetime));
+            $txt = "001.$date3.$time2.$pin\n";
+            fwrite($myfile, $txt);
+        }
+        fclose($myfile);
+        echo "saved to ";
+        echo "<a href='http://localhost/SMDHC/public/log/Mesin_Absensi/" . date('Y-m-d') . ".txt'>file.txt</a>";
+    }
+
+
+    function parse_data($data, $p1, $p2)
+    {
+        $data = "" . $data;
+        $hasil = "";
+        $awal = strpos($data, $p1);
+        if ($awal != "") {
+            $akhir = strpos(strstr($data, $p1), $p2);
+            if ($akhir != "") {
+                $hasil = substr($data, $awal + strlen($p1), $akhir - strlen($p1));
+                // echo $hasil;
+            }
+        }
+        return $hasil;
+    }
 }
