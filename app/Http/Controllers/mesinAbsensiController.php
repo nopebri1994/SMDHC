@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\mesinAbsensiModel;
 use Illuminate\Support\Facades\Validator;
+use App\Models\absensiHarianModel;
+use App\Models\absensiModel;
 
 class mesinAbsensiController extends Controller
 {
@@ -131,9 +134,11 @@ class mesinAbsensiController extends Controller
     function tarikDataMesin(Request $request)
     {
         $id = $request->id;
+        $date = date("Y-m-d-H_i");
+        $tmp = [];
         $mesin = mesinAbsensiModel::where('id', $id)->first();
         $connect = fsockopen($mesin->ipAddress, "80", $errno, $errstr, 1);
-        $saop_request = "<GetAttLog>
+        $soap_request = "<GetAttLog>
                                     <ArgComKey xsi:type=\"xsd:integer\">" . $mesin->key . "<ArgComKey>
                                     <Arg>
                                         <PIN xsi:type=\"xsd:integer\">All</PIN>
@@ -142,15 +147,15 @@ class mesinAbsensiController extends Controller
         $newline = "\r\n";
         fputs($connect, "POST /iWsService HTTP/1.0" . $newline);
         fputs($connect, "Content-Type:text/xml" . $newline);
-        fputs($connect, "Content-Length: " . strlen($saop_request) . $newline . $newline);
-        fputs($connect, $saop_request . $newline);
+        fputs($connect, "Content-Length: " . strlen($soap_request) . $newline . $newline);
+        fputs($connect, $soap_request . $newline);
         $buffer = "";
         while ($response = fgets($connect, 1024)) {
             $buffer = $buffer . $response;
         }
         $buffer = $this->parse_data($buffer, "<GetAttLogResponse>", "</GetAttLogResponse>");
         $buffer = explode("\r\n", $buffer);
-        $myfile = fopen("log/Mesin_Absensi/" . date("Y-m-d") . ".txt", "w");
+        $myfile = fopen("log/Mesin_Absensi/$date.txt", "w");
         for ($a = 1; $a < count($buffer); $a++) {
             $row = $this->parse_data($buffer[$a], "<Row>", "</Row>");
             $pin = $this->parse_data($row, "<PIN>", "</PIN>");
@@ -158,14 +163,24 @@ class mesinAbsensiController extends Controller
             $date2 = date("Y-m-d", strtotime($datetime));
             $date3 = date("d/m/y", strtotime($datetime));
             $time2 = date("H:i", strtotime($datetime));
-            $txt = "001.$date3.$time2.$pin\n";
-            fwrite($myfile, $txt);
+            if ($pin != '') {
+                $tmp[] = [
+                    'idFinger' => $pin,
+                    'tanggalAbsen' => $date2,
+                    'jamAbsen' => $time2,
+                    'idMesin' => $id,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ];
+                $txt = "001.$date3.$time2.$pin\n";
+                fwrite($myfile, $txt);
+            }
         }
+        DB::table('absensiharian')->insert($tmp);
         fclose($myfile);
         echo "saved to ";
-        echo "<a href='http://localhost/SMDHC/public/log/Mesin_Absensi/" . date('Y-m-d') . ".txt'>file.txt</a>";
+        echo "<a href='http://localhost/SMDHC/public/log/Mesin_Absensi/$date.txt' target='_blank'>file.txt</a>";
     }
-
 
     function parse_data($data, $p1, $p2)
     {

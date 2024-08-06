@@ -27,7 +27,6 @@
                         <div class="card-body">
                             <div class="col-md-12">
                                 <div class="row">
-
                                     <div class="col-md-3">Nama Mesin</div>
                                     <div class="col-md-9">
                                         <select name="idMesin" id="idMesin" class="form-control">
@@ -35,6 +34,7 @@
                                                 <option value="{{ $l->id }}">{{ $l->namaMesin }}</option>
                                             @endforeach
                                         </select>
+                                        <input type="hidden" id="token" value={{ csrf_token() }}>
                                     </div>
                                 </div>
 
@@ -72,17 +72,19 @@
 
         document.getElementById('btnTarik').onclick = () => {
             let data = {
-                'id': $('#idMesin').val()
+                'id': $('#idMesin').val(),
+                "_token": $('#token').val(),
             }
             $.ajax({
                 beforeSend: openLoader('Tarik Data Absensi, Mohon Menunggu'),
-                type: 'get',
+                type: 'post',
                 url: 'mesinAbsensi-sync/tarikData',
                 data: data,
                 success: function(sdata) {
                     // let obj = JSON.parse(sdata);
                     $('#listView').html(sdata);
                     closeLoader();
+                    flasher.success("Data Berhasil Ditarik")
                 },
                 error: function(error) {
                     flasher.error("Mesin Absensi error, coba lagi")
@@ -97,7 +99,7 @@
                 'id': $('#idMesin').val()
             }
             $.ajax({
-                beforeSend: openLoader(),
+                beforeSend: openLoader('cek koneksi ke mesin absen'),
                 type: 'get',
                 url: 'mesinAbsensi-sync/connect',
                 data: data,
@@ -117,7 +119,8 @@
                     }
                 },
                 error: function(error) {
-                    alert('server not found')
+                    closeLoader();
+                    flasher.error("Server error")
                 }
             })
         }

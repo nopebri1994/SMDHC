@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\absensiController;
+use App\Http\Controllers\absensiHarianController;
 use App\Http\Controllers\bagianController;
 use App\Http\Controllers\cutiController;
 use App\Http\Controllers\departemenController;
@@ -130,9 +131,15 @@ Route::middleware('auth')->group(function () {
     Route::post('dm/mesinAbsensi/insert', [mesinAbsensiController::class, 'insert']);
     Route::post('dm/mesinAbsensi/delete', [mesinAbsensiController::class, 'delete']);
     Route::post('dm/mesinAbsensi/update', [mesinAbsensiController::class, 'update']);
+
+    //connectMesin/Tarik Data
     Route::get('psn/mesinAbsensi-sync', [mesinAbsensiController::class, 'sync']);
     Route::get('psn/mesinAbsensi-sync/connect', [mesinAbsensiController::class, 'connect']);
-    Route::get('psn/mesinAbsensi-sync/tarikData', [mesinAbsensiController::class, 'tarikDataMesin']);
+    Route::post('psn/mesinAbsensi-sync/tarikData', [mesinAbsensiController::class, 'tarikDataMesin']);
+
+    //absensi_harian
+    Route::get('psn/absensiHarian', [absensiHarianController::class, 'index'])->middleware('can:hc');
+    Route::get('psn/absensiHarian/list', [absensiHarianController::class, 'list']);
 
 
     //Pengguna

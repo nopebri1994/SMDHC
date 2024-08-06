@@ -21,9 +21,9 @@ class karyawanController extends Controller
     public function index()
     {
         if (auth()->user()->role == '5') {
-            $karyawan   = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
         } else {
-            $karyawan   = karyawanModel::orderBy('nikKerja')->get();
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->orderBy('nikKerja')->get();
         }
         $data = [
             'title'     => 'Daftar Karyawan',

@@ -79,7 +79,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ URL::to('/') }}/psn/absensiHarian"
+                                class="nav-link {{ request()->is('psn/absensiHarian') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Absensi Harian</p>
                                 <span class="right badge badge-danger">P</span>
