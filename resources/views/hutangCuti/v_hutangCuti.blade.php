@@ -247,7 +247,7 @@
                 }
                 if (+year != date.getFullYear()) {
                     flasher.error('Tahun posting Salah, Cek Input Data');
-                    $('#verifikasiPosting').modal('toggle');    
+                    $('#verifikasiPosting').modal('toggle');
                     return;
                 }
 

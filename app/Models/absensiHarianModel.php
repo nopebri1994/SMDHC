@@ -17,3 +17,4 @@ class absensiHarianModel extends Model
         'idMesin'
     ];
 }
+ 

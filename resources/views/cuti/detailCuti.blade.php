@@ -13,7 +13,11 @@
     <div class="row bg-info">
         <div class="col-md-4">Potongan Hutang Cuti Tahun 2024</div>
         <div class="col-md-8">
-            <strong>{{ $hutang->ambilHutangCuti }} Hari</strong>
+            @if (!empty($hutang->ambilHutangCuti))
+                <strong> {{ $hutang->ambilHutangCuti }} Hari</strong>
+            @else
+                <strong> 0 Hari</strong>
+            @endif
         </div>
     </div>
     <div class="row">

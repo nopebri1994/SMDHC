@@ -133,66 +133,105 @@ Bisa digunakan sebelum $exp",
     function saveData($parsing)
     {
         $idKode = keteranganIjinModel::where('kode', $parsing['kode'])->first();
-        if ($parsing['kode'] == 'AL') {
-            $getData = cutiModel::where('year', $parsing['y'])->where('idKaryawan', $parsing['id'])->first();
-            if ($getData->sisaCuti < 1) {
+        $cek = absensiModel::where('idKaryawan', $parsing['id'])->where('tanggalIjin', $parsing['tglAwal'])->first();
+        if (empty($cek)) {
+            if ($parsing['kode'] == 'AL') {
+                $getData = cutiModel::where('year', $parsing['y'])->where('idKaryawan', $parsing['id'])->first();
+                if ($getData->sisaCuti < 1) {
+                    $sendToView = array(
+                        'status'        => 0,
+                        'message'       => 'Data Cuti Habis'
+                    );
+                    return json_encode($sendToView);
+                } {
 
-                $sendToView = array(
-                    'status'        => 0,
-                    'message'       => 'Data Cuti Habis'
-                );
-                return json_encode($sendToView);
-            } {
+                    $tmpSaveCuti = [
+                        'ambilCuti'  => $getData->ambilCuti + 1,
+                        'sisaCuti'  => $getData->sisaCuti - 1,
+                    ];
+                    cutiModel::where('id', $getData->id)->update($tmpSaveCuti);
 
-                $tmpSaveCuti = [
-                    'ambilCuti'  => $getData->ambilCuti + 1,
-                    'sisaCuti'  => $getData->sisaCuti - 1,
-                ];
-                cutiModel::where('id', $getData->id)->update($tmpSaveCuti);
+                    $tmpSaveDetail = [
+                        'idKaryawan'        => $parsing['id'],
+                        'tanggalIjin'       => $parsing['tglAwal'],
+                        'tahun'             => $parsing['y']
+                    ];
+                    detailCutiModel::create($tmpSaveDetail);
 
-                $tmpSaveDetail = [
-                    'idKaryawan'        => $parsing['id'],
-                    'tanggalIjin'       => $parsing['tglAwal'],
-                    'tahun'             => $parsing['y']
-                ];
-                detailCutiModel::create($tmpSaveDetail);
+                    $tmpSave = [
+                        'idKaryawan'        => $parsing['id'],
+                        'idKeteranganIjin'  => $idKode->id,
+                        'tanggalIjin'       => $parsing['tglAwal'],
+                        'status'            => '0'
+                    ];
+                    absensiModel::create($tmpSave);
 
-                $tmpSave = [
-                    'idKaryawan'        => $parsing['id'],
-                    'idKeteranganIjin'  => $idKode->id,
-                    'tanggalIjin'       => $parsing['tglAwal'],
-                    'status'            => '0'
-                ];
-                absensiModel::create($tmpSave);
+                    $sendToView = array(
+                        'status'        => 1,
+                        'message'       => 'Data Berhasil Di Proses'
+                    );
+                    return json_encode($sendToView);
+                }
+            } elseif ($parsing['kode'] == 'AD') {
+                $getData = hutangCutiModel::where('year', $parsing['y'])->where('idKaryawan', $parsing['id'])->first();
+                if ($getData->ambilHutangCuti == $getData->jumlahHutangCuti or  strtotime($parsing['tglAwal']) > strtotime($getData->expired)) {
+                    $sendToView = array(
+                        'status'        => 0,
+                        'message'       => 'Hutang Cuti sudah digunakan semua/expired'
+                    );
+                    return json_encode($sendToView);
+                } else {
 
-                $sendToView = array(
-                    'status'        => 1,
-                    'message'       => 'Data Berhasil Di Proses'
-                );
-                return json_encode($sendToView);
-            }
-        } elseif ($parsing['kode'] == 'AD') {
-            $getData = hutangCutiModel::where('year', $parsing['y'])->where('idKaryawan', $parsing['id'])->first();
-            if ($getData->ambilHutangCuti == $getData->jumlahHutangCuti or  strtotime($parsing['tglAwal']) > strtotime($getData->expired)) {
-                $sendToView = array(
-                    'status'        => 0,
-                    'message'       => 'Hutang Cuti sudah digunakan semua/expired'
-                );
-                return json_encode($sendToView);
+                    $tmpSaveHutangCuti = [
+                        'ambilHutangCuti'  => $getData->ambilHutangCuti + 1,
+                    ];
+                    hutangCutiModel::where('id', $getData->id)->update($tmpSaveHutangCuti);
+
+                    $tmpSaveDetail = [
+                        'idKaryawan'        => $parsing['id'],
+                        'tanggalIjin'       => $parsing['tglAwal'],
+                        'tahun'             => $parsing['y']
+                    ];
+                    detailHutangCutiModel::create($tmpSaveDetail);
+
+                    $tmpSave = [
+                        'idKaryawan'        => $parsing['id'],
+                        'idKeteranganIjin'  => $idKode->id,
+                        'tanggalIjin'       => $parsing['tglAwal'],
+                        'status'            => '0'
+                    ];
+                    absensiModel::create($tmpSave);
+                    $sendToView = array(
+                        'status'        => 1,
+                        'message'       => 'Data Berhasil Di Proses'
+                    );
+                    return json_encode($sendToView);
+                }
+            } elseif ($parsing['kode'] == 'ISD') {
+                $cm = date('m', strtotime($parsing['tglAwal']));
+                $cy = date('Y', strtotime($parsing['tglAwal']));
+                $cekISD = absensiModel::where('idKaryawan', $parsing['id'])->whereMonth('tanggalIjin', $cm)->whereYear('tanggalIjin', $cy)->first();
+                if (empty($cekISD)) {
+                    $tmpSave = [
+                        'idKaryawan'        => $parsing['id'],
+                        'idKeteranganIjin'  => $idKode->id,
+                        'tanggalIjin'       => $parsing['tglAwal'],
+                        'status'            => '0'
+                    ];
+                    absensiModel::create($tmpSave);
+                    $sendToView = array(
+                        'status'        => 1,
+                        'message'       => 'Data Berhasil Di Proses'
+                    );
+                    return json_encode($sendToView);
+                } else {
+                    $sendToView = array(
+                        'status'        => 0,
+                        'message'       => 'Sudah Melakukan ISD, Cek kembali data ijin'
+                    );
+                    return json_encode($sendToView);
+                }
             } else {
-
-                $tmpSaveHutangCuti = [
-                    'ambilHutangCuti'  => $getData->ambilHutangCuti + 1,
-                ];
-                hutangCutiModel::where('id', $getData->id)->update($tmpSaveHutangCuti);
-
-                $tmpSaveDetail = [
-                    'idKaryawan'        => $parsing['id'],
-                    'tanggalIjin'       => $parsing['tglAwal'],
-                    'tahun'             => $parsing['y']
-                ];
-                detailHutangCutiModel::create($tmpSaveDetail);
-
                 $tmpSave = [
                     'idKaryawan'        => $parsing['id'],
                     'idKeteranganIjin'  => $idKode->id,
@@ -207,16 +246,9 @@ Bisa digunakan sebelum $exp",
                 return json_encode($sendToView);
             }
         } else {
-            $tmpSave = [
-                'idKaryawan'        => $parsing['id'],
-                'idKeteranganIjin'  => $idKode->id,
-                'tanggalIjin'       => $parsing['tglAwal'],
-                'status'            => '0'
-            ];
-            absensiModel::create($tmpSave);
             $sendToView = array(
-                'status'        => 1,
-                'message'       => 'Data Berhasil Di Proses'
+                'status'        => 0,
+                'message'       => 'Data Ijin Sudah tersedia'
             );
             return json_encode($sendToView);
         }
@@ -237,5 +269,35 @@ Bisa digunakan sebelum $exp",
             'status' => $request->status,
         ];
         absensiModel::where('id', $request->id)->update($data);
+    }
+
+    function deleteStatus(Request $request)
+    {
+        $id = $request->id;
+        $ket = $request->ket;
+        $tgl = $request->tgl;
+        $idKaryawan = $request->idKaryawan;
+        if ($ket == 'AL') {
+            $cekCuti = detailCutiModel::where('tanggalIjin', $tgl)->where('idKaryawan', $idKaryawan)->first();
+            $dataCuti = cutiModel::where('idKaryawan', $idKaryawan)->where('year', $cekCuti['tahun'])->first();
+            $dataCutiUpdate = [
+                'ambilCuti' => $dataCuti->ambilCuti - 1,
+                'sisaCuti'  => $dataCuti->sisaCuti + 1
+            ];
+            cutiModel::where('id', $dataCuti->id)->update($dataCutiUpdate);
+            detailCutiModel::where('tanggalIjin', $tgl)->where('idKaryawan', $idKaryawan)->delete();
+            absensiModel::where('id', $id)->delete();
+        } elseif ($ket == 'AD') {
+            $cekHutangCuti = detailHutangCutiModel::where('tanggalIjin', $tgl)->where('idKaryawan', $idKaryawan)->first();
+            $dataHutangCuti = hutangCutiModel::where('idKaryawan', $idKaryawan)->where('year', $cekHutangCuti['tahun'])->first();
+            $dataHutangCutiUpdate = [
+                'ambilHutangCuti' => $dataHutangCuti->ambilHutangCuti - 1,
+            ];
+            hutangCutiModel::where('id', $dataHutangCuti['id'])->update($dataHutangCutiUpdate);
+            detailHutangCutiModel::where('tanggalIjin', $tgl)->where('idKaryawan', $idKaryawan)->delete();
+            absensiModel::where('id', $id)->delete();
+        } else {
+            absensiModel::where('id', $id)->delete();
+        }
     }
 }

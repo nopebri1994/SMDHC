@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">{{ $title }}</h1>
+                    {{-- <h1 class="m-0">{{ $title }}</h1> --}}
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -100,12 +100,6 @@
                                 </div>
                             </div>
                         @endcan
-                        @can('adminBagian')
-                            <div class="d-none" id="kodeIjin"></div>
-                            <div class="d-none" id="nik"></div>
-                            <div class="d-none" id="year"></div>
-                            <div class="d-none" id="btnSave"></div>
-                        @endcan
                         <div class="{{ auth()->user()->role > 3 ? 'col-md-12' : 'col-md-7' }}">
                             <div class="card">
                                 <div class="card-body">
@@ -125,27 +119,37 @@
             dataIjin();
         })
 
-        document.getElementById('kodeIjin').onchange = () => {
-            $('#ket').val('');
-            $('#year').val('');
-            document.getElementById('btnSave').disabled = false;
-            let kode = $('#kodeIjin').val();
-            if (kode == 'AL' || kode == 'AD') {
-                document.getElementById('year').disabled = false;
-                document.getElementById('btnSave').disabled = true;
-            } else {
-                document.getElementById('year').disabled = true;
+        @can('hc')
+            document.getElementById('kodeIjin').onchange = () => {
+                $('#ket').val('');
+                $('#year').val('');
                 document.getElementById('btnSave').disabled = false;
+                let kode = $('#kodeIjin').val();
+                if (kode == 'AL' || kode == 'AD') {
+                    document.getElementById('year').disabled = false;
+                    document.getElementById('btnSave').disabled = true;
+                } else {
+                    document.getElementById('year').disabled = true;
+                    document.getElementById('btnSave').disabled = false;
+                }
             }
-        }
 
-        document.getElementById('nik').oninput = () => {
-            $('#ket').val('');
-            $('#year').val('');
-            let nik = $('#nik').val();
-            getDetail(nik);
-        }
+            document.getElementById('nik').oninput = () => {
+                $('#ket').val('');
+                $('#year').val('');
+                let nik = $('#nik').val();
+                getDetail(nik);
+            }
 
+            document.getElementById('year').onchange = () => {
+                $('#ket').val('');
+                getKet();
+            }
+
+            document.getElementById('btnSave').onclick = () => {
+                saveData()
+            }
+        @endcan
         let getDetail = (x) => {
             let data = {
                 'nik': x,
@@ -166,10 +170,6 @@
             })
         }
 
-        document.getElementById('year').onchange = () => {
-            $('#ket').val('');
-            getKet();
-        }
 
         let getKet = () => {
             let id = $('#idKaryawan').val();
@@ -213,7 +213,7 @@
             $('#nama').val('');
         }
 
-        document.getElementById('btnSave').onclick = () => {
+        let saveData = () => {
             let awal = $('#awal').val();
             let akhir = $('#akhir').val();
             let id = $('#idKaryawan').val();
@@ -283,6 +283,32 @@
                     flasher.success('update status');
                 },
                 error: function(error) {
+                    flasher.error('server Not Found');
+                }
+            })
+        }
+
+        let deleteData = (x, y, z, a) => {
+            let data = {
+                'id': x,
+                'ket': y,
+                'tgl': z,
+                'idKaryawan': a
+            }
+            $.ajax({
+                beforeSend: function() {
+                    openLoader('Memuat Data');
+                },
+                type: 'get',
+                url: 'absensi/deleteStatus',
+                data: data,
+                success: function(sdata) {
+                    closeLoader()
+                    dataIjin();
+                    flasher.success('Delete Data Success');
+                },
+                error: function(error) {
+                    closeLoader();
                     flasher.error('server Not Found');
                 }
             })

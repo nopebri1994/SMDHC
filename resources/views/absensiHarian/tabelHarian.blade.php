@@ -1,77 +1,64 @@
-<table class="table table-striped table-bordered display nowrap" style="width:100%" id="tbl">
+<table class="table table-bordered display compact nowrap" style="width:100%;" id="tbl">
     <thead>
         <tr>
-            <th rowspan="2" style="padding-bottom: 35px">#</th>
-            <th rowspan="2" style="padding-bottom: 35px; text-align:center;">Nama Karyawan</th>
-            <th rowspan="2" style="padding-bottom: 35px">Dept / Bagian</th>
-            <th colspan="2" style="text-align:center;">Jadwal Kerja (Jam)</th>
-            <th rowspan="2" style="padding-bottom: 35px">Jam Datang</th>
-            <th rowspan="2" style="padding-bottom: 35px">Jam Pulang</th>
-            <th rowspan="2" style="padding-bottom: 35px">T</th>
-            <th rowspan="2" style="padding-bottom: 35px">Ket. Tidak Hadir</th>
-            <th rowspan="2" style="padding-bottom: 35px">Hadir</th>
-        </tr>
-        <tr>
-            <th>Datang</th>
-            <th>Pulang</th>
+            <th>#</th>
+            <th style="text-align:center;">Nama Karyawan</th>
+            <th style="">Dept / Bagian</th>
+            <th data-dt-order="disable">Jadwal Masuk</th>
+            <th data-dt-order="disable">Jadwal Pulang</th>
+            <th style="">Jam Datang</th>
+            <th style="">Jam Pulang</th>
+            <th style="">T</th>
+            <th style="">Ket. Tidak Hadir</th>
+            <th style="">Hadir</th>
         </tr>
     </thead>
     <tbody>
-        @php
-            $absenPulang = array_reverse($jamAbsen);
-        @endphp
-        @foreach ($dataKaryawan as $key => $dk)
-            @php
-                $dtg = '';
-                $plg = '';
-            @endphp
+        @foreach ($absensi as $key => $ab)
             <tr>
                 <td class="text-center">{{ $key + 1 }}</td>
-                <td>{{ $dk->namaKaryawan }}</td>
-                <td class="text-center">{{ $dk->departemen->kode }}
-                    @if ($dk->bagian->kode != null)
+                <td>{{ $ab->karyawan->namaKaryawan }}</td>
+                <td class="text-center">{{ $ab->karyawan->departemen->kode }}
+                    @if ($ab->karyawan->bagian->kode != null)
                         <span style="color:coral">&#8658;</span>
                     @endif
-                    {{ $dk->bagian->kode }}
+                    {{ $ab->karyawan->bagian->kode }}
                 </td>
                 <td class="text-center" style="background-color:#6b86d4a3">
-                    {{ $dk->jamKerja->jamMasukSJ }}
+                    @if (date('D', strtotime($tgl)) == 'Sat')
+                        {{ $ab->karyawan->jamKerja->jamMasukS }}
+                    @else
+                        {{ $ab->karyawan->jamKerja->jamMasukSJ }}
+                    @endif
                 </td>
                 <td class="text-center" style="background-color:#f24141c4">
-                    {{ $dk->jamKerja->jamPulangSJ }}
+                    @if (date('D', strtotime($tgl)) == 'Sat')
+                        {{ $ab->karyawan->jamKerja->jamPulangS }}
+                    @else
+                        {{ $ab->karyawan->jamKerja->jamPulangSJ }}
+                    @endif
+                </td>
+                <td class="text-center">
+                    {{ $ab->jamDatang }}
+                </td>
+                <td class="text-center">
+                    {{ $ab->jamPulang }}
+                </td>
+                <td class="text-center" @if ($ab->terlambat == 'Ya') style="background-color:yellow;" @endif>
+                    {{ $ab->terlambat }}
                 </td>
                 <td class="text-center">
                     @php
-                        $obj = array_search($dk->fpId, array_column($jamAbsen, 'idFinger'));
+                        $ket_ijin = '';
+                        $obj = array_search($ab->idKaryawan, array_column($ket, 'idKaryawan'));
                         if ($obj != '') {
-                            $dtg = $jamAbsen[$obj]['jamAbsen'];
-                            echo date('H:i', strtotime($jamAbsen[$obj]['jamAbsen']));
+                            $ket_ijin = $ket[$obj]['keterangan_ijin']['kode'];
                         }
+                        echo $ket_ijin;
                     @endphp
                 </td>
                 <td class="text-center">
-                    @php
-                        $obj = array_search($dk->fpId, array_column($absenPulang, 'idFinger'));
-                        if ($obj != '') {
-                            $plg = $absenPulang[$obj]['jamAbsen'];
-                            echo date('H:i', strtotime($absenPulang[$obj]['jamAbsen']));
-                        }
-                    @endphp
-                </td>
-                <td class="text-center">
-                    @php
-                        if ($dtg > $dk->jamKerja->jamMasukSJ) {
-                            echo 'Ya';
-                        }
-                    @endphp
-                </td>
-                <td></td>
-                <td class="text-center">
-                    @php
-                        if ($dtg <= $dk->jamKerja->jamMasukSJ and $plg >= $dk->jamKerja->jamPulangSJ) {
-                            echo 'Full';
-                        }
-                    @endphp
+                    {{ $ab->full }}
                 </td>
             </tr>
         @endforeach
@@ -79,6 +66,6 @@
 </table>
 <script>
     $('#tbl').DataTable({
-
+        responsive: true,
     });
 </script>

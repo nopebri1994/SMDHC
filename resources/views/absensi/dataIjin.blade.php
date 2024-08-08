@@ -13,7 +13,7 @@
                 <th>Bagian</th>
                 <th>Ijin</th>
                 <th>Tanggal</th>
-                <th>#</th>
+                <th style="width:10%">#</th>
             </tr>
         </thead>
         <tbody>
@@ -27,19 +27,29 @@
                     <td>{{ varHelper::formatDate($a->tanggalIjin) }}</td>
                     <td>
                         @can('hc')
-                            @if ($a->status == 0)
-                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                    <input type="checkbox" class="custom-control-input" id="status{{ $a->id }}"
-                                        onchange="updateStatus({{ $a->id }})">
-                                    <label class="custom-control-label" for="status{{ $a->id }}"></label>
+                            <div class="row">
+                                @if ($a->status == 0)
+                                    <div
+                                        class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                        <input type="checkbox" class="custom-control-input" id="status{{ $a->id }}"
+                                            onchange="updateStatus({{ $a->id }})">
+                                        <label class="custom-control-label" for="status{{ $a->id }}"></label>
+                                    </div>
+                                @else
+                                    <div
+                                        class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                        <input type="checkbox" class="custom-control-input" id="status{{ $a->id }}"
+                                            onchange="updateStatus({{ $a->id }})" checked>
+                                        <label class="custom-control-label" for="status{{ $a->id }}"></label>
+                                    </div>
+                                @endif
+                                <div>
+                                    &nbsp;
+                                    <a href="#" data-toggle="tooltip" title="Hapus Data"
+                                        onclick="deleteData({{ $a->id }},'{{ $a->keteranganIjin->kode }}','{{ $a->tanggalIjin }}',{{ $a->idKaryawan }})"><span
+                                            class="fas fa-trash-alt" style="color: red"></span></a>
                                 </div>
-                            @else
-                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                    <input type="checkbox" class="custom-control-input" id="status{{ $a->id }}"
-                                        onchange="updateStatus({{ $a->id }})" checked>
-                                    <label class="custom-control-label" for="status{{ $a->id }}"></label>
-                                </div>
-                            @endif
+                            </div>
                         @endcan
                     </td>
                 </tr>

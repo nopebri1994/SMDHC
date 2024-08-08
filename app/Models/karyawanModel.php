@@ -20,6 +20,7 @@ class karyawanModel extends Model
         });
     }
 
+    protected $with = ['jabatan', 'departemen', 'bagian', 'jamKerja'];
     protected $table = 'datakaryawan';
     protected $fillable = [
         'nikKerja',

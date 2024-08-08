@@ -117,6 +117,8 @@ Route::middleware('auth')->group(function () {
     Route::get('psn/absensi/prosesAbsensi', [absensiController::class, 'prosesData']);
     Route::get('psn/absensi/dataIjin', [absensiController::class, 'dataIjin']);
     Route::get('psn/absensi/addStatus', [absensiController::class, 'addStatus']);
+    Route::get('psn/absensi/deleteStatus', [absensiController::class, 'deleteStatus']);
+
 
     //libur
     Route::get('dm/libur', [liburController::class, 'index'])->middleware('can:hc');
@@ -138,9 +140,9 @@ Route::middleware('auth')->group(function () {
     Route::post('psn/mesinAbsensi-sync/tarikData', [mesinAbsensiController::class, 'tarikDataMesin']);
 
     //absensi_harian
-    Route::get('psn/absensiHarian', [absensiHarianController::class, 'index'])->middleware('can:hc');
-    Route::get('psn/absensiHarian/list', [absensiHarianController::class, 'list']);
-
+    Route::get('psn/absensiHarian', [absensiHarianController::class, 'index']);
+    Route::post('psn/absensiHarian/list', [absensiHarianController::class, 'list']);
+    Route::post('psn/absensiHarian/prosesAbsensi', [absensiHarianController::class, 'prosesAbsensi']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');

@@ -27,3 +27,7 @@
     background-color: rgb(253, 126, 20);
     color: #fff;
 }
+.btn_orange:hover {
+    background-color: rgb(210, 129, 62);
+    color: #fff;
+}

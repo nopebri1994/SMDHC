@@ -65,7 +65,7 @@ class hutangCutiController extends Controller
     {
         $id     = $request->id;
         $y      = $request->year;
-
+        
         $cuti = hutangCutiModel::where('idKaryawan', $id)->where('year', $y)->first();
         $tglMasuk = date_create($cuti->karyawan->tglMasuk);
         $m = $cuti->month;
