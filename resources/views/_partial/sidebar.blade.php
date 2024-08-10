@@ -83,7 +83,7 @@
                                 class="nav-link {{ request()->is('psn/absensiHarian') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Absensi Harian</p>
-                                <span class="right badge badge-danger">P</span>
+                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                         @can('hc')
@@ -92,7 +92,7 @@
                                     class="nav-link {{ request()->is('psn/mesinAbsensi-sync') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Sync Mesin Absen</p>
-                                    <span class="right badge badge-danger">P</span>
+                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                             <li class="nav-item">

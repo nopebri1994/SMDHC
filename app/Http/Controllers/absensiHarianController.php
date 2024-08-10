@@ -8,6 +8,7 @@ use App\Models\prosesAbsensiHarianModel;
 use App\Models\absensiModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class absensiHarianController extends Controller
 {
@@ -22,11 +23,12 @@ class absensiHarianController extends Controller
     function list(Request $request)
     {
         $tgl = $request->tgl;
-        $data = [
-            'absensi' => prosesAbsensiHarianModel::with(['karyawan'])->where('tglAbsen', $tgl)->get(),
-            'ket' => absensiModel::with('keteranganIjin')->where('tanggalijin', $tgl)->get()->toArray(),
-            'tgl' => $tgl
-        ];
+        $absensi =
+            $data = [
+                'absensi' => prosesAbsensiHarianModel::with(['karyawan'])->where('tglAbsen', $tgl)->get(),
+                'ket' => absensiModel::with('keteranganIjin')->where('tanggalijin', $tgl)->get()->toArray(),
+                'tgl' => $tgl
+            ];
         return view('absensiHarian.tabelHarian', $data);
     }
     function prosesAbsensi(Request $request)
@@ -98,5 +100,23 @@ class absensiHarianController extends Controller
             'message'       => 'Proses Absensi Sukses'
         );
         return json_encode($sendToView);
+    }
+    function updateFull(Request $request)
+    {
+        $id = $request->idAbsensi;
+        $full = $request->full;
+        $tmp = [
+            'full' => $full
+        ];
+        prosesAbsensiHarianModel::where('id', $id)->update($tmp);
+    }
+    function updateTerlambat(Request $request)
+    {
+        $id = $request->idAbsensi;
+        $terlambat = $request->terlambat;
+        $tmp = [
+            'terlambat' => $terlambat
+        ];
+        prosesAbsensiHarianModel::where('id', $id)->update($tmp);
     }
 }
