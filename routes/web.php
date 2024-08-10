@@ -100,14 +100,15 @@ Route::middleware('auth')->group(function () {
 
     //cuti
     Route::get('psn/cuti', [cutiController::class, 'index']);
-    Route::get('psn/cuti/posting-cuti', [cutiController::class, 'postingCuti'])->middleware('can:hc');
+    Route::post('psn/cuti/posting-cuti', [cutiController::class, 'postingCuti'])->middleware('can:hc');
     Route::get('psn/cuti/tabel-cuti', [cutiController::class, 'tabelCuti']);
     Route::get('psn/cuti/detail-data', [cutiController::class, 'detailData']);
     Route::get('psn/cuti/detail-cuti', [cutiController::class, 'detailCuti']);
+    Route::get('psn/cuti/tambahCuti', [cutiController::class, 'tambahCuti']);
 
     //hutangCuti
     Route::get('psn/hutang-cuti', [hutangCutiController::class, 'index']);
-    Route::get('psn/hutang-cuti/posting-hutang', [hutangCutiController::class, 'postingHutang']);
+    Route::get('psn/hutang-cuti/posting-hutang', [hutangCutiController::class, 'postingHutang'])->middleware('can:hc');
     Route::get('psn/hutang-cuti/tabel-hutang', [hutangCutiController::class, 'tabelHutang']);
     Route::get('psn/hutang-cuti/detail-hutang', [hutangCutiController::class, 'detailHutang']);
 

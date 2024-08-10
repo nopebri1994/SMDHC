@@ -8,6 +8,7 @@ use App\Models\cutiModel;
 use App\Models\detailCutiModel;
 use App\Models\hutangCutiModel;
 use App\Models\potonganCutiModel;
+use App\Models\tambahCutiModel;
 use varHelper;
 
 class cutiController extends Controller
@@ -107,5 +108,33 @@ class cutiController extends Controller
         ];
 
         return view('cuti.detailCuti', $data);
+    }
+
+    function tambahCuti(Request $request)
+    {
+        $idKaryawan = $request->idKaryawan;
+        $tahun = $request->tahun;
+        $tambahCuti = $request->tambahCuti;
+        $cekCuti = cutiModel::where('idKaryawan', $idKaryawan)->where('year', $tahun)->first();
+        if (empty($cekCuti)) {
+            tambahCutiModel::create([
+                'idKaryawan' => $idKaryawan,
+                'tahunCuti' => $tahun,
+                'jumlahTambah' => $tambahCuti,
+                'status' => 'Belum'
+            ]);
+        } else {
+            $tmpUpdate = [
+                'jumlahCuti' => $cekCuti->jumlahCuti + $tambahCuti,
+                'sisaCuti' => $cekCuti->sisaCuti + $tambahCuti,
+            ];
+            $cekCuti = cutiModel::where('idKaryawan', $idKaryawan)->where('year', $tahun)->update($tmpUpdate);
+            tambahCutiModel::create([
+                'idKaryawan' => $idKaryawan,
+                'tahunCuti' => $tahun,
+                'jumlahTambah' => $tambahCuti,
+                'status' => 'Sudah'
+            ]);
+        }
     }
 }
