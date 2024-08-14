@@ -83,6 +83,13 @@
                                 <p>Absensi Harian</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ URL::to('/') }}/psn/cetakAbsensi"
+                                class="nav-link {{ request()->is('psn/cetakAbsensi') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Cetak Absensi</p>
+                            </a>
+                        </li>
                         @can('hc')
                             <li class="nav-item">
                                 <a href="{{ URL::to('/') }}/psn/mesinAbsensi-sync"
@@ -134,27 +141,6 @@
                                 </a>
                             </li>
                         @endcan
-                    </ul>
-                </li>
-                <li class="nav-item  {{ request()->is('cetak/*') ? 'menu-is-opening menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('cetak/*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-print"></i>
-                        <p>
-                            Catek Document
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/cetak/absensi"
-                                class="nav-link  {{ request()->is('cetak/absensi') ? 'active' : '' }}
-                                {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Cetak Absensi Harian</p>
-                                <span class="right badge badge-danger">P</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 @can('hc')

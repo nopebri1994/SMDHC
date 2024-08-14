@@ -8,6 +8,7 @@ use App\Models\prosesAbsensiHarianModel;
 use App\Models\absensiModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class absensiHarianController extends Controller
@@ -122,5 +123,32 @@ class absensiHarianController extends Controller
             'terlambat' => $terlambat
         ];
         prosesAbsensiHarianModel::where('id', $id)->update($tmp);
+    }
+
+    function cetakAbsensi()
+    {
+        if (auth()->user()->role == '5') {
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
+        } else {
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->orderBy('nikKerja')->get();
+        }
+        $data = [
+            'title' => 'Cetak Absensi Karyawan',
+            'karyawan' => $karyawan,
+        ];
+        return view('absensiHarian.v_printAbsensi', $data);
+    }
+    function cetakPerorang(Request $request)
+    {
+        $id = $request->idKaryawan;
+        $tmp = [
+            'id' => $id,
+        ];
+        Pdf::setPaper('A4');
+        Pdf::loadView('absensiHarian.printAbsensi', $tmp)->save('pdf/Absensi-Harian.pdf');
+        // $pdf = Pdf::loadView('absensiHarian.printAbsensi', $tmp)->save('pdf/Absensi-Harian.pdf');
+
+        // return $pdf->download('users_list.pdf');
+        // $pdf->stream();
     }
 }

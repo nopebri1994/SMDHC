@@ -150,6 +150,10 @@ Route::middleware('auth')->group(function () {
     Route::get('psn/absensiHarian/updateFull', [absensiHarianController::class, 'updateFull']);
     Route::get('psn/absensiHarian/updateTerlambat', [absensiHarianController::class, 'updateTerlambat']);
 
+    //cetakAbsensi
+    Route::get('psn/cetakAbsensi', [absensiHarianController::class, 'cetakAbsensi']);
+    Route::get('psn/cetakPerorang', [absensiHarianController::class, 'cetakPerorang']);
+
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');
     Route::post('admin/storeData', [usersController::class, 'store']);
