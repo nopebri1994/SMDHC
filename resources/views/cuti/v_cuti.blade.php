@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">{{ $title }}</h1>
+                    {{-- <h1 class="m-0">{{ $title }}</h1> --}}
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -97,7 +97,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-lg-8">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div id="detailTable"></div>
@@ -201,7 +201,7 @@
                                                     <div class="col-md-8">
                                                         <select name="yearTambah" class="form-control bg-info"
                                                             id="yearTambah">
-                                                            @for ($i = 2020; $i < 2030; $i++)
+                                                            @for ($i = 2024; $i < 2030; $i++)
                                                                 <option>{{ $i }}</option>
                                                             @endfor
                                                         </select>
@@ -215,6 +215,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
+                                                    <div class="col-md-3 pt-2">Keterangan</div>
+                                                    <div class="col-md-8">
+                                                        <textarea name="ketTambah" class="form-control" id="ketTambah" cols="" rows=""></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
                                                     <div class="col-md-11">
                                                         <button class="btn btn-block btn-secondary" id="tambahCuti">Tambah
                                                             Cuti... &nbsp;<i class="fas fa-plus"></i></button>
@@ -223,10 +229,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-lg-8">
                                         <div class="card">
                                             <div class="card-body">
-
+                                                <div id="listTambah"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -236,7 +242,7 @@
                         <div class="tab-pane fade" id="potong" role="tabpanel" aria-labelledby="contact-tab">
                             <div class="mt-3">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-lg-4">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row">
@@ -266,7 +272,7 @@
                                                     <div class="col-md-8">
                                                         <select name="yearPotong" class="form-control bg-info"
                                                             id="yearPotong">
-                                                            @for ($i = 2020; $i < 2030; $i++)
+                                                            @for ($i = 2024; $i < 2030; $i++)
                                                                 <option>{{ $i }}</option>
                                                             @endfor
                                                         </select>
@@ -280,20 +286,24 @@
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
+                                                    <div class="col-md-3 pt-2">Keterangan</div>
+                                                    <div class="col-md-8">
+                                                        <textarea name="ketPotong" class="form-control" id="ketPotong" cols="" rows=""></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
                                                     <div class="col-md-11">
-                                                        <button class="btn btn-block btn-secondary"
-                                                            id="tambahPotong">Potong
+                                                        <button class="btn btn-block btn-secondary" id="potongCuti">Potong
                                                             Cuti... &nbsp;<i class="fas fa-minus"></i></button>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-lg-8">
                                         <div class="card">
                                             <div class="card-body">
-
+                                                <div id="listPotong"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -338,6 +348,8 @@
     <script>
         $(document).ready(function() {
             loadPostingCuti();
+            $("#listTambah").load("cuti/listTambah");
+            $("#listPotong").load("cuti/listPotong");
         });
 
         let loadPostingCuti = () => {
@@ -517,11 +529,13 @@
                 'idKaryawan': idKaryawan,
                 'tahun': $('#yearTambah').val(),
                 '_token': $('#token').val(),
-                'tambahCuti': $('#cutiTambah').val()
+                'tambahCuti': $('#cutiTambah').val(),
+                'ketTambah': $('#ketTambah').val()
+
             };
             $.ajax({
                 beforeSend: openLoader('Memuat Data'),
-                type: 'get',
+                type: 'post',
                 url: 'cuti/tambahCuti',
                 data: data,
                 success: function() {
@@ -530,6 +544,38 @@
                     $('#idKaryawanTambah').val('');
                     $('#namaTambah').val('');
                     $('#deptTambah').val('');
+                    $('#ketTambah').val('');
+                    $("#listTambah").load("cuti/listTambah");
+                    closeLoader();
+                },
+                error: function(error) {
+                    closeLoader();
+                    flasher.error('Server Error');
+                }
+            })
+        }
+        document.getElementById('potongCuti').onclick = () => {
+            let idKaryawan = $('#idKaryawanPotong').val();
+            let data = {
+                'idKaryawan': idKaryawan,
+                'tahun': $('#yearPotong').val(),
+                '_token': $('#token').val(),
+                'cutiPotong': $('#cutiPotong').val(),
+                'ketPotong': $('#ketPotong').val()
+            };
+            $.ajax({
+                beforeSend: openLoader('Memuat Data'),
+                type: 'post',
+                url: 'cuti/potongCuti',
+                data: data,
+                success: function() {
+                    $('#cutiPotong').val('')
+                    $('#nikKerjaPotong').val('');
+                    $('#idKaryawanPotong').val('');
+                    $('#namaPotong').val('');
+                    $('#deptPotong').val('');
+                    $('#ketPotong').val('');
+                    $("#listPotong").load("cuti/listPotong");
                     closeLoader();
                 },
                 error: function(error) {

@@ -56,7 +56,6 @@
                                 {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Daftar Karyawan</p>
-                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                     </ul>
@@ -75,7 +74,6 @@
                                 class="nav-link {{ request()->is('psn/absensi') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Proses Absensi</p>
-                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -83,7 +81,6 @@
                                 class="nav-link {{ request()->is('psn/absensiHarian') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Absensi Harian</p>
-                                <span class="right badge badge-success">A</span>
                             </a>
                         </li>
                         @can('hc')
@@ -92,7 +89,6 @@
                                     class="nav-link {{ request()->is('psn/mesinAbsensi-sync') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Sync Mesin Absen</p>
-                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -100,7 +96,6 @@
                                     class="nav-link {{ request()->is('psn/potongan-cuti') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Potongan Cuti Tahunan</p>
-                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -108,7 +103,6 @@
                                     class="nav-link {{ request()->is('psn/cuti') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Cuti Karyawan</p>
-                                    <span class="right badge badge-danger">P</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -116,28 +110,51 @@
                                     class="nav-link {{ request()->is('psn/hutang-cuti') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Hutang Cuti Karyawan</p>
-                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kontrak Karyawan</p>
+                                    <span class="right badge badge-danger">P</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Penghargaan Masa Kerja</p>
+                                    <span class="right badge badge-danger">P</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Surat Peringatan</p>
+                                    <span class="right badge badge-danger">P</span>
                                 </a>
                             </li>
                         @endcan
+                    </ul>
+                </li>
+                <li class="nav-item  {{ request()->is('cetak/*') ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('cetak/*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-print"></i>
+                        <p>
+                            Catek Document
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ URL::to('/') }}/cetak/absensi"
+                                class="nav-link  {{ request()->is('cetak/absensi') ? 'active' : '' }}
+                                {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Cetak Absensi Harian</p>
+                                <span class="right badge badge-danger">P</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 @can('hc')
@@ -155,7 +172,6 @@
                                     class="nav-link {{ request()->is('dm/perusahaan') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Perusahaan</p>
-                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -163,7 +179,6 @@
                                     class="nav-link {{ request()->is('dm/departemen') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Departemen</p>
-                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -171,7 +186,6 @@
                                     class="nav-link {{ request()->is('dm/bagian') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Bagian</p>
-                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -179,7 +193,6 @@
                                     class="nav-link nav-link {{ request()->is('dm/jabatan') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Jabatan</p>
-                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -187,7 +200,6 @@
                                     class="nav-link {{ request()->is('dm/keterangan-ijin') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Keterangan Ijin
-                                        <span class="right badge badge-success">A</span>
                                     </p>
                                 </a>
                             </li>
@@ -196,21 +208,18 @@
                                     class="nav-link {{ request()->is('dm/jam-kerja') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Jam Kerja</p>
-                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                             <li class="nav-item {{ request()->is('dm/mesinAbsensi') ? 'active' : '' }}">
                                 <a href="{{ URL::to('/') }}/dm/mesinAbsensi" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Mesin Absen</p>
-                                    <span class="right badge badge-success  ">A</span>
                                 </a>
                             </li>
                             <li class="nav-item {{ request()->is('dm/libur') ? 'active' : '' }}">
                                 <a href="{{ URL::to('/') }}/dm/libur" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Hari Libur</p>
-                                    <span class="right badge badge-success">A</span>
                                 </a>
                             </li>
                         </ul>
@@ -225,6 +234,7 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
+
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ URL::to('/') }}/admin/users"

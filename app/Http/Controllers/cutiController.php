@@ -8,7 +8,9 @@ use App\Models\cutiModel;
 use App\Models\detailCutiModel;
 use App\Models\hutangCutiModel;
 use App\Models\potonganCutiModel;
+use App\Models\potongCutiModel;
 use App\Models\tambahCutiModel;
+use Illuminate\Support\Facades\DB;
 use varHelper;
 
 class cutiController extends Controller
@@ -36,11 +38,13 @@ class cutiController extends Controller
             $potonganTahunan = potonganCutiModel::where('tahunPotongan', $y)->sum('totalPotongan');
             $cekData = cutiModel::where('month', $m)->where('year', $y)->where('idKaryawan', $k->id)->first();
             $cekHutang = hutangCutiModel::where('year', $y)->where('idKaryawan', $k->id)->first();
+            $cekTambah = tambahCutiModel::select(DB::raw('SUM(jumlahTambah) as s'))->where('tahunCuti', $y)->where('idKaryawan', $k->id)->where('status', 'Belum')->first();
+            $cekPotong = potongCutiModel::select(DB::raw('SUM(jumlahPotong) as s'))->where('tahunCuti', $y)->where('idKaryawan', $k->id)->where('status', 'Belum')->first();
             if (!empty($cekHutang)) {
                 $hutang = $cekHutang->ambilHutangCuti;
             }
             if (empty($cekData)) {
-                $sisaCuti = $hasilCuti['hak'] - $potonganTahunan - $hutang;
+                $sisaCuti = $hasilCuti['hak'] - $potonganTahunan - $hutang + $cekTambah['s'] - $cekPotong['s'];
                 $tmpSave = [
                     'idKaryawan' => $k->id,
                     'jumlahCuti' => $sisaCuti,
@@ -98,13 +102,17 @@ class cutiController extends Controller
         $detail = detailCutiModel::where('idKaryawan', $id)->where('tahun', $y)->get();
         $potonganTahunan = potonganCutiModel::where('tahunPotongan', $y)->sum('totalPotongan');
         $detailHutang = hutangCutiModel::where('idKaryawan', $id)->where('year', $y)->first();
-
+        $cekTambah = tambahCutiModel::select(DB::raw('SUM(jumlahTambah) as s'))->where('tahunCuti', $y)->where('idKaryawan', $id)->where('status', 'Belum')->first();
+        $cekPotong = potongCutiModel::select(DB::raw('SUM(jumlahPotong) as s'))->where('tahunCuti', $y)->where('idKaryawan', $id)->where('status', 'Belum')->first();
         $data = [
             'vCuti'     => $cuti,
             'detail'    => $detail,
             'masaKerja' => $selisih->y,
             'potongan' => $potonganTahunan,
             'hutang'    => $detailHutang,
+            'tambahan'  => $cekTambah['s'],
+            'potongCuti' => $cekPotong['s'],
+
         ];
 
         return view('cuti.detailCuti', $data);
@@ -115,26 +123,76 @@ class cutiController extends Controller
         $idKaryawan = $request->idKaryawan;
         $tahun = $request->tahun;
         $tambahCuti = $request->tambahCuti;
+        $ket = $request->ketTambah;
         $cekCuti = cutiModel::where('idKaryawan', $idKaryawan)->where('year', $tahun)->first();
         if (empty($cekCuti)) {
             tambahCutiModel::create([
                 'idKaryawan' => $idKaryawan,
                 'tahunCuti' => $tahun,
                 'jumlahTambah' => $tambahCuti,
-                'status' => 'Belum'
+                'status' => 'Belum',
+                'keterangan' => $ket,
             ]);
         } else {
             $tmpUpdate = [
                 'jumlahCuti' => $cekCuti->jumlahCuti + $tambahCuti,
                 'sisaCuti' => $cekCuti->sisaCuti + $tambahCuti,
+                'keterangan' => $ket,
             ];
             $cekCuti = cutiModel::where('idKaryawan', $idKaryawan)->where('year', $tahun)->update($tmpUpdate);
             tambahCutiModel::create([
                 'idKaryawan' => $idKaryawan,
                 'tahunCuti' => $tahun,
                 'jumlahTambah' => $tambahCuti,
-                'status' => 'Sudah'
+                'status' => 'Sudah',
+                'keterangan' => $ket,
             ]);
         }
+    }
+
+    function potongCuti(Request $request)
+    {
+        $idKaryawan = $request->idKaryawan;
+        $tahun = $request->tahun;
+        $potongCuti = $request->cutiPotong;
+        $ket = $request->ketPotong;
+        $cekCuti = cutiModel::where('idKaryawan', $idKaryawan)->where('year', $tahun)->first();
+        if (empty($cekCuti)) {
+            potongCutiModel::create([
+                'idKaryawan' => $idKaryawan,
+                'tahunCuti' => $tahun,
+                'jumlahPotong' => $potongCuti,
+                'status' => 'Belum',
+                'keterangan' => $ket,
+            ]);
+        } else {
+            $tmpUpdate = [
+                'jumlahCuti' => $cekCuti->jumlahCuti - $potongCuti,
+                'sisaCuti' => $cekCuti->sisaCuti - $potongCuti,
+            ];
+            $cekCuti = cutiModel::where('idKaryawan', $idKaryawan)->where('year', $tahun)->update($tmpUpdate);
+            potongCutiModel::create([
+                'idKaryawan' => $idKaryawan,
+                'tahunCuti' => $tahun,
+                'jumlahPotong' => $potongCuti,
+                'status' => 'Sudah',
+                'keterangan' => $ket,
+
+            ]);
+        }
+    }
+    function listTambah()
+    {
+        $data = [
+            'tambahCuti' => tambahCutiModel::with('karyawan')->get(),
+        ];
+        return view('cuti.tambahCuti', $data);
+    }
+    function listPotong()
+    {
+        $data = [
+            'potongCuti' => potongCutiModel::with('karyawan')->get(),
+        ];
+        return view('cuti.potongCuti', $data);
     }
 }

@@ -50,13 +50,13 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">Tanggal Ijin *
+                                        <div class="row mt-1">
+                                            <div class="col-md-4 mt-1">Tanggal Ijin *
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4 mt-1">
                                                 <input type="date" name="awal" id="awal" class="form-control">
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4 mt-1">
                                                 <input type="date" name="akhir" id="akhir" class="form-control">
                                             </div>
                                         </div>

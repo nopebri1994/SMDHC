@@ -10,9 +10,7 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/all.min.css">
-
     {{-- <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css"> --}}
-
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/adminlte.min.css">
 </head>
 
@@ -34,20 +32,20 @@
                             class="form-control  {{ $errors->has('username') ? 'is-invalid' : '' }}"
                             placeholder="Username">
                         <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                            <div class="input-group-text bg-primary" style="">
+                                <span class="fas fa-user-lock"></span>
                             </div>
                         </div>
                         <div class="invalid-feedback">{{ $errors->first('username') }}</div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password"
+                        <input type="password" name="password" id="pass"
                             class="form-control  {{ $errors->has('password') ? 'is-invalid' : '' }}"
                             placeholder="Password">
                         <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
+                            <a class="btn btn-primary">
+                                <span class="fas fa-eye-slash" id="iconPass"></span>
+                            </a>
                         </div>
                         @error('passwords')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -55,10 +53,8 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-
                         </div>
-
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                         </div>
 
@@ -71,18 +67,27 @@
                     <a href="register.html" class="text-center">Register a new membership</a>
                 </p> --}}
             </div>
-
         </div>
-
     </div>
-
-
     <script src="{{ URL::to('/') }}/assets/adminlte/js/jquery.min.js"></script>
-
     <script src="{{ URL::to('/') }}/assets/adminlte/js/bootstrap.bundle.min.js"></script>
-
     <script src="{{ URL::to('/') }}/assets/adminlte/js/adminlte.min.js"></script>
+    <script>
+        document.getElementById('iconPass').onclick = () => {
+            let element = document.getElementById('iconPass');
+            let pass = document.getElementById('pass');
+            if (pass.type === "password") {
+                pass.type = "text";
+                element.classList.remove("fa-eye-slash")
+                element.classList.add('fa-eye')
+            } else {
+                pass.type = "password";
+                element.classList.remove("fa-eye")
+                element.classList.add('fa-eye-slash')
+            }
+
+        }
+    </script>
 </body>
-<script></script>
 
 </html>

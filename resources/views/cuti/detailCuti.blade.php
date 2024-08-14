@@ -2,6 +2,11 @@
     <div class="row bg-info">
         <div class="col-md-4 pt-2">Jumlah Cuti</div>
         <div class="col-md-3"><strong style="font-size: 24px">{{ $vCuti->jumlahCuti }} Hari </strong>
+            @if ($vCuti->keterangan == 'Cuti Tahunan')
+                / 12
+            @else
+                / 25
+            @endif
         </div>
     </div>
     <div class="row">
@@ -17,6 +22,26 @@
                 <strong> {{ $hutang->ambilHutangCuti }} Hari</strong>
             @else
                 <strong> 0 Hari</strong>
+            @endif
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Tambahan Cuti Lain Lain</div>
+        <div class="col-md-8">
+            @if (empty($tambahan))
+                <strong>0</strong>
+            @else
+                <strong>{{ $tambahan }}</strong>
+            @endif
+        </div>
+    </div>
+    <div class="row bg-info">
+        <div class="col-md-4">Potongan Cuti Lain Lain</div>
+        <div class="col-md-8">
+            @if (empty($potongCuti))
+                <strong>0</strong>
+            @else
+                <strong>{{ $potongCuti }}</strong>
             @endif
         </div>
     </div>

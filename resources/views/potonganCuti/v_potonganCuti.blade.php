@@ -21,9 +21,9 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="card">
-                        <div class="card-header">
+                        {{-- <div class="card-header">
                             <h5 class="m-0">{{ $title }}</h5>
-                        </div>
+                        </div> --}}
                         <div class="card-body">
                             <div class="col-md-12">
                                 <div class="row">

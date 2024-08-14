@@ -17,6 +17,7 @@ return new class extends Migration
             $table->year('tahunCuti');
             $table->integer('jumlahPotong');
             $table->enum('status', ['Sudah', 'Belum']);
+            $table->text('keterangan');
             $table->timestamps();
 
             $table->foreign('idKaryawan')->references('id')->on('datakaryawan');

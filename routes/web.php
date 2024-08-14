@@ -104,7 +104,10 @@ Route::middleware('auth')->group(function () {
     Route::get('psn/cuti/tabel-cuti', [cutiController::class, 'tabelCuti']);
     Route::get('psn/cuti/detail-data', [cutiController::class, 'detailData']);
     Route::get('psn/cuti/detail-cuti', [cutiController::class, 'detailCuti']);
-    Route::get('psn/cuti/tambahCuti', [cutiController::class, 'tambahCuti']);
+    Route::post('psn/cuti/tambahCuti', [cutiController::class, 'tambahCuti']);
+    Route::post('psn/cuti/potongCuti', [cutiController::class, 'potongCuti']);
+    Route::get('psn/cuti/listTambah', [cutiController::class, 'listTambah']);
+    Route::get('psn/cuti/listPotong', [cutiController::class, 'listPotong']);
 
     //hutangCuti
     Route::get('psn/hutang-cuti', [hutangCutiController::class, 'index']);
