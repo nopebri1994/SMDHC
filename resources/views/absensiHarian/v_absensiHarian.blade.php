@@ -26,18 +26,18 @@
                                 <div class="col-md-5">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <p class="pt-2">Tanggal </p>
+                                            <label for="tglAbsen" class="pt-2">Tanggal</label>
                                         </div>
                                         <div class="col-md-4">
                                             <input type="date" value="{{ date('Y-m-d') }}" class="form-control"
                                                 name="tglAbsen" id="tglAbsen">
                                             <input type="hidden" id="token" value={{ csrf_token() }}>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <button class="btn btn_orange btn-block mt-1" id="prev">
                                                 <i class="fas fa-backward"></i> Prev</button>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <button class="btn btn_orange btn-block mt-1" id="next">
                                                 Next <i class="fas fa-forward"></i></button>
                                         </div>

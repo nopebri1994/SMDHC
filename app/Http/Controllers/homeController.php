@@ -12,7 +12,7 @@ class homeController extends Controller
     {
         $count = karyawanModel::count();
         $data = [
-            'title' => 'Halaman Depan SMDHC',
+            'title' => 'SMDHC',
             'countEmployee' => $count,
         ];
 

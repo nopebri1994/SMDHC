@@ -1,15 +1,15 @@
-       <table class="table table-bordered display compact nowrap" style="width:100%;" id="tbl">
+       <table class="table table-sm table-bordered display compact nowrap" style="width:100%;" id="tbl">
            <thead>
                <tr>
                    <th>#</th>
                    <th style="text-align:center;">Nama Karyawan</th>
-                   <th style="">Dept / Bagian</th>
-                   <th data-dt-order="disable">Jadwal Masuk</th>
-                   <th data-dt-order="disable">Jadwal Pulang</th>
-                   <th style="">Jam Datang</th>
-                   <th style="">Jam Pulang</th>
+                   <th style="text-align:center;">Dept / Bagian</th>
+                   <th data-dt-order="disable" style="text-align:center;">Jadwal Masuk</th>
+                   <th data-dt-order="disable" style="text-align:center;">Jadwal Pulang</th>
+                   <th style="text-align:center;">Jam Datang</th>
+                   <th style="text-align:center;">Jam Pulang</th>
                    <th style="text-align:center">T</th>
-                   <th style="">Ket. Tidak Hadir</th>
+                   <th style="text-align:center;">Ket. Ijin</th>
                    <th style="text-align:center">Full</th>
                </tr>
            </thead>
