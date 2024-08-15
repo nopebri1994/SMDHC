@@ -3,7 +3,7 @@
     <a href="#" class="brand-link bg-gray-dark">
         <img src="{{ URL::to('/') }}/assets/img/logo.png" alt="LMW Logo" class="brand-image elevation-3"
             style="opacity: .8">
-        <span class="brand-text font-weight-light">SDMHC</span>
+        <span class="brand-text font-weight-light">SMDHC</span>
     </a>
 
     <div class="sidebar">

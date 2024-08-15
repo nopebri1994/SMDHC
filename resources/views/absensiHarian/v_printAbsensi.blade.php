@@ -78,15 +78,31 @@
     <script>
         document.getElementById('btnPrint').onclick = () => {
             // alert('a')
+            let awal = $('#awal').val()
+            let akhir = $('#akhir').val()
+            let id = $('#idKaryawan').val()
+            if (awal == '' || akhir == '') {
+                flasher.error('Tanggal harus diisi')
+                exit();
+            }
+
+            if (awal > akhir) {
+                flasher.error('Tanggal Akhir tidak boleh lebih besar')
+                exit();
+            }
+
             data = {
-                'idKaryawan': $('#idKaryawan').val(),
+                'idKaryawan': id,
+                'awal': awal,
+                'akhir': akhir
             }
             $.ajax({
                 type: 'get',
                 url: 'cetakPerorang',
                 data: data,
                 success: function() {
-                    document.getElementById("viewCetak").src = "{{ URL::to('/') }}/pdf/Absensi-Harian.pdf";
+                    document.getElementById("viewCetak").src = "{{ URL::to('/') }}/pdf/Absensi-Harian-" +
+                        id + ".pdf";
                 },
                 error: function() {
                     flasher.error('Server Error')
