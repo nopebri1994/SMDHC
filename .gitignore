@@ -4,6 +4,7 @@
 /public/hot
 /public/storage
 /public/pdf
+/public/log
 /storage/*.key
 /vendor
 .env
