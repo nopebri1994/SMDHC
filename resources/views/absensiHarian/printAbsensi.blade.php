@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <style>
         /** Define the margins of your page **/
@@ -135,22 +134,20 @@
                         <td class="center">{{ date('d-m-Y', strtotime($awal)) }}</td>
                         <td class="center">{{ date('l', strtotime($awal)) }}</td>
                         <td class="center">
-                            @if(!empty($obj))
+                          
                                 @if (date('l', strtotime($awal)) == 'Saturday')
-                                    {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamMasukS'])) }}
+                                    {{ date('H:i', strtotime($dataHeader->jamKerja->jamMasukS)) }}
                                 @elseif(date('l', strtotime($awal)) != 'Sunday')
-                                    {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamMasukSJ'])) }}
+                                {{ date('H:i', strtotime($dataHeader->jamKerja->jamMasukSJ)) }}
                                 @endif
-                            @endif
+                      
                         </td>
                         <td class="center">
-                            @if(!empty($obj))
                                 @if (date('l', strtotime($awal)) == 'Saturday')
-                                    {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamPulangS'])) }}
+                                    {{ date('H:i', strtotime($dataHeader->jamKerja->jamPulangS)) }}
                                 @elseif(date('l', strtotime($awal)) != 'Sunday')
-                                    {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamPulangSJ'])) }}
+                                    {{ date('H:i', strtotime($dataHeader->jamKerja->jamPulangSJ)) }}
                                 @endif
-                            @endif
                         </td>
                         <td class="center">
                             @if(!empty($obj))
