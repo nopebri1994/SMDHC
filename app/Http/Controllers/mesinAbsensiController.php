@@ -176,10 +176,10 @@ class mesinAbsensiController extends Controller
                 fwrite($myfile, $txt);
             }
         }
-        DB::table('absensiharian')->insert($tmp);
+        DB::table('absensiHarian')->insert($tmp);
         fclose($myfile);
         echo "saved to ";
-        echo "<a href='http://localhost/SMDHC/public/log/Mesin_Absensi/$date.txt' target='_blank'>file.txt</a>";
+        echo "<a href='../log/Mesin_Absensi/$date.txt' target='_blank'>file.txt</a>";
     }
 
     function parse_data($data, $p1, $p2)

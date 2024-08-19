@@ -77,7 +77,7 @@
             }
             $.ajax({
                 beforeSend: openLoader('Tarik Data Absensi, Mohon Menunggu'),
-                type: 'post',
+                type: 'get',
                 url: 'mesinAbsensi-sync/tarikData',
                 data: data,
                 success: function(sdata) {

@@ -9,7 +9,7 @@ class absensiHarianModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'absensiharian';
+    protected $table = 'absensiHarian';
     protected $fillable = [
         'idFinger',
         'tanggalAbsen',

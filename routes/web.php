@@ -139,7 +139,7 @@ Route::middleware('auth')->group(function () {
     //connectMesin/Tarik Data
     Route::get('psn/mesinAbsensi-sync', [mesinAbsensiController::class, 'sync']);
     Route::get('psn/mesinAbsensi-sync/connect', [mesinAbsensiController::class, 'connect']);
-    Route::post('psn/mesinAbsensi-sync/tarikData', [mesinAbsensiController::class, 'tarikDataMesin']);
+    Route::get('psn/mesinAbsensi-sync/tarikData', [mesinAbsensiController::class, 'tarikDataMesin']);
 
     //absensi_harian
     Route::get('psn/absensiHarian', [absensiHarianController::class, 'index']);
