@@ -58,7 +58,7 @@ class hutangCutiController extends Controller
             'vCuti' => hutangCutiModel::where('month', $m)->where('year', $y)->get(),
         ];
 
-        return view('hutangcuti.postingHutang', $data);
+        return view('hutangCuti.postingHutang', $data);
     }
 
     function detailHutang(Request $request)
@@ -80,6 +80,6 @@ class hutangCutiController extends Controller
             'masaKerjaBulan' => $selisih->m,
         ];
 
-        return view('hutangcuti.detailHutang', $data);
+        return view('hutangCuti.detailHutang', $data);
     }
 }

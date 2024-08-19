@@ -21,7 +21,7 @@ class karyawanModel extends Model
     }
 
     protected $with = ['jabatan', 'departemen', 'bagian', 'jamKerja'];
-    protected $table = 'datakaryawan';
+    protected $table = 'dataKaryawan';
     protected $fillable = [
         'nikKerja',
         'id',

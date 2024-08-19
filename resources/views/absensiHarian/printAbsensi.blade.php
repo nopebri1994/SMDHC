@@ -135,33 +135,43 @@
                         <td class="center">{{ date('d-m-Y', strtotime($awal)) }}</td>
                         <td class="center">{{ date('l', strtotime($awal)) }}</td>
                         <td class="center">
-                            @if (date('l', strtotime($awal)) == 'Saturday')
-                                {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamMasukS'])) }}
-                            @elseif(date('l', strtotime($awal)) != 'Sunday')
-                                {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamMasukSJ'])) }}
+                            @if(!empty($obj))
+                                @if (date('l', strtotime($awal)) == 'Saturday')
+                                    {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamMasukS'])) }}
+                                @elseif(date('l', strtotime($awal)) != 'Sunday')
+                                    {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamMasukSJ'])) }}
+                                @endif
                             @endif
                         </td>
                         <td class="center">
-                            @if (date('l', strtotime($awal)) == 'Saturday')
-                                {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamPulangS'])) }}
-                            @elseif(date('l', strtotime($awal)) != 'Sunday')
-                                {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamPulangSJ'])) }}
+                            @if(!empty($obj))
+                                @if (date('l', strtotime($awal)) == 'Saturday')
+                                    {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamPulangS'])) }}
+                                @elseif(date('l', strtotime($awal)) != 'Sunday')
+                                    {{ date('H:i', strtotime($dataisi[$obj]['karyawan']['jam_kerja']['jamPulangSJ'])) }}
+                                @endif
                             @endif
                         </td>
                         <td class="center">
-                            @if ($dataisi[$obj]['jamDatang'] != null)
-                                {{ date('H:i', strtotime($dataisi[$obj]['jamDatang'])) }}
+                            @if(!empty($obj))
+                                @if ($dataisi[$obj]['jamDatang'] != null)
+                                    {{ date('H:i', strtotime($dataisi[$obj]['jamDatang'])) }}
+                                @endif
                             @endif
                         </td>
                         <td class="center">
-                            @if ($dataisi[$obj]['jamPulang'] != null)
-                                {{ date('H:i', strtotime($dataisi[$obj]['jamPulang'])) }}
+                            @if(!empty($obj))
+                                @if ($dataisi[$obj]['jamPulang'] != null)
+                                    {{ date('H:i', strtotime($dataisi[$obj]['jamPulang'])) }}
+                            @endif
                             @endif
                         </td>
                         <td class="center"></td>
-                        <td class="center" @if ($dataisi[$obj]['terlambat'] != 'Tidak') style="background-color:yellow" @endif>
-                            @if ($dataisi[$obj]['terlambat'] != 'Tidak')
-                                {{ $dataisi[$obj]['terlambat'] }}
+                        <td class="center" @if(!empty($obj)) @if ($dataisi[$obj]['terlambat'] != 'Tidak') style="background-color:yellow" @endif @endif>
+                            @if(!empty($obj))
+                                @if ($dataisi[$obj]['terlambat'] != 'Tidak')
+                                    {{ $dataisi[$obj]['terlambat'] }}
+                                @endif
                             @endif
                         </td>
                     </tr>

@@ -18,7 +18,7 @@ class keteranganIjinModel extends Model
         });
     }
 
-    protected $table = 'keteranganijin';
+    protected $table = 'keteranganIjin';
     public $incrementing = false;
     protected $fillable = [
         'kode',
