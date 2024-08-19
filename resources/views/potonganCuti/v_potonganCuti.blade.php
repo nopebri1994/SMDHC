@@ -97,10 +97,19 @@
             urlPage();
         });
 
-        const load = () => {
+        document.getElementById('year').onchange = () => {
+            let x = $('#year').val();
+            load(x);
+        }
+
+        const load = (x) => {
+            let data = {
+                'year': x
+            }
             $.ajax({
                 type: 'get',
                 url: 'potongan-cuti/tabelData',
+                data: data,
                 success: function(sdata) {
                     $('#listView').html(sdata);
                     document.getElementById('spin').style.display = 'none';

@@ -105,20 +105,22 @@
                                     <p>Potongan Cuti Tahunan</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ URL::to('/') }}/psn/cuti"
-                                    class="nav-link {{ request()->is('psn/cuti') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Cuti Karyawan</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ URL::to('/') }}/psn/hutang-cuti"
-                                    class="nav-link {{ request()->is('psn/hutang-cuti') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Hutang Cuti Karyawan</p>
-                                </a>
-                            </li>
+                        @endcan
+                        <li class="nav-item">
+                            <a href="{{ URL::to('/') }}/psn/cuti"
+                                class="nav-link {{ request()->is('psn/cuti') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Cuti Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ URL::to('/') }}/psn/hutang-cuti"
+                                class="nav-link {{ request()->is('psn/hutang-cuti') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Hutang Cuti Karyawan</p>
+                            </a>
+                        </li>
+                        @can('hc')
                             <li class="nav-item">
                                 <a href="" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>

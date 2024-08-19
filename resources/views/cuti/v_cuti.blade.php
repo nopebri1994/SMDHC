@@ -33,18 +33,20 @@
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
                                         role="tab" aria-controls="home" aria-selected="true">Detail Cuti Tahunan</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tambah-tab" data-toggle="tab" href="#tambah" role="tab"
-                                        aria-controls="tambah" aria-selected="true">Tambah Cuti Tahunan perorang</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="potong-tab" data-toggle="tab" href="#potong" role="tab"
-                                        aria-controls="potong" aria-selected="true">Potong Cuti Tahunan Perorang</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="posting-tab" data-toggle="tab" href="#posting" role="tab"
-                                        aria-controls="posting" aria-selected="false">Posting Cuti Tahunan</a>
-                                </li>
+                                @can('hc')
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tambah-tab" data-toggle="tab" href="#tambah" role="tab"
+                                            aria-controls="tambah" aria-selected="true">Tambah Cuti Tahunan perorang</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="potong-tab" data-toggle="tab" href="#potong" role="tab"
+                                            aria-controls="potong" aria-selected="true">Potong Cuti Tahunan Perorang</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="posting-tab" data-toggle="tab" href="#posting" role="tab"
+                                            aria-controls="posting" aria-selected="false">Posting Cuti Tahunan</a>
+                                    </li>
+                                @endcan
                             </ul>
                         </div>
                     </div>
@@ -107,209 +109,211 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="posting" role="tabpanel" aria-labelledby="contact-tab">
-                            <div class="mt-3">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Bulan</div>
-                                                    <div class="col-md-8">
-                                                        <select name="postingMonth" class="form-control bg-info"
-                                                            id="postingMonth">
-                                                            <option value="1">Januari</option>
-                                                            <option value="2">Februari</option>
-                                                            <option value="3">Maret</option>
-                                                            <option value="4">April</option>
-                                                            <option value="5">Mei</option>
-                                                            <option value="6">Juni</option>
-                                                            <option value="7">July</option>
-                                                            <option value="8">Agustus</option>
-                                                            <option value="9">September</option>
-                                                            <option value="10">Oktober</option>
-                                                            <option value="11">Nopember</option>
-                                                            <option value="12">Desember</option>
-                                                        </select>
+                        @can('hc')
+                            <div class="tab-pane fade" id="posting" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="mt-3">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 pt-2">Bulan</div>
+                                                        <div class="col-md-8">
+                                                            <select name="postingMonth" class="form-control bg-info"
+                                                                id="postingMonth">
+                                                                <option value="1">Januari</option>
+                                                                <option value="2">Februari</option>
+                                                                <option value="3">Maret</option>
+                                                                <option value="4">April</option>
+                                                                <option value="5">Mei</option>
+                                                                <option value="6">Juni</option>
+                                                                <option value="7">July</option>
+                                                                <option value="8">Agustus</option>
+                                                                <option value="9">September</option>
+                                                                <option value="10">Oktober</option>
+                                                                <option value="11">Nopember</option>
+                                                                <option value="12">Desember</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Tahun</div>
-                                                    <div class="col-md-8">
-                                                        <select name="postingYear" class="form-control bg-info"
-                                                            id="postingYear">
-                                                            @for ($i = 2020; $i < 2030; $i++)
-                                                                <option {{ $i == 2024 ? 'selected' : '' }}>
-                                                                    {{ $i }}
-                                                                </option>
-                                                            @endfor
-                                                        </select>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 pt-2">Tahun</div>
+                                                        <div class="col-md-8">
+                                                            <select name="postingYear" class="form-control bg-info"
+                                                                id="postingYear">
+                                                                @for ($i = 2020; $i < 2030; $i++)
+                                                                    <option {{ $i == 2024 ? 'selected' : '' }}>
+                                                                        {{ $i }}
+                                                                    </option>
+                                                                @endfor
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3">
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3">
 
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <button class="btn btn-success form-control" data-toggle="modal"
-                                                            data-target="#verifikasiPosting">Posting Data</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div id="postingTable"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="tambah" role="tabpanel" aria-labelledby="contact-tab">
-                            <div class="mt-3">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-3 pt-2">NIK (Kerja)</div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" name="nikKerjaTambah" id="nikKerjaTambah"
-                                                            autocomplete="off" placeholder="NIK" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3">Nama Karyawan</div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" name="namaTambah" id="namaTambah"
-                                                            placeholder="nama" class="form-control" disabled>
-                                                        <input type="hidden" name="" id="idKaryawanTambah">
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Dept / Bagian</div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" name="deptTambah" id="deptTambah"
-                                                            placeholder="" class="form-control" disabled>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Tahun Cuti</div>
-                                                    <div class="col-md-8">
-                                                        <select name="yearTambah" class="form-control bg-info"
-                                                            id="yearTambah">
-                                                            @for ($i = 2024; $i < 2030; $i++)
-                                                                <option>{{ $i }}</option>
-                                                            @endfor
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Tambah Cuti</div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" name="cutiTambah" id="cutiTambah"
-                                                            placeholder="" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Keterangan</div>
-                                                    <div class="col-md-8">
-                                                        <textarea name="ketTambah" class="form-control" id="ketTambah" cols="" rows=""></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-11">
-                                                        <button class="btn btn-block btn-secondary" id="tambahCuti">Tambah
-                                                            Cuti... &nbsp;<i class="fas fa-plus"></i></button>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <button class="btn btn-success form-control" data-toggle="modal"
+                                                                data-target="#verifikasiPosting">Posting Data</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div id="listTambah"></div>
+                                        <div class="col-lg-8">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div id="postingTable"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab-pane fade" id="potong" role="tabpanel" aria-labelledby="contact-tab">
-                            <div class="mt-3">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-3 pt-2">NIK (Kerja)</div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" name="nikKerjaPotong" id="nikKerjaPotong"
-                                                            autocomplete="off" placeholder="NIK" class="form-control">
+                            <div class="tab-pane fade" id="tambah" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="mt-3">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3 pt-2">NIK (Kerja)</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="nikKerjaTambah" id="nikKerjaTambah"
+                                                                autocomplete="off" placeholder="NIK" class="form-control">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3">Nama Karyawan</div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" name="namaPotong" id="namaPotong"
-                                                            placeholder="nama" class="form-control" disabled>
-                                                        <input type="hidden" name="" id="idKaryawanPotong">
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3">Nama Karyawan</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="namaTambah" id="namaTambah"
+                                                                placeholder="nama" class="form-control" disabled>
+                                                            <input type="hidden" name="" id="idKaryawanTambah">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Dept / Bagian</div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" name="deptPotong" id="deptPotong"
-                                                            placeholder="" class="form-control" disabled>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 pt-2">Dept / Bagian</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="deptTambah" id="deptTambah"
+                                                                placeholder="" class="form-control" disabled>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Tahun Cuti</div>
-                                                    <div class="col-md-8">
-                                                        <select name="yearPotong" class="form-control bg-info"
-                                                            id="yearPotong">
-                                                            @for ($i = 2024; $i < 2030; $i++)
-                                                                <option>{{ $i }}</option>
-                                                            @endfor
-                                                        </select>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 pt-2">Tahun Cuti</div>
+                                                        <div class="col-md-8">
+                                                            <select name="yearTambah" class="form-control bg-info"
+                                                                id="yearTambah">
+                                                                @for ($i = 2024; $i < 2030; $i++)
+                                                                    <option>{{ $i }}</option>
+                                                                @endfor
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Potong Cuti</div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" name="cutiPotong" id="cutiPotong"
-                                                            placeholder="" class="form-control">
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 pt-2">Tambah Cuti</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="cutiTambah" id="cutiTambah"
+                                                                placeholder="" class="form-control">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Keterangan</div>
-                                                    <div class="col-md-8">
-                                                        <textarea name="ketPotong" class="form-control" id="ketPotong" cols="" rows=""></textarea>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 pt-2">Keterangan</div>
+                                                        <div class="col-md-8">
+                                                            <textarea name="ketTambah" class="form-control" id="ketTambah" cols="" rows=""></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col-md-11">
-                                                        <button class="btn btn-block btn-secondary" id="potongCuti">Potong
-                                                            Cuti... &nbsp;<i class="fas fa-minus"></i></button>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-11">
+                                                            <button class="btn btn-block btn-secondary" id="tambahCuti">Tambah
+                                                                Cuti... &nbsp;<i class="fas fa-plus"></i></button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div id="listPotong"></div>
+                                        <div class="col-lg-8">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div id="listTambah"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="tab-pane fade" id="potong" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="mt-3">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3 pt-2">NIK (Kerja)</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="nikKerjaPotong" id="nikKerjaPotong"
+                                                                autocomplete="off" placeholder="NIK" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3">Nama Karyawan</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="namaPotong" id="namaPotong"
+                                                                placeholder="nama" class="form-control" disabled>
+                                                            <input type="hidden" name="" id="idKaryawanPotong">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 pt-2">Dept / Bagian</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="deptPotong" id="deptPotong"
+                                                                placeholder="" class="form-control" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 pt-2">Tahun Cuti</div>
+                                                        <div class="col-md-8">
+                                                            <select name="yearPotong" class="form-control bg-info"
+                                                                id="yearPotong">
+                                                                @for ($i = 2024; $i < 2030; $i++)
+                                                                    <option>{{ $i }}</option>
+                                                                @endfor
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 pt-2">Potong Cuti</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="cutiPotong" id="cutiPotong"
+                                                                placeholder="" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-3 pt-2">Keterangan</div>
+                                                        <div class="col-md-8">
+                                                            <textarea name="ketPotong" class="form-control" id="ketPotong" cols="" rows=""></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-11">
+                                                            <button class="btn btn-block btn-secondary" id="potongCuti">Potong
+                                                                Cuti... &nbsp;<i class="fas fa-minus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div id="listPotong"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endcan
                     </div>
                     {{-- endisi --}}
                 </div>

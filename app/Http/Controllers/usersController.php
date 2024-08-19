@@ -31,4 +31,13 @@ class usersController extends Controller
         UserModel::create($tmp);
         return redirect('admin/users');
     }
+
+    function tabelAdmin()
+    {
+        $karyawan = UserModel::with('karyawan')->get();
+        $data = [
+            'data' => $karyawan,
+        ];
+        return view('admin.tabelAdmin', $data);
+    }
 }

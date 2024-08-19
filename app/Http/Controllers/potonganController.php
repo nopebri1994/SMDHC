@@ -18,10 +18,17 @@ class potonganController extends Controller
 
     function tabelData(Request $request)
     {
+        $y = $request->year;
+        if (empty($y)) {
+            $data = [
+                'dataTable' => potonganCutiModel::orderBy('id')->paginate(8),
+            ];
+        } else {
+            $data = [
+                'dataTable' => potonganCutiModel::where('tahunPotongan', $y)->orderBy('id')->paginate(8),
+            ];
+        }
 
-        $data = [
-            'dataTable' => potonganCutiModel::orderBy('id')->paginate(8),
-        ];
 
         //pagination ajax
         if ($request->ajax()) {

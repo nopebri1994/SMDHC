@@ -36,8 +36,10 @@
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-md-3">Nama Karyawan</div>
-                                        <div class="col-md-9">
-                                            <select name="idKaryawan" class="form-control" id="idKaryawan">
+                                        <div class="col-md-7">
+                                            <select name="idKaryawan" class="select" data-live-search="true"
+                                                data-show-subtext="true" id="idKaryawan">
+                                                <option value="">Pilih Nama Karyawan</option>
                                                 @foreach ($karyawan as $k)
                                                     <option value="{{ $k->id }}">{{ $k->namaKaryawan }}</option>
                                                 @endforeach
@@ -76,20 +78,21 @@
                 <div class="col-lg-7">
                     <div class="card">
                         <div class="card-body">
-                            {{-- <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-sm btn-info d-none mb-2" id="showButton">
-                                    <span class="far fa-plus" aria-hidden="true"></span> Add Data</button>
-                            </div> --}}
-                            {{-- <div class="text-center" id="spin">
-                                <div class="spinner-grow text-info m-5" style="width: 3rem; height: 3rem;" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                            </div> --}}
-                            {{-- <div class="table-responsive" id="listView"></div> --}}
+                            <div class="table-responsive" id="listView"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('#listView').load('users/tabelAdmin')
+            $('.select').selectpicker({
+                style: "bg-info",
+            });
+        });
+    </script>
 @endsection

@@ -32,7 +32,6 @@ Route::post('/login/prosesLogin', [loginController::class, 'login']);
 Route::get('/login/logout', [loginController::class, 'logout']);
 
 Route::middleware('auth')->group(function () {
-
     //home
     Route::get('/', [homeController::class, 'index']);
 
@@ -123,7 +122,6 @@ Route::middleware('auth')->group(function () {
     Route::get('psn/absensi/addStatus', [absensiController::class, 'addStatus']);
     Route::get('psn/absensi/deleteStatus', [absensiController::class, 'deleteStatus']);
 
-
     //libur
     Route::get('dm/libur', [liburController::class, 'index'])->middleware('can:hc');
     Route::get('dm/libur/tabelData', [liburController::class, 'tabelData']);
@@ -157,4 +155,5 @@ Route::middleware('auth')->group(function () {
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');
     Route::post('admin/storeData', [usersController::class, 'store']);
+    Route::get('admin/users/tabelAdmin', [usersController::class, 'tabelAdmin']);
 });

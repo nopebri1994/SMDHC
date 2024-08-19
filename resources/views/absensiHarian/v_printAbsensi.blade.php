@@ -30,7 +30,8 @@
                                 <div class="row mt-3">
                                     <div class="col-md-3">Nama Karyawan</div>
                                     <div class="col-md-9">
-                                        <select name="idKaryawan" class="form-control" id="idKaryawan">
+                                        <select name="idKaryawan" class="select form-control" data-live-search="true"
+                                            data-show-subtext="true" id="idKaryawan">
                                             @foreach ($karyawan as $k)
                                                 <option value="{{ $k->id }}">{{ $k->namaKaryawan }}</option>
                                             @endforeach
@@ -76,6 +77,11 @@
     </div>
 @section('js')
     <script>
+        $(document).ready(function() {
+            $('.select').selectpicker({
+                style: "bg-info",
+            });
+        });
         document.getElementById('btnPrint').onclick = () => {
             // alert('a')
             let awal = $('#awal').val()
@@ -97,15 +103,18 @@
                 'akhir': akhir
             }
             $.ajax({
+                beforeSend: openLoader('Memuat data'),
                 type: 'get',
                 url: 'cetakPerorang',
                 data: data,
                 success: function() {
                     document.getElementById("viewCetak").src = "{{ URL::to('/') }}/pdf/Absensi-Harian-" +
                         id + ".pdf";
+                    closeLoader();
                 },
                 error: function() {
                     flasher.error('Server Error')
+                    closeLoader();
                 }
             })
         }
