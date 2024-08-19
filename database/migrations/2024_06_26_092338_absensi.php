@@ -19,8 +19,8 @@ return new class extends Migration
             $table->enum('status', ['0', '1']);
             $table->timestamps();
 
-            $table->foreign('idKaryawan')->references('id')->on('datakaryawan');
-            $table->foreign('idKeteranganIjin')->references('id')->on('keteranganijin');
+            $table->foreign('idKaryawan')->references('id')->on('dataKaryawan');
+            $table->foreign('idKeteranganIjin')->references('id')->on('keteranganIjin');
         });
     }
 

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('tahun');
             $table->timestamps();
 
-            $table->foreign('idKaryawan')->references('id')->on('datakaryawan');
+            $table->foreign('idKaryawan')->references('id')->on('dataKaryawan');
         });
     }
 

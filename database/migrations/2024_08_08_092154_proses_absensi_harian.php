@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('full', ['Ya', 'Tidak']);
             $table->timestamps();
 
-            $table->foreign('idKaryawan')->references('id')->on('datakaryawan');
+            $table->foreign('idKaryawan')->references('id')->on('dataKaryawan');
         });
     }
 
