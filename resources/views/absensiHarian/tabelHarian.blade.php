@@ -67,7 +67,7 @@
                                @php
                                    $ket_ijin = '';
                                    $obj = array_search($ab->idKaryawan, array_column($ket, 'idKaryawan'));
-                                   if ($obj) {
+                                   if ($obj!='') {
                                     $ket_ijin = $ket[$obj]->kode;
                                    }
                                    echo $ket_ijin;
