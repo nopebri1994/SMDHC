@@ -53,10 +53,10 @@ class karyawanController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'nikKerja' => 'required|unique:datakaryawan',
+                'nikKerja' => 'required|unique:dataKaryawan',
                 'nama' => 'required',
                 'tmt' => 'required',
-                'fpId' => 'required|unique:datakaryawan',
+                'fpId' => 'required|unique:dataKaryawan',
             ],
             $messages = [
                 'nikKerja.required' => 'NIK tidak boleh Kosong.',
@@ -98,10 +98,10 @@ class karyawanController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'nikKerja' => 'sometimes|required|unique:datakaryawan,uuid,' . $request->id,
+                'nikKerja' => 'sometimes|required|unique:dataKaryawan,uuid,' . $request->id,
                 'nama' => 'required',
                 'tmt' => 'required',
-                'fpId' => 'required|unique:datakaryawan,uuid,' . $request->id,
+                'fpId' => 'required|unique:dataKaryawan,uuid,' . $request->id,
             ],
             $messages = [
                 'nikKerja.required' => 'NIK tidak boleh Kosong.',

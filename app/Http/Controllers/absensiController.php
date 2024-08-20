@@ -256,7 +256,7 @@ Bisa digunakan sebelum $exp",
 
     function dataIjin()
     {
-        $absensi = absensiModel::orderByDesc('id')->paginate(500);
+        $absensi = absensiModel::orderByDesc('tanggalIjin')->paginate(1000);
         $data =  [
             'absensi' => $absensi,
         ];

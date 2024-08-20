@@ -143,7 +143,7 @@ Route::middleware('auth')->group(function () {
 
     //absensi_harian
     Route::get('psn/absensiHarian', [absensiHarianController::class, 'index']);
-    Route::post('psn/absensiHarian/list', [absensiHarianController::class, 'list']);
+    Route::get('psn/absensiHarian/list', [absensiHarianController::class, 'list']);
     Route::post('psn/absensiHarian/prosesAbsensi', [absensiHarianController::class, 'prosesAbsensi']);
     Route::get('psn/absensiHarian/updateFull', [absensiHarianController::class, 'updateFull']);
     Route::get('psn/absensiHarian/updateTerlambat', [absensiHarianController::class, 'updateTerlambat']);

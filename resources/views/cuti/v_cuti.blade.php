@@ -178,14 +178,14 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="col-md-3 pt-2">NIK (Kerja)</div>
+                                                        <div class="col-md-4 pt-2">NIK (Kerja)</div>
                                                         <div class="col-md-8">
                                                             <input type="text" name="nikKerjaTambah" id="nikKerjaTambah"
                                                                 autocomplete="off" placeholder="NIK" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-3">Nama Karyawan</div>
+                                                        <div class="col-md-4">Nama Karyawan</div>
                                                         <div class="col-md-8">
                                                             <input type="text" name="namaTambah" id="namaTambah"
                                                                 placeholder="nama" class="form-control" disabled>
@@ -193,14 +193,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-3 pt-2">Dept / Bagian</div>
+                                                        <div class="col-md-4 pt-2">Dept / Bagian</div>
                                                         <div class="col-md-8">
                                                             <input type="text" name="deptTambah" id="deptTambah"
                                                                 placeholder="" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-3 pt-2">Tahun Cuti</div>
+                                                        <div class="col-md-4 pt-2">Tahun Cuti</div>
                                                         <div class="col-md-8">
                                                             <select name="yearTambah" class="form-control bg-info"
                                                                 id="yearTambah">
@@ -211,14 +211,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-3 pt-2">Tambah Cuti</div>
+                                                        <div class="col-md-4 pt-2">Tambah Cuti</div>
                                                         <div class="col-md-8">
                                                             <input type="text" name="cutiTambah" id="cutiTambah"
                                                                 placeholder="" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-3 pt-2">Keterangan</div>
+                                                        <div class="col-md-4 pt-2">Keterangan</div>
                                                         <div class="col-md-8">
                                                             <textarea name="ketTambah" class="form-control" id="ketTambah" cols="" rows=""></textarea>
                                                         </div>
@@ -249,14 +249,14 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="col-md-3 pt-2">NIK (Kerja)</div>
+                                                        <div class="col-md-4 pt-2">NIK (Kerja)</div>
                                                         <div class="col-md-8">
                                                             <input type="text" name="nikKerjaPotong" id="nikKerjaPotong"
                                                                 autocomplete="off" placeholder="NIK" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-3">Nama Karyawan</div>
+                                                        <div class="col-md-4">Nama Karyawan</div>
                                                         <div class="col-md-8">
                                                             <input type="text" name="namaPotong" id="namaPotong"
                                                                 placeholder="nama" class="form-control" disabled>
@@ -264,14 +264,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-3 pt-2">Dept / Bagian</div>
+                                                        <div class="col-md-4 pt-2">Dept / Bagian</div>
                                                         <div class="col-md-8">
                                                             <input type="text" name="deptPotong" id="deptPotong"
                                                                 placeholder="" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-3 pt-2">Tahun Cuti</div>
+                                                        <div class="col-md-4 pt-2">Tahun Cuti</div>
                                                         <div class="col-md-8">
                                                             <select name="yearPotong" class="form-control bg-info"
                                                                 id="yearPotong">
@@ -282,14 +282,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-3 pt-2">Potong Cuti</div>
+                                                        <div class="col-md-4 pt-2">Potong Cuti</div>
                                                         <div class="col-md-8">
                                                             <input type="text" name="cutiPotong" id="cutiPotong"
                                                                 placeholder="" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-3 pt-2">Keterangan</div>
+                                                        <div class="col-md-4 pt-2">Keterangan</div>
                                                         <div class="col-md-8">
                                                             <textarea name="ketPotong" class="form-control" id="ketPotong" cols="" rows=""></textarea>
                                                         </div>

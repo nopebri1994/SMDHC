@@ -63,7 +63,7 @@ class cutiController extends Controller
         $m = $request->m;
         $y = $request->y;
         $data = [
-            'vCuti' => cutiModel::where('month', $m)->where('year', $y)->get(),
+            'vCuti' => cutiModel::with('karyawan')->where('month', $m)->where('year', $y)->get(),
         ];
 
         return view('cuti.postingCuti', $data);

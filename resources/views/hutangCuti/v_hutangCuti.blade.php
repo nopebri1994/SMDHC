@@ -202,7 +202,7 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            loadPostingHutang();
+            // loadPostingHutang();
         });
 
         let loadPostingHutang = () => {
@@ -260,15 +260,18 @@
                     'y': year
                 }
                 $.ajax({
+                    beforeSend:openLoader('Generate Hutang Cuti'),
                     type: 'get',
                     url: 'hutang-cuti/posting-hutang',
                     data: data,
                     success: function(sData) {
                         flasher.success('Posting hutang Cuti Succes');
                         loadPostingHutang();
+                        closeLoader();
                     },
                     error: function() {
                         flasher.error('Server Not Found')
+                        closeLoader();
                     }
                 })
                 $('#verifikasiPosting').modal('toggle');

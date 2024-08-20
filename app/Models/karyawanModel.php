@@ -19,8 +19,6 @@ class karyawanModel extends Model
             $model->uuid = Str::uuid();
         });
     }
-
-    protected $with = ['jabatan', 'departemen', 'bagian', 'jamKerja'];
     protected $table = 'dataKaryawan';
     protected $fillable = [
         'nikKerja',

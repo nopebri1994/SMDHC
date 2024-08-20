@@ -116,7 +116,7 @@
             }
             $.ajax({
                 beforeSend: openLoader('Memuat Data'),
-                type: 'post',
+                type: 'get',
                 url: 'absensiHarian/list',
                 data: data,
                 success: function(sdata) {

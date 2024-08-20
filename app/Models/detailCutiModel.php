@@ -9,7 +9,7 @@ class detailCutiModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'detailcuti';
+    protected $table = 'detailCuti';
     protected $fillable = [
         'idKaryawan',
         'tanggalIjin',

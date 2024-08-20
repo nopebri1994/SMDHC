@@ -163,7 +163,7 @@ class mesinAbsensiController extends Controller
             $date2 = date("Y-m-d", strtotime($datetime));
             $date3 = date("d/m/y", strtotime($datetime));
             $time2 = date("H:i", strtotime($datetime));
-            if ($pin != '') {
+            if ($pin) {
                 $tmp[] = [
                     'idFinger' => $pin,
                     'tanggalAbsen' => $date2,
@@ -172,6 +172,10 @@ class mesinAbsensiController extends Controller
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
+                if(count($tmp)== 1000){
+                    DB::table('absensiHarian')->insert($tmp);
+                    $tmp=[];
+                }
                 $txt = "001.$date3.$time2.$pin\n";
                 fwrite($myfile, $txt);
             }

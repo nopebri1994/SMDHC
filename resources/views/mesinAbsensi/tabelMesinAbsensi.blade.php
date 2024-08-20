@@ -48,6 +48,9 @@
 </table>
 <script>
     $('#tbl').DataTable({
-        responsive: true
+        responsive: true,
+        columnDefs: [
+        { responsivePriority: 1, targets: -1 },
+        ]
     });
 </script>

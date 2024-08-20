@@ -19,7 +19,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-5">
+                <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header">
                             {{-- <h5 class="m-0">{{ $title }}</h5> --}}
@@ -27,26 +27,26 @@
                         <div class="card-body">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-3">Nama Mesin</div>
+                                    <div class="col-md-4">Nama Mesin</div>
                                     <div class="col-md-6">
                                         <input type="text" name="namaMesin" id="namaMesin" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-md-3">IP Address</div>
+                                    <div class="col-md-4">IP Address</div>
                                     <div class="col-md-4">
                                         <input type="text" name="ipAddress" id="ipAddress" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-md-3">Key Mesin</div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-4">Key Mesin</div>
+                                    <div class="col-md-8">
                                         <textarea name="keyMesin" id="keyMesin" class="form-control" cols="10" rows="2"></textarea>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-md-3">Keterangan</div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-4">Keterangan</div>
+                                    <div class="col-md-8">
                                         <textarea name="keterangan" id="keterangan" class="form-control" cols="30" rows="5"></textarea>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-end">

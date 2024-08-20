@@ -24,10 +24,9 @@ class absensiHarianController extends Controller
     function list(Request $request)
     {
         $tgl = $request->tgl;
-        $absensi =
             $data = [
                 'absensi' => prosesAbsensiHarianModel::with(['karyawan'])->where('tglAbsen', $tgl)->get(),
-                'ket' => absensiModel::with('keteranganIjin')->where('tanggalijin', $tgl)->get()->toArray(),
+                'ket' => DB::table('absensi_keteranganIjin')->where('tanggalIjin',$tgl)->get()->toArray(),
                 'tgl' => $tgl
             ];
         return view('absensiHarian.tabelHarian', $data);
@@ -99,7 +98,7 @@ class absensiHarianController extends Controller
                 'updated_at' => date('Y-m-d H:i:s')
             ];
         }
-        DB::table('prosesabsensiharian')->insert($tmp);
+        DB::table('prosesAbsensiHarian')->insert($tmp);
         $sendToView = array(
             'status'        => 1,
             'message'       => 'Proses Absensi Sukses'

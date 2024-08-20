@@ -1,4 +1,4 @@
-       <table class="table table-sm table-bordered display compact nowrap" style="width:100%;" id="tbl">
+     <table class="table table-sm table-bordered display compact nowrap" style="width:100%;" id="tbl">
            <thead>
                <tr>
                    <th>#</th>
@@ -67,8 +67,8 @@
                                @php
                                    $ket_ijin = '';
                                    $obj = array_search($ab->idKaryawan, array_column($ket, 'idKaryawan'));
-                                   if ($obj != '') {
-                                       $ket_ijin = $ket[$obj]['keterangan_ijin']['kode'];
+                                   if ($obj) {
+                                    $ket_ijin = $ket[$obj]->kode;
                                    }
                                    echo $ket_ijin;
                                @endphp
