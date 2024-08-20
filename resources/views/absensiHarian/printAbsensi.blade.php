@@ -1,6 +1,6 @@
 <html>
-
 <head>
+    <title>Data Absensi Harian - {{ $dataHeader->namaKaryawan}}</title>
     <style>
         /** Define the margins of your page **/
         @page {

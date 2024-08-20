@@ -256,7 +256,7 @@ Bisa digunakan sebelum $exp",
 
     function dataIjin()
     {
-        $absensi = absensiModel::orderByDesc('tanggalIjin')->paginate(1000);
+        $absensi = absensiModel::with(['karyawan'])->orderBy('tanggalIjin','desc')->limit(1000)->get();
         $data =  [
             'absensi' => $absensi,
         ];

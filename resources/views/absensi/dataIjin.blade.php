@@ -12,8 +12,8 @@
                 <th>Nama Karyawan</th>
                 <th>Bagian</th>
                 <th>Ijin</th>
-                <th>Tanggal</th>
-                <th style="width:10%">#</th>
+                <th style="text-align: center">Tanggal</th>
+                <th style="width:12%">#</th>
             </tr>
         </thead>
         <tbody>
@@ -24,10 +24,10 @@
                     <td width="35%">{{ $a->karyawan->namaKaryawan }}</td>
                     <td>{{ $a->karyawan->departemen->kode }}/{{ $a->karyawan->bagian->kode }}</td>
                     <td>{{ $a->keteranganIjin->kode }}</td>
-                    <td>{{ varHelper::formatDate($a->tanggalIjin) }}</td>
+                    <td data-sort="{{$a->tanggalIjin}}" style="text-align:center">{{ varHelper::formatDate($a->tanggalIjin) }}&nbsp;</td>
                     <td>
                         @can('hc')
-                            <div class="row">
+                            <div class="row" style="display: flex; justify-content: center">
                                 @if ($a->status == 0)
                                     <div
                                         class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
@@ -45,9 +45,9 @@
                                 @endif
                                 <div>
                                     &nbsp;
-                                    <a href="#" data-toggle="tooltip" title="Hapus Data"
+                                    {{-- <a href="#" data-toggle="tooltip" title="Hapus Data"
                                         onclick="deleteData({{ $a->id }},'{{ $a->keteranganIjin->kode }}','{{ $a->tanggalIjin }}',{{ $a->idKaryawan }})"><span
-                                            class="fas fa-trash-alt" style="color: red"></span></a>
+                                            class="fas fa-trash-alt" style="color: red"></span></a> --}}
                                 </div>
                             </div>
                         @endcan

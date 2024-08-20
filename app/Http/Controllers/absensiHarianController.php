@@ -139,7 +139,10 @@ class absensiHarianController extends Controller
     }
     function cetakPerorang(Request $request)
     {
-        $id = $request->idKaryawan;
+
+        $uuid = $request->idKaryawan;
+        $getid=karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('uuid', $uuid)->first();
+        $id=$getid->id;
         $tglAkhir = $request->akhir;
         $tglAwal = $request->awal;
         $dataHeader = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('id', $id)->first();
@@ -153,11 +156,11 @@ class absensiHarianController extends Controller
             'dataisi' => $dataisi,
         ];
         // return view('absensiHarian.printAbsensi', $tmp);
+    
+        $pdf=Pdf::loadView('absensiHarian.printAbsensi', $tmp);
         Pdf::setPaper('A4');
-        Pdf::loadView('absensiHarian.printAbsensi', $tmp)->save("pdf/Absensi-Harian-$id.pdf");
-
-        // $pdf = Pdf::loadView('absensiHarian.printAbsensi', $tmp)->save('pdf/Absensi-Harian.pdf');
+         // $pdf = Pdf::loadView('absensiHarian.printAbsensi', $tmp)->save('pdf/Absensi-Harian.pdf');
         // return $pdf->download('users_list.pdf');
-        // $pdf->stream();
+        return $pdf->stream("$uuid.pdf");
     }
 }

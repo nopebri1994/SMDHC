@@ -33,7 +33,7 @@
                                         <select name="idKaryawan" class="select form-control" data-live-search="true"
                                             data-show-subtext="true" id="idKaryawan">
                                             @foreach ($karyawan as $k)
-                                                <option value="{{ $k->id }}">{{ $k->namaKaryawan }}</option>
+                                                <option value="{{ $k->uuid }}">{{ $k->namaKaryawan }}</option>
                                             @endforeach
 
                                         </select>
@@ -108,8 +108,7 @@
                 url: 'cetakPerorang',
                 data: data,
                 success: function() {
-                    document.getElementById("viewCetak").src = "{{ URL::to('/') }}/pdf/Absensi-Harian-" +
-                        id + ".pdf";
+                    document.getElementById("viewCetak").src = "{{ URL::to('/') }}/psn/cetakPerorang?idKaryawan="+id+"&awal="+awal+"&akhir="+akhir
                     closeLoader();
                 },
                 error: function() {
