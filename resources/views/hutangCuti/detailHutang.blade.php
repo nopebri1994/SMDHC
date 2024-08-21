@@ -1,7 +1,8 @@
 <div class="col-md-12 shadow-sm">
     <div class="row bg-info">
-        <div class="col-md-5 pt-2">Jumlah Hutang Cuti</div>
-        <div class="col-md-3"><strong style="font-size: 24px">{{ $vCuti->jumlahHutangCuti }}</strong>
+        <div class="col-md-5 pt-2">Sisa Hutang Cuti</div>
+        <div class="col-md-3"><strong
+                style="font-size: 24px">{{ $vCuti->jumlahHutangCuti - $vCuti->ambilHutangCuti }}</strong>
         </div>
     </div>
     <div class="row">
