@@ -6,6 +6,7 @@
 /public/pdf
 /public/log
 /storage/*.key
+/storage/history
 /vendor
 .env
 .env.backup
@@ -20,4 +21,3 @@ yarn-error.log
 /.idea
 /.vscode
 .prettierrc
-storage/history/*.log
