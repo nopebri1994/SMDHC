@@ -11,6 +11,7 @@ use App\Models\karyawanModel;
 use App\Models\keteranganIjinModel;
 use App\Models\liburModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\RC4;
 use varHelper;
 
@@ -166,6 +167,10 @@ Bisa digunakan sebelum $exp",
                     ];
                     absensiModel::create($tmpSave);
 
+                    //log
+                    $msg = "Id Karyawan = " . $parsing['id'] . " kode KeteranganIjin = " . $parsing['kode'] . " Tanggal Ijin = " . $parsing['tglAwal'] . " User = " . auth()->user()->karyawan->namaKaryawan;
+                    Log::channel('history')->info("Tambah data Ijin => " . $msg);
+
                     $sendToView = array(
                         'status'        => 1,
                         'message'       => 'Data Berhasil Di Proses'
@@ -201,6 +206,11 @@ Bisa digunakan sebelum $exp",
                         'status'            => '0'
                     ];
                     absensiModel::create($tmpSave);
+
+                    //log
+                    $msg = "Id Karyawan = " . $parsing['id'] . " kode KeteranganIjin = " . $parsing['kode'] . " Tanggal Ijin = " . $parsing['tglAwal'] . " User = " . auth()->user()->karyawan->namaKaryawan;
+                    Log::channel('history')->info("Tambah data Ijin => " . $msg);
+
                     $sendToView = array(
                         'status'        => 1,
                         'message'       => 'Data Berhasil Di Proses'
@@ -210,7 +220,7 @@ Bisa digunakan sebelum $exp",
             } elseif ($parsing['kode'] == 'ISD') {
                 $cm = date('m', strtotime($parsing['tglAwal']));
                 $cy = date('Y', strtotime($parsing['tglAwal']));
-                $cekISD = absensiModel::where('idKaryawan', $parsing['id'])->whereMonth('tanggalIjin', $cm)->whereYear('tanggalIjin', $cy)->first();
+                $cekISD = absensiModel::where('idKaryawan', $parsing['id'])->whereMonth('tanggalIjin', $cm)->whereYear('tanggalIjin', $cy)->where('idKeteranganIjin', $idKode->id)->first();
                 if (empty($cekISD)) {
                     $tmpSave = [
                         'idKaryawan'        => $parsing['id'],
@@ -219,6 +229,11 @@ Bisa digunakan sebelum $exp",
                         'status'            => '0'
                     ];
                     absensiModel::create($tmpSave);
+
+                    //log
+                    $msg = "Id Karyawan = " . $parsing['id'] . " kode KeteranganIjin = " . $parsing['kode'] . " Tanggal Ijin = " . $parsing['tglAwal'] . " User = " . auth()->user()->karyawan->namaKaryawan;
+                    Log::channel('history')->info("Tambah data Ijin => " . $msg);
+
                     $sendToView = array(
                         'status'        => 1,
                         'message'       => 'Data Berhasil Di Proses'
@@ -239,6 +254,11 @@ Bisa digunakan sebelum $exp",
                     'status'            => '0'
                 ];
                 absensiModel::create($tmpSave);
+
+                //log
+                $msg = "Id Karyawan = " . $parsing['id'] . " kode KeteranganIjin = " . $parsing['kode'] . " Tanggal Ijin = " . $parsing['tglAwal'] . " User = " . auth()->user()->karyawan->namaKaryawan;
+                Log::channel('history')->info("Tambah data Ijin => " . $msg);
+
                 $sendToView = array(
                     'status'        => 1,
                     'message'       => 'Data Berhasil Di Proses'
@@ -256,7 +276,7 @@ Bisa digunakan sebelum $exp",
 
     function dataIjin()
     {
-        $absensi = absensiModel::with(['karyawan'])->orderBy('tanggalIjin','desc')->limit(1000)->get();
+        $absensi = absensiModel::with(['karyawan'])->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
         $data =  [
             'absensi' => $absensi,
         ];
@@ -299,5 +319,9 @@ Bisa digunakan sebelum $exp",
         } else {
             absensiModel::where('id', $id)->delete();
         }
+
+        //log
+        $msg = "Id Karyawan = " . $idKaryawan . " kode KeteranganIjin = " . $ket . " Tanggal Ijin = " . $tgl . " User = " . auth()->user()->karyawan->namaKaryawan;
+        Log::channel('history')->warning("Hapus data Ijin => " . $msg);
     }
 }
