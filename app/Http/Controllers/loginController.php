@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\karyawanModel;
-use App\Models\UserModel;
+use App\Services\userServices;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+
 
 class loginController extends Controller
 {
+    private userServices $userServices;
+
+    public function __construct(userServices $userServices)
+    {
+        $this->userServices = $userServices;
+    }
+
+
     function index()
     {
         return view('login.v_login');
@@ -23,11 +29,14 @@ class loginController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
-
+        if ($this->userServices->login($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/')->with('status', 'Selamat Datang di halaman SMDHC');
         }
+        // if (Auth::attempt($credentials)) {
+        //     $request->session()->regenerate();
+        //     return redirect()->intended('/')->with('status', 'Selamat Datang di halaman SMDHC');
+        // }
         return redirect('/login');
     }
 
