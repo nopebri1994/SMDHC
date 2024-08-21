@@ -82,7 +82,8 @@ Route::middleware('auth')->group(function () {
     Route::post('dm/jam-kerja/update', [jamKerjaController::class, 'update']);
 
     //karyawan
-    Route::get('/dk/karyawan', [karyawanController::class, 'index']);
+    Route::get('/dk/karyawan', [karyawanController::class, 'index'])->name('karyawan');
+    Route::get('/dk/karyawan/tableData', [karyawanController::class, 'tableData']);
     // Route::POST('/dk/karyawan/export', [karyawanController::class, 'export']); //sementara
     Route::get('dk/karyawan/addData', [karyawanController::class, 'addData']);
     Route::post('dk/karyawan/storeData', [karyawanController::class, 'storeData']);

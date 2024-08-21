@@ -13,7 +13,7 @@
                 <th>Bagian</th>
                 <th>Ijin</th>
                 <th style="text-align: center">Tanggal</th>
-                <th style="width:12%">#</th>
+                <th style="width:12%"></th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +24,8 @@
                     <td width="35%">{{ $a->karyawan->namaKaryawan }}</td>
                     <td>{{ $a->karyawan->departemen->kode }}/{{ $a->karyawan->bagian->kode }}</td>
                     <td>{{ $a->keteranganIjin->kode }}</td>
-                    <td data-sort="{{$a->tanggalIjin}}" style="text-align:center">{{ varHelper::formatDate($a->tanggalIjin) }}&nbsp;</td>
+                    <td data-sort="{{ $a->tanggalIjin }}" style="text-align:center">
+                        {{ varHelper::formatDate($a->tanggalIjin) }}&nbsp;</td>
                     <td>
                         @can('hc')
                             <div class="row" style="display: flex; justify-content: center">
@@ -59,5 +60,10 @@
 </div>
 
 <script>
-    $('#tbl').DataTable();
+    $('#tbl').DataTable({
+        responsive: true,
+        // columnDefs: [
+        // { responsivePriority: 1, targets: -1 },
+        // ]
+    });
 </script>

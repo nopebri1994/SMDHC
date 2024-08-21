@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <div class="row">
                                 {{-- badge --}}
-                                <div class="col-lg-3 col-6">
+                                <div class="col-lg-3 col-12">
                                     <div class="small-box bg-info">
                                         <div class="inner">
                                             <h3>{{ $countEmployee }}</h3>
@@ -35,20 +35,56 @@
                                         <div class="icon">
                                             <i class="fas fa-people-carry"></i>
                                         </div>
-                                        <a href="#" class="small-box-footer">More info <i
+                                        <a href="{{ URL::to('/dk/karyawan') }}" class="small-box-footer">More info <i
                                                 class="fas fa-arrow-circle-right"></i></a>
                                     </div>
                                 </div>
-                                {{-- badge --}}
+                                <div class="col-md-3 col-sm-6 col-12">
+                                    <div class="info-box bg-orange">
+                                        <span class="info-box-icon" style="color:#fff"><i
+                                                class="fas fa-user-circle"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text" style="color: #fff">PT Lion Metal Works Tbk</span>
+                                            <span class="info-box-number" style="color:#fff">{{ $metalEmployee }}</span>
+                                            <div class="progress">
+                                                <div class="progress-bar"
+                                                    style="width: {{ number_format(($metalEmployee / $countEmployee) * 100, 0, ',', '') }}%">
+                                                </div>
+                                            </div>
+                                            <span class="progress-description" style="color: #fff">
+                                                {{ number_format(($metalEmployee / $countEmployee) * 100, 2, ',', '') }}%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="info-box bg-success">
+                                        <span class="info-box-icon"><i class="fas fa-user-circle"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text" style="color: #fff">PT Singa Purwakarta Jaya</span>
+                                            <span class="info-box-number"
+                                                style="color:#fff">{{ $countEmployee - $metalEmployee }}</span>
+                                            <div class="progress">
+                                                <div class="progress-bar"
+                                                    style="width: {{ number_format((($countEmployee - $metalEmployee) / $countEmployee) * 100, 0, ',', '') }}%">
+                                                </div>
+                                            </div>
+                                            <span class="progress-description" style="color: #fff">
+                                                {{ number_format((($countEmployee - $metalEmployee) / $countEmployee) * 100, 2, ',', '') }}%
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        {{-- badge --}}
                     </div>
-
                 </div>
-
             </div>
 
         </div>
+
+    </div>
+
+    </div>
     </div>
 @endsection
 

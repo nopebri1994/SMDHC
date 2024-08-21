@@ -32,6 +32,7 @@
                                     <div class="col-md-9">
                                         <select name="idKaryawan" class="select form-control" data-live-search="true"
                                             data-show-subtext="true" id="idKaryawan">
+                                            <option value="">-- Pilih Nama Karyawan --</option>
                                             @foreach ($karyawan as $k)
                                                 <option value="{{ $k->uuid }}">{{ $k->namaKaryawan }}</option>
                                             @endforeach
@@ -102,20 +103,9 @@
                 'awal': awal,
                 'akhir': akhir
             }
-            $.ajax({
-                beforeSend: openLoader('Memuat data'),
-                type: 'get',
-                url: 'cetakPerorang',
-                data: data,
-                success: function() {
-                    document.getElementById("viewCetak").src = "{{ URL::to('/') }}/psn/cetakPerorang?idKaryawan="+id+"&awal="+awal+"&akhir="+akhir
-                    closeLoader();
-                },
-                error: function() {
-                    flasher.error('Server Error')
-                    closeLoader();
-                }
-            })
+            openLoader('Memuat data');
+            document.getElementById("viewCetak").src = "{{ URL::to('/') }}/psn/cetakPerorang?idKaryawan="+id+"&awal="+awal+"&akhir="+akhir
+            closeLoader();
         }
     </script>
 @endsection

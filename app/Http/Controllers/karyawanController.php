@@ -20,16 +20,24 @@ class karyawanController extends Controller
 {
     public function index()
     {
+        $data = [
+            'title'     => 'Daftar Karyawan',
+            'perusahaan'=>perusahaanModel::all(),
+        ];
+        return View('karyawan.v_karyawan', $data);
+    }
+
+    function tableData(Request $request){
+        $perusahaan = $request->perusahaan;
         if (auth()->user()->role == '5') {
             $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
         } else {
-            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->orderBy('nikKerja')->get();
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('idPerusahaan',$perusahaan)->orderBy('nikKerja')->get();
         }
         $data = [
-            'title'     => 'Daftar Karyawan',
             'karyawan'  => $karyawan,
         ];
-        return View('karyawan.v_karyawan', $data);
+        return View('karyawan.vTable', $data);
     }
 
     function addData()

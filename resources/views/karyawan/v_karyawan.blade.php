@@ -41,10 +41,21 @@
                         <div class="card-header">
                             {{-- <h5 class="m-0">{{ $title }}</h5> --}}
                             @can('hc')
-                                <div class="d-flex  justify-content-end">
-                                    <a href="{{ URL::to('/') }}/dk/karyawan/addData" class="btn-sm btn-primary"><i
-                                            class="fa fa-plus"></i>
-                                        Add Data</a>
+                                <div class="d-flex flex-row flex-wrap">
+                                    <div class="p-2"><label for="">Perusahaan</label></div>
+                                    <div class="" style="width: 400px">
+                                        <select name="perusahaan" id="perusahaan" class="form-control">
+                                            @foreach ($perusahaan as $p)
+                                                <option value="{{ $p->id }}">{{ $p->namaPerusahaan }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                    <div class="pt-2 ml-auto">
+                                        <a href="{{ URL::to('/') }}/dk/karyawan/addData"
+                                            class="btn-sm btn-block btn-primary"><i class="fa fa-plus"></i>
+                                            Add Data</a>
+                                    </div>
                                 </div>
                             @endcan
                         </div>
@@ -64,70 +75,7 @@
                                 </div>
                             @endif
                             <div class="table-responsive-md">
-                                <table class="table table-sm table-bordered table-striped display nowrap"
-                                    style="width: 100%" id="tbl">
-                                    <thead>
-                                        <tr class="text-center align-middle" style="height: 3rem">
-                                            <th class="align-middle text-center">#</th>
-                                            <th class="align-middle text-center">NIK</th>
-                                            <th class="align-middle text-center">Nama Karyawan</th>
-                                            <th class="align-middle text-center">Jabatan</th>
-                                            <th class="align-middle text-center">Dept. / Bagian</th>
-                                            <th class="align-middle text-center">Jenis Kelamin</th>
-                                            <th class="align-middle text-center">Tanggal Masuk</th>
-                                            <th class="align-middle"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($karyawan as $key => $k)
-                                            <tr>
-                                                <td class="text-center">{{ $key + 1 }}</td>
-                                                <td class="text-center">{{ $k->nikKerja }}</td>
-                                                <td>{{ $k->namaKaryawan }}</td>
-                                                <td class="text-center">{{ $k->jabatan->namaJabatan }}</td>
-                                                <td class="text-center">{{ $k->departemen->kode }}
-                                                    @if ($k->bagian->kode != null)
-                                                        <span style="color:coral">&#8658;</span>
-                                                    @endif
-                                                    {{ $k->bagian->kode }}
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    @if ($k->jenisKelamin == '1')
-                                                        <span class="badge badge-success" style="font-size:0.8rem">
-                                                            {{ varHelper::varJK($k->jenisKelamin) }}
-                                                        </span>
-                                                    @else
-                                                        <span class="badge badge-danger" style="font-size:0.8rem">
-                                                            {{ varHelper::varJK($k->jenisKelamin) }}
-                                                        </span>
-                                                    @endif
-
-                                                </td>
-                                                <td class="text-center">{{ varHelper::formatDate($k->tglMasuk) }}</td>
-                                                <td class="align-middle text-center">
-                                                    <div class="btn-group" role="group">
-                                                        <button id="btnGroupDrop1" type="button"
-                                                            class="btn btn-primary dropdown-toggle btn-sm"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            Action
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                            <a class="dropdown-item"
-                                                                href="{{ URL::to("dk/karyawan/detail-data/$k->uuid") }}">Detail
-                                                                Data</a>
-                                                            @can('hc')
-                                                                <a class="dropdown-item"
-                                                                    href="{{ URL::to("dk/karyawan/edit-data/$k->uuid") }}">Edit</a>
-                                                            @endcan
-                                                            {{-- <a class="dropdown-item" href="#">Delete</a> --}}
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                <div id="list"></div>
                             </div>
                         </div>
                     </div>
@@ -140,15 +88,34 @@
     <script>
         $(document).ready(function() {
             alert();
+            loadData();
         })
+
+        document.getElementById('perusahaan').onclick = () => {
+            loadData();
+        }
+        let loadData = () => {
+            data = {
+                'perusahaan': $('#perusahaan').val()
+            }
+            $.ajax({
+                type: 'get',
+                url: 'karyawan/tableData',
+                data: data,
+                success: function(sdata) {
+                    $('#list').html(sdata);
+                },
+                error: function(error) {
+                    flasher.error('Server Error')
+                }
+            })
+        }
+
         let alert = () => {
             let x = document.getElementById("alert");
             setTimeout(() => {
                 x.click();
             }, 2000);
         }
-        $('#tbl').DataTable({
-            responsive: true,
-        });
     </script>
 @endsection

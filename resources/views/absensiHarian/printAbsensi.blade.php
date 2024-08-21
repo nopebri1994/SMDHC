@@ -1,6 +1,7 @@
 <html>
+
 <head>
-    <title>Data Absensi Harian - {{ $dataHeader->namaKaryawan}}</title>
+    <title>Data Absensi Harian - {{ $dataHeader->namaKaryawan }}</title>
     <style>
         /** Define the margins of your page **/
         @page {
@@ -164,7 +165,16 @@
                                 @endif
                             @endif
                         </td>
-                        <td class="center"></td>
+                        <td class="center">
+                            @php
+                                $ket_ijin = '';
+                                $obj = array_search($awal, array_column($ijin, 'tanggalIjin'));
+                                if ($obj != '') {
+                                    $ket_ijin = $ijin[$obj]->kode;
+                                }
+                                echo $ket_ijin;
+                            @endphp
+                        </td>
                         <td class="center"
                             @if (!empty($obj)) @if ($dataisi[$obj]['terlambat'] != 'Tidak') style="background-color:yellow" @endif
                             @endif>

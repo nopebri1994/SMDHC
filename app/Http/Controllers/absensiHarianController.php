@@ -147,6 +147,7 @@ class absensiHarianController extends Controller
         $tglAwal = $request->awal;
         $dataHeader = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('id', $id)->first();
         $dataisi = prosesAbsensiHarianModel::with(['karyawan'])->where('idKaryawan', $id)->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->get()->toArray();
+        $ketijin= DB::table('absensi_keteranganIjin')->where('idKaryawan',$id)->whereBetween('tanggalIjin', [$tglAwal, $tglAkhir])->get()->toArray();
         // dd($dataisi);
         $tmp = [
             'id' => $id,
@@ -154,9 +155,10 @@ class absensiHarianController extends Controller
             'tglAwal' => $tglAwal,
             'tglAkhir' => $tglAkhir,
             'dataisi' => $dataisi,
+            'ijin'=>$ketijin
         ];
         // return view('absensiHarian.printAbsensi', $tmp);
-    
+        // dd($ketijin);   
         $pdf=Pdf::loadView('absensiHarian.printAbsensi', $tmp);
         Pdf::setPaper('A4');
          // $pdf = Pdf::loadView('absensiHarian.printAbsensi', $tmp)->save('pdf/Absensi-Harian.pdf');
