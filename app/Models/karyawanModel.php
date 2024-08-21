@@ -32,7 +32,8 @@ class karyawanModel extends Model
         'statusKaryawan',
         'idJabatan',
         'idJamKerja',
-        'fpId'
+        'fpId',
+        'km'
     ];
 
     protected $with = ['bagian', 'departemen', 'jabatan', 'jamKerja'];

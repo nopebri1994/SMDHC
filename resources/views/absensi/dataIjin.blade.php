@@ -46,9 +46,9 @@
                                 @endif
                                 <div>
                                     &nbsp;
-                                    {{-- <a href="#" data-toggle="tooltip" title="Hapus Data"
+                                    <a href="#" data-toggle="tooltip" title="Hapus Data"
                                         onclick="deleteData({{ $a->id }},'{{ $a->keteranganIjin->kode }}','{{ $a->tanggalIjin }}',{{ $a->idKaryawan }})"><span
-                                            class="fas fa-trash-alt" style="color: red"></span></a> --}}
+                                            class="fas fa-trash-alt" style="color: red"></span></a>
                                 </div>
                             </div>
                         @endcan

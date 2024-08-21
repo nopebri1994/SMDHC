@@ -58,6 +58,15 @@
                                 <p>Daftar Karyawan</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ URL::to('/') }}/dk/mutasi"
+                                class="nav-link  {{ request()->is('dk/mutasi') ? 'active' : '' }}
+                                {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Mutasi / Keluar</p>
+                                <span class="right badge badge-danger">P</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item  {{ request()->is('psn/*') ? 'menu-is-opening menu-open' : '' }}">

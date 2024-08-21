@@ -1,7 +1,7 @@
 <div class="col-md-12 shadow-sm">
     <div class="row bg-info">
-        <div class="col-md-4 pt-2">Jumlah Cuti</div>
-        <div class="col-md-3"><strong style="font-size: 24px">{{ $vCuti->jumlahCuti }} Hari </strong>
+        <div class="col-md-4 pt-2">Sisa Cuti</div>
+        <div class="col-md-3"><strong style="font-size: 24px">{{ $vCuti->sisaCuti }} Hari </strong>
             @if ($vCuti->keterangan == 'Cuti Tahunan')
                 / 12
             @else
