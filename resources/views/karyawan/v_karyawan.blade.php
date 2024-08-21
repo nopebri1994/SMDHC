@@ -87,26 +87,30 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            alert();
             loadData();
+            alert();
         })
 
-        document.getElementById('perusahaan').onclick = () => {
+        document.getElementById('perusahaan').onchange = () => {
             loadData();
         }
+
         let loadData = () => {
             data = {
                 'perusahaan': $('#perusahaan').val()
             }
             $.ajax({
+                beforeSend: openLoader('Memuat Data'),
                 type: 'get',
                 url: 'karyawan/tableData',
                 data: data,
                 success: function(sdata) {
                     $('#list').html(sdata);
+                    closeLoader();
                 },
                 error: function(error) {
                     flasher.error('Server Error')
+                    closeLoader();
                 }
             })
         }

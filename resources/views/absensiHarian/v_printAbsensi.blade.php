@@ -94,7 +94,7 @@
             }
 
             if (awal > akhir) {
-                flasher.error('Tanggal Akhir tidak boleh lebih besar')
+                flasher.error('Tanggal Akhir tidak boleh lebih Kecil')
                 exit();
             }
 
@@ -104,8 +104,12 @@
                 'akhir': akhir
             }
             openLoader('Memuat data');
-            document.getElementById("viewCetak").src = "{{ URL::to('/') }}/psn/cetakPerorang?idKaryawan="+id+"&awal="+awal+"&akhir="+akhir
-            closeLoader();
+            document.getElementById("viewCetak").src = "{{ URL::to('/') }}/psn/cetakPerorang?idKaryawan=" +
+                id + "&awal=" + awal + "&akhir=" + akhir
+            setTimeout(() => {
+                closeLoader();
+            }, 5000);
+
         }
     </script>
 @endsection

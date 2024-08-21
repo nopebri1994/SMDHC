@@ -24,11 +24,11 @@ class absensiHarianController extends Controller
     function list(Request $request)
     {
         $tgl = $request->tgl;
-            $data = [
-                'absensi' => prosesAbsensiHarianModel::with(['karyawan'])->where('tglAbsen', $tgl)->get(),
-                'ket' => DB::table('absensi_keteranganIjin')->where('tanggalIjin',$tgl)->get()->toArray(),
-                'tgl' => $tgl
-            ];
+        $data = [
+            'absensi' => prosesAbsensiHarianModel::with(['karyawan'])->where('tglAbsen', $tgl)->get(),
+            'ket' => DB::table('absensi_keteranganIjin')->where('tanggalIjin', $tgl)->get()->toArray(),
+            'tgl' => $tgl
+        ];
         return view('absensiHarian.tabelHarian', $data);
     }
     function prosesAbsensi(Request $request)
@@ -141,13 +141,13 @@ class absensiHarianController extends Controller
     {
 
         $uuid = $request->idKaryawan;
-        $getid=karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('uuid', $uuid)->first();
-        $id=$getid->id;
+        $getid = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('uuid', $uuid)->first();
+        $id = $getid->id;
         $tglAkhir = $request->akhir;
         $tglAwal = $request->awal;
         $dataHeader = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('id', $id)->first();
         $dataisi = prosesAbsensiHarianModel::with(['karyawan'])->where('idKaryawan', $id)->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->get()->toArray();
-        $ketijin= DB::table('absensi_keteranganIjin')->where('idKaryawan',$id)->whereBetween('tanggalIjin', [$tglAwal, $tglAkhir])->get()->toArray();
+        $ketijin = DB::table('absensi_keteranganIjin')->where('idKaryawan', $id)->whereBetween('tanggalIjin', [$tglAwal, $tglAkhir])->get()->toArray();
         // dd($dataisi);
         $tmp = [
             'id' => $id,
@@ -155,13 +155,13 @@ class absensiHarianController extends Controller
             'tglAwal' => $tglAwal,
             'tglAkhir' => $tglAkhir,
             'dataisi' => $dataisi,
-            'ijin'=>$ketijin
+            'ijin' => $ketijin
         ];
         // return view('absensiHarian.printAbsensi', $tmp);
         // dd($ketijin);   
-        $pdf=Pdf::loadView('absensiHarian.printAbsensi', $tmp);
+        $pdf = Pdf::loadView('absensiHarian.printAbsensi', $tmp);
         Pdf::setPaper('A4');
-         // $pdf = Pdf::loadView('absensiHarian.printAbsensi', $tmp)->save('pdf/Absensi-Harian.pdf');
+        // $pdf = Pdf::loadView('absensiHarian.printAbsensi', $tmp)->save('pdf/Absensi-Harian.pdf');
         // return $pdf->download('users_list.pdf');
         return $pdf->stream("$uuid.pdf");
     }

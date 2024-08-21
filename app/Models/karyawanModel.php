@@ -34,6 +34,9 @@ class karyawanModel extends Model
         'idJamKerja',
         'fpId'
     ];
+
+    protected $with = ['bagian', 'departemen', 'jabatan', 'jamKerja'];
+
     public function jabatan(): BelongsTo
     {
         return $this->belongsTo(jabatanModel::class, 'idJabatan');
