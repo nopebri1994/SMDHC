@@ -34,7 +34,10 @@
                                             data-show-subtext="true" id="idKaryawan">
                                             <option value="">-- Pilih Nama Karyawan --</option>
                                             @foreach ($karyawan as $k)
-                                                <option value="{{ $k->uuid }}">{{ $k->namaKaryawan }}</option>
+                                                <option value="{{ $k->uuid }}">{{ $k->namaKaryawan }}
+                                                    <i style="">&nbsp;({{ $k->nikKerja }})</i>
+
+                                                </option>
                                             @endforeach
 
                                         </select>
