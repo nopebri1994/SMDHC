@@ -8,6 +8,7 @@ use App\Models\mesinAbsensiModel;
 use Illuminate\Support\Facades\Validator;
 use App\Models\absensiHarianModel;
 use App\Models\absensiModel;
+use Illuminate\Support\Facades\Storage;
 
 class mesinAbsensiController extends Controller
 {
@@ -155,7 +156,9 @@ class mesinAbsensiController extends Controller
         }
         $buffer = $this->parse_data($buffer, "<GetAttLogResponse>", "</GetAttLogResponse>");
         $buffer = explode("\r\n", $buffer);
-        $myfile = fopen("log/Mesin_Absensi/$date.txt", "w");
+
+        // $myfile = fopen("log/Mesin_Absensi/$date.txt", "w");
+        $file = Storage::disk('mesinAbsen');
         for ($a = 1; $a < count($buffer); $a++) {
             $row = $this->parse_data($buffer[$a], "<Row>", "</Row>");
             $pin = $this->parse_data($row, "<PIN>", "</PIN>");
@@ -172,18 +175,19 @@ class mesinAbsensiController extends Controller
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
-                if(count($tmp)== 1000){
+                if (count($tmp) == 1000) {
                     DB::table('absensiHarian')->insert($tmp);
-                    $tmp=[];
+                    $tmp = [];
                 }
                 $txt = "001.$date3.$time2.$pin\n";
-                fwrite($myfile, $txt);
+                // fwrite($myfile, $txt);
+                $file->put("$date.txt", "$txt");
             }
         }
         DB::table('absensiHarian')->insert($tmp);
-        fclose($myfile);
-        echo "saved to ";
-        echo "<a href='../log/Mesin_Absensi/$date.txt' target='_blank'>file.txt</a>";
+        // fclose($myfile);
+        echo "file txt saved to ";
+        echo "<a href='storage/mesin/$date.txt' target='_blank'>file.txt</a>";
     }
 
     function parse_data($data, $p1, $p2)
