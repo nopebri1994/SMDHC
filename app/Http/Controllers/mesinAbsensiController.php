@@ -135,7 +135,7 @@ class mesinAbsensiController extends Controller
     function tarikDataMesin(Request $request)
     {   
         $id = $request->id;
-        $date = date("Y-m-d-H_i");
+        $date = date("Y-m-d");
         $file = Storage::disk('mesinAbsen');
         $file->put("$date.txt",'Log Absensi');
         $tmp = [];
