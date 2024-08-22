@@ -133,11 +133,11 @@ class mesinAbsensiController extends Controller
     }
 
     function tarikDataMesin(Request $request)
-    {   
+    {
         $id = $request->id;
         $date = date("Y-m-d");
         $file = Storage::disk('mesinAbsen');
-        $file->put("$date.txt",'Log Absensi');
+        $file->put("$date.txt", 'Log Absensi');
         $tmp = [];
         $mesin = mesinAbsensiModel::where('id', $id)->first();
         $connect = fsockopen($mesin->ipAddress, "80", $errno, $errstr, 1);
@@ -166,23 +166,27 @@ class mesinAbsensiController extends Controller
             $datetime = $this->parse_data($row, "<DateTime>", "</DateTime>");
             $date2 = date("Y-m-d", strtotime($datetime));
             $date3 = date("d/m/y", strtotime($datetime));
-            $time2 = date("H:i", strtotime($datetime));
+            $time2 = date("H:i:s", strtotime($datetime));
             if ($pin) {
-                $tmp[] = [
-                    'idFinger' => $pin,
-                    'tanggalAbsen' => $date2,
-                    'jamAbsen' => $time2,
-                    'idMesin' => $id,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                ];
-                if (count($tmp) == 1000) {
-                    DB::table('absensiHarian')->insert($tmp);
-                    $tmp = [];
+                $cekDuplicate = absensiHarianModel::where('idFinger', $pin)->where('tanggalAbsen', $date2)->where('jamAbsen', $time2)->first();
+                if (empty($cekDuplicate)) {
+                    $tmp[] = [
+                        'idFinger' => $pin,
+                        'tanggalAbsen' => $date2,
+                        'jamAbsen' => $time2,
+                        'idMesin' => $id,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ];
+
+                    if (count($tmp) == 1000) {
+                        DB::table('absensiHarian')->insert($tmp);
+                        $tmp = [];
+                    }
+                    $txt = "001.$date3.$time2.$pin";
+                    // fwrite($myfile, $txt);
+                    $file->append("$date.txt", $txt);
                 }
-                $txt = "001.$date3.$time2.$pin";
-                // fwrite($myfile, $txt);
-                $file->append("$date.txt", $txt);
             }
         }
         DB::table('absensiHarian')->insert($tmp);

@@ -7,7 +7,7 @@
     <table class="table table-sm table-striped nowrap" width="100%" id="tbl">
         <thead class="pt-2">
             <tr>
-                {{-- <th>#</th> --}}
+                <th>#</th>
                 <th>NIK</th>
                 <th>Nama Karyawan</th>
                 <th>Bagian</th>
@@ -19,7 +19,7 @@
         <tbody>
             @foreach ($absensi as $key => $a)
                 <tr>
-                    {{-- <td>{{ $key + 1 }}</td> --}}
+                    <td>{{ $key + 1 }}</td>
                     <td>{{ $a->karyawan->nikKerja }}</td>
                     <td width="35%">{{ $a->karyawan->namaKaryawan }}</td>
                     <td>{{ $a->karyawan->departemen->kode }}/{{ $a->karyawan->bagian->kode }}</td>
