@@ -22,7 +22,7 @@
                 <div class="col-lg-12">
                     <div class="row">
                         @can('hc')
-                            <div class="col-md-5">
+                            <div class="col-lg-5">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                         @endcan
-                        <div class="{{ auth()->user()->role > 3 ? 'col-md-12' : 'col-md-7' }}">
+                        <div class="{{ auth()->user()->role > 3 ? 'col-md-12' : 'col-lg-7' }}">
                             <div class="card">
                                 <div class="card-body">
                                     <div id="dataIjin"></div>

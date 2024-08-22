@@ -28,7 +28,7 @@
                                         <div class="col-md-2">
                                             <label for="tglAbsen" class="pt-2">Tanggal</label>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-lg-4 col-md-10">
                                             <input type="date" value="{{ date('Y-m-d') }}" class="form-control"
                                                 name="tglAbsen" id="tglAbsen">
                                             <input type="hidden" id="token" value={{ csrf_token() }}>
@@ -46,7 +46,7 @@
                                 <div class="col-md-7">
                                     <div class="row justify-content-end">
                                         @can('hc')
-                                            <div class="col-md-5">
+                                            <div class="col-lg-5 col-md-6">
                                                 <button class="btn btn_orange btn-block mt-1" id="btnProses">
                                                     <span class="fas fa-user-plus"></span>&nbsp;&nbsp;Proses Absensi
                                                     Harian</button>
@@ -72,6 +72,19 @@
         $(document).ready(function() {
             loadData();
         });
+
+        let cekProses = () => {
+            let tgl = $('#tglAbsen').val();
+            let dateVal = new Date(tgl);
+            let now = new Date();
+            now.setDate(now.getDate() - 7)
+
+            if (dateVal < now) {
+                document.getElementById('btnProses').disabled = true;
+            } else {
+                document.getElementById('btnProses').disabled = false;
+            }
+        }
 
         document.getElementById('tglAbsen').onchange = () => {
             loadData();
@@ -121,6 +134,7 @@
                 data: data,
                 success: function(sdata) {
                     $("#list").html(sdata)
+                    cekProses();
                     closeLoader();
                 },
                 error: function() {
