@@ -6,13 +6,14 @@
         /** Define the margins of your page **/
         @page {
             /* margin: 100px 25px; */
-            margin-top: 6cm;
-            margin-botom: 1.3cm
+            margin-top: 8cm;
+            margin-botom: 1.3cm;
+            background-image: url()
         }
 
         header {
             position: fixed;
-            top: -4.8cm;
+            top: -6.4cm;
             left: 0px;
             right: 0px;
         }
@@ -28,7 +29,7 @@
         .head {
             text-align: center;
             font-size: 20px;
-            padding-bottom: 28px
+            padding-bottom: 24px
         }
 
         .center {
@@ -49,6 +50,9 @@
 
 <body>
     <header style="height:300px">
+        <div style="margin-top: -1cm;margin-left:-1.5cm">
+            <img src="{{ public_path('/') }}/assets/img/documenLion.png" alt="" width="105%">
+        </div>
         <div class="head">
             <u>Absensi Harian Karyawan</u>
         </div>
@@ -72,14 +76,9 @@
                     {{ $dataHeader->bagian->kode }}</td>
             </tr>
             <tr>
-                <td>Dari Tanggal</td>
+                <td>Tanggal</td>
                 <td>:</td>
-                <td>{{ date('d F Y', strtotime($tglAwal)) }}</td>
-            </tr>
-            <tr>
-                <td>Sampai Tanggal</td>
-                <td>:</td>
-                <td>{{ date('d F Y', strtotime($tglAkhir)) }}</td>
+                <td>{{ date('d F Y', strtotime($tglAwal)) }} - {{ date('d F Y', strtotime($tglAkhir)) }}</td>
             </tr>
         </table>
     </header>
