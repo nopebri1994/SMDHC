@@ -8,12 +8,11 @@
             /* margin: 100px 25px; */
             margin-top: 8cm;
             margin-botom: 1.3cm;
-            background-image: url()
         }
 
         header {
             position: fixed;
-            top: -6.4cm;
+            top: -6cm;
             left: 0px;
             right: 0px;
         }
@@ -45,6 +44,10 @@
             border: 2px solid black;
             background-color: #f1f1f1;
         }
+
+        main {
+            font-size: 12px;
+        }
     </style>
 </head>
 
@@ -56,7 +59,7 @@
         <div class="head">
             <u>Absensi Harian Karyawan</u>
         </div>
-        <table>
+        <table style="font-size:14px">
             <tr>
                 <td>NIK</td>
                 <td>:</td>
@@ -106,13 +109,13 @@
         <table border="1" style="width: 100%">
             <thead>
                 <tr>
-                    <th rowspan="2">#</th>
+                    <th rowspan="2" style="width: 5%">#</th>
                     <th rowspan="2">Tanggal</th>
                     <th rowspan="2">Hari</th>
                     <th colspan="2">Jadwal Kerja</th>
                     <th colspan="2">Jam</th>
                     <th rowspan="2">Ket. Ijin</th>
-                    <th rowspan="2">T</th>
+                    <th rowspan="2" style="width: 5%">T</th>
                 </tr>
                 <tr>
                     <th>Masuk</th>
