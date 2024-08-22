@@ -133,9 +133,11 @@ class mesinAbsensiController extends Controller
     }
 
     function tarikDataMesin(Request $request)
-    {
+    {   
         $id = $request->id;
         $date = date("Y-m-d-H_i");
+        $file = Storage::disk('mesinAbsen');
+        $file->put("$date.txt",'Log Absensi');
         $tmp = [];
         $mesin = mesinAbsensiModel::where('id', $id)->first();
         $connect = fsockopen($mesin->ipAddress, "80", $errno, $errstr, 1);
@@ -158,7 +160,6 @@ class mesinAbsensiController extends Controller
         $buffer = explode("\r\n", $buffer);
 
         // $myfile = fopen("log/Mesin_Absensi/$date.txt", "w");
-        $file = Storage::disk('mesinAbsen');
         for ($a = 1; $a < count($buffer); $a++) {
             $row = $this->parse_data($buffer[$a], "<Row>", "</Row>");
             $pin = $this->parse_data($row, "<PIN>", "</PIN>");
@@ -179,15 +180,15 @@ class mesinAbsensiController extends Controller
                     DB::table('absensiHarian')->insert($tmp);
                     $tmp = [];
                 }
-                $txt = "001.$date3.$time2.$pin\n";
+                $txt = "001.$date3.$time2.$pin";
                 // fwrite($myfile, $txt);
-                $file->put("$date.txt", "$txt");
+                $file->append("$date.txt", $txt);
             }
         }
         DB::table('absensiHarian')->insert($tmp);
         // fclose($myfile);
         echo "file txt saved to ";
-        echo "<a href='storage/mesin/$date.txt' target='_blank'>file.txt</a>";
+        echo "<a href='../storage/mesin/$date.txt' target='_blank'>file.txt</a>";
     }
 
     function parse_data($data, $p1, $p2)
