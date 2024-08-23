@@ -32,7 +32,7 @@
                                     <div class="col-md-9">
                                         <select name="idKaryawan" class="select form-control" data-live-search="true"
                                             data-show-subtext="true" id="idKaryawan">
-                                            <option value="">-- Pilih Nama Karyawan --</option>
+                                            <option value="0">-- Pilih Nama Karyawan --</option>
                                             @foreach ($karyawan as $k)
                                                 <option value="{{ $k->uuid }}">{{ $k->namaKaryawan }}
                                                     <i style="">&nbsp;({{ $k->nikKerja }})</i>
@@ -95,7 +95,10 @@
                 flasher.error('Tanggal harus diisi')
                 exit();
             }
-
+            if (id == 0) {
+                flasher.error('Pilih nama karyawan terlebih dahulu');
+                exit();
+            }
             if (awal > akhir) {
                 flasher.error('Tanggal Akhir tidak boleh lebih Kecil')
                 exit();

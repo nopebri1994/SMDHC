@@ -6,6 +6,7 @@ use App\Models\karyawanModel;
 use App\Models\absensiHarianModel;
 use App\Models\prosesAbsensiHarianModel;
 use App\Models\absensiModel;
+use App\Models\liburModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -148,6 +149,8 @@ class absensiHarianController extends Controller
         $dataHeader = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('id', $id)->first();
         $dataisi = prosesAbsensiHarianModel::with(['karyawan'])->where('idKaryawan', $id)->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->get()->toArray();
         $ketijin = DB::table('absensi_keteranganIjin')->where('idKaryawan', $id)->whereBetween('tanggalIjin', [$tglAwal, $tglAkhir])->get()->toArray();
+        $libur = liburModel::whereBetween('tanggalLibur', [$tglAwal, $tglAkhir])->get()->toArray();
+
         // dd($dataisi);
         $tmp = [
             'id' => $id,
@@ -155,7 +158,8 @@ class absensiHarianController extends Controller
             'tglAwal' => $tglAwal,
             'tglAkhir' => $tglAkhir,
             'dataisi' => $dataisi,
-            'ijin' => $ketijin
+            'ijin' => $ketijin,
+            'libur' => $libur,
         ];
         // return view('absensiHarian.printAbsensi', $tmp);
         // dd($ketijin);   

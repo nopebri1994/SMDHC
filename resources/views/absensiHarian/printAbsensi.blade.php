@@ -45,6 +45,10 @@
             background-color: #f1f1f1;
         }
 
+        main>table>tbody>tr>td {
+            border: 1px solid black;
+        }
+
         main {
             font-size: 12px;
         }
@@ -81,7 +85,13 @@
             <tr>
                 <td>Tanggal</td>
                 <td>:</td>
-                <td>{{ date('d F Y', strtotime($tglAwal)) }} - {{ date('d F Y', strtotime($tglAkhir)) }}</td>
+                <td>{{ date('d', strtotime($tglAwal)) }}
+                    {{ varHelper::bulanIndo(date('F', strtotime($tglAwal))) }}
+                    {{ date('Y', strtotime($tglAwal)) }} -
+                    {{ date('d', strtotime($tglAkhir)) }}
+                    {{ varHelper::bulanIndo(date('F', strtotime($tglAkhir))) }}
+                    {{ date('Y', strtotime($tglAkhir)) }}
+                </td>
             </tr>
         </table>
     </header>
@@ -110,18 +120,19 @@
             <thead>
                 <tr>
                     <th rowspan="2" style="width: 5%">#</th>
-                    <th rowspan="2">Tanggal</th>
-                    <th rowspan="2">Hari</th>
+                    <th rowspan="2" style="width:10%">Tanggal</th>
+                    <th rowspan="2" style="width: 11%">Hari</th>
                     <th colspan="2">Jadwal Kerja</th>
                     <th colspan="2">Jam</th>
-                    <th rowspan="2">Ket. Ijin</th>
+                    <th rowspan="2" style="width: 5%">Ijin</th>
                     <th rowspan="2" style="width: 5%">T</th>
+                    <th rowspan="2">Keterangan</th>
                 </tr>
                 <tr>
-                    <th>Masuk</th>
-                    <th>Pulang</th>
-                    <th>Datang</th>
-                    <th>Pulang</th>
+                    <th style="width: 7%">Masuk</th>
+                    <th style="width: 7%">Pulang</th>
+                    <th style="width: 7%">Datang</th>
+                    <th style="width: 7%">Pulang</th>
                 </tr>
             </thead>
             <tbody>
@@ -132,21 +143,27 @@
                 @while (strtotime($awal) <= strtotime($tglAkhir))
                     @php
                         $obj = array_search($awal, array_column($dataisi, 'tglAbsen'));
+
+                        $keterangan = '';
+                        $objLibur = array_search($awal, array_column($libur, 'tanggalLibur'));
+                        if ($objLibur != '') {
+                            $keterangan = $libur[$objLibur]['keterangan'];
+                        } elseif (date('l', strtotime($awal)) == 'Sunday') {
+                            $keterangan = '#';
+                        }
                     @endphp
-                    <tr @if (date('l', strtotime($awal)) == 'Sunday') style="background-color: #ff9999" @endif>
+                    <tr @if (date('l', strtotime($awal)) == 'Sunday' or $keterangan != '') style="background-color: #ff9999" @endif>
                         <td class="center">{{ $i }}</td>
                         <td class="center">{{ date('d-m-Y', strtotime($awal)) }}</td>
-                        <td class="center">{{ date('l', strtotime($awal)) }}</td>
-                        <td class="center">
-
+                        <td class="center">{{ varHelper::hariIndo(date('l', strtotime($awal))) }}</td>
+                        <td class="center" style="font-style:italic">
                             @if (date('l', strtotime($awal)) == 'Saturday')
                                 {{ date('H:i', strtotime($dataHeader->jamKerja->jamMasukS)) }}
                             @elseif(date('l', strtotime($awal)) != 'Sunday')
                                 {{ date('H:i', strtotime($dataHeader->jamKerja->jamMasukSJ)) }}
                             @endif
-
                         </td>
-                        <td class="center">
+                        <td class="center" style="font-style:italic">
                             @if (date('l', strtotime($awal)) == 'Saturday')
                                 {{ date('H:i', strtotime($dataHeader->jamKerja->jamPulangS)) }}
                             @elseif(date('l', strtotime($awal)) != 'Sunday')
@@ -174,6 +191,7 @@
                                 if ($obj != '') {
                                     $ket_ijin = $ijin[$obj]->kode;
                                 }
+
                                 echo $ket_ijin;
                             @endphp
                         </td>
@@ -185,6 +203,9 @@
                                     {{ $dataisi[$obj]['terlambat'] }}
                                 @endif
                             @endif
+                        </td>
+                        <td>
+                            {{ $keterangan }}
                         </td>
                     </tr>
                     @php

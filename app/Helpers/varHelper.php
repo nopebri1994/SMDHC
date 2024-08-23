@@ -213,4 +213,73 @@ class varHelper
         }
         return $tmp;
     }
+
+    public static function bulanIndo($x)
+    {
+        switch ($x) {
+            case 'January';
+                $tmp = 'Januari';
+                break;
+            case 'February';
+                $tmp = 'Februari';
+                break;
+            case 'March';
+                $tmp = 'March';
+                break;
+            case 'April';
+                $tmp = 'April';
+                break;
+            case 'May';
+                $tmp = 'Mei';
+                break;
+            case 'June';
+                $tmp = 'Juni';
+                break;
+            case 'July';
+                $tmp = 'Juli';
+                break;
+            case 'August';
+                $tmp = 'Agustus';
+                break;
+            case 'September';
+                $tmp = 'September';
+                break;
+            case 'October';
+                $tmp = 'Oktober';
+                break;
+            case 'November';
+                $tmp = 'November';
+                break;
+            default:
+                $tmp = 'Desember';
+        }
+        return $tmp;
+    }
+
+    static public function hariIndo($x)
+    {
+        switch ($x) {
+            case 'Sunday';
+                $tmp = 'Minggu';
+                break;
+            case 'Monday';
+                $tmp = 'Senin';
+                break;
+            case 'Tueasday';
+                $tmp = 'Selasa';
+                break;
+            case 'Wednesday';
+                $tmp = 'Rabu';
+                break;
+            case 'Thursday';
+                $tmp = 'Kamis';
+                break;
+            case 'Friday';
+                $tmp = 'Jumat';
+                break;
+            default:
+                $tmp = 'Sabtu';
+        }
+        return $tmp;
+    }
 }
