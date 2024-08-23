@@ -265,7 +265,7 @@ class varHelper
             case 'Monday';
                 $tmp = 'Senin';
                 break;
-            case 'Tueasday';
+            case 'Tuesday';
                 $tmp = 'Selasa';
                 break;
             case 'Wednesday';
