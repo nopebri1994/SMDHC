@@ -59,11 +59,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/dk/mutasi"
-                                class="nav-link  {{ request()->is('dk/mutasi') ? 'active' : '' }}
+                            <a href="{{ URL::to('/') }}/dk/karyawanKeluar"
+                                class="nav-link  {{ request()->is('dk/karyawanKeluar') ? 'active' : '' }}
                                 {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Mutasi / Keluar</p>
+                                <p>Karyawan Keluar</p>
                                 <span class="right badge badge-danger">P</span>
                             </a>
                         </li>
