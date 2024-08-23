@@ -19,27 +19,35 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-12">
                     <div class="row">
                         @can('hc')
-                            <div class="col-lg-5">
+                            <div class="col-lg-5 col-md-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-4">Nomor Kerja</div>
+                                            <div class="col-md-4">
+                                                <label for="nik">Nomor Kerja</label>
+                                            </div>
                                             <div class="col-md-4">
                                                 <input type="text" id="nik" class="form-control">
                                                 <input type="hidden" id="idKaryawan" class="form-control">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-md-4">Nama Karyawan</div>
+                                            <div class="col-md-4">
+                                                <label for="nama">
+                                                    Nama Karyawan
+                                                </label>
+                                            </div>
                                             <div class="col-md-7">
                                                 <input type="text" id="nama" class="form-control" disabled>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-md-4">Keterangan Ijin</div>
+                                            <div class="col-md-4">
+                                                <label for="kodeIjin">Keterangan Ijin</label>
+                                            </div>
                                             <div class="col-md-6">
                                                 <select name="" id="kodeIjin" class="form-control">
                                                     <option value="">--- pilih data ---</option>
@@ -51,7 +59,8 @@
                                             </div>
                                         </div>
                                         <div class="row mt-1">
-                                            <div class="col-md-4 mt-1">Tanggal Ijin *
+                                            <div class="col-md-4 mt-1">
+                                                <label for="awal">Tanggal Ijin *</label>
                                             </div>
                                             <div class="col-md-4 mt-1">
                                                 <input type="date" name="awal" id="awal" class="form-control">
@@ -61,7 +70,9 @@
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-md-4">Tahun Cuti / Pemotongan Cuti **</div>
+                                            <div class="col-md-4">
+                                                <label for="year">Tahun Cuti / Pemotongan Cuti **</label>
+                                            </div>
                                             <div class="col-md-8">
                                                 <select name="year" class="form-control " id="year" disabled>
                                                     <option value="">--- pilih data ---</option>
@@ -72,7 +83,9 @@
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-md-4">Keterangan</div>
+                                            <div class="col-md-4">
+                                                <label for="ket">Keterangan</label>
+                                            </div>
                                             <div class="col-md-8">
                                                 <textarea name="" id="ket" rows="5" class="form-control" disabled></textarea>
                                             </div>

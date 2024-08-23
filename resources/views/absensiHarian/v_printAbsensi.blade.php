@@ -28,7 +28,9 @@
                             <div class="col-md-12">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 <div class="row mt-3">
-                                    <div class="col-md-3">Nama Karyawan</div>
+                                    <div class="col-md-3">
+                                        <label for="idKaryawan">Nama Karyawan</label>
+                                    </div>
                                     <div class="col-md-9">
                                         <select name="idKaryawan" class="select form-control" data-live-search="true"
                                             data-show-subtext="true" id="idKaryawan">
