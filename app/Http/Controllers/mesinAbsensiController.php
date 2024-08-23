@@ -166,7 +166,7 @@ class mesinAbsensiController extends Controller
             $datetime = $this->parse_data($row, "<DateTime>", "</DateTime>");
             $date2 = date("Y-m-d", strtotime($datetime));
             $date3 = date("d/m/y", strtotime($datetime));
-            $time2 = date("H:i:s", strtotime($datetime));
+            $time2 = date("H:i", strtotime($datetime));
             if ($pin) {
                 $cekDuplicate = absensiHarianModel::where('idFinger', $pin)->where('tanggalAbsen', $date2)->where('jamAbsen', $time2)->first();
                 if (empty($cekDuplicate)) {
