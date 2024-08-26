@@ -88,12 +88,23 @@
     <script>
         $(document).ready(function() {
             loadData();
-            alert();
+            @can('hc')
+                alert();
+            @endcan
         })
 
-        document.getElementById('perusahaan').onchange = () => {
-            loadData();
-        }
+        @can('hc')
+            document.getElementById('perusahaan').onchange = () => {
+                loadData();
+            }
+
+            let alert = () => {
+                let x = document.getElementById("alert");
+                setTimeout(() => {
+                    x.click();
+                }, 2000);
+            }
+        @endcan
 
         let loadData = () => {
             data = {
@@ -113,13 +124,6 @@
                     closeLoader();
                 }
             })
-        }
-
-        let alert = () => {
-            let x = document.getElementById("alert");
-            setTimeout(() => {
-                x.click();
-            }, 2000);
         }
     </script>
 @endsection
