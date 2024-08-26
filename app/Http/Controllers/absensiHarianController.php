@@ -26,7 +26,7 @@ class absensiHarianController extends Controller
     {
         $tgl = $request->tgl;
         $data = [
-            'absensi' => prosesAbsensiHarianModel::with(['karyawan'])->whereNull('km')->where('tglAbsen', $tgl)->get(),
+            'absensi' => prosesAbsensiHarianModel::with(['karyawan'])->where('tglAbsen', $tgl)->get(),
             'ket' => DB::table('absensi_keteranganIjin')->where('tanggalIjin', $tgl)->get()->toArray(),
             'tgl' => $tgl
         ];
@@ -38,7 +38,7 @@ class absensiHarianController extends Controller
         prosesAbsensiHarianModel::where('tglAbsen', $tgl)->delete();
         $tmp = [];
 
-        $dataKaryawan = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->orderBy('nikKerja')->get();
+        $dataKaryawan = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->orderBy('nikKerja')->get();
         $jamAbsen = absensiHarianModel::where('tanggalAbsen', $tgl)->get()->toArray();
         if (empty($jamAbsen)) {
             $sendToView = array(
