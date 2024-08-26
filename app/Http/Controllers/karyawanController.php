@@ -22,17 +22,18 @@ class karyawanController extends Controller
     {
         $data = [
             'title'     => 'Daftar Karyawan',
-            'perusahaan'=>perusahaanModel::all(),
+            'perusahaan' => perusahaanModel::all(),
         ];
         return View('karyawan.v_karyawan', $data);
     }
 
-    function tableData(Request $request){
+    function tableData(Request $request)
+    {
         $perusahaan = $request->perusahaan;
         if (auth()->user()->role == '5') {
-            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
         } else {
-            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('idPerusahaan',$perusahaan)->orderBy('nikKerja')->get();
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->where('idPerusahaan', $perusahaan)->orderBy('nikKerja')->get();
         }
         $data = [
             'karyawan'  => $karyawan,

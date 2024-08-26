@@ -64,7 +64,6 @@
                                 {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Karyawan Keluar</p>
-                                <span class="right badge badge-danger">P</span>
                             </a>
                         </li>
                     </ul>

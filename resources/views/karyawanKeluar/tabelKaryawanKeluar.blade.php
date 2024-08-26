@@ -20,6 +20,7 @@
             <th class="align-middle  text-center">Dept / Bagian</th>
             <th class="align-middle  text-center">Tanggal Keluar</th>
             <th class="align-middle  text-center">Keterangan</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -34,6 +35,16 @@
                 </td>
                 <td class="align-middle text-center">
                     {{ $d->keterangan }}
+                </td>
+                <td align="center" width="25%">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnEdit"
+                            onclick="editData('{{ $d->id }}','{{ $d->idKaryawan }}','{{ $d->keterangan }}','{{ $d->tanggalKeluar }}')"><i
+                                class="far fa-edit"></i> Edit</button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnDelete"
+                            onclick="deleteData('{{ $d->id }}','{{ $d->karyawan->namaKaryawan }}','{{ $d->idKaryawan }}')"><i
+                                class="fas fa-trash-alt"></i> Delete</button>
+                    </div>
                 </td>
         @endforeach
     </tbody>

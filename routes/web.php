@@ -158,8 +158,8 @@ Route::middleware('auth')->group(function () {
     Route::get('dk/karyawanKeluar', [karyawanKeluarController::class, 'index'])->middleware('can:hc');
     Route::post('dk/karyawanKeluar/storeData', [karyawanKeluarController::class, 'storeData']);
     Route::get('dk/karyawanKeluar/tabelData', [karyawanKeluarController::class, 'tabelData']);
-
-
+    Route::post('dk/karyawanKeluar/updateData', [karyawanKeluarController::class, 'updateData']);
+    Route::post('dk/karyawanKeluar/delete', [karyawanKeluarController::class, 'delete']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');

@@ -10,8 +10,8 @@ class homeController extends Controller
 {
     public function index()
     {
-        $count = karyawanModel::count();
-        $metal = karyawanModel::where('idPerusahaan', 1)->count();
+        $count = karyawanModel::whereNull('km')->count();
+        $metal = karyawanModel::where('idPerusahaan', 1)->whereNull('km')->count();
         $data = [
             'title' => 'Sistem Manajemen Data Human Capital',
             'countEmployee' => $count,

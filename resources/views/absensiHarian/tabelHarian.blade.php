@@ -20,7 +20,8 @@
                      <tr>
                          <td class="text-center">{{ $key + 1 }}</td>
                          <td>{{ $ab->karyawan->namaKaryawan }}</td>
-                         <td class="text-center">{{ $ab->karyawan->departemen->kode }}
+                         <td class="text-center" data-sort="{{ $ab->karyawan->departemen->kode }}">
+                             {{ $ab->karyawan->departemen->kode }}
                              @if ($ab->karyawan->bagian->kode != null)
                                  <span style="color:coral">&#8658;</span>
                              @endif
@@ -73,7 +74,7 @@
                                  echo $ket_ijin;
                              @endphp
                          </td>
-                         <td class="text-center" data-sort="{{ $ab->Full }}"
+                         <td class="text-center" data-sort="{{ $ab->full }}"
                              @if ($ab->full == 'Tidak') style="background-color:yellow;" @endif>
                              @can('hc')
                                  <select id="full{{ $ab->id }}" @if ($ab->full == 'Ya') disabled @endif

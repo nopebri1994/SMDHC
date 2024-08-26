@@ -128,9 +128,9 @@ class absensiHarianController extends Controller
     function cetakAbsensi()
     {
         if (auth()->user()->role == '5') {
-            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
         } else {
-            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->orderBy('nikKerja')->get();
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->orderBy('nikKerja')->get();
         }
         $data = [
             'title' => 'Cetak Absensi Karyawan',

@@ -8,6 +8,7 @@
              <th class="align-middle text-center">Dept. / Bagian</th>
              <th class="align-middle text-center">Jenis Kelamin</th>
              <th class="align-middle text-center">Tanggal Masuk</th>
+             <th class="align-middle text-center">Status</th>
              <th class="align-middle"></th>
          </tr>
      </thead>
@@ -37,6 +38,8 @@
 
                  </td>
                  <td class="text-center">{{ varHelper::formatDate($k->tglMasuk) }}</td>
+                 <td class="text-center">{{ varHelper::varStatusKaryawan($k->statusKaryawan) }}</td>
+
                  <td class="align-middle text-center">
                      <div class="btn-group" role="group">
                          <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle btn-sm"

@@ -11,7 +11,7 @@ class karyawanKeluarController extends Controller
 {
     function index()
     {
-        $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->orderBy('nikKerja')->get();
+        $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->orderBy('nikKerja')->get();
         $data = [
             'title' => "Karyawan Keluar",
             'karyawan' => $karyawan,
@@ -42,9 +42,11 @@ class karyawanKeluarController extends Controller
             'tanggalKeluar' => $tgl,
             'keterangan' => $ket
         ];
-
-        karyawanKeluarModel::create($tmp);
-
+        $cekData = karyawanKeluarModel::where('idKaryawan', $id)->first();
+        if (empty($cekData)) {
+            karyawanKeluarModel::create($tmp);
+            karyawanModel::where('id', $id)->update(['km' => 1]);
+        }
         return back();
     }
     function tabelData()
@@ -53,5 +55,28 @@ class karyawanKeluarController extends Controller
             'data' => karyawanKeluarModel::with(['karyawan'])->get(),
         ];
         return view('karyawanKeluar.tabelKaryawanKeluar', $tmp);
+    }
+
+    function updateData(Request $request)
+    {
+        $id = $request->id;
+        $idKaryawan = $request->idKaryawan;
+        $keterangan = $request->keterangan;
+        $tanggalKeluar = $request->tanggalKeluar;
+
+        $tmp = [
+            // 'idKaryawan' => $idKaryawan,
+            'keterangan' => $keterangan,
+            'tanggalKeluar' => $tanggalKeluar,
+        ];
+        karyawanKeluarModel::where('id', $id)->update($tmp);
+    }
+
+    function delete(Request $request)
+    {
+        $id = $request->id;
+        $idKaryawan = $request->idKaryawan;
+        karyawanModel::where('id', $idKaryawan)->update(['km' => null]);
+        karyawanKeluarModel::where('id', $id)->delete();
     }
 }

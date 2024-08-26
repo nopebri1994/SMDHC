@@ -70,7 +70,7 @@ class cutiController extends Controller
     }
     function detailData(Request $request)
     {
-        $detail = karyawanModel::where('nikKerja', $request->nik)->first();
+        $detail = karyawanModel::where('nikKerja', $request->nik)->whereNull('km')->first();
         if (empty($detail)) {
             $sendToView = array(
                 'status' => 0,
