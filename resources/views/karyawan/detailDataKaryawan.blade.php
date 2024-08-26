@@ -78,9 +78,9 @@
 
                 <div class="col-lg-6">
                     <div class="card">
-                        <div class="card-header">
-                            {{-- <h5 class="m-0"></h5> --}}
-                        </div>
+                        {{-- <div class="card-header">
+                            <h5 class="m-0"></h5>
+                        </div> --}}
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
@@ -151,6 +151,27 @@
                                         </div>
                                         <div class="col-md-3">
                                             {{ $detailData->jamKerja->kodeJamKerja }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row mt-2">
+                                        <div class="col-md-4">
+                                            Group Off
+                                        </div>
+                                        <div class="col-md-3">
+                                            @switch($detailData->groupOff)
+                                                @case('A')
+                                                    Group Off A
+                                                @break
+
+                                                @case('B')
+                                                    Group Off B
+                                                @break
+
+                                                @default
+                                                    Non Group Off
+                                            @endswitch
                                         </div>
                                     </div>
                                 </div>

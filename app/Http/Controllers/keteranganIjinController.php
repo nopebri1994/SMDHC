@@ -44,7 +44,7 @@ class keteranganIjinController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'kode' => 'required|unique:keteranganijin|max:5',
+                'kode' => 'required|unique:keteranganIjin|max:5',
                 'keterangan' => 'required',
             ],
             $messages = [
@@ -80,7 +80,7 @@ class keteranganIjinController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'kode' => 'required|unique:keteranganijin|max:5',
+                    'kode' => 'required|unique:keteranganIjin|max:5',
                 ],
                 $messages = [
                     'required' => 'Input data tidak boleh Kosong.',

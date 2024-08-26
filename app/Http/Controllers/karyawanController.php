@@ -95,7 +95,8 @@ class karyawanController extends Controller
             'idBagian'          => $tmp_bagian,
             'idJabatan'         => $request->jabatan,
             'statusKaryawan'    => $request->statusKaryawan,
-            'idJamKerja'        => $request->jamKerja
+            'idJamKerja'        => $request->jamKerja,
+            'groupOff'          => $request->groupOff
 
         ];
         karyawanModel::create($tmpSave);
@@ -142,7 +143,9 @@ class karyawanController extends Controller
             'idBagian'          => $tmp_bagian,
             'idJabatan'         => $request->jabatan,
             'statusKaryawan'    => $request->statusKaryawan,
-            'idJamKerja'        => $request->jamKerja
+            'idJamKerja'        => $request->jamKerja,
+            'groupOff'        => $request->groupOff
+
 
         ];
         karyawanModel::where('uuid', $request->id)->update($tmpSave);

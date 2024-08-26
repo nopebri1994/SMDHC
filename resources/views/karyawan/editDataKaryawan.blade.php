@@ -95,9 +95,9 @@
 
                     <div class="col-lg-6">
                         <div class="card">
-                            <div class="card-header">
-                                {{-- <h5 class="m-0"></h5> --}}
-                            </div>
+                            {{-- <div class="card-header">
+                                <h5 class="m-0"></h5>
+                            </div> --}}
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -221,6 +221,20 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">
+                                                Group Sabtu OFF
+                                            </div>
+                                            <div class="col-md-5">
+                                                <select name="groupOff" id="groupOff" class="form-control">
+                                                    <option value="0">Non Off</option>
+                                                    <option value="A">Group Off A</option>
+                                                    <option value="B">Group Off B</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -239,6 +253,8 @@
             $('#fpId').val('{{ $detailData->fpId }}')
             $('#jabatan').val('{{ $detailData->idJabatan }}')
             $('#jamKerja').val('{{ $detailData->idJamKerja }}')
+            $('#groupOff').val('{{ $detailData->groupOff }}')
+
             detailJabatan();
             let x = '{{ $errors->any() }}';
             if (x > 0) {
