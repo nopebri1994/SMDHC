@@ -83,7 +83,7 @@ class absensiHarianController extends Controller
                     $f = 'Ya';
                 }
             }
-            if (date('D', strtotime($tgl)) == 'Sat' or date('D', strtotime($tgl)) == 'Sun') {
+            if (date('D', strtotime($tgl)) == 'Sun') {
                 $f = 'Ya';
                 $t = 'Tidak';
             }
