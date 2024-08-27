@@ -18,12 +18,12 @@
         </thead>
         <tbody>
             @foreach ($absensi as $key => $a)
+                @php
+                    $no = 1;
+                @endphp
                 @if (auth()->user()->karyawan->idBagian == $a->karyawan->idBagian and auth()->user()->role == 5 or
                         auth()->user()->karyawan->idDepartemen == $a->karyawan->idDepartemen and auth()->user()->role == 4 or
                         auth()->user()->role <= 3)
-                    @php
-                        $no = 1;
-                    @endphp
                     <tr>
                         <td>{{ $no }}</td>
                         <td>{{ $a->karyawan->nikKerja }}</td>
