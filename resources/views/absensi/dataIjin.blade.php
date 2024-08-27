@@ -19,11 +19,12 @@
         <tbody>
             @foreach ($absensi as $key => $a)
                 <tr>
-                    <td>{{ $key + 1 }}</td>
+                    <td class="text-center">{{ $key + 1 }}</td>
                     <td>{{ $a->karyawanModel->nikKerja }}</td>
                     <td width="35%">{{ $a->karyawanModel->namaKaryawan }}</td>
                     <td>{{ $a->karyawanModel->departemen->kode }}/{{ $a->karyawanModel->bagian->kode }}</td>
-                    <td>{{ $a->keteranganIjin->kode }}</td>
+                    <td @if ($a->keteranganIjin->kode == 'BDU') style="background-color:rgb(103,194,208)" @endif>
+                        {{ $a->keteranganIjin->kode }}</td>
                     <td data-sort="{{ $a->tanggalIjin }}" style="text-align:center">
                         {{ varHelper::formatDate($a->tanggalIjin) }}&nbsp;</td>
                     <td>
@@ -58,7 +59,7 @@
         </tbody>
     </table>
 </div>
-
+Keterangaan : BDU (Belum Di Urus)
 <script>
     $('#tbl').DataTable({
         responsive: true,

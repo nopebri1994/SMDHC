@@ -278,6 +278,7 @@ Bisa digunakan sebelum $exp",
     {
         $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
         $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
+
         if (auth()->user()->role == '5') {
             $absensi = absensiModel::whereBelongsTo($idBagian)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
         } elseif (auth()->user()->role == '4') {
