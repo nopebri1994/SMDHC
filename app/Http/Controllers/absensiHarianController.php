@@ -25,8 +25,17 @@ class absensiHarianController extends Controller
     function list(Request $request)
     {
         $tgl = $request->tgl;
+        $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
+        $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
+        if (auth()->user()->role == '5') {
+            $absensi = prosesAbsensiHarianModel::whereBelongsTo($idBagian)->with(['karyawanModel'])->where('tglAbsen', $tgl)->get();
+        } elseif (auth()->user()->role == '4') {
+            $absensi = prosesAbsensiHarianModel::whereBelongsTo($idDepartemen)->with(['karyawanModel'])->where('tglAbsen', $tgl)->get();
+        } else {
+            $absensi = prosesAbsensiHarianModel::with(['karyawanModel'])->where('tglAbsen', $tgl)->get();
+        }
         $data = [
-            'absensi' => prosesAbsensiHarianModel::with(['karyawan'])->where('tglAbsen', $tgl)->get(),
+            'absensi' => $absensi,
             'ket' => DB::table('absensi_keteranganIjin')->where('tanggalIjin', $tgl)->get()->toArray(),
             'tgl' => $tgl
         ];
@@ -149,7 +158,7 @@ class absensiHarianController extends Controller
         $tglAkhir = $request->akhir;
         $tglAwal = $request->awal;
         $dataHeader = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('id', $id)->first();
-        $dataisi = prosesAbsensiHarianModel::with(['karyawan'])->where('idKaryawan', $id)->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->get()->toArray();
+        $dataisi = prosesAbsensiHarianModel::where('idKaryawan', $id)->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->get()->toArray();
         $ketijin = DB::table('absensi_keteranganIjin')->where('idKaryawan', $id)->whereBetween('tanggalIjin', [$tglAwal, $tglAkhir])->get()->toArray();
         $libur = liburModel::whereBetween('tanggalLibur', [$tglAwal, $tglAkhir])->get()->toArray();
 

@@ -19,7 +19,7 @@ class prosesAbsensiHarianModel extends Model
         'full'
     ];
 
-    function karyawan(): BelongsTo
+    function karyawanModel(): BelongsTo
     {
         return $this->belongsTo(karyawanModel::class, 'idKaryawan');
     }
