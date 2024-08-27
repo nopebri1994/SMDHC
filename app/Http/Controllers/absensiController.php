@@ -283,9 +283,9 @@ Bisa digunakan sebelum $exp",
         } elseif (auth()->user()->role == '4') {
             $absensi = absensiModel::whereBelongsTo($idDepartemen)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
         } else {
-            $absensi = absensiModel::with(['karyawan'])->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+            $absensi = absensiModel::with(['karyawanModel'])->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
         }
-
+        // dd($absensi);
         $data =  [
             'absensi' => $absensi,
         ];
