@@ -58,14 +58,16 @@
                                 <p>Daftar Karyawan</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/dk/karyawanKeluar"
-                                class="nav-link  {{ request()->is('dk/karyawanKeluar') ? 'active' : '' }}
+                        @can('hc')
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/dk/karyawanKeluar"
+                                    class="nav-link  {{ request()->is('dk/karyawanKeluar') ? 'active' : '' }}
                                 {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Karyawan Keluar</p>
-                            </a>
-                        </li>
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Karyawan Keluar</p>
+                                </a>
+                            </li>
+                        @endcan
                     </ul>
                 </li>
                 <li class="nav-item  {{ request()->is('psn/*') ? 'menu-is-opening menu-open' : '' }}">
