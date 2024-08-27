@@ -377,28 +377,93 @@
             })
         }
 
-        document.getElementById('postingYear').onchange = () => {
-            loadPostingCuti();
-        }
-
-        document.getElementById('postingMonth').onchange = () => {
-            loadPostingCuti();
-        }
-
         document.getElementById('nikKerja').oninput = () => {
             let nik = $('#nikKerja').val();
             getDetail(nik);
         }
 
-        document.getElementById('nikKerjaTambah').oninput = () => {
-            let nik = $('#nikKerjaTambah').val();
-            getDetailTambah(nik);
-        }
+        @can('hc')
+            document.getElementById('postingYear').onchange = () => {
+                loadPostingCuti();
+            }
 
-        document.getElementById('nikKerjaPotong').oninput = () => {
-            let nik = $('#nikKerjaPotong').val();
-            getDetailPotong(nik);
-        }
+            document.getElementById('postingMonth').onchange = () => {
+                loadPostingCuti();
+            }
+
+            document.getElementById('nikKerjaTambah').oninput = () => {
+                let nik = $('#nikKerjaTambah').val();
+                getDetailTambah(nik);
+            }
+
+            document.getElementById('nikKerjaPotong').oninput = () => {
+                let nik = $('#nikKerjaPotong').val();
+                getDetailPotong(nik);
+            }
+
+            document.getElementById('tambahCuti').onclick = () => {
+                let idKaryawan = $('#idKaryawanTambah').val();
+                let data = {
+                    'idKaryawan': idKaryawan,
+                    'tahun': $('#yearTambah').val(),
+                    '_token': $('#token').val(),
+                    'tambahCuti': $('#cutiTambah').val(),
+                    'ketTambah': $('#ketTambah').val()
+
+                };
+                $.ajax({
+                    beforeSend: openLoader('Memuat Data'),
+                    type: 'post',
+                    url: 'cuti/tambahCuti',
+                    data: data,
+                    success: function() {
+                        $('#cutiTambah').val('')
+                        $('#nikKerjaTambah').val('');
+                        $('#idKaryawanTambah').val('');
+                        $('#namaTambah').val('');
+                        $('#deptTambah').val('');
+                        $('#ketTambah').val('');
+                        $("#listTambah").load("cuti/listTambah");
+                        closeLoader();
+                    },
+                    error: function(error) {
+                        closeLoader();
+                        flasher.error('Server Error');
+                    }
+                })
+            }
+            document.getElementById('potongCuti').onclick = () => {
+                let idKaryawan = $('#idKaryawanPotong').val();
+                let data = {
+                    'idKaryawan': idKaryawan,
+                    'tahun': $('#yearPotong').val(),
+                    '_token': $('#token').val(),
+                    'cutiPotong': $('#cutiPotong').val(),
+                    'ketPotong': $('#ketPotong').val()
+                };
+                $.ajax({
+                    beforeSend: openLoader('Memuat Data'),
+                    type: 'post',
+                    url: 'cuti/potongCuti',
+                    data: data,
+                    success: function() {
+                        $('#cutiPotong').val('')
+                        $('#nikKerjaPotong').val('');
+                        $('#idKaryawanPotong').val('');
+                        $('#namaPotong').val('');
+                        $('#deptPotong').val('');
+                        $('#ketPotong').val('');
+                        $("#listPotong").load("cuti/listPotong");
+                        closeLoader();
+                    },
+                    error: function(error) {
+                        closeLoader();
+                        flasher.error('Server Error');
+                    }
+                })
+            }
+        @endcan
+
 
         let getDetailPotong = (x) => {
             let data = {
@@ -525,68 +590,6 @@
                 $('#verifikasiPosting').modal('toggle');
                 verifikasi.checked = false;
             }
-        }
-
-        document.getElementById('tambahCuti').onclick = () => {
-            let idKaryawan = $('#idKaryawanTambah').val();
-            let data = {
-                'idKaryawan': idKaryawan,
-                'tahun': $('#yearTambah').val(),
-                '_token': $('#token').val(),
-                'tambahCuti': $('#cutiTambah').val(),
-                'ketTambah': $('#ketTambah').val()
-
-            };
-            $.ajax({
-                beforeSend: openLoader('Memuat Data'),
-                type: 'post',
-                url: 'cuti/tambahCuti',
-                data: data,
-                success: function() {
-                    $('#cutiTambah').val('')
-                    $('#nikKerjaTambah').val('');
-                    $('#idKaryawanTambah').val('');
-                    $('#namaTambah').val('');
-                    $('#deptTambah').val('');
-                    $('#ketTambah').val('');
-                    $("#listTambah").load("cuti/listTambah");
-                    closeLoader();
-                },
-                error: function(error) {
-                    closeLoader();
-                    flasher.error('Server Error');
-                }
-            })
-        }
-        document.getElementById('potongCuti').onclick = () => {
-            let idKaryawan = $('#idKaryawanPotong').val();
-            let data = {
-                'idKaryawan': idKaryawan,
-                'tahun': $('#yearPotong').val(),
-                '_token': $('#token').val(),
-                'cutiPotong': $('#cutiPotong').val(),
-                'ketPotong': $('#ketPotong').val()
-            };
-            $.ajax({
-                beforeSend: openLoader('Memuat Data'),
-                type: 'post',
-                url: 'cuti/potongCuti',
-                data: data,
-                success: function() {
-                    $('#cutiPotong').val('')
-                    $('#nikKerjaPotong').val('');
-                    $('#idKaryawanPotong').val('');
-                    $('#namaPotong').val('');
-                    $('#deptPotong').val('');
-                    $('#ketPotong').val('');
-                    $("#listPotong").load("cuti/listPotong");
-                    closeLoader();
-                },
-                error: function(error) {
-                    closeLoader();
-                    flasher.error('Server Error');
-                }
-            })
         }
     </script>
 @endsection

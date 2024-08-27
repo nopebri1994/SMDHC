@@ -70,7 +70,14 @@ class cutiController extends Controller
     }
     function detailData(Request $request)
     {
-        $detail = karyawanModel::where('nikKerja', $request->nik)->whereNull('km')->first();
+        if (auth()->user()->role == '5') {
+            $detail = karyawanModel::where('nikKerja', $request->nik)->where('idBagian', auth()->user()->karyawan->idBagian)->whereNull('km')->first();
+        } elseif (auth()->user()->role == '4') {
+            $detail = karyawanModel::where('nikKerja', $request->nik)->where('idDepartemen', auth()->user()->karyawan->idDepartemen)->whereNull('km')->first();
+        } else {
+            $detail = karyawanModel::where('nikKerja', $request->nik)->whereNull('km')->first();
+        }
+
         if (empty($detail)) {
             $sendToView = array(
                 'status' => 0,

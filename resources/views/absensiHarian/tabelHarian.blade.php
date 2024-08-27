@@ -16,6 +16,7 @@
          <tbody>
              @foreach ($absensi as $key => $ab)
                  @if (auth()->user()->karyawan->idBagian == $ab->karyawan->idBagian and auth()->user()->role == 5 or
+                         auth()->user()->karyawan->idDepartemen == $ab->karyawan->idDepartemen and auth()->user()->role == 4 or
                          auth()->user()->role <= 3)
                      <tr>
                          <td class="text-center">{{ $key + 1 }}</td>

@@ -18,42 +18,47 @@
         </thead>
         <tbody>
             @foreach ($absensi as $key => $a)
-                <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $a->karyawan->nikKerja }}</td>
-                    <td width="35%">{{ $a->karyawan->namaKaryawan }}</td>
-                    <td>{{ $a->karyawan->departemen->kode }}/{{ $a->karyawan->bagian->kode }}</td>
-                    <td>{{ $a->keteranganIjin->kode }}</td>
-                    <td data-sort="{{ $a->tanggalIjin }}" style="text-align:center">
-                        {{ varHelper::formatDate($a->tanggalIjin) }}&nbsp;</td>
-                    <td>
-                        @can('hc')
-                            <div class="row" style="display: flex; justify-content: center">
-                                @if ($a->status == 0)
-                                    <div
-                                        class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                        <input type="checkbox" class="custom-control-input" id="status{{ $a->id }}"
-                                            onchange="updateStatus({{ $a->id }})">
-                                        <label class="custom-control-label" for="status{{ $a->id }}"></label>
+                @if (auth()->user()->karyawan->idBagian == $a->karyawan->idBagian and auth()->user()->role == 5 or
+                        auth()->user()->karyawan->idDepartemen == $a->karyawan->idDepartemen and auth()->user()->role == 4 or
+                        auth()->user()->role <= 3)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $a->karyawan->nikKerja }}</td>
+                        <td width="35%">{{ $a->karyawan->namaKaryawan }}</td>
+                        <td>{{ $a->karyawan->departemen->kode }}/{{ $a->karyawan->bagian->kode }}</td>
+                        <td>{{ $a->keteranganIjin->kode }}</td>
+                        <td data-sort="{{ $a->tanggalIjin }}" style="text-align:center">
+                            {{ varHelper::formatDate($a->tanggalIjin) }}&nbsp;</td>
+                        <td>
+                            @can('hc')
+                                <div class="row" style="display: flex; justify-content: center">
+                                    @if ($a->status == 0)
+                                        <div
+                                            class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                            <input type="checkbox" class="custom-control-input"
+                                                id="status{{ $a->id }}" onchange="updateStatus({{ $a->id }})">
+                                            <label class="custom-control-label" for="status{{ $a->id }}"></label>
+                                        </div>
+                                    @else
+                                        <div
+                                            class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                            <input type="checkbox" class="custom-control-input"
+                                                id="status{{ $a->id }}"
+                                                onchange="updateStatus({{ $a->id }})" checked>
+                                            <label class="custom-control-label" for="status{{ $a->id }}"></label>
+                                        </div>
+                                    @endif
+                                    <div>
+                                        &nbsp;
+                                        <a href="#" data-toggle="tooltip" title="Hapus Data"
+                                            onclick="deleteData({{ $a->id }},'{{ $a->keteranganIjin->kode }}','{{ $a->tanggalIjin }}',{{ $a->idKaryawan }})"><span
+                                                class="fas fa-trash-alt" style="color: red"></span></a>
                                     </div>
-                                @else
-                                    <div
-                                        class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                        <input type="checkbox" class="custom-control-input" id="status{{ $a->id }}"
-                                            onchange="updateStatus({{ $a->id }})" checked>
-                                        <label class="custom-control-label" for="status{{ $a->id }}"></label>
-                                    </div>
-                                @endif
-                                <div>
-                                    &nbsp;
-                                    <a href="#" data-toggle="tooltip" title="Hapus Data"
-                                        onclick="deleteData({{ $a->id }},'{{ $a->keteranganIjin->kode }}','{{ $a->tanggalIjin }}',{{ $a->idKaryawan }})"><span
-                                            class="fas fa-trash-alt" style="color: red"></span></a>
                                 </div>
-                            </div>
-                        @endcan
-                    </td>
-                </tr>
+                            @endcan
+                        </td>
+                    </tr>
+                @endif
             @endforeach
         </tbody>
     </table>

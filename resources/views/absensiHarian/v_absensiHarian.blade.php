@@ -78,14 +78,14 @@
             let dateVal = new Date(tgl);
             let now = new Date();
             now.setDate(now.getDate() - 7)
-
-            if (dateVal < now) {
-                document.getElementById('btnProses').disabled = true;
-            } else {
-                document.getElementById('btnProses').disabled = false;
-            }
+            @can('hc')
+                if (dateVal < now) {
+                    document.getElementById('btnProses').disabled = true;
+                } else {
+                    document.getElementById('btnProses').disabled = false;
+                }
+            @endcan
         }
-
         document.getElementById('tglAbsen').onchange = () => {
             loadData();
         }

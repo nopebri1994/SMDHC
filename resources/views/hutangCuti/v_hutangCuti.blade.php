@@ -226,14 +226,15 @@
             })
         }
 
-        document.getElementById('postingYear').onchange = () => {
-            loadPostingHutang();
-        }
+        @can('hc')
+            document.getElementById('postingYear').onchange = () => {
+                loadPostingHutang();
+            }
 
-        document.getElementById('postingMonth').onchange = () => {
-            loadPostingHutang();
-        }
-
+            document.getElementById('postingMonth').onchange = () => {
+                loadPostingHutang();
+            }
+        @endcan
 
         document.getElementById('buttonVerifikasiPosting').onclick = () => {
             let verifikasi = document.getElementById('verifikasi');
@@ -260,7 +261,7 @@
                     'y': year
                 }
                 $.ajax({
-                    beforeSend:openLoader('Generate Hutang Cuti'),
+                    beforeSend: openLoader('Generate Hutang Cuti'),
                     type: 'get',
                     url: 'hutang-cuti/posting-hutang',
                     data: data,
