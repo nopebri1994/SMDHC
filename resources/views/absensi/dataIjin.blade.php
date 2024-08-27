@@ -59,7 +59,7 @@
         </tbody>
     </table>
 </div>
-Keterangaan : BDU (Belum Di Urus)
+Keterangan : BDU (Belum Di Urus)
 <script>
     $('#tbl').DataTable({
         responsive: true,

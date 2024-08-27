@@ -31,7 +31,7 @@
                                         <div class="col-md-3">
                                             <label for="group">Group Off</label>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <select name="group" id="group" class="form-control">
                                                 <option value="A">Group A</option>
                                                 <option value="B">Group B</option>
@@ -94,66 +94,13 @@
                 style: "bg-info",
             });
         });
-        let editData = (id, idKaryawan, keterangan, tanggalKeluar) => {
-            $('#idKaryawanKeluar').val(id);
-            $('#idKaryawan').val(idKaryawan);
-            $('#keterangan').val(keterangan);
-            $('#tanggalKeluar').val(tanggalKeluar);
-            $('.select').selectpicker('refresh')
 
-            document.getElementById('btnUpdateData').classList.remove('d-none');
-            document.getElementById('btnSaveData').classList.add('d-none');
-            document.getElementById('showButton').classList.remove('d-none');
-        }
 
-        document.getElementById('btnUpdateData').onclick = () => {
-            update();
-            document.getElementById('btnSaveData').classList.remove('d-none');
-            document.getElementById('btnUpdateData').classList.add('d-none');
-        }
-        document.getElementById('showButton').onclick = () => {
-            document.getElementById('btnSaveData').classList.remove('d-none');
-            document.getElementById('btnUpdateData').classList.add('d-none');
-            document.getElementById('showButton').classList.add('d-none');
-        }
-
-        let update = () => {
-            let data = {
-                '_token': $('#token').val(),
-                'id': $('#idKaryawanKeluar').val(),
-                'tanggalKeluar': $('#tanggalKeluar').val(),
-                'keterangan': $('#keterangan').val(),
-                'idKaryawan': $('#idKaryawan').val(),
-
-            }
-            $.ajax({
-                beforeSend: openLoader('Update Date'),
-                type: 'post',
-                url: 'karyawanKeluar/updateData',
-                data: data,
-                success: function() {
-                    closeLoader();
-                    $('#listView').load('karyawanKeluar/tabelData')
-                    document.getElementById('showButton').classList.add('d-none');
-                    $('#idKaryawanKeluar').val('');
-                    $('#idKaryawan').val('');
-                    $('#keterangan').val('');
-                    $('#tanggalKeluar').val('');
-                    $('.select').selectpicker('refresh')
-                    flasher.success('Update Data berhasil')
-                },
-                error: function() {
-                    closeLoader();
-                    flasher.error('Server Error');
-                }
-            })
-        }
-        let deleteData = (id, nama, idKaryawan) => {
+        let deleteData = (id, nama) => {
             let token = $('#token').val();
             let dataId = {
                 'id': id,
                 "_token": token,
-                'idKaryawan': idKaryawan
             };
             Swal.fire({
                 title: "Do you want to delete field " + nama + "?",
@@ -169,10 +116,10 @@
                     $.ajax({
                         beforeSend: openLoader('memuatdata'),
                         type: 'post',
-                        url: 'karyawanKeluar/delete',
+                        url: 'groupOff/delete',
                         data: dataId,
                         success: function() {
-                            $('#listView').load('karyawanKeluar/tabelData')
+                            $('#listView').load('groupOff/tabelData')
                             flasher.success('Data Berhasil dihapus')
                             closeLoader();
                         },

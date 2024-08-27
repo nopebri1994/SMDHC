@@ -108,7 +108,6 @@
                         Generated
                         {{ date('d-m-Y H:i:s') }}
                     </i>
-
                 </td>
             </tr>
         </table>
@@ -143,13 +142,17 @@
                 @while (strtotime($awal) <= strtotime($tglAkhir))
                     @php
                         $obj = array_search($awal, array_column($dataisi, 'tglAbsen'));
-
                         $keterangan = '';
                         $objLibur = array_search($awal, array_column($libur, 'tanggalLibur'));
                         if ($objLibur != '') {
                             $keterangan = $libur[$objLibur]['keterangan'];
                         } elseif (date('l', strtotime($awal)) == 'Sunday') {
                             $keterangan = '#';
+                        }
+                        $ketSof = '';
+                        $off = array_search($awal, array_column($sof, 'tanggalOff'));
+                        if ($off != '' and $sof[$off]['group'] == $dataHeader->groupOff) {
+                            $ketSof = 'SOF';
                         }
                     @endphp
                     <tr @if (date('l', strtotime($awal)) == 'Sunday' or $keterangan != '') style="background-color: #ff9999" @endif>
@@ -176,6 +179,7 @@
                                     {{ date('H:i', strtotime($dataisi[$obj]['jamDatang'])) }}
                                 @endif
                             @endif
+
                         </td>
                         <td class="center">
                             @if (!empty($obj))
@@ -187,12 +191,15 @@
                         <td class="center">
                             @php
                                 $ket_ijin = '';
-                                $obj = array_search($awal, array_column($ijin, 'tanggalIjin'));
-                                if ($obj != '') {
-                                    $ket_ijin = $ijin[$obj]->kode;
+                                $objIjin = array_search($awal, array_column($ijin, 'tanggalIjin'));
+                                if ($objIjin != '') {
+                                    $ket_ijin = $ijin[$objIjin]->kode;
                                 }
-
-                                echo $ket_ijin;
+                                if (empty($key_ijin)) {
+                                    echo $ketSof;
+                                } else {
+                                    echo $ket_ijin;
+                                }
                             @endphp
                         </td>
                         <td class="center"
@@ -208,6 +215,7 @@
                             {{ $keterangan }}
                         </td>
                     </tr>
+
                     @php
                         $i++;
                         $awal = date('Y-m-d', strtotime('+1 days', strtotime($awal)));

@@ -67,6 +67,13 @@
                              if ($obj != '') {
                                  $ket_ijin = $ket[$obj]->kode;
                              }
+                             //echo $ket_ijin;
+                             if (!empty($off)) {
+                                 if ($ab->karyawanModel->groupOff == $off->group) {
+                                     $ket_ijin = 'SOF';
+                                 }
+                             }
+
                              echo $ket_ijin;
                          @endphp
                      </td>

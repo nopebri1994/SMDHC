@@ -166,8 +166,7 @@ Route::middleware('auth')->group(function () {
     Route::get('dm/groupOff', [groupOffController::class, 'index'])->middleware('can:hc');
     Route::post('dm/groupOff/storeData', [groupOffController::class, 'storeData']);
     Route::get('dm/groupOff/tabelData', [groupOffController::class, 'tabelData']);
-
-
+    Route::post('dm/groupOff/delete', [groupOffController::class, 'delete']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');

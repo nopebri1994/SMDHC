@@ -6,6 +6,7 @@ use App\Models\karyawanModel;
 use App\Models\absensiHarianModel;
 use App\Models\prosesAbsensiHarianModel;
 use App\Models\absensiModel;
+use App\Models\groupOffModel;
 use App\Models\liburModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +26,7 @@ class absensiHarianController extends Controller
     function list(Request $request)
     {
         $tgl = $request->tgl;
+        $dataOff = groupOffModel::where('tanggalOff', $tgl)->first();
         $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
         $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
         if (auth()->user()->role == '5') {
@@ -37,7 +39,8 @@ class absensiHarianController extends Controller
         $data = [
             'absensi' => $absensi,
             'ket' => DB::table('absensi_keteranganIjin')->where('tanggalIjin', $tgl)->get()->toArray(),
-            'tgl' => $tgl
+            'tgl' => $tgl,
+            'off' => $dataOff,
         ];
         return view('absensiHarian.tabelHarian', $data);
     }
@@ -45,8 +48,8 @@ class absensiHarianController extends Controller
     {
         $tgl = $request->tgl;
         prosesAbsensiHarianModel::where('tglAbsen', $tgl)->delete();
+        $dataOff = groupOffModel::where('tanggalOff', $tgl)->first();
         $tmp = [];
-
         $dataKaryawan = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->orderBy('nikKerja')->get();
         $jamAbsen = absensiHarianModel::where('tanggalAbsen', $tgl)->get()->toArray();
         if (empty($jamAbsen)) {
@@ -95,6 +98,13 @@ class absensiHarianController extends Controller
             if (date('D', strtotime($tgl)) == 'Sun') {
                 $f = 'Ya';
                 $t = 'Tidak';
+            }
+
+            if (!empty($datOff)) {
+                if ($dk->groupOff == $dataOff->group) {
+                    $f = 'Ya';
+                    $t = 'Tidak';
+                }
             }
 
             $tmp[] = [
@@ -158,11 +168,10 @@ class absensiHarianController extends Controller
         $tglAkhir = $request->akhir;
         $tglAwal = $request->awal;
         $dataHeader = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('id', $id)->first();
-        $dataisi = prosesAbsensiHarianModel::where('idKaryawan', $id)->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->get()->toArray();
+        $dataisi = prosesAbsensiHarianModel::where('idKaryawan', $id)->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->orderBy('tglAbsen')->get()->toArray();
         $ketijin = DB::table('absensi_keteranganIjin')->where('idKaryawan', $id)->whereBetween('tanggalIjin', [$tglAwal, $tglAkhir])->get()->toArray();
+        $sof = groupOffModel::whereBetween('tanggalOff', [$tglAwal, $tglAkhir])->get()->toArray();
         $libur = liburModel::whereBetween('tanggalLibur', [$tglAwal, $tglAkhir])->get()->toArray();
-
-        // dd($dataisi);
         $tmp = [
             'id' => $id,
             'dataHeader' => $dataHeader,
@@ -171,7 +180,10 @@ class absensiHarianController extends Controller
             'dataisi' => $dataisi,
             'ijin' => $ketijin,
             'libur' => $libur,
+            'sof' => $sof
         ];
+        // dd($dataisi);
+
         // return view('absensiHarian.printAbsensi', $tmp);
         // dd($ketijin);   
         $pdf = Pdf::loadView('absensiHarian.printAbsensi', $tmp);
