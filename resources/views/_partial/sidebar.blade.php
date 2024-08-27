@@ -218,8 +218,8 @@
                                     <p>Hari Libur</p>
                                 </a>
                             </li>
-                            <li class="nav-item {{ request()->is('dm/sabtuOff') ? 'active' : '' }}">
-                                <a href="{{ URL::to('/') }}/dm/sabtuOff" class="nav-link">
+                            <li class="nav-item {{ request()->is('dm/groupOff') ? 'active' : '' }}">
+                                <a href="{{ URL::to('/') }}/dm/groupOff" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Jadwal Sabtu Off</p>
                                     <span class="right badge badge-danger">P</span>

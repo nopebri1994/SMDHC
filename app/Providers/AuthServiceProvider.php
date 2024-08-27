@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('adminBagian', function (UserModel $user) {
-            return $user->role == '5';
+            return $user->role >= '4';
         });
     }
 }

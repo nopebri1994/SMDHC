@@ -5,6 +5,7 @@ use App\Http\Controllers\absensiHarianController;
 use App\Http\Controllers\bagianController;
 use App\Http\Controllers\cutiController;
 use App\Http\Controllers\departemenController;
+use App\Http\Controllers\groupOffController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\hutangCutiController;
 use App\Http\Controllers\jabatanController;
@@ -160,6 +161,13 @@ Route::middleware('auth')->group(function () {
     Route::get('dk/karyawanKeluar/tabelData', [karyawanKeluarController::class, 'tabelData']);
     Route::post('dk/karyawanKeluar/updateData', [karyawanKeluarController::class, 'updateData']);
     Route::post('dk/karyawanKeluar/delete', [karyawanKeluarController::class, 'delete']);
+
+    //groupOff
+    Route::get('dm/groupOff', [groupOffController::class, 'index'])->middleware('can:hc');
+    Route::post('dm/groupOff/storeData', [groupOffController::class, 'storeData']);
+    Route::get('dm/groupOff/tabelData', [groupOffController::class, 'tabelData']);
+
+
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');
