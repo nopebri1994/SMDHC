@@ -18,7 +18,7 @@ class absensiModel extends Model
         'status',
     ];
 
-    function karyawan(): BelongsTo
+    function karyawanModel(): BelongsTo
     {
         return $this->belongsTo(karyawanModel::class, 'idKaryawan');
     }

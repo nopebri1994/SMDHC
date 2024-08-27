@@ -10,8 +10,9 @@ class keteranganIjinModel extends Model
 {
     use HasFactory;
 
-    
-    public static function boot() {
+
+    public static function boot()
+    {
         parent::boot();
         static::creating(function ($model) {
             $model->id = Str::uuid();
@@ -25,5 +26,4 @@ class keteranganIjinModel extends Model
         'status',
         'keterangan',
     ];
-
 }

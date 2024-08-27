@@ -276,7 +276,16 @@ Bisa digunakan sebelum $exp",
 
     function dataIjin()
     {
-        $absensi = absensiModel::with(['karyawan'])->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+        $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
+        $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
+        if (auth()->user()->role == '5') {
+            $absensi = absensiModel::whereBelongsTo($idBagian)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+        } elseif (auth()->user()->role == '4') {
+            $absensi = absensiModel::whereBelongsTo($idDepartemen)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+        } else {
+            $absensi = absensiModel::with(['karyawan'])->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+        }
+
         $data =  [
             'absensi' => $absensi,
         ];
