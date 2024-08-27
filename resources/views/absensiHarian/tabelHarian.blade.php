@@ -18,8 +18,11 @@
                  @if (auth()->user()->karyawan->idBagian == $ab->karyawan->idBagian and auth()->user()->role == 5 or
                          auth()->user()->karyawan->idDepartemen == $ab->karyawan->idDepartemen and auth()->user()->role == 4 or
                          auth()->user()->role <= 3)
+                     @php
+                         $no = 1;
+                     @endphp
                      <tr>
-                         <td class="text-center">{{ $key + 1 }}</td>
+                         <td class="text-center">{{ $no }}</td>
                          <td>{{ $ab->karyawan->namaKaryawan }}</td>
                          <td class="text-center" data-sort="{{ $ab->karyawan->departemen->kode }}">
                              {{ $ab->karyawan->departemen->kode }}
@@ -91,6 +94,9 @@
                              @endcan
                          </td>
                      </tr>
+                     @php
+                         $no++;
+                     @endphp
                  @endif
              @endforeach
          </tbody>

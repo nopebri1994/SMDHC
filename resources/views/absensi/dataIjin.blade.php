@@ -21,8 +21,11 @@
                 @if (auth()->user()->karyawan->idBagian == $a->karyawan->idBagian and auth()->user()->role == 5 or
                         auth()->user()->karyawan->idDepartemen == $a->karyawan->idDepartemen and auth()->user()->role == 4 or
                         auth()->user()->role <= 3)
+                    @php
+                        $no = 1;
+                    @endphp
                     <tr>
-                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $no }}</td>
                         <td>{{ $a->karyawan->nikKerja }}</td>
                         <td width="35%">{{ $a->karyawan->namaKaryawan }}</td>
                         <td>{{ $a->karyawan->departemen->kode }}/{{ $a->karyawan->bagian->kode }}</td>
@@ -58,6 +61,9 @@
                             @endcan
                         </td>
                     </tr>
+                    @php
+                        $no++;
+                    @endphp
                 @endif
             @endforeach
         </tbody>
