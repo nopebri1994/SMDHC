@@ -27,11 +27,11 @@ class absensiHarianController extends Controller
     {
         $tgl = $request->tgl;
         $dataOff = groupOffModel::where('tanggalOff', $tgl)->first();
-        $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
-        $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
         if (auth()->user()->role == '5') {
+            $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
             $absensi = prosesAbsensiHarianModel::whereBelongsTo($idBagian)->with(['karyawanModel'])->where('tglAbsen', $tgl)->get();
         } elseif (auth()->user()->role == '4') {
+            $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
             $absensi = prosesAbsensiHarianModel::whereBelongsTo($idDepartemen)->with(['karyawanModel'])->where('tglAbsen', $tgl)->get();
         } else {
             $absensi = prosesAbsensiHarianModel::with(['karyawanModel'])->where('tglAbsen', $tgl)->get();
