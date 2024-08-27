@@ -195,11 +195,7 @@
                                 if ($objIjin != '') {
                                     $ket_ijin = $ijin[$objIjin]->kode;
                                 }
-                                if (empty($key_ijin)) {
-                                    echo $ketSof;
-                                } else {
-                                    echo $ket_ijin;
-                                }
+                                echo $ket_ijin;
                             @endphp
                         </td>
                         <td class="center"
@@ -213,6 +209,14 @@
                         </td>
                         <td>
                             {{ $keterangan }}
+                            @php
+                                if ($ketSof != '' and $keterangan != '') {
+                                    echo ', ' . $ketSof;
+                                } else {
+                                    echo $ketSof;
+                                }
+                            @endphp
+
                         </td>
                     </tr>
 
