@@ -88,6 +88,7 @@ Bisa digunakan sebelum $exp",
 
     function prosesData(Request $request)
     {
+        //looping atau proses ijin
         $tglAwal = $request->awal;
         $tglAkhir = $request->akhir;
         $bagian = karyawanModel::where('id', $request->id)->first();
@@ -133,6 +134,7 @@ Bisa digunakan sebelum $exp",
 
     function saveData($parsing)
     {
+        //proses save data ijin
         $idKode = keteranganIjinModel::where('kode', $parsing['kode'])->first();
         $cek = absensiModel::where('idKaryawan', $parsing['id'])->where('tanggalIjin', $parsing['tglAwal'])->first();
         if (empty($cek)) {
@@ -274,18 +276,31 @@ Bisa digunakan sebelum $exp",
         }
     }
 
-    function dataIjin()
+    function dataIjin(Request $request)
     {
-        if (auth()->user()->role == '5') {
-            $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
-            $absensi = absensiModel::whereBelongsTo($idBagian)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
-        } elseif (auth()->user()->role == '4') {
-            $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
-            $absensi = absensiModel::whereBelongsTo($idDepartemen)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+        $tanggal = $request->filterTanggal;
+        if ($tanggal != '') {
+            if (auth()->user()->role == '5') {
+                $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
+                $absensi = absensiModel::whereBelongsTo($idBagian)->where('tanggalIjin', $tanggal)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+            } elseif (auth()->user()->role == '4') {
+                $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
+                $absensi = absensiModel::whereBelongsTo($idDepartemen)->where('tanggalIjin', $tanggal)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+            } else {
+                $absensi = absensiModel::with(['karyawanModel'])->where('tanggalIjin', $tanggal)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+            }
         } else {
-            $absensi = absensiModel::with(['karyawanModel'])->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+            if (auth()->user()->role == '5') {
+                $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
+                $absensi = absensiModel::whereBelongsTo($idBagian)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+            } elseif (auth()->user()->role == '4') {
+                $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
+                $absensi = absensiModel::whereBelongsTo($idDepartemen)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+            } else {
+                $absensi = absensiModel::with(['karyawanModel'])->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+            }
         }
-        // dd($absensi);
+
         $data =  [
             'absensi' => $absensi,
         ];

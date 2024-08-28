@@ -115,6 +115,17 @@
                         @endcan
                         <div class="{{ auth()->user()->role > 3 ? 'col-md-12' : 'col-lg-7' }}">
                             <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-1 col-md-1 pt-2">
+                                            <label for="filterTanggal">Tanggal</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="date" name="filterTanggal" class="form-control"
+                                                id="filterTanggal">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="card-body">
                                     <div id="dataIjin"></div>
                                 </div>
@@ -244,7 +255,7 @@
                 'kode': kode,
                 'y': year,
                 'awal': awal,
-                'akhir': akhir
+                'akhir': akhir,
             }
 
             $.ajax({
@@ -271,9 +282,34 @@
                 }
             })
         }
-        let dataIjin = () => {
-            $('#dataIjin').load('absensi/dataIjin');
+
+        document.getElementById('filterTanggal').onchange = () => {
+            dataIjin();
         }
+
+        let dataIjin = () => {
+            // $('#dataIjin').load('absensi/dataIjin');
+            let data = {
+                'filterTanggal': $('#filterTanggal').val(),
+            }
+            $.ajax({
+                beforeSend: function() {
+                    openLoader();
+                },
+                type: 'get',
+                url: 'absensi/dataIjin',
+                data: data,
+                success: function(sdata) {
+                    $('#dataIjin').html(sdata)
+                    closeLoader();
+                },
+                error: function(error) {
+                    flasher.error('Server Eror')
+                    closeLoader();
+                }
+            })
+        }
+
         let updateStatus = (x) => {
             let status = document.getElementById('status' + x).checked;
             if (status == true) {
