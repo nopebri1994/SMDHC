@@ -1,4 +1,4 @@
-<table class="table table-striped" width="100%" id="tbl">
+<table class="table table-striped display nowrap" width="100%" id="tbl">
     <thead>
         <tr>
             <th>#</th>
@@ -25,5 +25,7 @@
     </tbody>
 </table>
 <script>
-    $('#tbl').DataTable();
+    $('#tbl').DataTable({
+        responsive: true,
+    });
 </script>
