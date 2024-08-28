@@ -63,16 +63,16 @@
                      <td class="text-center">
                          @php
                              $ket_ijin = '';
-                             $obj = array_search($ab->idKaryawan, array_column($ket, 'idKaryawan'));
-                             if ($obj != '') {
-                                 $ket_ijin = $ket[$obj]->kode;
-                             }
-                             //echo $ket_ijin;
                              if (!empty($off)) {
                                  if ($ab->karyawanModel->groupOff == $off->group) {
                                      $ket_ijin = 'SOF';
                                  }
                              }
+                             $obj = array_search($ab->idKaryawan, array_column($ket, 'idKaryawan'));
+                             if ($obj != '') {
+                                 $ket_ijin = $ket[$obj]->kode;
+                             }
+                             //echo $ket_ijin;
 
                              echo $ket_ijin;
                          @endphp
