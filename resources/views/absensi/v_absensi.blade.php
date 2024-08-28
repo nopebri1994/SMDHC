@@ -117,7 +117,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="row">
-                                        <div class="col-1 col-md-1 pt-2">
+                                        <div class="col-2 col-md-2 pt-2">
                                             <label for="filterTanggal">Tanggal</label>
                                         </div>
                                         <div class="col-md-4">

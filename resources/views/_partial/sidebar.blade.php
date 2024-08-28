@@ -132,7 +132,8 @@
                         </li>
                         @can('hc')
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="{{ URL::to('/') }}/psn/kontrak-karyawan"
+                                    class="nav-link {{ request()->is('psn/kontrak-karyawan') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kontrak Karyawan</p>
                                     <span class="right badge badge-danger">P</span>

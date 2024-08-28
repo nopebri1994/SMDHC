@@ -59,30 +59,30 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <div class="col-md-3 pt-2">NIK (Kerja)</div>
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-5 pt-2">NIK (Kerja)</div>
+                                                    <div class="col-md-7">
                                                         <input type="text" name="nikKerja" id="nikKerja"
                                                             autocomplete="off" placeholder="NIK" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-3">Nama Karyawan</div>
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-5">Nama Karyawan</div>
+                                                    <div class="col-md-7">
                                                         <input type="text" name="nama" id="nama"
                                                             placeholder="nama" class="form-control" disabled>
                                                         <input type="hidden" name="" id="idKaryawan">
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Dept / Bagian</div>
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-5 pt-2">Dept / Bagian</div>
+                                                    <div class="col-md-7">
                                                         <input type="text" name="dept" id="dept" placeholder=""
                                                             class="form-control" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-3 pt-2">Tahun Cuti</div>
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-5 pt-2">Tahun Cuti</div>
+                                                    <div class="col-md-7">
                                                         <select name="year" class="form-control bg-info" id="year">
                                                             @for ($i = 2020; $i < 2030; $i++)
                                                                 <option>{{ $i }}</option>
@@ -91,7 +91,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-11">
+                                                    <div class="col-md-12">
                                                         <button class="btn btn-block btn-secondary" id="findCuti">Cari
                                                             Data... &nbsp;<i class="fas fa-search"></i></button>
                                                     </div>
@@ -224,7 +224,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-11">
+                                                        <div class="col-md-12">
                                                             <button class="btn btn-block btn-secondary" id="tambahCuti">Tambah
                                                                 Cuti... &nbsp;<i class="fas fa-plus"></i></button>
                                                         </div>
@@ -295,7 +295,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="row mt-2">
-                                                        <div class="col-md-11">
+                                                        <div class="col-md-12">
                                                             <button class="btn btn-block btn-secondary" id="potongCuti">Potong
                                                                 Cuti... &nbsp;<i class="fas fa-minus"></i></button>
                                                         </div>
