@@ -2,6 +2,7 @@
          <thead>
              <tr>
                  <th>#</th>
+                 <th style="text-align:center;">NIK</th>
                  <th style="text-align:center;">Nama Karyawan</th>
                  <th style="text-align:center;">Dept / Bagian</th>
                  <th data-dt-order="disable" style="text-align:center;">Jadwal Masuk</th>
@@ -17,6 +18,7 @@
              @foreach ($absensi as $key => $ab)
                  <tr>
                      <td class="text-center">{{ $key + 1 }}</td>
+                     <td>{{ $ab->karyawanModel->nikKerja }}</td>
                      <td>{{ $ab->karyawanModel->namaKaryawan }}</td>
                      <td class="text-center" data-sort="{{ $ab->karyawanModel->departemen->kode }}">
                          {{ $ab->karyawanModel->departemen->kode }}
@@ -63,7 +65,7 @@
                              }
                              $obj = array_search($ab->idKaryawan, array_column($ket, 'idKaryawan'));
                              if ($ab->keteranganIjin != null) {
-                                 $ket_ijin = $ab->keteranganIjin;   
+                                 $ket_ijin = $ab->keteranganIjin;
                              }
                              //echo $ket_ijin;
                              echo $ket_ijin;
