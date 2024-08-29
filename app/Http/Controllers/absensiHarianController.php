@@ -50,6 +50,7 @@ class absensiHarianController extends Controller
         $tgl = $request->tgl;
         prosesAbsensiHarianModel::where('tglAbsen', $tgl)->delete();
         $dataOff = groupOffModel::where('tanggalOff', $tgl)->first();
+        $dataIjin = DB::table('absensi_keteranganIjin')->where('tanggalIjin', $tgl)->get()->toArray();
         $tmp = [];
         $dataKaryawan = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->orderBy('nikKerja')->get();
         $jamAbsen = absensiHarianModel::where('tanggalAbsen', $tgl)->get()->toArray();
@@ -66,9 +67,15 @@ class absensiHarianController extends Controller
             //inisialisasi
             $jamDatang = null;
             $jamPulang = null;
+            $jadwalMasuk = null;
+            $jadwalPulang = null;
             $t = 'Tidak';
             $f = 'Tidak';
-
+            $ket = null;
+            $objKet = array_search($dk->id, array_column($dataIjin, 'idKaryawan'));
+            if ($objKet != '') {
+                $ket = $dataIjin[$objKet]->kode;
+            }
             $obj = array_search($dk->fpId, array_column($jamAbsen, 'idFinger'));
             if ($obj != '') {
                 $jamDatang = $jamAbsen[$obj]['jamAbsen'];
@@ -81,10 +88,14 @@ class absensiHarianController extends Controller
                 if ($jamDatang > $dk->jamKerja->jamMasukS) {
                     $t = 'Ya';
                 }
+                $jadwalMasuk = $dk->jamKerja->jamMasukS;
+                $jadwalPulang = $dk->jamKerja->jamPulangS;
             } else {
                 if ($jamDatang > $dk->jamKerja->jamMasukSJ) {
                     $t = 'Ya';
                 }
+                $jadwalMasuk = $dk->jamKerja->jamMasukSJ;
+                $jadwalPulang = $dk->jamKerja->jamPulangSJ;
             }
 
             if (date('D', strtotime($tgl)) == 'Sat') {
@@ -115,6 +126,9 @@ class absensiHarianController extends Controller
                 'jamPulang' => $jamPulang,
                 'terlambat' => $t,
                 'full' => $f,
+                'keteranganIjin' => $ket,
+                'jadwalMasuk' => $jadwalMasuk,
+                'jadwalPulang' => $jadwalPulang,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ];

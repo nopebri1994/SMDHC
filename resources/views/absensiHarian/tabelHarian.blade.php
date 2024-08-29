@@ -26,18 +26,11 @@
                          {{ $ab->karyawanModel->bagian->kode }}
                      </td>
                      <td class="text-center" style="background-color:#6b86d4a3">
-                         @if (date('D', strtotime($tgl)) == 'Sat')
-                             {{ $ab->karyawanModel->jamKerja->jamMasukS }}
-                         @else
-                             {{ $ab->karyawanModel->jamKerja->jamMasukSJ }}
-                         @endif
+                         {{ $ab->jadwalMasuk }}
                      </td>
                      <td class="text-center" style="background-color:#f24141c4">
-                         @if (date('D', strtotime($tgl)) == 'Sat')
-                             {{ $ab->karyawanModel->jamKerja->jamPulangS }}
-                         @else
-                             {{ $ab->karyawanModel->jamKerja->jamPulangSJ }}
-                         @endif
+                         {{ $ab->jadwalPulang }}
+
                      </td>
                      <td class="text-center" @if ($ab->terlambat == 'Ya') style="background-color:yellow;" @endif>
                          {{ $ab->jamDatang }}
@@ -69,11 +62,10 @@
                                  }
                              }
                              $obj = array_search($ab->idKaryawan, array_column($ket, 'idKaryawan'));
-                             if ($obj != '') {
-                                 $ket_ijin = $ket[$obj]->kode;
+                             if ($ab->keteranganIjin != null) {
+                                 $ket_ijin = $ab->keteranganIjin;   
                              }
                              //echo $ket_ijin;
-
                              echo $ket_ijin;
                          @endphp
                      </td>

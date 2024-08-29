@@ -10,6 +10,7 @@ use App\Models\hutangCutiModel;
 use App\Models\karyawanModel;
 use App\Models\keteranganIjinModel;
 use App\Models\liburModel;
+use App\Models\prosesAbsensiHarianModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\RC4;
@@ -169,6 +170,10 @@ Bisa digunakan sebelum $exp",
                     ];
                     absensiModel::create($tmpSave);
 
+                    prosesAbsensiHarianModel::where('idKaryawan', $parsing['id'])->where('tglAbsen', $parsing['tglAwal'])->update([
+                        'keteranganIjin' => $parsing['kode'],
+                    ]);
+
                     //log
                     $msg = "Id Karyawan = " . $parsing['id'] . " kode KeteranganIjin = " . $parsing['kode'] . " Tanggal Ijin = " . $parsing['tglAwal'] . " User = " . auth()->user()->karyawan->namaKaryawan;
                     Log::channel('history')->info("Tambah data Ijin => " . $msg);
@@ -209,6 +214,10 @@ Bisa digunakan sebelum $exp",
                     ];
                     absensiModel::create($tmpSave);
 
+                    prosesAbsensiHarianModel::where('idKaryawan', $parsing['id'])->where('tglAbsen', $parsing['tglAwal'])->update([
+                        'keteranganIjin' => $parsing['kode'],
+                    ]);
+
                     //log
                     $msg = "Id Karyawan = " . $parsing['id'] . " kode KeteranganIjin = " . $parsing['kode'] . " Tanggal Ijin = " . $parsing['tglAwal'] . " User = " . auth()->user()->karyawan->namaKaryawan;
                     Log::channel('history')->info("Tambah data Ijin => " . $msg);
@@ -231,6 +240,10 @@ Bisa digunakan sebelum $exp",
                         'status'            => '0'
                     ];
                     absensiModel::create($tmpSave);
+
+                    prosesAbsensiHarianModel::where('idKaryawan', $parsing['id'])->where('tglAbsen', $parsing['tglAwal'])->update([
+                        'keteranganIjin' => $parsing['kode'],
+                    ]);
 
                     //log
                     $msg = "Id Karyawan = " . $parsing['id'] . " kode KeteranganIjin = " . $parsing['kode'] . " Tanggal Ijin = " . $parsing['tglAwal'] . " User = " . auth()->user()->karyawan->namaKaryawan;
@@ -257,6 +270,9 @@ Bisa digunakan sebelum $exp",
                 ];
                 absensiModel::create($tmpSave);
 
+                prosesAbsensiHarianModel::where('idKaryawan', $parsing['id'])->where('tglAbsen', $parsing['tglAwal'])->update([
+                    'keteranganIjin' => $parsing['kode'],
+                ]);
                 //log
                 $msg = "Id Karyawan = " . $parsing['id'] . " kode KeteranganIjin = " . $parsing['kode'] . " Tanggal Ijin = " . $parsing['tglAwal'] . " User = " . auth()->user()->karyawan->namaKaryawan;
                 Log::channel('history')->info("Tambah data Ijin => " . $msg);
@@ -344,6 +360,9 @@ Bisa digunakan sebelum $exp",
             absensiModel::where('id', $id)->delete();
         }
 
+        prosesAbsensiHarianModel::where('idKaryawan', $idKaryawan)->where('tglAbsen', $tgl)->update([
+            'keteranganIjin' => null,
+        ]);
         //log
         $msg = "Id Karyawan = " . $idKaryawan . " kode KeteranganIjin = " . $ket . " Tanggal Ijin = " . $tgl . " User = " . auth()->user()->karyawan->namaKaryawan;
         Log::channel('history')->warning("Hapus data Ijin => " . $msg);

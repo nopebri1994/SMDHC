@@ -16,7 +16,10 @@ class prosesAbsensiHarianModel extends Model
         'jamDatang',
         'jamPulang',
         'terlambat',
-        'full'
+        'full',
+        'jadwalMasuk',
+        'jadwalPulang',
+        'keteranganIjin'
     ];
 
     function karyawanModel(): BelongsTo

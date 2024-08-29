@@ -160,17 +160,13 @@
                         <td class="center">{{ date('d-m-Y', strtotime($awal)) }}</td>
                         <td class="center">{{ varHelper::hariIndo(date('l', strtotime($awal))) }}</td>
                         <td class="center" style="font-style:italic">
-                            @if (date('l', strtotime($awal)) == 'Saturday')
-                                {{ date('H:i', strtotime($dataHeader->jamKerja->jamMasukS)) }}
-                            @elseif(date('l', strtotime($awal)) != 'Sunday')
-                                {{ date('H:i', strtotime($dataHeader->jamKerja->jamMasukSJ)) }}
+                            @if (!empty($obj))
+                                {{ date('H:i', strtotime($dataisi[$obj]['jadwalMasuk'])) }}
                             @endif
                         </td>
                         <td class="center" style="font-style:italic">
-                            @if (date('l', strtotime($awal)) == 'Saturday')
-                                {{ date('H:i', strtotime($dataHeader->jamKerja->jamPulangS)) }}
-                            @elseif(date('l', strtotime($awal)) != 'Sunday')
-                                {{ date('H:i', strtotime($dataHeader->jamKerja->jamPulangSJ)) }}
+                            @if (!empty($obj))
+                                {{ date('H:i', strtotime($dataisi[$obj]['jadwalPulang'])) }}
                             @endif
                         </td>
                         <td class="center">
@@ -189,14 +185,7 @@
                             @endif
                         </td>
                         <td class="center">
-                            @php
-                                $ket_ijin = '';
-                                $objIjin = array_search($awal, array_column($ijin, 'tanggalIjin'));
-                                if ($objIjin != '') {
-                                    $ket_ijin = $ijin[$objIjin]->kode;
-                                }
-                                echo $ket_ijin;
-                            @endphp
+                            {{ $dataisi[$obj]['keteranganIjin'] }}
                         </td>
                         <td class="center"
                             @if (!empty($obj)) @if ($dataisi[$obj]['terlambat'] != 'Tidak') style="background-color:yellow" @endif
@@ -229,4 +218,5 @@
         </table>
     </main>
 </body>
+
 </html>
