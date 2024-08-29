@@ -10,7 +10,7 @@
                  <th style="text-align:center;">Jam Datang</th>
                  <th style="text-align:center;">Jam Pulang</th>
                  <th style="text-align:center">T</th>
-                 <th style="text-align:center;">Ket. Ijin</th>
+                 <th style="text-align:center;">Ijin</th>
                  <th style="text-align:center">Full</th>
              </tr>
          </thead>
