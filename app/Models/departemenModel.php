@@ -10,6 +10,7 @@ class departemenModel extends Model
 {
     use HasFactory;
     protected $table = 'departemen';
+    protected $with = ['perusahaan'];
     protected $fillable = [
         'kode',
         'namaDepartemen',

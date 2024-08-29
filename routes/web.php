@@ -13,6 +13,7 @@ use App\Http\Controllers\jamKerjaController;
 use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\karyawanKeluarController;
 use App\Http\Controllers\keteranganIjinController;
+use App\Http\Controllers\kontrakKaryawanController;
 use App\Http\Controllers\liburController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\mesinAbsensiController;
@@ -110,6 +111,8 @@ Route::middleware('auth')->group(function () {
     Route::post('psn/cuti/potongCuti', [cutiController::class, 'potongCuti']);
     Route::get('psn/cuti/listTambah', [cutiController::class, 'listTambah']);
     Route::get('psn/cuti/listPotong', [cutiController::class, 'listPotong']);
+    Route::get('psn/cuti/printCuti', [cutiController::class, 'printCuti']);
+
 
     //hutangCuti
     Route::get('psn/hutang-cuti', [hutangCutiController::class, 'index']);
@@ -154,6 +157,8 @@ Route::middleware('auth')->group(function () {
     //cetakAbsensi
     Route::get('psn/cetakAbsensi', [absensiHarianController::class, 'cetakAbsensi']);
     Route::get('psn/cetakPerorang', [absensiHarianController::class, 'cetakPerorang']);
+    Route::get('psn/cetakPerBagian', [absensiHarianController::class, 'cetakPerBagian']);
+
 
     //karyawanKeluar
     Route::get('dk/karyawanKeluar', [karyawanKeluarController::class, 'index'])->middleware('can:hc');
@@ -167,6 +172,10 @@ Route::middleware('auth')->group(function () {
     Route::post('dm/groupOff/storeData', [groupOffController::class, 'storeData']);
     Route::get('dm/groupOff/tabelData', [groupOffController::class, 'tabelData']);
     Route::post('dm/groupOff/delete', [groupOffController::class, 'delete']);
+
+    //karyawanKontrak
+    Route::get('psn/kontrak-karyawan', [kontrakKaryawanController::class, 'index'])->middleware('can:hc');
+
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');

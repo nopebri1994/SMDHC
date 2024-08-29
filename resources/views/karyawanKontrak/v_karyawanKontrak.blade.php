@@ -47,27 +47,50 @@
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-md-3">
-                                            <label for="tanggalKeluar">Tanggal</label>
+                                            <label for="noKontrak">No. Kontrak</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" placeholder="001/LMWP/......."
+                                                class="form-control {{ $errors->has('noKontrak') ? 'is-invalid' : '' }}"
+                                                name="noKontrak" id="noKontrak">
+                                            <div class="invalid-feedback">{{ $errors->first('noKontrak') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-3">
+                                            <label for="dibuatTanggal">Tanggal Dibuat</label>
                                         </div>
                                         <div class="col-md-5">
                                             <input type="date"
-                                                class="form-control {{ $errors->has('tanggalKeluar') ? 'is-invalid' : '' }}"
-                                                name="tanggalKeluar" id="tanggalKeluar">
-                                            <div class="invalid-feedback">{{ $errors->first('tanggalKeluar') }}</div>
+                                                class="form-control {{ $errors->has('dibuatTanggal') ? 'is-invalid' : '' }}"
+                                                name="dibuatTanggal" id="dibuatTanggal">
+                                            <div class="invalid-feedback">{{ $errors->first('dibuatTanggal') }}</div>
                                         </div>
                                     </div>
-                                    <div class="row mt-2">
+                                    <div class="row mt-3">
                                         <div class="col-md-3">
-                                            <label for="keterangan">Keterangan</label>
+                                            <label for="berlakuTanggal">Berlaku Tanggal</label>
                                         </div>
-                                        <div class="col-md-8">
-                                            <textarea name="keterangan" id="keterangan" class="form-control {{ $errors->has('keterangan') ? 'is-invalid' : '' }}"
-                                                rows="3"></textarea>
-                                            <div class="invalid-feedback">{{ $errors->first('keterangan') }}</div>
+                                        <div class="col-md-5">
+                                            <input type="date"
+                                                class="form-control {{ $errors->has('berlakuTanggal') ? 'is-invalid' : '' }}"
+                                                name="berlakuTanggal" id="berlakuTanggal">
+                                            <div class="invalid-feedback">{{ $errors->first('berlakuTanggal') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-3">
+                                            <label for="sampaiTanggal">Sampai Tanggal</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="date"
+                                                class="form-control {{ $errors->has('sampaiTanggal') ? 'is-invalid' : '' }}"
+                                                name="sampaiTanggal" id="sampaiTanggal">
+                                            <div class="invalid-feedback">{{ $errors->first('sampaiTanggal') }}</div>
                                         </div>
                                     </div>
                                     <div class="mt-3" align="right">
-                                        <input type="hidden" id="idKaryawanKeluar">
+                                        <input type="hidden" id="id">
                                         <button type="submit" class="btn btn-primary" id="btnSaveData">
                                             <span class="far fa-save" id="load" aria-hidden="true"></span>
                                             Simpan Data</button>

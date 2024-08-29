@@ -10,6 +10,7 @@ use App\Models\hutangCutiModel;
 use App\Models\potonganCutiModel;
 use App\Models\potongCutiModel;
 use App\Models\tambahCutiModel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use varHelper;
 
@@ -201,5 +202,39 @@ class cutiController extends Controller
             'potongCuti' => potongCutiModel::with('karyawan')->get(),
         ];
         return view('cuti.potongCuti', $data);
+    }
+
+    function printCuti(Request $request)
+    {
+        $id     = $request->id;
+        $y      = $request->year;
+
+        $cuti = cutiModel::where('idKaryawan', $id)->where('year', $y)->first();
+        $tglMasuk = date_create($cuti->karyawan->tglMasuk);
+        $m = $cuti->month;
+        $now = date_create(date('Y-m-d', strtotime("$y-$m-01")));
+        $selisih = date_diff($now, $tglMasuk);
+        $detail = detailCutiModel::where('idKaryawan', $id)->where('tahun', $y)->get();
+        $potonganTahunan = potonganCutiModel::where('tahunPotongan', $y)->sum('totalPotongan');
+        $detailHutang = hutangCutiModel::where('idKaryawan', $id)->where('year', $y)->first();
+        $cekTambah = tambahCutiModel::select(DB::raw('SUM(jumlahTambah) as s'))->where('tahunCuti', $y)->where('idKaryawan', $id)->where('status', 'Belum')->first();
+        $cekPotong = potongCutiModel::select(DB::raw('SUM(jumlahPotong) as s'))->where('tahunCuti', $y)->where('idKaryawan', $id)->where('status', 'Belum')->first();
+        $data = [
+            'vCuti'     => $cuti,
+            'detail'    => $detail,
+            'masaKerja' => $selisih->y,
+            'potongan' => $potonganTahunan,
+            'hutang'    => $detailHutang,
+            'tambahan'  => $cekTambah['s'],
+            'potongCuti' => $cekPotong['s'],
+
+        ];
+
+        return view('cuti.detailCuti', $data);
+        $pdf = Pdf::loadView('cuti.detailCuti', $data);
+        Pdf::setPaper('A4');
+        // $pdf = Pdf::loadView('absensiHarian.printAbsensi', $tmp)->save('pdf/Absensi-Harian.pdf');
+        // return $pdf->download('users_list.pdf');
+        return $pdf->stream("detailCuti.pdf");
     }
 }

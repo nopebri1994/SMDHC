@@ -6,6 +6,7 @@ use App\Models\karyawanModel;
 use App\Models\absensiHarianModel;
 use App\Models\prosesAbsensiHarianModel;
 use App\Models\absensiModel;
+use App\Models\bagianModel;
 use App\Models\groupOffModel;
 use App\Models\liburModel;
 use Illuminate\Http\Request;
@@ -148,14 +149,18 @@ class absensiHarianController extends Controller
     {
         if (auth()->user()->role == '5') {
             $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
+            $bagian = bagianModel::with(['departemen'])->where('id', auth()->user()->karyawan->idBagian)->get();
         } elseif (auth()->user()->role == '4') {
             $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->where('idDepartemen', auth()->user()->karyawan->idDepartemen)->orderBy('nikKerja')->get();
+            $bagian = bagianModel::with(['departemen'])->where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
         } else {
             $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->orderBy('nikKerja')->get();
+            $bagian = bagianModel::with(['departemen'])->get();
         }
         $data = [
             'title' => 'Cetak Absensi Karyawan',
             'karyawan' => $karyawan,
+            'bagian' => $bagian,
         ];
         return view('absensiHarian.v_printAbsensi', $data);
     }
@@ -192,5 +197,30 @@ class absensiHarianController extends Controller
         // $pdf = Pdf::loadView('absensiHarian.printAbsensi', $tmp)->save('pdf/Absensi-Harian.pdf');
         // return $pdf->download('users_list.pdf');
         return $pdf->stream("$uuid.pdf");
+    }
+    function cetakPerBagian(Request $request)
+    {
+        $id = $request->idBagian;
+        $tglAkhir = $request->akhir;
+        $tglAwal = $request->awal;
+        $awal = date('Y-m-d', strtotime('-1 days', strtotime($tglAwal)));
+        $dataHeader = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('idBagian', $id)->get();
+        $dataisi = prosesAbsensiHarianModel::where('idKaryawan', $id)->whereBetween('tglAbsen', [$awal, $tglAkhir])->orderBy('tglAbsen')->get()->toArray();
+        $ketijin = DB::table('absensi_keteranganIjin')->where('idKaryawan', $id)->whereBetween('tanggalIjin', [$tglAwal, $tglAkhir])->get()->toArray();
+        $sof = groupOffModel::whereBetween('tanggalOff', [$tglAwal, $tglAkhir])->get()->toArray();
+        $libur = liburModel::whereBetween('tanggalLibur', [$tglAwal, $tglAkhir])->get()->toArray();
+        $tmp = [
+            'id' => $id,
+            'dataHeader' => $dataHeader,
+            'tglAwal' => $tglAwal,
+            'tglAkhir' => $tglAkhir,
+            'dataisi' => $dataisi,
+            'ijin' => $ketijin,
+            'libur' => $libur,
+            'sof' => $sof
+        ];
+        $pdf = Pdf::loadView('absensiHarian.printAbsensiBagian', $tmp);
+        Pdf::setPaper('A4');
+        return $pdf->stream("Absensi Harian per Bagian.pdf");
     }
 }

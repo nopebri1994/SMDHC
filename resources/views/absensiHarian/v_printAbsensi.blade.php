@@ -21,9 +21,9 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="card">
-                        {{-- <div class="card-header">
-                            <h5 class="m-0">{{ $title }}</h5>
-                        </div> --}}
+                        <div class="card-header">
+                            Cetak Absensi per orang
+                        </div>
                         <div class="card-body">
                             <div class="col-md-12">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -37,8 +37,7 @@
                                             <option value="0">-- Pilih Nama Karyawan --</option>
                                             @foreach ($karyawan as $k)
                                                 <option value="{{ $k->uuid }}">{{ $k->namaKaryawan }}
-                                                    <i style="">&nbsp;({{ $k->nikKerja }})</i>
-
+                                                    &nbsp;({{ $k->nikKerja }})
                                                 </option>
                                             @endforeach
 
@@ -68,6 +67,56 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            Cetak Absensi Bagian
+                        </div>
+                        <div class="card-body">
+                            <div class="col-md-12">
+                                <div class="row mt-3">
+                                    <div class="col-md-3">
+                                        <label for="idKaryawan">Bagian</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select name="idBagian" class="select form-control" data-live-search="true"
+                                            data-show-subtext="true" id="idBagian">
+                                            @foreach ($bagian as $b)
+                                                <option value="{{ $b->id }}">{{ $b->namaBagian }}
+                                                    ({{ $b->departemen->perusahaan->namaPerusahaan }})
+                                                </option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-3">
+                                        <label for="awalBagian">Tanggal</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="date" name="awalBagian" id="awalBagian"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="date" name="akhirBagian" id="akhirBagian"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3" align="right">
+                                    <button type="submit" class="btn btn-primary" id="btnPrintBagian">
+                                        <span class="fas fa-print" id="loadBagian" aria-hidden="true"></span>
+                                        Cetak Absensi Harian</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="col-lg-7">
                     <div class="card">
@@ -117,7 +166,33 @@
             setTimeout(() => {
                 closeLoader();
             }, 5000);
+        }
 
+        document.getElementById('btnPrintBagian').onclick = () => {
+            // alert('a')
+            let awal = $('#awalBagian').val()
+            let akhir = $('#akhirBagian').val()
+            let id = $('#idBagian').val()
+            if (awal == '' || akhir == '') {
+                flasher.error('Tanggal harus diisi')
+                exit();
+            }
+            if (id == 0) {
+                flasher.error('Pilih nama karyawan terlebih dahulu');
+                exit();
+            }
+            if (awal > akhir) {
+                flasher.error('Tanggal Akhir tidak boleh lebih Kecil')
+                exit();
+            }
+
+            data = {
+                'idBagian': id,
+                'awal': awal,
+                'akhir': akhir
+            }
+            window.open("cetakPerBagian?idBagian=" + id + "&awal=" + awal + "&akhir=" +
+                akhir);
         }
     </script>
 @endsection

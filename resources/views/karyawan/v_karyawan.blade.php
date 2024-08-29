@@ -11,7 +11,6 @@
             0% {
                 transition: visibility 0s 2s, opacity 2s linear;
             }
-
             100% {
                 display: none,
             }

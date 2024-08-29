@@ -101,6 +101,11 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="card">
+                                            <div class="card-header" align="right">
+                                                <a href="cuti/" class="" id="cetakCuti">
+                                                    <span class="fas fa-print"></span> Cetak
+                                                    Cuti</a>
+                                            </div>
                                             <div class="card-body">
                                                 <div id="detailTable"></div>
                                             </div>

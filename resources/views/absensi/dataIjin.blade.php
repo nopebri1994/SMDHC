@@ -2,9 +2,13 @@
     .dt-search {
         padding-bottom: 10px;
     }
+
+    .dt-paging {
+        padding-top: 10px;
+    }
 </style>
 <div class="table-responsive">
-    <table class="table table-sm table-striped nowrap" width="100%" id="tbl">
+    <table class="table table-sm table-striped display nowrap" width="100%" id="tbl">
         <thead class="pt-2">
             <tr>
                 <th>#</th>
@@ -22,8 +26,15 @@
                     <td class="text-center">{{ $key + 1 }}</td>
                     <td>{{ $a->karyawanModel->nikKerja }}</td>
                     <td width="35%">{{ $a->karyawanModel->namaKaryawan }}</td>
-                    <td>{{ $a->karyawanModel->departemen->kode }}/{{ $a->karyawanModel->bagian->kode }}</td>
-                    <td @if ($a->keteranganIjin->kode == 'BDU') style="background-color:rgb(103,194,208)" @endif>
+                    <td class="text-center">{{ $a->karyawanModel->departemen->kode }}
+                        @if ($a->karyawanModel->bagian->kode != null)
+                            /
+                            {{ $a->karyawanModel->bagian->kode }}
+                        @endif
+
+                    </td>
+                    <td @if ($a->keteranganIjin->kode == 'BDU') style="background-color:rgb(103,194,208)" @endif
+                        class="text-center">
                         {{ $a->keteranganIjin->kode }}</td>
                     <td data-sort="{{ $a->tanggalIjin }}" style="text-align:center">
                         {{ varHelper::formatDate($a->tanggalIjin) }}&nbsp;</td>
