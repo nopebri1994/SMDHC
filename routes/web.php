@@ -157,8 +157,6 @@ Route::middleware('auth')->group(function () {
     //cetakAbsensi
     Route::get('psn/cetakAbsensi', [absensiHarianController::class, 'cetakAbsensi']);
     Route::get('psn/cetakPerorang', [absensiHarianController::class, 'cetakPerorang']);
-    Route::get('psn/cetakPerBagian', [absensiHarianController::class, 'cetakPerBagian']);
-
 
     //karyawanKeluar
     Route::get('dk/karyawanKeluar', [karyawanKeluarController::class, 'index'])->middleware('can:hc');
