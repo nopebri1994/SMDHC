@@ -4,7 +4,7 @@
                  <th>#</th>
                  <th style="text-align:center;">NIK</th>
                  <th style="text-align:center;">Nama Karyawan</th>
-                 <th style="text-align:center;">Dept / Bagian</th>
+                 <th style="text-align:center;">Bagian</th>
                  <th data-dt-order="disable" style="text-align:center;">Jadwal Masuk</th>
                  <th data-dt-order="disable" style="text-align:center;">Jadwal Pulang</th>
                  <th style="text-align:center;">Jam Datang</th>
