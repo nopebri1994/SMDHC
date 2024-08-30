@@ -17,5 +17,6 @@ class kontrakKaryawanModel extends Model
         'berlakuTanggal',
         'sampaiTanggal',
         'kontrakKe',
+        'file',
     ];
 }

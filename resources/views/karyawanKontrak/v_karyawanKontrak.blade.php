@@ -25,68 +25,84 @@
                         </div> --}}
                         <div class="card-body">
                             <div class="col-md-12">
-                                <form action="karyawanKeluar/storeData" method="POST">
-                                    <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" />
+                                <form action="kontrak-karyawan/store" method="POST" id="upload"
+                                    enctype="multipart/form-data">
+                                    @csrf
                                     <div class="row mt-3">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="idKaryawan"> Nama Karyawan</label>
                                         </div>
                                         <div class="col-md-7">
-                                            <select name="idKaryawan" id="idKaryawan"
-                                                class="select {{ $errors->has('idKaryawan') ? 'is-invalid' : '' }}"
-                                                data-live-search="true" data-show-subtext="true" id="idKaryawan">
-                                                <option value="">Pilih Nama Karyawan</option>
+                                            <select name="idKaryawan" id="idKaryawan" class="select" data-live-search="true"
+                                                data-show-subtext="true" id="idKaryawan" required>
                                                 @foreach ($karyawan as $k)
-                                                    <option value="{{ $k->id }}"
-                                                        @if (old('idKaryawan') == $k->id) selected @endif>
+                                                    <option value="{{ $k->id }}">
                                                         {{ $k->namaKaryawan }}</option>
                                                 @endforeach
                                             </select>
-                                            <div class="invalid-feedback">{{ $errors->first('idKaryawan') }}</div>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="noKontrak">No. Kontrak</label>
                                         </div>
-                                        <div class="col-md-9">
-                                            <input type="text" placeholder="001/LMWP/......."
-                                                class="form-control {{ $errors->has('noKontrak') ? 'is-invalid' : '' }}"
-                                                name="noKontrak" id="noKontrak">
-                                            <div class="invalid-feedback">{{ $errors->first('noKontrak') }}</div>
+                                        <div class="col-md-8">
+                                            <input type="text" placeholder="001/LMWP/......." class="form-control"
+                                                name="noKontrak" id="noKontrak" required>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="dibuatTanggal">Tanggal Dibuat</label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="date"
-                                                class="form-control {{ $errors->has('dibuatTanggal') ? 'is-invalid' : '' }}"
-                                                name="dibuatTanggal" id="dibuatTanggal">
-                                            <div class="invalid-feedback">{{ $errors->first('dibuatTanggal') }}</div>
+                                            <input type="date" class="form-control" name="dibuatTanggal"
+                                                id="dibuatTanggal" required>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="berlakuTanggal">Berlaku Tanggal</label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="date"
-                                                class="form-control {{ $errors->has('berlakuTanggal') ? 'is-invalid' : '' }}"
-                                                name="berlakuTanggal" id="berlakuTanggal">
-                                            <div class="invalid-feedback">{{ $errors->first('berlakuTanggal') }}</div>
+                                            <input type="date" class="form-control" name="berlakuTanggal"
+                                                id="berlakuTanggal" required>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="sampaiTanggal">Sampai Tanggal</label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="date"
-                                                class="form-control {{ $errors->has('sampaiTanggal') ? 'is-invalid' : '' }}"
-                                                name="sampaiTanggal" id="sampaiTanggal">
-                                            <div class="invalid-feedback">{{ $errors->first('sampaiTanggal') }}</div>
+                                            <input type="date" class="form-control" name="sampaiTanggal"
+                                                id="sampaiTanggal" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-4">
+                                            <label for="kontrakKe">Kontrak Ke</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name="kontrakKe" class="form-control" id="kontrakKe">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-4">
+                                            <label>Upload PKWT</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="custom-file">
+                                                <input type="file" name="file" class="custom-file-input"
+                                                    id="fileUpload" required>
+                                                <label class="custom-file-label" for="fileUpload">Choose file</label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="mt-3" align="right">
@@ -94,9 +110,6 @@
                                         <button type="submit" class="btn btn-primary" id="btnSaveData">
                                             <span class="far fa-save" id="load" aria-hidden="true"></span>
                                             Simpan Data</button>
-                                        <button type="button" class="btn btn-success d-none" id="btnUpdateData">
-                                            <span class="far fa-edit" id="loadUpdate" aria-hidden="true"></span>
-                                            Update Data</button>
                                     </div>
                                 </form>
                             </div>
@@ -106,11 +119,17 @@
                 <div class="col-lg-7">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-sm btn-info d-none mb-2" id="showButton">
-                                    <span class="far fa-plus" aria-hidden="true"></span> Add Data</button>
+                            <div class="col-12">
+                                <div class="alert alert-success success__msg bg-light" style="display: none; color: white;"
+                                    role="alert">
+
+                                </div>
+                                <div class="progress d-none">
+                                    <div class="progress-bar progress-bar-striped" id="progres" role="progressbar"
+                                        style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">12%
+                                    </div>
+                                </div>
                             </div>
-                            <div class="table-responsive" id="listView"></div>
                         </div>
                     </div>
                 </div>
@@ -119,6 +138,7 @@
     </div>
 @endsection
 @section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#listView').load('karyawanKeluar/tabelData')
@@ -126,99 +146,55 @@
                 style: "bg-info",
             });
         });
-        let editData = (id, idKaryawan, keterangan, tanggalKeluar) => {
-            $('#idKaryawanKeluar').val(id);
-            $('#idKaryawan').val(idKaryawan);
-            $('#keterangan').val(keterangan);
-            $('#tanggalKeluar').val(tanggalKeluar);
-            $('.select').selectpicker('refresh')
 
-            document.getElementById('btnUpdateData').classList.remove('d-none');
-            document.getElementById('btnSaveData').classList.add('d-none');
-            document.getElementById('showButton').classList.remove('d-none');
-        }
-
-        document.getElementById('btnUpdateData').onclick = () => {
-            update();
-            document.getElementById('btnSaveData').classList.remove('d-none');
-            document.getElementById('btnUpdateData').classList.add('d-none');
-        }
-        document.getElementById('showButton').onclick = () => {
-            document.getElementById('btnSaveData').classList.remove('d-none');
-            document.getElementById('btnUpdateData').classList.add('d-none');
-            document.getElementById('showButton').classList.add('d-none');
-        }
-
-        let update = () => {
-            let data = {
-                '_token': $('#token').val(),
-                'id': $('#idKaryawanKeluar').val(),
-                'tanggalKeluar': $('#tanggalKeluar').val(),
-                'keterangan': $('#keterangan').val(),
-                'idKaryawan': $('#idKaryawan').val(),
-
-            }
-            $.ajax({
-                beforeSend: openLoader('Update Date'),
-                type: 'post',
-                url: 'karyawanKeluar/updateData',
-                data: data,
-                success: function() {
-                    closeLoader();
-                    $('#listView').load('karyawanKeluar/tabelData')
-                    document.getElementById('showButton').classList.add('d-none');
-                    $('#idKaryawanKeluar').val('');
-                    $('#idKaryawan').val('');
-                    $('#keterangan').val('');
-                    $('#tanggalKeluar').val('');
-                    $('.select').selectpicker('refresh')
-                    flasher.success('Update Data berhasil')
-                },
-                error: function() {
-                    closeLoader();
-                    flasher.error('Server Error');
-                }
-            })
-        }
-        let deleteData = (id, nama, idKaryawan) => {
-            let token = $('#token').val();
-            let dataId = {
-                'id': id,
-                "_token": token,
-                'idKaryawan': idKaryawan
-            };
-            Swal.fire({
-                title: "Do you want to delete field " + nama + "?",
-                showDenyButton: true,
-                showCancelButton: false,
-                confirmButtonText: "Delete",
-                denyButtonText: `Cancel`,
-                denyButtonColor: `#636363`,
-                confirmButtonColor: '#ff2c2c',
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-                    $.ajax({
-                        beforeSend: openLoader('memuatdata'),
-                        type: 'post',
-                        url: 'karyawanKeluar/delete',
-                        data: dataId,
-                        success: function() {
-                            $('#listView').load('karyawanKeluar/tabelData')
-                            flasher.success('Data Berhasil dihapus')
-                            closeLoader();
-                        },
-                        error: function() {
-                            flasher.error('Data Gagal dihapus')
-                            closeLoader();
-
-                        }
-
-                    });
-                } else if (result.isDenied) {
-                    Swal.fire("Changes are not saved", "", "info");
-                }
+        //progres with ajaxFOrm
+        $(function() {
+            $(document).ready(function() {
+                let message = $('.success__msg');
+                let elem = document.getElementById("progres");
+                $('#upload').ajaxForm({
+                    beforeSend: function() {
+                        openLoader('Simpan Data');
+                        let percentage = '0';
+                        $('.progress').removeClass('d-none')
+                    },
+                    uploadProgress: function(event, position, total, percentComplete) {
+                        let percentage = percentComplete;
+                        $('.progress .progress-bar').css("width", percentage + '%', function() {
+                            return $(this).attr("aria-valuenow", percentage) + "%"
+                        })
+                        elem.innerHTML = percentage;
+                    },
+                    complete: function(xhr) {
+                        closeLoader();
+                        console.log('File has uploaded');
+                        message.fadeIn().removeClass('alert-danger').addClass('alert-success');
+                        message.text("  Data and Uploaded File successfully.");
+                        setTimeout(function() {
+                            message.fadeOut();
+                            percentage = '0';
+                            elem.innerHTML = percentage
+                            $('.progress .progress-bar').css("width", percentage + '%')
+                            $('.progress').addClass('d-none')
+                            $('#fileUpload').val('');
+                            $('#idKaryawan').val('');
+                            $('#noKontrak').val('');
+                            $('#dibuatTanggal').val('');
+                            $('#berlakuTanggal').val('');
+                            $('#sampaiTanggal').val('');
+                            $('#kontrakKe').val('1');
+                            $('.custom-file-label').html('Choose file');
+                        }, 2000);
+                    }
+                });
             });
-        }
+        });
+
+        $('#fileUpload').on('change', function() {
+            //get the file name
+            let fileName = $(this).val();
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+        })
     </script>
 @endsection

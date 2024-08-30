@@ -173,6 +173,8 @@ Route::middleware('auth')->group(function () {
 
     //karyawanKontrak
     Route::get('psn/kontrak-karyawan', [kontrakKaryawanController::class, 'index'])->middleware('can:hc');
+    Route::post('psn/kontrak-karyawan/store', [kontrakKaryawanController::class, 'storeData']);
+
 
 
     //Pengguna
