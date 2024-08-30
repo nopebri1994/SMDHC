@@ -116,8 +116,8 @@
         var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
         var donutData = {
             labels: [
-                @foreach ($bagian as $b)
-                    '{{ $b->namaBagian }}',
+                @foreach ($metalC as $mc)
+                    '{{ $mc->namaBagian }}',
                 @endforeach
             ],
             datasets: [{
@@ -126,8 +126,8 @@
                         {{ $mc->total }},
                     @endforeach
                 ],
-                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de', '#FD7E14',
-                    '#343A40', '#8338EC', '#CD5C5C', '#e8daef', '#f5b041', '#d35400', '#154360', '#784212',
+                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#45b39d', '#FD7E14',
+                    '#343A40', '#8338EC', '#CD5C5C', '#424949', '#f5b041', '#d35400', '#154360', '#784212',
                     '#138d75', '#283747', '#f0b27a'
                 ],
             }]
