@@ -38,8 +38,7 @@
                                         <a href="{{ URL::to('/dk/karyawan') }}" class="small-box-footer">More info <i
                                                 class="fas fa-arrow-circle-right"></i></a>
                                     </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-12">
+                                    {{-- detail karyawan perusahaan --}}
                                     <div class="info-box bg-orange">
                                         <span class="info-box-icon" style="color:#fff"><i
                                                 class="fas fa-user-circle"></i></span>
@@ -73,6 +72,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- donut chart --}}
+                                <div class="col-lg-5 col-12">
+                                    <div class="card card-danger">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Komposisi Karyawan Bagian PT Lion Metal Works</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="donutChart"
+                                                style="min-height: 250px; height: 310px; max-height: 400px; max-width: 100%;"></canvas>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {{-- badge --}}
@@ -89,11 +101,46 @@
 @endsection
 
 @section('js')
+    <script src="{{ URL::to('/') }}/assets/adminlte/js/chart.min.js"></script>
     <script>
         $(document).ready(function() {
             @if (session('status'))
                 flasher.success('{{ session('status') }}');
             @endif
+        })
+
+        //-------------
+        //- DONUT CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+        var donutData = {
+            labels: [
+                @foreach ($bagian as $b)
+                    '{{ $b->namaBagian }}',
+                @endforeach
+            ],
+            datasets: [{
+                data: [
+                    @foreach ($metalC as $mc)
+                        {{ $mc->total }},
+                    @endforeach
+                ],
+                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de', '#FD7E14',
+                    '#343A40', '#8338EC'
+                ],
+            }]
+        }
+        var donutOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(donutChartCanvas, {
+            type: 'doughnut',
+            data: donutData,
+            options: donutOptions
         })
     </script>
 @endsection
