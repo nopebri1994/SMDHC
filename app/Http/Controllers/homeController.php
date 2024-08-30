@@ -14,7 +14,7 @@ class homeController extends Controller
     {
         $count = karyawanModel::whereNull('km')->count();
         $metal = karyawanModel::where('idPerusahaan', 1)->whereNull('km')->count();
-        $metalCount = DB::table('dataKaryawan')->select(DB::raw('count(*) as total,idBagian,bagian.namaBagian'))->join('bagian', 'bagian.id', 'datakaryawan.idBagian')->whereNull('km')->whereNotNull('idBagian')->where('idPerusahaan', 1)->groupBy('idBagian')->orderBy('idBagian')->get()->toArray();
+        $metalCount = DB::table('dataKaryawan')->select(DB::raw('count(*) as total,idBagian,bagian.namaBagian'))->join('bagian', 'bagian.id', 'dataKaryawan.idBagian')->whereNull('km')->whereNotNull('idBagian')->where('idPerusahaan', 1)->groupBy('idBagian')->orderBy('idBagian')->get()->toArray();
         $data = [
             'title' => 'Sistem Manajemen Data Human Capital',
             'countEmployee' => $count,
