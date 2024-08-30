@@ -117,7 +117,7 @@
         var donutData = {
             labels: [
                 @foreach ($metalC as $mc)
-                    '{{ $mc->namaBagian }}',
+                    '{{ $mc->namaBagian }} ({{ $mc->total }})',
                 @endforeach
             ],
             datasets: [{
