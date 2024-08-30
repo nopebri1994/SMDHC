@@ -101,7 +101,7 @@
 @endsection
 
 @section('js')
-    <script src="{{ URL::to('/') }}/assets/adminlte/js/chart.min.js"></script>
+    <script src="{{ URL::to('/') }}/assets/adminlte/js/Chart.min.js"></script>
     <script>
         $(document).ready(function() {
             @if (session('status'))
