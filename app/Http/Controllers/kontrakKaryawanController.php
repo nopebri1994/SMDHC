@@ -26,7 +26,7 @@ class kontrakKaryawanController extends Controller
 
         $isRow = kontrakKaryawanModel::where('idKaryawan', $id)->where('noKontrak', $kontrak)->first();
         if ($isRow) {
-            $fileName = $uid->uuid . $kontrak . '.' . $request->file->getClientOriginalExtension();
+            $fileName = $uid->uuid . $kontrak . time() . '.' . $request->file->getClientOriginalExtension();
             $request->file->move(storage_path('app/public/pkwt'), $fileName);
             kontrakKaryawanModel::create([
                 'idKaryawan' => $request->idKaryawan,
@@ -54,6 +54,7 @@ class kontrakKaryawanController extends Controller
     {
         $id = $request->id;
         $isRow = kontrakKaryawanModel::where('id', $id)->first();
-        Storage::delete('app/public/pkwt' . $isRow->file);
+        dd(Storage::directories('pkwt/' . $isRow->fil));
+        Storage::delete('pkwt' . $isRow->file);
     }
 }
