@@ -71,6 +71,7 @@
     </table>
 </div>
 Keterangan : BDU (Belum Di Urus)
+<input type="hidden" name="rows" id="rows" value={{ $rows }}>
 <script>
     $('#tbl').DataTable({
         responsive: true,

@@ -127,6 +127,7 @@ Route::middleware('auth')->group(function () {
     Route::get('psn/absensi/dataIjin', [absensiController::class, 'dataIjin']);
     Route::get('psn/absensi/addStatus', [absensiController::class, 'addStatus']);
     Route::get('psn/absensi/deleteStatus', [absensiController::class, 'deleteStatus']);
+    Route::get('psn/absensi/cekRows', [absensiController::class, 'cekRows']);
 
     //libur
     Route::get('dm/libur', [liburController::class, 'index'])->middleware('can:hc');

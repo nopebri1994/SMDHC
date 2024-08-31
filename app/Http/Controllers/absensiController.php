@@ -299,26 +299,33 @@ Bisa digunakan sebelum $exp",
             if (auth()->user()->role == '5') {
                 $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
                 $absensi = absensiModel::whereBelongsTo($idBagian)->where('tanggalIjin', $tanggal)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+                $count = absensiModel::whereBelongsTo($idBagian)->where('tanggalIjin', $tanggal)->count();
             } elseif (auth()->user()->role == '4') {
                 $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
                 $absensi = absensiModel::whereBelongsTo($idDepartemen)->where('tanggalIjin', $tanggal)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+                $count = absensiModel::whereBelongsTo($idDepartemen)->where('tanggalIjin', $tanggal)->count();
             } else {
                 $absensi = absensiModel::with(['karyawanModel'])->where('tanggalIjin', $tanggal)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+                $count = absensiModel::where('tanggalIjin', $tanggal)->count();
             }
         } else {
             if (auth()->user()->role == '5') {
                 $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
                 $absensi = absensiModel::whereBelongsTo($idBagian)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+                $count = absensiModel::whereBelongsTo($idBagian)->count();
             } elseif (auth()->user()->role == '4') {
                 $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
                 $absensi = absensiModel::whereBelongsTo($idDepartemen)->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+                $count = absensiModel::whereBelongsTo($idDepartemen)->count();
             } else {
                 $absensi = absensiModel::with(['karyawanModel'])->orderBy('tanggalIjin', 'desc')->limit(1000)->get();
+                $count = absensiModel::all()->count();
             }
         }
 
         $data =  [
             'absensi' => $absensi,
+            'rows' => $count
         ];
         return view('absensi.dataIjin', $data);
     }
@@ -366,5 +373,33 @@ Bisa digunakan sebelum $exp",
         //log
         $msg = "Id Karyawan = " . $idKaryawan . " kode KeteranganIjin = " . $ket . " Tanggal Ijin = " . $tgl . " User = " . auth()->user()->karyawan->namaKaryawan;
         Log::channel('history')->warning("Hapus data Ijin => " . $msg);
+    }
+
+    function cekRows(Request $request)
+    {
+        $tanggal = $request->filterTanggal;
+        if ($tanggal != '') {
+            if (auth()->user()->role == '5') {
+                $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
+                $count = absensiModel::whereBelongsTo($idBagian)->where('tanggalIjin', $tanggal)->count();
+            } elseif (auth()->user()->role == '4') {
+                $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
+                $count = absensiModel::whereBelongsTo($idDepartemen)->where('tanggalIjin', $tanggal)->count();
+            } else {
+                $count = absensiModel::where('tanggalIjin', $tanggal)->count();
+            }
+        } else {
+            if (auth()->user()->role == '5') {
+                $idBagian = karyawanModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
+
+                $count = absensiModel::whereBelongsTo($idBagian)->count();
+            } elseif (auth()->user()->role == '4') {
+                $idDepartemen = karyawanModel::where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
+                $count = absensiModel::whereBelongsTo($idDepartemen)->count();
+            } else {
+                $count = absensiModel::all()->count();
+            }
+        }
+        return response()->json(['data' => $count]);
     }
 }
