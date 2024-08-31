@@ -157,6 +157,7 @@
                     </ul>
                 </li>
                 @can('hc')
+                    <li class="nav-header">Settings</li>
                     <li class="nav-item {{ request()->is('dm/*') ? 'menu-is-opening menu-open' : '' }}">
                         <a href="#" class="nav-link {{ request()->is('dm/*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-database"></i>
@@ -231,6 +232,7 @@
                     </li>
                 @endcan
                 @can('admin')
+                    <li class="nav-header">Administration</li>
                     <li class="nav-item  {{ request()->is('admin/*') ? 'menu-is-opening menu-open' : '' }}">
                         <a href="#" class="nav-link {{ request()->is('admin/*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-cogs"></i>

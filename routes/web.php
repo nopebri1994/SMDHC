@@ -174,8 +174,8 @@ Route::middleware('auth')->group(function () {
     //karyawanKontrak
     Route::get('psn/kontrak-karyawan', [kontrakKaryawanController::class, 'index'])->middleware('can:hc');
     Route::post('psn/kontrak-karyawan/store', [kontrakKaryawanController::class, 'storeData']);
-
-
+    Route::get('psn/kontrak-karyawan/tabelData', [kontrakKaryawanController::class, 'tabelData']);
+    Route::post('psn/kontrak-karyawan/delete', [kontrakKaryawanController::class, 'delete']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');
