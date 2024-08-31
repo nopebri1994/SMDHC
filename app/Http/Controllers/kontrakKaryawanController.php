@@ -21,11 +21,10 @@ class kontrakKaryawanController extends Controller
     function storeData(Request $request)
     {
         $id = $request->idKaryawan;
-        $uid = karyawanModel::where('id', $id)->first();
         $kontrak = $request->kontrakKe;
-
-        $isRow = kontrakKaryawanModel::where('idKaryawan', $id)->where('noKontrak', $kontrak)->first();
-        if ($isRow) {
+        $isRow = kontrakKaryawanModel::where('idKaryawan', $id)->where('kontrakKe', $kontrak)->first();
+        if (empty($isRow)) {
+            $uid = karyawanModel::where('id', $id)->first();
             $fileName = $uid->uuid . $kontrak . time() . '.' . $request->file->getClientOriginalExtension();
             $request->file->move(storage_path('app/public/pkwt'), $fileName);
             kontrakKaryawanModel::create([
@@ -37,7 +36,7 @@ class kontrakKaryawanController extends Controller
                 'file' => $fileName,
                 'kontrakKe' => $request->kontrakKe,
             ]);
-            return response()->json(['success' => 'You have successfully upload file.']);
+            return response()->json(['success' => 'You have successfully upload file.', 'error' => '']);
         } else {
             return response()->json(['error' => 'Data Allready']);
         }
@@ -54,7 +53,7 @@ class kontrakKaryawanController extends Controller
     {
         $id = $request->id;
         $isRow = kontrakKaryawanModel::where('id', $id)->first();
-        dd(Storage::directories('pkwt/' . $isRow->fil));
-        Storage::delete('pkwt' . $isRow->file);
+        Storage::disk('pkwt')->delete($isRow->file);
+        kontrakKaryawanModel::where('id', $id)->delete();
     }
 }

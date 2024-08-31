@@ -29,7 +29,6 @@ return [
     */
 
     'disks' => [
-
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -47,6 +46,14 @@ return [
         'mesinAbsen' => [
             'driver' => 'local',
             'root' => storage_path('app/public/mesin'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'pkwt' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/pkwt'),
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,

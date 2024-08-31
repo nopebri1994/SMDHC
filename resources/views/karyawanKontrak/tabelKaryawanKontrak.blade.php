@@ -43,7 +43,7 @@
                 </td>
                 <td class="align-middle text-center">
                     <a href="{{ URL::to('storage/pkwt/') }}/{{ $d->file }}" target="_blank">
-                        {{ $d->file }}</a>
+                        File PKWT</a>
 
                 </td>
                 <td align="center" width="25%">
