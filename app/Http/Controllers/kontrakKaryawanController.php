@@ -56,4 +56,26 @@ class kontrakKaryawanController extends Controller
         Storage::disk('pkwt')->delete($isRow->file);
         kontrakKaryawanModel::where('id', $id)->delete();
     }
+
+    function update(Request $request)
+    {
+        $id = $request->id;
+        $kontrak = $request->kontrakKe;
+        $isRow = kontrakKaryawanModel::where('id', $id)->first();
+        Storage::disk('pkwt')->delete($isRow->file);
+        $uid = karyawanModel::where('id', $isRow->idKaryawan)->first();
+        $fileName = $uid->uuid . $kontrak . time() . '.' . $request->file->getClientOriginalExtension();
+        $request->file->move(storage_path('app/public/pkwt'), $fileName);
+
+        kontrakKaryawanModel::where('id', $id)->update([
+            'idKaryawan' => $request->idKaryawan,
+            'noKontrak' => $request->noKontrak,
+            'dibuatTanggal' => $request->dibuatTanggal,
+            'berlakuTanggal' => $request->berlakuTanggal,
+            'sampaiTanggal' => $request->sampaiTanggal,
+            'file' => $fileName,
+            'kontrakKe' => $request->kontrakKe,
+        ]);
+        return response()->json(['success' => 'You have successfully upload file.', 'error' => '']);
+    }
 }

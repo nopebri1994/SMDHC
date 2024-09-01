@@ -56,6 +56,7 @@
                                                     data-live-search="true" data-show-subtext="true" id="idKaryawan"
                                                     required>
                                                     @foreach ($karyawan as $k)
+                                                        <option value="">Pilih Nama Karyawan</option>
                                                         <option value="{{ $k->id }}">
                                                             {{ $k->namaKaryawan }}</option>
                                                     @endforeach
@@ -78,12 +79,12 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <select name="kontrakKe" class="form-control" id="kontrakKe">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -129,10 +130,14 @@
                                             </div>
                                         </div>
                                         <div class="mt-3" align="right">
-                                            <input type="hidden" id="id">
+                                            <input type="hidden" name="id" id="id">
                                             <button type="submit" class="btn btn-primary" id="btnSaveData">
                                                 <span class="far fa-save" id="load" aria-hidden="true"></span>
                                                 Simpan Data</button>
+                                            <button type="button" class="btn btn-danger d-none" id="btnCancel">
+                                                cancel Data</button>
+                                            <button type="submit" class="btn btn-success d-none" id="btnUpdateData">
+                                                Update Data</button>
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +168,67 @@
             });
         });
 
-        //progres with ajaxFOrm
+        //progres with ajaxFOrm add
+        $(function() {
+            $(document).ready(function() {
+                let message = $('.success__msg');
+                let elem = document.getElementById("progres");
+                $('#upload').ajaxForm({
+                    beforeSend: function() {
+                        openLoader('Simpan Data');
+                        let percentage = '0';
+                        $('.progress').removeClass('d-none')
+                    },
+                    uploadProgress: function(event, position, total, percentComplete) {
+                        let percentage = percentComplete;
+                        $('.progress .progress-bar').css("width", percentage + '%', function() {
+                            return $(this).attr("aria-valuenow", percentage) + "%"
+                        })
+                        elem.innerHTML = percentage;
+                    },
+                    complete: function(xhr) {
+                        closeLoader();
+                        if (xhr['responseJSON']['error'] != '') {
+                            message.fadeIn().removeClass('alert-success').addClass(
+                                'alert-danger');
+                            message.text("Data and Uploaded Failed.");
+                            setTimeout(function() {
+                                message.fadeOut();
+                                percentage = '0';
+                                elem.innerHTML = percentage
+                                $('.progress .progress-bar').css("width", percentage +
+                                    '%')
+                            }, 2000);
+                            setTimeout(function() {
+                                $('.progress').addClass('d-none')
+                            }, 4000)
+                        } else {
+                            message.fadeIn().removeClass('alert-danger').addClass(
+                                'alert-success');
+                            message.text("Data and Uploaded File successfully.");
+                            setTimeout(function() {
+                                message.fadeOut();
+                                percentage = '0';
+                                elem.innerHTML = percentage
+                                $('.progress .progress-bar').css("width", percentage +
+                                    '%')
+                                $('.progress').addClass('d-none')
+                                $('#fileUpload').val('');
+                                $('#idKaryawan').val('');
+                                $('#noKontrak').val('');
+                                $('#dibuatTanggal').val('');
+                                $('#berlakuTanggal').val('');
+                                $('#sampaiTanggal').val('');
+                                $('#kontrakKe').val('1');
+                                $('.custom-file-label').html('Choose file');
+                            }, 2000);
+                            $('#list').load('kontrak-karyawan/tabelData')
+                        }
+                    }
+                });
+            });
+        });
+
         $(function() {
             $(document).ready(function() {
                 let message = $('.success__msg');
@@ -269,6 +334,38 @@
                     Swal.fire("Changes are not saved", "", "info");
                 }
             });
+        }
+
+        let editData = (id, nokontrak, kontrakke, berlaku, sampai, dibuat, idKaryawan) => {
+            let action = 'kontrak-karyawan/update'
+            $('#id').val(id)
+            $('#idKaryawan').val(idKaryawan);
+            $('#noKontrak').val(nokontrak);
+            $('#dibuatTanggal').val(dibuat);
+            $('#berlakuTanggal').val(berlaku);
+            $('#sampaiTanggal').val(sampai);
+            $('#kontrakKe').val(kontrakke);
+            $('.select').selectpicker('refresh')
+            document.getElementById('btnSaveData').classList.add('d-none')
+            document.getElementById('btnUpdateData').classList.remove('d-none')
+            document.getElementById('btnCancel').classList.remove('d-none')
+            document.getElementById('upload').action = action
+        }
+
+        document.getElementById('btnCancel').onclick = () => {
+            $('#fileUpload').val('');
+            $('#idKaryawan').val('');
+            $('#noKontrak').val('');
+            $('#dibuatTanggal').val('');
+            $('#berlakuTanggal').val('');
+            $('#sampaiTanggal').val('');
+            $('#kontrakKe').val('1');
+            $('.select').selectpicker('refresh')
+            document.getElementById('btnSaveData').classList.remove('d-none')
+            document.getElementById('btnUpdateData').classList.add('d-none')
+            document.getElementById('btnCancel').classList.add('d-none')
+
+
         }
     </script>
 @endsection

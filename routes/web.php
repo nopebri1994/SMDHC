@@ -177,6 +177,7 @@ Route::middleware('auth')->group(function () {
     Route::post('psn/kontrak-karyawan/store', [kontrakKaryawanController::class, 'storeData']);
     Route::get('psn/kontrak-karyawan/tabelData', [kontrakKaryawanController::class, 'tabelData']);
     Route::post('psn/kontrak-karyawan/delete', [kontrakKaryawanController::class, 'delete']);
+    Route::post('psn/kontrak-karyawan/update', [kontrakKaryawanController::class, 'update']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');

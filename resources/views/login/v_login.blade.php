@@ -8,9 +8,9 @@
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/all.min.css">
     {{-- <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css"> --}}
+    <link rel="stylesheet" href="{{ URL::to('/') }}/vendor/flasher/flasher.min.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/adminlte.min.css">
 </head>
 
@@ -73,6 +73,11 @@
     <script src="{{ URL::to('/') }}/assets/adminlte/js/bootstrap.bundle.min.js"></script>
     <script src="{{ URL::to('/') }}/assets/adminlte/js/adminlte.min.js"></script>
     <script>
+        $(document).ready(function() {
+            @if (session('status'))
+                flasher.error('{{ session('status') }}');
+            @endif
+        })
         document.getElementById('iconPass').onclick = () => {
             let element = document.getElementById('iconPass');
             let pass = document.getElementById('pass');
@@ -85,7 +90,6 @@
                 element.classList.remove("fa-eye")
                 element.classList.add('fa-eye-slash')
             }
-
         }
     </script>
 </body>

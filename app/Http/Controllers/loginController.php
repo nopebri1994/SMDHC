@@ -37,7 +37,7 @@ class loginController extends Controller
         //     $request->session()->regenerate();
         //     return redirect()->intended('/')->with('status', 'Selamat Datang di halaman SMDHC');
         // }
-        return redirect('/login');
+        return redirect('/login')->with('status', 'userrname atau password salah');
     }
 
     function logout()
