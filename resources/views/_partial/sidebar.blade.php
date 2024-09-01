@@ -136,7 +136,6 @@
                                     class="nav-link {{ request()->is('psn/kontrak-karyawan') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kontrak Karyawan</p>
-                                    <span class="right badge badge-danger">P</span>
                                 </a>
                             </li>
                             <li class="nav-item">
