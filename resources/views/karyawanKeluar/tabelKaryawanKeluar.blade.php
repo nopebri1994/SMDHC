@@ -16,6 +16,7 @@
     <thead>
         <tr>
             <th class="align-middle  text-center">#</th>
+            <th class="align-middle text-center">NIK</th>
             <th class="align-middle text-center">Nama Karyawan</th>
             <th class="align-middle  text-center">Dept / Bagian</th>
             <th class="align-middle  text-center">Tanggal Keluar</th>
@@ -27,6 +28,7 @@
         @foreach ($data as $key => $d)
             <tr>
                 <td align="center" class="align-middle text-center">{{ $key + 1 }}</td>
+                <td class="align-middle">{{ $d->karyawan->nikKerja }}</td>
                 <td class="align-middle">{{ $d->karyawan->namaKaryawan }}</td>
                 <td class="align-middle text-center">{{ $d->karyawan->bagian->kode }} /
                     {{ $d->karyawan->departemen->kode }} </td>
