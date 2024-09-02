@@ -27,8 +27,14 @@
         </tr>
     </thead>
     <tbody>
+        @php
+            $date = date('Y-m-d');
+        @endphp
         @foreach ($data as $key => $d)
-            <tr>
+            @php
+                $notifikasi = date('Y-m-d', strtotime('-31 days', strtotime($d->sampaiTanggal)));
+            @endphp
+            <tr @if ($notifikasi < $date) style="background-color: #97A8D8" @endif>
                 <td align="center" class="align-middle text-center">{{ $key + 1 }}</td>
                 <td class="align-middle">{{ $d->karyawanModel->namaKaryawan }}</td>
                 <td class="align-middle text-center">
