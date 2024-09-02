@@ -64,7 +64,7 @@ class kontrakKaryawanController extends Controller
     {
         $id = $request->id;
         $isRow = kontrakKaryawanModel::where('id', $id)->first();
-        if (!empty($isRow)) {
+        if (!empty($isRow->file)) {
             Storage::disk('pkwt')->delete($isRow->file);
         }
         kontrakKaryawanModel::where('id', $id)->delete();
@@ -90,7 +90,7 @@ class kontrakKaryawanController extends Controller
             if ($request->file->getClientOriginalExtension() != 'pdf') {
                 return response()->json(['error' => 'File Must be in PDF format']);
             }
-            if (!empty($isRow)) {
+            if (!empty($isRow->file)) {
                 Storage::disk('pkwt')->delete($isRow->file);
             }
             $uid = karyawanModel::where('id', $isRow->idKaryawan)->first();
