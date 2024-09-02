@@ -85,7 +85,7 @@ class hutangCutiController extends Controller
         $data = [
             'vCuti'     => $cuti,
             'detail'    => $detail,
-            'masaKerjaTahun' => $selisih->y,
+            'masaKerjaTahun' => $selisih->y-1,
             'masaKerjaBulan' => $selisih->m,
         ];
 

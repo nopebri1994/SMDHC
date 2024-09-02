@@ -55,8 +55,8 @@
                                                 <select name="idKaryawan" id="idKaryawan" class="select"
                                                     data-live-search="true" data-show-subtext="true" id="idKaryawan"
                                                     required>
+                                                    <option value="">Pilih Nama Karyawan</option>
                                                     @foreach ($karyawan as $k)
-                                                        <option value="">Pilih Nama Karyawan</option>
                                                         <option value="{{ $k->id }}">
                                                             {{ $k->namaKaryawan }}</option>
                                                     @endforeach
@@ -95,7 +95,7 @@
                                             <div class="col-md-7">
                                                 <div class="custom-file">
                                                     <input type="file" name="file" class="custom-file-input"
-                                                        id="fileUpload" required>
+                                                        id="fileUpload" accept="application/pdf" required>
                                                     <label class="custom-file-label" for="fileUpload">Choose file</label>
                                                 </div>
                                             </div>
@@ -191,7 +191,7 @@
                         if (xhr['responseJSON']['error'] != '') {
                             message.fadeIn().removeClass('alert-success').addClass(
                                 'alert-danger');
-                            message.text("Data and Uploaded Failed.");
+                            message.text(xhr['responseJSON']['error']);
                             setTimeout(function() {
                                 message.fadeOut();
                                 percentage = '0';
@@ -205,7 +205,7 @@
                         } else {
                             message.fadeIn().removeClass('alert-danger').addClass(
                                 'alert-success');
-                            message.text("Data and Uploaded File successfully.");
+                            message.text(xhr['responseJSON']['success']);
                             setTimeout(function() {
                                 message.fadeOut();
                                 percentage = '0';
@@ -221,6 +221,7 @@
                                 $('#sampaiTanggal').val('');
                                 $('#kontrakKe').val('1');
                                 $('.custom-file-label').html('Choose file');
+                                btnCancel();
                             }, 2000);
                             $('#list').load('kontrak-karyawan/tabelData')
                         }
@@ -229,65 +230,7 @@
             });
         });
 
-        $(function() {
-            $(document).ready(function() {
-                let message = $('.success__msg');
-                let elem = document.getElementById("progres");
-                $('#upload').ajaxForm({
-                    beforeSend: function() {
-                        openLoader('Simpan Data');
-                        let percentage = '0';
-                        $('.progress').removeClass('d-none')
-                    },
-                    uploadProgress: function(event, position, total, percentComplete) {
-                        let percentage = percentComplete;
-                        $('.progress .progress-bar').css("width", percentage + '%', function() {
-                            return $(this).attr("aria-valuenow", percentage) + "%"
-                        })
-                        elem.innerHTML = percentage;
-                    },
-                    complete: function(xhr) {
-                        closeLoader();
-                        if (xhr['responseJSON']['error'] != '') {
-                            message.fadeIn().removeClass('alert-success').addClass(
-                                'alert-danger');
-                            message.text("Data and Uploaded Failed.");
-                            setTimeout(function() {
-                                message.fadeOut();
-                                percentage = '0';
-                                elem.innerHTML = percentage
-                                $('.progress .progress-bar').css("width", percentage +
-                                    '%')
-                            }, 2000);
-                            setTimeout(function() {
-                                $('.progress').addClass('d-none')
-                            }, 4000)
-                        } else {
-                            message.fadeIn().removeClass('alert-danger').addClass(
-                                'alert-success');
-                            message.text("Data and Uploaded File successfully.");
-                            setTimeout(function() {
-                                message.fadeOut();
-                                percentage = '0';
-                                elem.innerHTML = percentage
-                                $('.progress .progress-bar').css("width", percentage +
-                                    '%')
-                                $('.progress').addClass('d-none')
-                                $('#fileUpload').val('');
-                                $('#idKaryawan').val('');
-                                $('#noKontrak').val('');
-                                $('#dibuatTanggal').val('');
-                                $('#berlakuTanggal').val('');
-                                $('#sampaiTanggal').val('');
-                                $('#kontrakKe').val('1');
-                                $('.custom-file-label').html('Choose file');
-                            }, 2000);
-                            $('#list').load('kontrak-karyawan/tabelData')
-                        }
-                    }
-                });
-            });
-        });
+
 
         $('#fileUpload').on('change', function() {
             //get the file name
@@ -350,9 +293,11 @@
             document.getElementById('btnUpdateData').classList.remove('d-none')
             document.getElementById('btnCancel').classList.remove('d-none')
             document.getElementById('upload').action = action
+            document.getElementById("fileUpload").required = false;
         }
 
-        document.getElementById('btnCancel').onclick = () => {
+        let btnCancel = () => {
+            let action = 'kontrak-karyawan/store'
             $('#fileUpload').val('');
             $('#idKaryawan').val('');
             $('#noKontrak').val('');
@@ -364,8 +309,12 @@
             document.getElementById('btnSaveData').classList.remove('d-none')
             document.getElementById('btnUpdateData').classList.add('d-none')
             document.getElementById('btnCancel').classList.add('d-none')
+            document.getElementById("fileUpload").required = true;
+            document.getElementById('upload').action = action
+        }
 
-
+        document.getElementById('btnCancel').onclick = () => {
+            btnCancel();
         }
     </script>
 @endsection

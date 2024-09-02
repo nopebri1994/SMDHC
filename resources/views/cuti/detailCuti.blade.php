@@ -54,7 +54,9 @@
     <div class="row bg-info">
         <div class="col-md-4">Masa Kerja</div>
         <div class="col-md-8">
-            <strong>{{ $masaKerja }} Tahun</strong>
+            <strong>{{ $masaKerja }} Tahun</strong>,
+            <strong>{{ $bulan }} bulan </strong>
+            <i>(dihitung per tanggal 1 turun cuti)</i>
         </div>
     </div>
 </div>

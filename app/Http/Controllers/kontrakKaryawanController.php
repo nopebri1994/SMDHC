@@ -23,6 +23,9 @@ class kontrakKaryawanController extends Controller
         $id = $request->idKaryawan;
         $kontrak = $request->kontrakKe;
         $isRow = kontrakKaryawanModel::where('idKaryawan', $id)->where('kontrakKe', $kontrak)->first();
+        if($request->file->getClientOriginalExtension() != 'pdf'){
+            return response()->json(['error' => 'File Must be in PDF format']);
+        }
         if (empty($isRow)) {
             $uid = karyawanModel::where('id', $id)->first();
             $fileName = $uid->uuid . $kontrak . time() . '.' . $request->file->getClientOriginalExtension();
@@ -60,22 +63,39 @@ class kontrakKaryawanController extends Controller
     function update(Request $request)
     {
         $id = $request->id;
-        $kontrak = $request->kontrakKe;
+        $kontrak = $request->kontrakKe;     
+        $file=$request->file;
         $isRow = kontrakKaryawanModel::where('id', $id)->first();
-        Storage::disk('pkwt')->delete($isRow->file);
-        $uid = karyawanModel::where('id', $isRow->idKaryawan)->first();
-        $fileName = $uid->uuid . $kontrak . time() . '.' . $request->file->getClientOriginalExtension();
-        $request->file->move(storage_path('app/public/pkwt'), $fileName);
-
-        kontrakKaryawanModel::where('id', $id)->update([
-            'idKaryawan' => $request->idKaryawan,
-            'noKontrak' => $request->noKontrak,
-            'dibuatTanggal' => $request->dibuatTanggal,
-            'berlakuTanggal' => $request->berlakuTanggal,
-            'sampaiTanggal' => $request->sampaiTanggal,
-            'file' => $fileName,
-            'kontrakKe' => $request->kontrakKe,
-        ]);
-        return response()->json(['success' => 'You have successfully upload file.', 'error' => '']);
+        if(empty($file)){
+            kontrakKaryawanModel::where('id', $id)->update([
+                'idKaryawan' => $request->idKaryawan,
+                'noKontrak' => $request->noKontrak,
+                'dibuatTanggal' => $request->dibuatTanggal,
+                'berlakuTanggal' => $request->berlakuTanggal,
+                'sampaiTanggal' => $request->sampaiTanggal,
+                'kontrakKe' => $request->kontrakKe,
+            ]);
+            return response()->json(['success' => 'You have successfully update file.', 'error' => '']);
+        }else{
+            if($request->file->getClientOriginalExtension() != 'pdf'){
+                return response()->json(['error' => 'File Must be in PDF format']);
+            }
+            Storage::disk('pkwt')->delete($isRow->file);
+            $uid = karyawanModel::where('id', $isRow->idKaryawan)->first();
+            $fileName = $uid->uuid . $kontrak . time() . '.' . $request->file->getClientOriginalExtension();
+            $request->file->move(storage_path('app/public/pkwt'), $fileName);
+    
+            kontrakKaryawanModel::where('id', $id)->update([
+                'idKaryawan' => $request->idKaryawan,
+                'noKontrak' => $request->noKontrak,
+                'dibuatTanggal' => $request->dibuatTanggal,
+                'berlakuTanggal' => $request->berlakuTanggal,
+                'sampaiTanggal' => $request->sampaiTanggal,
+                'file' => $fileName,
+                'kontrakKe' => $request->kontrakKe,
+            ]);
+            return response()->json(['success' => 'You have successfully upload file.', 'error' => '']);
+        }
+     
     }
 }

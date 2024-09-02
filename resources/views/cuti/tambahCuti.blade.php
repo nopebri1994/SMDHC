@@ -1,4 +1,4 @@
-<table class="table dipslay nowrap" id="tblTambah" style="width:100%">
+<table class="table table-responsive display nowrap" id="tblTambah" style="width:100%">
     <thead>
         <tr>
             <th>#</th>
@@ -6,9 +6,9 @@
             <th style="width:25%">Nama</th>
             <th style="width:15%">Dept</th>
             <th>Total</th>
-            <th>Keterangan</th>
             <th>Tahun</th>
             <th>Status</th>
+            <th>Keterangan</th>
         </tr>
     </thead>
     <tbody>
@@ -24,9 +24,16 @@
                     {{ $tc->karyawan->bagian->kode }}
                 </td>
                 <td>{{ $tc->jumlahTambah }}</td>
-                <td>{{ $tc->keterangan }}</td>
                 <td>{{ $tc->tahunCuti }}</td>
                 <td>{{ $tc->status }}</td>
+                <td>
+                    <details>
+                        <summary>Keterangan</summary>
+                        <p>
+                            {{ $tc->keterangan }}
+                        </p>
+                    </details>
+                </td>
             </tr>
         @endforeach
     </tbody>

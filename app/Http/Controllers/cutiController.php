@@ -110,12 +110,13 @@ class cutiController extends Controller
         $detail = detailCutiModel::where('idKaryawan', $id)->where('tahun', $y)->get();
         $potonganTahunan = potonganCutiModel::where('tahunPotongan', $y)->sum('totalPotongan');
         $detailHutang = hutangCutiModel::where('idKaryawan', $id)->where('year', $y)->first();
-        $cekTambah = tambahCutiModel::select(DB::raw('SUM(jumlahTambah) as s'))->where('tahunCuti', $y)->where('idKaryawan', $id)->where('status', 'Belum')->first();
-        $cekPotong = potongCutiModel::select(DB::raw('SUM(jumlahPotong) as s'))->where('tahunCuti', $y)->where('idKaryawan', $id)->where('status', 'Belum')->first();
+        $cekTambah = tambahCutiModel::select(DB::raw('SUM(jumlahTambah) as s'))->where('tahunCuti', $y)->where('idKaryawan', $id)->where('status', 'Sudah')->first();
+        $cekPotong = potongCutiModel::select(DB::raw('SUM(jumlahPotong) as s'))->where('tahunCuti', $y)->where('idKaryawan', $id)->where('status', 'Sudah')->first();
         $data = [
             'vCuti'     => $cuti,
             'detail'    => $detail,
             'masaKerja' => $selisih->y,
+            'bulan'     =>$selisih->m,
             'potongan' => $potonganTahunan,
             'hutang'    => $detailHutang,
             'tambahan'  => $cekTambah['s'],
@@ -145,7 +146,6 @@ class cutiController extends Controller
             $tmpUpdate = [
                 'jumlahCuti' => $cekCuti->jumlahCuti + $tambahCuti,
                 'sisaCuti' => $cekCuti->sisaCuti + $tambahCuti,
-                'keterangan' => $ket,
             ];
             $cekCuti = cutiModel::where('idKaryawan', $idKaryawan)->where('year', $tahun)->update($tmpUpdate);
             tambahCutiModel::create([
