@@ -23,6 +23,12 @@ class kontrakKaryawanController extends Controller
         $id = $request->idKaryawan;
         $kontrak = $request->kontrakKe;
         $isRow = kontrakKaryawanModel::where('idKaryawan', $id)->where('kontrakKe', $kontrak)->first();
+        $isStatus = kontrakKaryawanModel::where('idKaryawan', $id)->first();
+        if(!empty($isStatus)){
+            kontrakKaryawanModel::where('idKaryawan', $id)->update([
+                'status'=>'2',
+            ]);
+        }
         if($request->file->getClientOriginalExtension() != 'pdf'){
             return response()->json(['error' => 'File Must be in PDF format']);
         }
@@ -38,6 +44,7 @@ class kontrakKaryawanController extends Controller
                 'sampaiTanggal' => $request->sampaiTanggal,
                 'file' => $fileName,
                 'kontrakKe' => $request->kontrakKe,
+                'status'=>'1',
             ]);
             return response()->json(['success' => 'You have successfully upload file.', 'error' => '']);
         } else {
@@ -47,8 +54,9 @@ class kontrakKaryawanController extends Controller
 
     function tabelData()
     {
+        $date=date('Y-m-d');
         $tmp = [
-            'data' => kontrakKaryawanModel::with(['karyawanModel'])->get(),
+            'data' => kontrakKaryawanModel::with(['karyawanModel'])->where('status','1')->where('sampaiTanggal','>=',$date)->orderBy('sampaiTanggal')->get(),
         ];
         return view('karyawanKontrak.tabelKaryawanKontrak', $tmp);
     }

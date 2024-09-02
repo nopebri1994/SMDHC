@@ -31,8 +31,9 @@
             <tr>
                 <td align="center" class="align-middle text-center">{{ $key + 1 }}</td>
                 <td class="align-middle">{{ $d->karyawanModel->namaKaryawan }}</td>
-                <td class="align-middle text-center">{{ $d->karyawanModel->bagian->kode }} /
-                    {{ $d->karyawanModel->departemen->kode }} </td>
+                <td class="align-middle text-center">
+                    {{ $d->karyawanModel->departemen->kode }} /
+                    {{ $d->karyawanModel->bagian->kode }} </td>
                 <td class="align-middle">
                     {{ $d->noKontrak }}
                 </td>
