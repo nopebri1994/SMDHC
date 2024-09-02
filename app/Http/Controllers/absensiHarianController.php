@@ -111,12 +111,18 @@ class absensiHarianController extends Controller
                 $f = 'Ya';
                 $t = 'Tidak';
             }
-            
-                if ($dk->groupOff == $dataOff->group or $ket =='TJM') {
+            if (!empty($dataOff)) {
+                if ($dk->groupOff == $dataOff->group) {
                     $f = 'Ya';
                     $t = 'Tidak';
                 }
-        
+            };
+
+
+            if ($ket == 'TJM') {
+                $f = 'Ya';
+                $t = 'Tidak';
+            }
             $tmp[] = [
                 'idKaryawan' => $dk->id,
                 'tglAbsen' => $tgl,

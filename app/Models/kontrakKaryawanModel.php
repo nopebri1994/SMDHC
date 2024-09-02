@@ -19,6 +19,7 @@ class kontrakKaryawanModel extends Model
         'sampaiTanggal',
         'kontrakKe',
         'file',
+        'status'
     ];
 
     function karyawanModel(): BelongsTo
