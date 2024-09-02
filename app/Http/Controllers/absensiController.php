@@ -269,10 +269,18 @@ Bisa digunakan sebelum $exp",
                     'status'            => '0'
                 ];
                 absensiModel::create($tmpSave);
-
-                prosesAbsensiHarianModel::where('idKaryawan', $parsing['id'])->where('tglAbsen', $parsing['tglAwal'])->update([
-                    'keteranganIjin' => $parsing['kode'],
-                ]);
+                if($parsing['kode'] == 'TJM'){
+                    prosesAbsensiHarianModel::where('idKaryawan', $parsing['id'])->where('tglAbsen', $parsing['tglAwal'])->update([
+                        'keteranganIjin' => $parsing['kode'],
+                        'terlambat' => 'Tidak',
+                        'full' => 'Ya',
+                    ]);
+                }else{
+                    prosesAbsensiHarianModel::where('idKaryawan', $parsing['id'])->where('tglAbsen', $parsing['tglAwal'])->update([
+                        'keteranganIjin' => $parsing['kode'],
+                    ]);
+                }
+            
                 //log
                 $msg = "Id Karyawan = " . $parsing['id'] . " kode KeteranganIjin = " . $parsing['kode'] . " Tanggal Ijin = " . $parsing['tglAwal'] . " User = " . auth()->user()->karyawan->namaKaryawan;
                 Log::channel('history')->info("Tambah data Ijin => " . $msg);

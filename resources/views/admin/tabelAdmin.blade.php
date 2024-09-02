@@ -27,8 +27,9 @@
             <tr>
                 <td align="center" class="align-middle text-center">{{ $key + 1 }}</td>
                 <td class="align-middle">{{ $d->karyawan->namaKaryawan }}</td>
-                <td class="align-middle text-center">{{ $d->karyawan->bagian->kode }} /
-                    {{ $d->karyawan->departemen->kode }} </td>
+                <td class="align-middle text-center">{{ $d->karyawan->departemen->kode }} /
+                    {{ $d->karyawan->bagian->kode }}
+                </td>
                 <td class="align-middle text-center">{{ $d->username }}</td>
                 <td class="align-middle text-center">
                     @switch($d->role)
