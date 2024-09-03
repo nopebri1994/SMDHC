@@ -18,11 +18,11 @@ class pmkController extends Controller
     function tabelData()
     {
         if (auth()->user()->role == '5') {
-            $karyawan   = karyawanModel::whereNull('km')->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('tglMasuk')->get();
+            $karyawan   = karyawanModel::whereNull('km')->where('idBagian', auth()->user()->karyawan->idBagian)->where('statusKaryawan', '2')->orderBy('tglMasuk')->get();
         } elseif (auth()->user()->role == '4') {
-            $karyawan   = karyawanModel::whereNull('km')->where('idDepartemen', auth()->user()->karyawan->idDepartemen)->orderBy('tglMasuk')->get();
+            $karyawan   = karyawanModel::whereNull('km')->where('idDepartemen', auth()->user()->karyawan->idDepartemen)->where('statusKaryawan', '2')->orderBy('tglMasuk')->get();
         } else {
-            $karyawan = karyawanModel::whereNull('km')->orderBy('tglMasuk')->get();
+            $karyawan = karyawanModel::whereNull('km')->where('statusKaryawan', '2')->orderBy('tglMasuk')->get();
         }
 
         $tmp = [
@@ -34,11 +34,11 @@ class pmkController extends Controller
     function tabelDataHak()
     {
         if (auth()->user()->role == '5') {
-            $karyawan   = karyawanModel::whereNull('km')->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('tglMasuk')->get();
+            $karyawan   = karyawanModel::whereNull('km')->where('idBagian', auth()->user()->karyawan->idBagian)->where('statusKaryawan', '2')->orderBy('tglMasuk')->get();
         } elseif (auth()->user()->role == '4') {
-            $karyawan   = karyawanModel::whereNull('km')->where('idDepartemen', auth()->user()->karyawan->idDepartemen)->orderBy('tglMasuk')->get();
+            $karyawan   = karyawanModel::whereNull('km')->where('idDepartemen', auth()->user()->karyawan->idDepartemen)->where('statusKaryawan', '2')->orderBy('tglMasuk')->get();
         } else {
-            $karyawan = karyawanModel::whereNull('km')->orderBy('tglMasuk')->get();
+            $karyawan = karyawanModel::whereNull('km')->where('statusKaryawan', '2')->orderBy('tglMasuk')->get();
         }
 
         $tmp = [
