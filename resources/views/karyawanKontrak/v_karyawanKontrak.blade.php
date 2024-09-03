@@ -19,16 +19,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="card">
+                    <div class="card collapsed-card">
                         <div class="card-header">
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
+                                <button type="button" class="btn btn-sm btn-danger" data-card-widget="collapse">
+                                    <i class="fas fa-plus"></i>&nbsp; Tampilkan Form    
                                 </button>
                             </div>
+                            <h5 class="m-0">Tambah Data / Update Data </h5>
                             {{-- progres Bar --}}
                             <div class="alert alert-success success__msg bg-light" style="display: none; color: white;"
                                 role="alert">

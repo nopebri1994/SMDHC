@@ -138,13 +138,15 @@
                                     <p>Kontrak Karyawan</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Penghargaan Masa Kerja</p>
-                                    <span class="right badge badge-danger">P</span>
-                                </a>
-                            </li>
+                        @endcan
+                        <li class="nav-item">
+                            <a href="{{ URL::to('/') }}/psn/pmk"
+                                class="nav-link {{ request()->is('psn/pmk') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Penghargaan Masa Kerja</p>
+                            </a>
+                        </li>
+                        @can('hc')
                             <li class="nav-item">
                                 <a href="" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>

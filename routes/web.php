@@ -18,6 +18,7 @@ use App\Http\Controllers\liburController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\mesinAbsensiController;
 use App\Http\Controllers\perusahaanController;
+use App\Http\Controllers\pmkController;
 use App\Http\Controllers\potonganController;
 use App\Http\Controllers\usersController;
 use Illuminate\Support\Facades\Route;
@@ -178,6 +179,12 @@ Route::middleware('auth')->group(function () {
     Route::get('psn/kontrak-karyawan/tabelData', [kontrakKaryawanController::class, 'tabelData']);
     Route::post('psn/kontrak-karyawan/delete', [kontrakKaryawanController::class, 'delete']);
     Route::post('psn/kontrak-karyawan/update', [kontrakKaryawanController::class, 'update']);
+
+    //pmk
+    Route::get('psn/pmk', [pmkController::class, 'index'])->middleware('can:hc');
+    Route::get('psn/pmk/tabelData', [pmkController::class, 'tabelData']);
+    Route::get('psn/pmk/tabelDataHak', [pmkController::class, 'tabelDataHak']);
+
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');
