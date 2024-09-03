@@ -181,7 +181,7 @@ Route::middleware('auth')->group(function () {
     Route::post('psn/kontrak-karyawan/update', [kontrakKaryawanController::class, 'update']);
 
     //pmk
-    Route::get('psn/pmk', [pmkController::class, 'index'])->middleware('can:hc');
+    Route::get('psn/pmk', [pmkController::class, 'index']);
     Route::get('psn/pmk/tabelData', [pmkController::class, 'tabelData']);
     Route::get('psn/pmk/tabelDataHak', [pmkController::class, 'tabelDataHak']);
 

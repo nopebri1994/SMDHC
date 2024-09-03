@@ -45,7 +45,7 @@
                 <td class="text-center">{{ $key + 1 }}</td>
                 <td class="text-center">{{ $k->nikKerja }}</td>
                 <td>{{ $k->namaKaryawan }}</td>
-                <td>
+                <td class="text-center">
                     {{ varHelper::formatDate($k->tglMasuk) }}
                 </td>
                 <td class="text-center">{{ $k->departemen->kode }}
