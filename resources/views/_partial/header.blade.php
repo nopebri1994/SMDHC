@@ -42,7 +42,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li>
-                    <h5 class="" style="padding-top: 3px">{{ $title }}</h5>
+                    <h5 class="d-none d-sm-inline-block" style="padding-top: 3px">{{ $title }}</h5>
                 </li>
                 {{-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="index3.html" class="nav-link">Home</a>
@@ -52,6 +52,10 @@
                 </li> --}}
             </ul>
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <span id="jam" class="nav-link"
+                        style="font-size: 16px;color:black;font-decoration:bold"></span>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>

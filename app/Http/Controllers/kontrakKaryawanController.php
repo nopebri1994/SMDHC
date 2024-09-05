@@ -24,15 +24,17 @@ class kontrakKaryawanController extends Controller
         $kontrak = $request->kontrakKe;
         $isRow = kontrakKaryawanModel::where('idKaryawan', $id)->where('kontrakKe', $kontrak)->first();
         $isStatus = kontrakKaryawanModel::where('idKaryawan', $id)->first();
-        if (!empty($isStatus)) {
-            kontrakKaryawanModel::where('idKaryawan', $id)->update([
-                'status' => '2',
-            ]);
-        }
         if ($request->file->getClientOriginalExtension() != 'pdf') {
             return response()->json(['error' => 'File Must be in PDF format']);
         }
         if (empty($isRow)) {
+
+            if (!empty($isStatus)) {
+                kontrakKaryawanModel::where('idKaryawan', $id)->update([
+                    'status' => '2',
+                ]);
+            }
+
             $uid = karyawanModel::where('id', $id)->first();
             $fileName = $uid->uuid . $kontrak . time() . '.' . $request->file->getClientOriginalExtension();
             $request->file->move(storage_path('app/public/pkwt'), $fileName);
@@ -52,11 +54,17 @@ class kontrakKaryawanController extends Controller
         }
     }
 
-    function tabelData()
+    function tabelData(Request $request)
     {
+        $id = $request->id;
         $date = date('Y-m-d');
+        if ($id == 0) {
+            $data = kontrakKaryawanModel::with(['karyawanModel'])->where('status', '1')->where('sampaiTanggal', '>=', $date)->orderBy('sampaiTanggal')->get();
+        } else {
+            $data = kontrakKaryawanModel::with(['karyawanModel'])->where('idKaryawan', $id)->where('sampaiTanggal', '>=', $date)->orderBy('sampaiTanggal')->get();
+        }
         $tmp = [
-            'data' => kontrakKaryawanModel::with(['karyawanModel'])->where('status', '1')->where('sampaiTanggal', '>=', $date)->orderBy('sampaiTanggal')->get(),
+            'data' => $data,
         ];
         return view('karyawanKontrak.tabelKaryawanKontrak', $tmp);
     }

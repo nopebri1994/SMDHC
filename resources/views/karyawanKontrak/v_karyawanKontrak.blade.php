@@ -19,16 +19,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="card collapsed-card">
+                    <div class="card collapsed-card" id="cardForm">
                         <div class="card-header">
                             <div class="card-tools">
                                 <button type="button" class="btn btn-sm btn-danger" data-card-widget="collapse">
-                                    <i class="fas fa-plus"></i>&nbsp; Tampilkan Form    
+                                    <i class="fas fa-plus"></i>&nbsp; Tampilkan Form
                                 </button>
                             </div>
                             <h5 class="m-0">Tambah Data / Update Data </h5>
+
                             {{-- progres Bar --}}
-                            <div class="alert alert-success success__msg bg-light" style="display: none; color: white;"
+                            <div class="alert alert-success success__msg bg-light mt-4" style="display: none; color: white;"
                                 role="alert">
                             </div>
                             <div class="progress d-none">
@@ -51,8 +52,7 @@
                                             </div>
                                             <div class="col-md-7">
                                                 <select name="idKaryawan" id="idKaryawan" class="select"
-                                                    data-live-search="true" data-show-subtext="true" id="idKaryawan"
-                                                    required>
+                                                    data-live-search="true" data-show-subtext="true" required>
                                                     <option value="">Pilih Nama Karyawan</option>
                                                     @foreach ($karyawan as $k)
                                                         <option value="{{ $k->id }}">
@@ -146,6 +146,22 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label for="idKaryawan2">Filter</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="idKaryawan2" id="idKaryawan2" class="select" data-live-search="true"
+                                        data-show-subtext="true" required>
+                                        <option value="0">Pilih Nama Karyawan</option>
+                                        @foreach ($karyawan as $k)
+                                            <option value="{{ $k->id }}">
+                                                {{ $k->namaKaryawan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
                             <div class="col-md-12">
                                 <div id="list"></div>
                             </div>
@@ -160,12 +176,36 @@
     <script src="{{ URL::to('/') }}/assets/adminlte/js/jquery.form.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#list').load('kontrak-karyawan/tabelData')
+            loadData();
             $('.select').selectpicker({
                 style: "bg-info",
             });
         });
 
+        document.getElementById('idKaryawan2').onchange = () => {
+            loadData();
+        }
+
+        let loadData = () => {
+            let id = $('#idKaryawan2').val();
+            let data = {
+                'id': id,
+            }
+            $.ajax({
+                beforeSend: openLoader('Memuat Data'),
+                type: 'get',
+                url: 'kontrak-karyawan/tabelData',
+                data: data,
+                success: function(sdata) {
+                    $('#list').html(sdata);
+                    closeLoader();
+                },
+                error: function() {
+                    flasher.error('Server Error');
+                    closeLoader();
+                }
+            })
+        }
         //progres with ajaxFOrm add
         $(function() {
             $(document).ready(function() {
@@ -221,7 +261,8 @@
                                 $('.custom-file-label').html('Choose file');
                                 btnCancel();
                             }, 2000);
-                            $('#list').load('kontrak-karyawan/tabelData')
+                            // $('#list').load('kontrak-karyawan/tabelData')
+                            loadData();
                         }
                     }
                 });
@@ -278,6 +319,7 @@
         }
 
         let editData = (id, nokontrak, kontrakke, berlaku, sampai, dibuat, idKaryawan) => {
+            $('#cardForm').CardWidget('toggle')
             let action = 'kontrak-karyawan/update'
             $('#id').val(id)
             $('#idKaryawan').val(idKaryawan);
@@ -295,6 +337,7 @@
         }
 
         let btnCancel = () => {
+            $('#cardForm').CardWidget('toggle')
             let action = 'kontrak-karyawan/store'
             $('#fileUpload').val('');
             $('#idKaryawan').val('');
