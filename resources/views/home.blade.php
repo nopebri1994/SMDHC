@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="info-box mb-3 bg-warning">
-                                        <span class="info-box-icon"><i class="fas fa-user-tag"></i></span>
+                                        <span class="info-box-icon"><i class="fas fa-file-contract"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">PKWT Jatuh Tempo</span>
                                             <span class="info-box-number">{{ $pkwt }} Orang</span>
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="info-box mb-3 bg-primary">
-                                        <span class="info-box-icon"><i class="fas fa-user-tag"></i></span>
+                                        <span class="info-box-icon"><i class="fas fa-user-injured"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Surat Peringatan Selesai</span>
                                             <span class="info-box-number">{{ $sp }} Orang</span>
