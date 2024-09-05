@@ -36,7 +36,7 @@
                                     <span class="info-box-icon"><i class="fas fa-user-tag"></i></span>
                                     <div class="info-box-content">
                                         <span class="info-box-text">Surat Peringatan Selesai</span>
-                                        <span class="info-box-number">{{ $pkwt }} Orang</span>
+                                        <span class="info-box-number">{{ $sp }} Orang</span>
                                     </div>
 
                                 </div>
