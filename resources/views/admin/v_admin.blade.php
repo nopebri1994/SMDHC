@@ -90,9 +90,6 @@
     <script>
         $(document).ready(function() {
             $('#listView').load('users/tabelAdmin')
-            $('.select').selectpicker({
-                style: "bg-info",
-            });
         });
     </script>
 @endsection

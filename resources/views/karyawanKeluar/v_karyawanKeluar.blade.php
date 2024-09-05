@@ -99,9 +99,6 @@
     <script>
         $(document).ready(function() {
             $('#listView').load('karyawanKeluar/tabelData')
-            $('.select').selectpicker({
-                style: "bg-info",
-            });
         });
         let editData = (id, idKaryawan, keterangan, tanggalKeluar) => {
             $('#idKaryawanKeluar').val(id);

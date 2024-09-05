@@ -18,10 +18,8 @@
     {{-- end --}}
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/adminlte.min.css?v=3.2.0">
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/OverlayScrollbars.min.css">
-    {{-- <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/select2.min.css">
-    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/select2-bootstrap4.min.css"> --}}
-    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/bootstrap-select.min.css">
-
+    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/select2.min.css">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/select2-bootstrap4.min.css">
 
     <link rel="stylesheet" href="{{ URL::to('/') }}/vendor/flasher/flasher.min.css">
     <link rel="icon" href="{{ URL::to('/') }}/assets/img/icon.png">

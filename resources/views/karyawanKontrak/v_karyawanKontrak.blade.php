@@ -177,9 +177,6 @@
     <script>
         $(document).ready(function() {
             loadData();
-            $('.select').selectpicker({
-                style: "bg-info",
-            });
         });
 
         document.getElementById('idKaryawan2').onchange = () => {

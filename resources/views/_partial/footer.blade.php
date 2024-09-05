@@ -17,7 +17,9 @@
 </footer>
 </div>
 
-<script src="{{ URL::to('/') }}/assets/adminlte/js/jquery.min.js"></script>
+{{-- <script src="{{ URL::to('/') }}/assets/adminlte/js/jquery.min.js"></script> --}}
+<script src="{{ URL::to('/') }}/assets/adminlte/js/jquery-3.7.1.min.js"></script>
+
 <script src="{{ URL::to('/') }}/assets/adminlte/js/bootstrap.bundle.min.js"></script>
 <script src="{{ URL::to('/') }}/assets/adminlte/js/adminlte.min.js?v=3.2.0"></script>
 <script src="{{ URL::to('/') }}/assets/adminlte/js/jquery.overlayScrollbars.min.js"></script>
@@ -29,8 +31,7 @@
 <script src="{{ URL::to('/') }}/assets/adminlte/js/dataTables.bootstrap4.js"></script>
 <script src="{{ URL::to('/') }}/assets/adminlte/js/dataTables.responsive.js"></script>
 <script src="{{ URL::to('/') }}/assets/adminlte/js/responsive.dataTables.js"></script>
-{{-- <script src="{{ URL::to('/') }}/assets/adminlte/js/select2.min.js"></script> --}}
-<script src="{{ URL::to('/') }}/assets/adminlte/js/bootstrap-select.min.js"></script>
+<script src="{{ URL::to('/') }}/assets/adminlte/js/select2.min.js"></script>
 
 {{-- end --}}
 <script src="{{ URL::to('/') }}/assets/js/my.js"></script>
@@ -57,6 +58,10 @@
         e = e < 10 ? '0' + e : e;
         return e;
     }
+
+    $('.select').select2({
+        theme: 'bootstrap4'
+    })
 </script>
 @yield('js')
 </body>

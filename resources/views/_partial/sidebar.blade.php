@@ -1,4 +1,4 @@
-<aside class="main-sidebar main-sidebar-custom sidebar-light-orange elevation-4">
+<aside class="main-sidebar sidebar-light-orange elevation-4">
 
     <a href="#" class="brand-link bg-gray-dark">
         <img src="{{ URL::to('/') }}/assets/img/logo.png" alt="LMW Logo" class="brand-image elevation-3"
@@ -211,20 +211,23 @@
                                     <p>Jam Kerja</p>
                                 </a>
                             </li>
-                            <li class="nav-item {{ request()->is('dm/mesinAbsensi') ? 'active' : '' }}">
-                                <a href="{{ URL::to('/') }}/dm/mesinAbsensi" class="nav-link">
+                            <li class="nav-item ">
+                                <a href="{{ URL::to('/') }}/dm/mesinAbsensi"
+                                    class="nav-link {{ request()->is('dm/mesinAbsensi') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Mesin Absen</p>
                                 </a>
                             </li>
-                            <li class="nav-item {{ request()->is('dm/libur') ? 'active' : '' }}">
-                                <a href="{{ URL::to('/') }}/dm/libur" class="nav-link">
+                            <li class="nav-item ">
+                                <a href="{{ URL::to('/') }}/dm/libur"
+                                    class="nav-link {{ request()->is('dm/libur') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Hari Libur</p>
                                 </a>
                             </li>
-                            <li class="nav-item {{ request()->is('dm/groupOff') ? 'active' : '' }}">
-                                <a href="{{ URL::to('/') }}/dm/groupOff" class="nav-link">
+                            <li class="nav-item ">
+                                <a href="{{ URL::to('/') }}/dm/groupOff"
+                                    class="nav-link {{ request()->is('dm/groupOff') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Jadwal Sabtu Off</p>
                                 </a>

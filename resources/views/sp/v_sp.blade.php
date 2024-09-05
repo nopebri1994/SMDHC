@@ -173,9 +173,6 @@
     <script>
         $(document).ready(function() {
             loadData();
-            $('.select').selectpicker({
-                style: "bg-info",
-            });
         });
 
         document.getElementById('idKaryawan2').onchange = () => {
@@ -215,9 +212,10 @@
                     },
                     uploadProgress: function(event, position, total, percentComplete) {
                         let percentage = percentComplete;
-                        $('.progress .progress-bar').css("width", percentage + '%', function() {
-                            return $(this).attr("aria-valuenow", percentage) + "%"
-                        })
+                        $('.progress .progress-bar').css("width", percentage + '%',
+                            function() {
+                                return $(this).attr("aria-valuenow", percentage) + "%"
+                            })
                         elem.innerHTML = percentage;
                     },
                     complete: function(xhr) {
@@ -230,7 +228,8 @@
                                 message.fadeOut();
                                 percentage = '0';
                                 elem.innerHTML = percentage
-                                $('.progress .progress-bar').css("width", percentage +
+                                $('.progress .progress-bar').css("width",
+                                    percentage +
                                     '%')
                             }, 2000);
                             setTimeout(function() {
@@ -244,7 +243,8 @@
                                 message.fadeOut();
                                 percentage = '0';
                                 elem.innerHTML = percentage
-                                $('.progress .progress-bar').css("width", percentage +
+                                $('.progress .progress-bar').css("width",
+                                    percentage +
                                     '%')
                                 $('.progress').addClass('d-none')
                                 $('#fileUpload').val('');

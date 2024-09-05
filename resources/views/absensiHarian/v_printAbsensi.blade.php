@@ -83,9 +83,7 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            $('.select').selectpicker({
-                style: "bg-info",
-            });
+
         });
         document.getElementById('btnPrint').onclick = () => {
             // alert('a')
