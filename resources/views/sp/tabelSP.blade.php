@@ -26,11 +26,11 @@
             <th class="align-middle  text-center">#</th>
             <th class="align-middle text-center">Nama Karyawan</th>
             <th class="align-middle  text-center">Dept / Bagian</th>
-            <th class="align-middle  text-center">Nomor Kontrak</th>
-            <th class="align-middle  text-center">Kontrak Ke</th>
+            <th class="align-middle  text-center">Nomor SP</th>
+            <th class="align-middle  text-center">SP Ke</th>
             <th class="align-middle  text-center">Berlaku Tanggal</th>
             <th class="align-middle  text-center">sampai Tanggal</th>
-            <th class="align-middle  text-center">File Kontrak</th>
+            <th class="align-middle  text-center">File SP</th>
             <th></th>
         </tr>
     </thead>
@@ -48,11 +48,11 @@
                 <td class="align-middle text-center">
                     {{ $d->karyawanModel->departemen->kode }} /
                     {{ $d->karyawanModel->bagian->kode }} </td>
-                <td class="align-middle">
-                    {{ $d->noKontrak }}
+                <td class="align-middle text-left">
+                    {{ $d->nomorSP }}
                 </td>
                 <td class="align-middle text-center">
-                    {{ $d->kontrakKe }}
+                    {{ $d->sp }}
                 </td>
                 <td class="align-middle text-center">
                     {{ varHelper::formatDate($d->berlakuTanggal) }}
@@ -61,14 +61,14 @@
                     {{ varHelper::formatDate($d->sampaiTanggal) }}
                 </td>
                 <td class="align-middle text-center">
-                    <a href="{{ URL::to('storage/pkwt/') }}/{{ $d->file }}" target="_blank">
-                        File PKWT</a>
+                    <a href="{{ URL::to('storage/sp/') }}/{{ $d->file }}" target="_blank">
+                        File SP</a>
 
                 </td>
                 <td align="center" width="25%">
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary btn-sm" id="btnEdit"
-                            onclick="editData('{{ $d->id }}','{{ $d->noKontrak }}','{{ $d->kontrakKe }}','{{ $d->berlakuTanggal }}','{{ $d->sampaiTanggal }}','{{ $d->dibuatTanggal }}','{{ $d->idKaryawan }}')"><i
+                            onclick="editData('{{ $d->id }}','{{ $d->nomorSP }}','{{ $d->sp }}','{{ $d->berlakuTanggal }}','{{ $d->sampaiTanggal }}','{{ $d->dibuatTanggal }}','{{ $d->idKaryawan }}')"><i
                                 class="far fa-edit"></i> Edit</button>
                         <button type="button" class="btn btn-danger btn-sm" id="btnDelete"
                             onclick="deleteData('{{ $d->id }}','{{ $d->karyawanModel->namaKaryawan }}')"><i

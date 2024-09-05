@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class SPModel extends Model
 {
@@ -15,6 +17,11 @@ class SPModel extends Model
         'berlakuTanggal',
         'sampaiTanggal',
         'sp',
-        'status'
+        'status',
+        'file'
     ];
+    function karyawanModel(): BelongsTo
+    {
+        return $this->belongsTo(karyawanModel::class, 'idKaryawan');
+    }
 }

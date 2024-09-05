@@ -20,6 +20,7 @@ use App\Http\Controllers\mesinAbsensiController;
 use App\Http\Controllers\perusahaanController;
 use App\Http\Controllers\pmkController;
 use App\Http\Controllers\potonganController;
+use App\Http\Controllers\SPController;
 use App\Http\Controllers\usersController;
 use Illuminate\Support\Facades\Route;
 
@@ -179,6 +180,13 @@ Route::middleware('auth')->group(function () {
     Route::get('psn/kontrak-karyawan/tabelData', [kontrakKaryawanController::class, 'tabelData']);
     Route::post('psn/kontrak-karyawan/delete', [kontrakKaryawanController::class, 'delete']);
     Route::post('psn/kontrak-karyawan/update', [kontrakKaryawanController::class, 'update']);
+
+    //sp
+    Route::get('psn/sp', [SPController::class, 'index'])->middleware('can:hc');
+    Route::post('psn/sp/store', [SPController::class, 'storeData']);
+    Route::get('psn/sp/tabelData', [SPController::class, 'tabelData']);
+    Route::post('psn/sp/delete', [SPController::class, 'delete']);
+    Route::post('psn/sp/update', [SPController::class, 'update']);
 
     //pmk
     Route::get('psn/pmk', [pmkController::class, 'index']);

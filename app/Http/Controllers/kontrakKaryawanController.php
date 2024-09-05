@@ -93,7 +93,7 @@ class kontrakKaryawanController extends Controller
                 'sampaiTanggal' => $request->sampaiTanggal,
                 'kontrakKe' => $request->kontrakKe,
             ]);
-            return response()->json(['success' => 'You have successfully update file.', 'error' => '']);
+            return response()->json(['success' => 'You have successfully update data.', 'error' => '']);
         } else {
             if ($request->file->getClientOriginalExtension() != 'pdf') {
                 return response()->json(['error' => 'File Must be in PDF format']);

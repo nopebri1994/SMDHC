@@ -148,10 +148,10 @@
                         </li>
                         @can('hc')
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="{{ URL::to('/') }}/psn/sp"
+                                    class="nav-link {{ request()->is('psn/sp') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Surat Peringatan</p>
-                                    <span class="right badge badge-danger">P</span>
                                 </a>
                             </li>
                         @endcan

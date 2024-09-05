@@ -20,6 +20,8 @@ return new class extends Migration
             $table->date('sampaiTanggal');
             $table->enum('sp', ['1', '2', '3']);
             $table->enum('status', ['1', '2'])->comment('1 = Aktif, 2=non Aktif');
+            $table->text('file');
+            $table->timestamps();
         });
     }
 
