@@ -105,7 +105,7 @@
                                     <div class="col-lg-9 col-12">
                                         <div class="card card-danger">
                                             <div class="card-header">
-                                                <h3 class="card-title">Komposisi Karyawan Bagian PT Lion Metal Works</h3>
+                                                <h3 class="card-title">Komposisi Karyawan PT Lion Metal Works</h3>
                                             </div>
                                             <div class="card-body">
                                                 <canvas id="donutChart"
