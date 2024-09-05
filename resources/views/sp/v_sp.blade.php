@@ -324,7 +324,6 @@
             $('#berlakuTanggal').val(berlaku);
             $('#sampaiTanggal').val(sampai);
             $('#spKe').val(spke);
-            $('.select').selectpicker('refresh')
             document.getElementById('btnSaveData').classList.add('d-none')
             document.getElementById('btnUpdateData').classList.remove('d-none')
             document.getElementById('btnCancel').classList.remove('d-none')
@@ -342,7 +341,6 @@
             $('#berlakuTanggal').val('');
             $('#sampaiTanggal').val('');
             $('#spKe').val('1');
-            $('.select').selectpicker('refresh')
             document.getElementById('btnSaveData').classList.remove('d-none')
             document.getElementById('btnUpdateData').classList.add('d-none')
             document.getElementById('btnCancel').classList.add('d-none')
