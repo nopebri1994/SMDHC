@@ -106,7 +106,7 @@
                                                 <span class="far fa-save" id="load" aria-hidden="true"></span>
                                                 Simpan Data</button>
                                             <button type="button" class="btn btn-danger d-none" id="btnCancel">
-                                                cancel Data</button>
+                                                Cancel Update</button>
                                             <button type="submit" class="btn btn-success d-none" id="btnUpdateData">
                                                 Update Data</button>
                                         </div>
@@ -120,18 +120,37 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-1">
-                                    <label for="idKaryawan2">Filter</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <select name="idKaryawan2" id="idKaryawan2" class="select" data-live-search="true"
-                                        data-show-subtext="true" required>
+                                <div class="col-md-2 pt-1">
+                                    <select name="idKaryawan2" id="idKaryawan2" class="select form-control"
+                                        data-live-search="true" data-show-subtext="true" required>
                                         <option value="0">Pilih Nama Karyawan</option>
                                         @foreach ($karyawan as $k)
                                             <option value="{{ $k->id }}">
                                                 {{ $k->namaKaryawan }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    <label for="" class="pt-2">Laporan Advance</label>
+                                </div>
+                                <div class="col-md-2 pt-1">
+                                    <select name="month" id="month" class="form-control">
+                                        <option value="1">Januari</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 pt-1">
+
+                                    <select name="year" id="year" class="form-control">
+                                        @for ($i = 2022; $i < 2030; $i++)
+                                            <option>{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="col-md-2 pt-1">
+                                    <button class="btn btn_orange btn-block" id="btnCetak">Cetak</button>
+                                </div>
+                                <div class="col-md-2 pt-1">
+                                    <button class="btn btn-primary btn-block" id="btnProses">Proses Advance</button>
                                 </div>
                             </div>
                             <hr>
@@ -184,6 +203,31 @@
                 },
                 error: function() {
                     flasher.error('Server Error');
+                }
+            })
+        }
+
+        document.getElementById('btnProses').onclick = () => {
+            prosesPotong();
+        }
+
+        let prosesPotong = () => {
+            $.ajax({
+                beforeSend: openLoader('Memuat Data'),
+                type: 'get',
+                url: 'advance/prosesData',
+                success: function(sdata) {
+                    if (sdata['error'] == '') {
+                        flasher.success(sdata['success']);
+                        loadData();
+                    } else {
+                        flasher.error(sdata['error'])
+                    }
+                    closeLoader();
+                },
+                error: function() {
+                    flasher.error('Server Error');
+                    closeLoader();
                 }
             })
         }
@@ -329,6 +373,7 @@
             $('#jumlahPinjaman').val(totalPinjaman);
             $('#jumlahPotongan').val(totalPotongan);
             $('#noPinjaman').val(id);
+            $('#id').val(id);
             $('#idKaryawan').val(idKaryawan).trigger('change');
             document.getElementById('noPinjaman').disabled = true;
             document.getElementById('btnSaveData').classList.add('d-none')

@@ -12,11 +12,11 @@
         padding-top: 10px;
     }
 
-    a {
+    .a {
         color: black;
     }
 
-    a:hover {
+    .a:hover {
         color: red;
     }
 </style>
@@ -61,7 +61,7 @@
                     {{ varHelper::formatDate($d->sampaiTanggal) }}
                 </td>
                 <td class="align-middle text-center">
-                    <a href="{{ URL::to('storage/sp/') }}/{{ $d->file }}" target="_blank">
+                    <a href="{{ URL::to('storage/sp/') }}/{{ $d->file }}" class="a" target="_blank">
                         File SP</a>
 
                 </td>

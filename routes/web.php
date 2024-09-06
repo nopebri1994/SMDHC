@@ -199,7 +199,9 @@ Route::middleware('auth')->group(function () {
         Route::get('pay/advance', 'index');
         Route::post('pay/advance/store', 'store');
         Route::post('pay/advance/delete', 'delete');
+        Route::post('pay/advance/update', 'update');
         Route::get('pay/advance/get_id', 'getId');
+        Route::get('pay/advance/prosesData', 'prosesData');
         Route::get('pay/advance/tabelData', 'tabelData');
     })->middleware('can:payroll');
 

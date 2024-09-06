@@ -11,14 +11,6 @@
     .dt-paging {
         padding-top: 10px;
     }
-
-    a {
-        color: black;
-    }
-
-    a:hover {
-        color: red;
-    }
 </style>
 <table class="table table-bordered table-sm table-striped shadow display nowrap" style="width: 100%" id="tbl">
     <thead>
@@ -47,7 +39,7 @@
                     {{ $d->karyawanModel->departemen->kode }} /
                     {{ $d->karyawanModel->bagian->kode }} </td>
                 <td class="align-middle text-left">
-                    {{ $d->totalPinjaman }}
+                    Rp. {{ number_format($d->totalPinjaman, 0, ',') }}
                 </td>
                 <td class="align-middle text-center">
                     {{ $d->totalPotongan }}

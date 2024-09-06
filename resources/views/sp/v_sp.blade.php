@@ -129,7 +129,7 @@
                                                 <span class="far fa-save" id="load" aria-hidden="true"></span>
                                                 Simpan Data</button>
                                             <button type="button" class="btn btn-danger d-none" id="btnCancel">
-                                                cancel Data</button>
+                                                Cancel Update</button>
                                             <button type="submit" class="btn btn-success d-none" id="btnUpdateData">
                                                 Update Data</button>
                                         </div>
@@ -335,7 +335,7 @@
             $('#cardForm').CardWidget('toggle')
             let action = 'sp/store'
             $('#fileUpload').val('');
-            $('#idKaryawan').val('');
+            $('#idKaryawan').val('').trigger('change');
             $('#noSP').val('');
             $('#dibuatTanggal').val('');
             $('#berlakuTanggal').val('');
