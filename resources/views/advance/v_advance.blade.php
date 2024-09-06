@@ -120,7 +120,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-2 pt-1">
+                                <div class="col-md-3 pt-1">
                                     <select name="idKaryawan2" id="idKaryawan2" class="select form-control"
                                         data-live-search="true" data-show-subtext="true" required>
                                         <option value="0">Pilih Nama Karyawan</option>
@@ -130,12 +130,23 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-2 text-right">
-                                    <label for="" class="pt-2">Laporan Advance</label>
+                                <div class="col-md-1 text-right">
+                                    <label for="" class="pt-2">Laporan</label>
                                 </div>
                                 <div class="col-md-2 pt-1">
                                     <select name="month" id="month" class="form-control">
                                         <option value="1">Januari</option>
+                                        <option value="2">Februari</option>
+                                        <option value="3">Maret</option>
+                                        <option value="4">April</option>
+                                        <option value="5">Mei</option>
+                                        <option value="6">Juni</option>
+                                        <option value="7">July</option>
+                                        <option value="8">Agustus</option>
+                                        <option value="9">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">Nopember</option>
+                                        <option value="12">Desember</option>
                                     </select>
                                 </div>
                                 <div class="col-md-2 pt-1">
@@ -150,7 +161,8 @@
                                     <button class="btn btn_orange btn-block" id="btnCetak">Cetak</button>
                                 </div>
                                 <div class="col-md-2 pt-1">
-                                    <button class="btn btn-primary btn-block" id="btnProses">Proses Advance</button>
+                                    <button class="btn btn-primary btn-block" id="btnProses" disabled>Proses
+                                        Advance</button>
                                 </div>
                             </div>
                             <hr>
@@ -238,6 +250,10 @@
 
         document.getElementById('idKaryawan2').onchange = () => {
             loadData();
+        }
+
+        document.getElementById('btnCetak').onclick = () => {
+            window.open("advance/cetakLaporan");
         }
 
         let loadData = () => {

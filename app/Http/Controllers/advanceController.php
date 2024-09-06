@@ -6,7 +6,7 @@ use App\Models\advanceModel;
 use App\Models\detailAdvanceModel;
 use App\Models\karyawanModel;
 use Illuminate\Http\Request;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 class advanceController extends Controller
 {
     function index()
@@ -63,7 +63,7 @@ class advanceController extends Controller
         if ($idKaryawan == 0) {
             $data = advanceModel::where('status', 1)->get();
         } else {
-            $data = advanceModel::where('idKaryawan', $idKaryawan)->where('status', 1)->get();
+            $data = advanceModel::where('idKaryawan', $idKaryawan)->get();
         }
         $tmp = [
             'data' => $data,
@@ -105,7 +105,7 @@ class advanceController extends Controller
     function prosesData()
     {
         $m = date('m');
-        $y = date('y');
+        $y = date('Y');
         $date = date('Y-m-d');
         $cekadvance = detailAdvanceModel::whereMonth('tanggalProses', $m)->whereYear('tanggalProses', $y)->first();
 
@@ -144,5 +144,11 @@ class advanceController extends Controller
                 'error' => 'Advance Sudah dipotong',
             ]);
         }
+    }
+    function cetakLaporan(Request $request){
+        $pdf = Pdf::loadView('advance.laporan');
+        Pdf::setPaper('A4','landscape');
+        return $pdf->stream("laporan-Advance.pdf");
+        // return view('advance.laporan');
     }
 }

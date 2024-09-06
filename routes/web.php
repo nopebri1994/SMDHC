@@ -203,6 +203,7 @@ Route::middleware('auth')->group(function () {
         Route::get('pay/advance/get_id', 'getId');
         Route::get('pay/advance/prosesData', 'prosesData');
         Route::get('pay/advance/tabelData', 'tabelData');
+        Route::get('pay/advance/cetakLaporan', 'cetakLaporan');
     })->middleware('can:payroll');
 
     //Pengguna
