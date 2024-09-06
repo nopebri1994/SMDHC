@@ -61,8 +61,7 @@
                         @can('hc')
                             <li class="nav-item">
                                 <a href="{{ URL::to('/') }}/dk/karyawanKeluar"
-                                    class="nav-link  {{ request()->is('dk/karyawanKeluar') ? 'active' : '' }}
-                                {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
+                                    class="nav-link  {{ request()->is('dk/karyawanKeluar') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Karyawan Keluar</p>
                                 </a>
@@ -70,6 +69,29 @@
                         @endcan
                     </ul>
                 </li>
+                @can('hc')
+                    <li class="nav-item  {{ request()->is('pay/*') ? 'menu-is-opening menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('pay/*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-money-bill-alt"></i>
+                            <p>
+                                Payroll
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/pay/advance"
+                                    class="nav-link  {{ request()->is('pay/advance') ? 'active' : '' }}
+                                {{ request()->is('dk/karyawan/*') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Advance</p>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+                @endcan
                 <li class="nav-item  {{ request()->is('psn/*') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link  {{ request()->is('psn/*') ? 'active' : '' }}">
                         <i class="nav-icon fas fas fa-users"></i>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\absensiController;
 use App\Http\Controllers\absensiHarianController;
+use App\Http\Controllers\advanceController;
 use App\Http\Controllers\bagianController;
 use App\Http\Controllers\cutiController;
 use App\Http\Controllers\departemenController;
@@ -193,6 +194,14 @@ Route::middleware('auth')->group(function () {
     Route::get('psn/pmk/tabelData', [pmkController::class, 'tabelData']);
     Route::get('psn/pmk/tabelDataHak', [pmkController::class, 'tabelDataHak']);
 
+    //payroll
+    Route::controller(advanceController::class)->group(function () {
+        Route::get('pay/advance', 'index');
+        Route::post('pay/advance/store', 'store');
+        Route::post('pay/advance/delete', 'delete');
+        Route::get('pay/advance/get_id', 'getId');
+        Route::get('pay/advance/tabelData', 'tabelData');
+    })->middleware('can:payroll');
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');

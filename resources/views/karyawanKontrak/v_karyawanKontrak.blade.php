@@ -249,7 +249,7 @@
                                     '%')
                                 $('.progress').addClass('d-none')
                                 $('#fileUpload').val('');
-                                $('#idKaryawan').val('');
+                                $('#idKaryawan').val('').trigger('change');
                                 $('#noKontrak').val('');
                                 $('#dibuatTanggal').val('');
                                 $('#berlakuTanggal').val('');
@@ -319,7 +319,7 @@
             $('#cardForm').CardWidget('toggle')
             let action = 'kontrak-karyawan/update'
             $('#id').val(id)
-            $('#idKaryawan').val(idKaryawan);
+            $('#idKaryawan').val(idKaryawan).trigger('change');
             $('#noKontrak').val(nokontrak);
             $('#dibuatTanggal').val(dibuat);
             $('#berlakuTanggal').val(berlaku);

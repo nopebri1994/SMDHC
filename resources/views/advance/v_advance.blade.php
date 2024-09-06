@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">Data Karyawan</li>
+                        <li class="breadcrumb-item">Payroll</li>
                         <li class="breadcrumb-item active"><a href="#">{{ $title }}</a></li>
                     </ol>
                 </div>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="card-body">
                             <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" />
-                            <form action="sp/store" method="POST" id="upload" enctype="multipart/form-data">
+                            <form action="advance/store" method="POST" id="upload" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
@@ -55,72 +55,49 @@
                                                     <option value="">Pilih Nama Karyawan</option>
                                                     @foreach ($karyawan as $k)
                                                         <option value="{{ $k->id }}">
-                                                            {{ $k->namaKaryawan }}</option>
+                                                            {{ $k->namaKaryawan }}
+                                                            &nbsp;({{ $k->nikKerja }})
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-md-4">
-                                                <label for="noSP">No. SP</label>
+                                                <label for="noPinjaman">No. Pinjaman</label>
                                             </div>
                                             <div class="col-md-7">
-                                                <input type="text" placeholder="001/LMWP/SP/......." class="form-control"
-                                                    name="noSP" id="noSP" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-3">
-                                            <div class="col-md-4">
-                                                <label for="spKe">SP Ke</label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <select name="spKe" class="form-control" id="spKe">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md-4">
-                                                <label>Upload SP</label>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <div class="custom-file">
-                                                    <input type="file" name="file" class="custom-file-input"
-                                                        id="fileUpload" accept="application/pdf" required>
-                                                    <label class="custom-file-label" for="fileUpload">Choose file</label>
-                                                </div>
+                                                <input type="text" class="form-control" name="noPinjaman" id="noPinjaman"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row mt-3">
                                             <div class="col-md-4">
-                                                <label for="dibuatTanggal">Tanggal Dibuat</label>
+                                                <label for="tanggalRealisasi">Tanggal Realisasi</label>
                                             </div>
                                             <div class="col-md-5">
-                                                <input type="date" class="form-control" name="dibuatTanggal"
-                                                    id="dibuatTanggal" required>
+                                                <input type="date" class="form-control" name="tanggalRealisasi"
+                                                    id="tanggalRealisasi" required>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-md-4">
-                                                <label for="berlakuTanggal">Berlaku Tanggal</label>
+                                                <label>Jumlah Pinjaman</label>
                                             </div>
-                                            <div class="col-md-5">
-                                                <input type="date" class="form-control" name="berlakuTanggal"
-                                                    id="berlakuTanggal" required>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" name="jumlahPinjaman"
+                                                    id="jumlahPinjaman" required>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-md-4">
-                                                <label for="sampaiTanggal">Sampai Tanggal</label>
+                                                <label for="jumlahPotongan">Jumlah Potongan</label>
                                             </div>
-                                            <div class="col-md-5">
-                                                <input type="date" class="form-control" name="sampaiTanggal"
-                                                    id="sampaiTanggal" required>
+                                            <div class="col-md-2">
+                                                <input type="number" min="0" class="form-control"
+                                                    name="jumlahPotongan" id="jumlahPotongan" required>
                                             </div>
                                         </div>
                                         <div class="mt-3" align="right">
@@ -170,10 +147,50 @@
 @endsection
 @section('js')
     <script src="{{ URL::to('/') }}/assets/adminlte/js/jquery.form.min.js"></script>
+    <script src="{{ URL::to('/') }}/assets/adminlte/js/jquery.inputmask.min.js"></script>
+
     <script>
         $(document).ready(function() {
+            rupiah();
+            number();
             loadData();
         });
+
+        let rupiah = () => {
+            $('#jumlahPinjaman').inputmask("Rp 999.999.999", {
+                numericInput: true,
+                righyAlign: true,
+                oncleared: true
+            })
+        }
+
+        let number = () => {
+            let tahun = new Date();
+            $.ajax({
+                type: 'get',
+                url: 'advance/get_id',
+                success: function(sdata) {
+                    if (sdata['last'] == '0') {
+                        $('#noPinjaman').val(tahun.getFullYear() + '-' + '001');
+                    } else {
+                        split = sdata['last'].split('-');
+                        if (tahun.getFullYear() == split[0]) {
+                            end = parseInt(split[1]) + 1
+                            $('#noPinjaman').val(tahun.getFullYear() + '-' + addLeadingZeros(end, 3));
+                        } else {
+                            $('#noPinjaman').val(tahun.getFullYear() + '-' + '001');
+                        }
+                    }
+                },
+                error: function() {
+                    flasher.error('Server Error');
+                }
+            })
+        }
+
+        let addLeadingZeros = (num, length) => {
+            return String(num).padStart(length, '0');
+        }
 
         document.getElementById('idKaryawan2').onchange = () => {
             loadData();
@@ -187,7 +204,7 @@
             $.ajax({
                 beforeSend: openLoader('Memuat Data'),
                 type: 'get',
-                url: 'sp/tabelData',
+                url: 'advance/tabelData',
                 data: data,
                 success: function(sdata) {
                     $('#list').html(sdata);
@@ -247,13 +264,12 @@
                                     percentage +
                                     '%')
                                 $('.progress').addClass('d-none')
-                                $('#fileUpload').val('');
+                                $('#tanggalRealisasi').val('');
+                                $('#jumlahPinjaman').val('');
+                                $('#jumlahPotongan').val('');
                                 $('#idKaryawan').val('').trigger('change');
-                                $('#noSP').val('');
-                                $('#dibuatTanggal').val('');
-                                $('#berlakuTanggal').val('');
-                                $('#sampaiTanggal').val('');
-                                $('#spKe').val('1');
+                                document.getElementById('noPinjaman').disabled = false;
+                                number();
                                 $('.custom-file-label').html('Choose file');
                                 btnCancel();
                             }, 2000);
@@ -265,14 +281,6 @@
             });
         });
 
-
-
-        $('#fileUpload').on('change', function() {
-            //get the file name
-            let fileName = $(this).val();
-            //replace the "Choose a file" label
-            $(this).next('.custom-file-label').html(fileName);
-        })
 
         let deleteData = (id, nama) => {
             let token = $('#token').val();
@@ -294,7 +302,7 @@
                     $.ajax({
                         beforeSend: openLoader('memuatdata'),
                         type: 'post',
-                        url: 'sp/delete',
+                        url: 'advance/delete',
                         data: dataId,
                         success: function() {
                             loadData();
@@ -314,37 +322,33 @@
             });
         }
 
-        let editData = (id, noSP, spke, berlaku, sampai, dibuat, idKaryawan) => {
+        let editData = (id, tgl, idKaryawan, totalPinjaman, totalPotongan, sudahdiPotong, sisaPotong) => {
             $('#cardForm').CardWidget('toggle')
-            let action = 'sp/update'
-            $('#id').val(id)
+            let action = 'advance/update'
+            $('#tanggalRealisasi').val(tgl);
+            $('#jumlahPinjaman').val(totalPinjaman);
+            $('#jumlahPotongan').val(totalPotongan);
+            $('#noPinjaman').val(id);
             $('#idKaryawan').val(idKaryawan).trigger('change');
-            $('#noSP').val(noSP);
-            $('#dibuatTanggal').val(dibuat);
-            $('#berlakuTanggal').val(berlaku);
-            $('#sampaiTanggal').val(sampai);
-            $('#spKe').val(spke);
+            document.getElementById('noPinjaman').disabled = true;
             document.getElementById('btnSaveData').classList.add('d-none')
             document.getElementById('btnUpdateData').classList.remove('d-none')
             document.getElementById('btnCancel').classList.remove('d-none')
             document.getElementById('upload').action = action
-            document.getElementById("fileUpload").required = false;
         }
 
         let btnCancel = () => {
             $('#cardForm').CardWidget('toggle')
-            let action = 'sp/store'
-            $('#fileUpload').val('');
-            $('#idKaryawan').val('');
-            $('#noSP').val('');
-            $('#dibuatTanggal').val('');
-            $('#berlakuTanggal').val('');
-            $('#sampaiTanggal').val('');
-            $('#spKe').val('1');
+            let action = 'advance/store'
+            $('#tanggalRealisasi').val('');
+            $('#jumlahPinjaman').val('');
+            $('#jumlahPotongan').val('');
+            $('#idKaryawan').val('').trigger('change');
+            number();
+            document.getElementById('noPinjaman').disabled = false;
             document.getElementById('btnSaveData').classList.remove('d-none')
             document.getElementById('btnUpdateData').classList.add('d-none')
             document.getElementById('btnCancel').classList.add('d-none')
-            document.getElementById("fileUpload").required = true;
             document.getElementById('upload').action = action
         }
 

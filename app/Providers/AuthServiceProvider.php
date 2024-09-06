@@ -26,6 +26,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role == '1';
         });
 
+        Gate::define('payroll', function (UserModel $user) {
+            return $user->role <= '2';
+        });
+
         Gate::define('hc', function (UserModel $user) {
             return $user->role <= '3';
         });
