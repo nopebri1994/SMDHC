@@ -12,6 +12,7 @@
     {{-- <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css"> --}}
     <link rel="stylesheet" href="{{ URL::to('/') }}/vendor/flasher/flasher.min.css">
     <link rel="stylesheet" href="{{ URL::to('/') }}/assets/adminlte/css/adminlte.min.css">
+    <link rel="icon" href="{{ URL::to('/') }}/assets/img/icon.png">
 </head>
 
 <body class="hold-transition login-page">

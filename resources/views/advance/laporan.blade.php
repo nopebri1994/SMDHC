@@ -221,7 +221,7 @@
                             $countPotongan = 0 + 1;
                         }
 
-                        $potongan = $a->totalPinjaman / $a->totalPotongan;
+                        $potongan = $a->jumlahPotong;
                         $totalBayar = $openBalance + $potongan;
                         $closeBalance = $a->totalPinjaman - $totalBayar;
                         $allTotalPinjaman += $a->totalPinjaman;

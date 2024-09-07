@@ -144,20 +144,44 @@
                         <i class="fas fa-th-large"></i>
                     </a>
                 </li> --}}
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
+                <li class="nav-item dropdown user-menu">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <i class="fas fa-user-lock"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <div class="dropdown-divider"></div>
-                        <a href="{{ URL::to('/') }}/login/logout    " class="dropdown-item">
-                            <i class="fas fa-door-open mr-2"></i>Logout
-                        </a>
+                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <!-- User image -->
+                        <li class="user-header bg-primary">
+                            <img src="{{ URL::to('/') }}/assets/img/user.png" class="img-circle elevation-2"
+                                alt="User Image">
 
-                    </div>
+                            <p>
+                                {{ auth()->user()->karyawan->namaKaryawan }}
+                                <small>{{ auth()->user()->karyawan->bagian->namaBagian }}</small>
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        {{-- <li class="user-body">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    <a href="#">Followers</a>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <a href="#">Sales</a>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <a href="#">Friends</a>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </li> --}}
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            {{-- <a href="#" class="btn btn-default btn-flat">Profile</a> --}}
+                            <a href="{{ URL::to('/') }}/login/logout" class="btn btn-default btn-flat float-right">
+                                <i class="fas fa-door-open mr-2"></i> Sign Out
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-
-
             </ul>
         </nav>

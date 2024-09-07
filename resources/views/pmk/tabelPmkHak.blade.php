@@ -1,11 +1,11 @@
-<table class="tbl table table-striped table-bordered display nowrap" style="width: 100%">
+<table class="tbl table table-sm table-striped table-bordered display nowrap" style="width: 100%">
     <thead>
         <tr>
-            <th rowspan="2" style="padding-bottom:35px; text-align:center;">#</th>
-            <th rowspan="2" style="padding-bottom:35px; text-align:center;">NIK</th>
-            <th rowspan="2" style="padding-bottom:35px; text-align:center;">Nama Karyawan</th>
-            <th rowspan="2" style="padding-bottom:35px; text-align:center;">Tanggal Masuk</th>
-            <th rowspan="2" style="padding-bottom:35px; text-align:center;">Dept / Bagian</th>
+            <th rowspan="2" style="padding-bottom:20px; text-align:center;">#</th>
+            <th rowspan="2" style="padding-bottom:20px; text-align:center;">NIK</th>
+            <th rowspan="2" style="padding-bottom:20px; text-align:center;">Nama Karyawan</th>
+            <th rowspan="2" style="padding-bottom:20px; text-align:center;">Tanggal Masuk</th>
+            <th rowspan="2" style="padding-bottom:20px; text-align:center;">Dept / Bagian</th>
             <th colspan="4" style=" text-align:center;">Tahun Ke</th>
         </tr>
         <tr>

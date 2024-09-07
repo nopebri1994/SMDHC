@@ -109,11 +109,11 @@ class advanceController extends Controller
         $m = date('m');
         $y = date('Y');
         $date = date('Y-m-d');
-        $cekadvance = detailAdvanceModel::whereMonth('tanggalProses', $m)->whereYear('tanggalProses', $y)->first();
 
-        if (empty($cekadvance)) {
-            $list = advanceModel::where('status', 1)->get();
-            foreach ($list as $l) {
+        $list = advanceModel::where('status', 1)->get();
+        foreach ($list as $l) {
+            $cekadvance = detailAdvanceModel::where('no_pinjaman', $l->no_pinjaman)->whereMonth('tanggalProses', $m)->whereYear('tanggalProses', $y)->first();
+            if (empty($cekadvance)) {
                 if ($l->sudahDipotong + 1 == $l->totalPotongan) {
                     $status = '2';
                 } else {
@@ -136,35 +136,37 @@ class advanceController extends Controller
                 ];
                 advanceModel::where('no_pinjaman', $l->no_pinjaman)->update($tmpUpdate);
             }
-            return response()->json([
-                'success' => 'Pemotongan Advance Sukses',
-                'error' => '',
-            ]);
-        } else {
-            return response()->json([
-                'success' => '',
-                'error' => 'Advance Sudah dipotong',
-            ]);
         }
+
+        return response()->json([
+            'success' => 'Pemotongan Advance Sukses',
+            'error' => '',
+        ]);
+
+        // return response()->json([
+        //     'success' => '',
+        //     'error' => 'Advance Sudah dipotong',
+        // ]);
     }
-    function cetakLaporan(Request $request){
-        $m= $request->m;
-        $y= $request->y;
-        $modifYear = $y.'-'.$m.'-30';
-        $m=date('m',strtotime($modifYear));
-        $realDate=date('Y-m-d',strtotime("-1 Month",strtotime($modifYear)));
-        $advance = DB::table('advance')->join('detailAdvance','detailAdvance.no_pinjaman','advance.no_pinjaman')->whereYear('detailAdvance.tanggalProses',$y)->whereMonth('detailAdvance.tanggalProses',$m)->get();
+    function cetakLaporan(Request $request)
+    {
+        $m = $request->m;
+        $y = $request->y;
+        $modifYear = $y . '-' . $m . '-30';
+        $m = date('m', strtotime($modifYear));
+        $realDate = date('Y-m-d', strtotime("-1 Month", strtotime($modifYear)));
+        $advance = DB::table('advance')->join('detailAdvance', 'detailAdvance.no_pinjaman', 'advance.no_pinjaman')->whereYear('detailAdvance.tanggalProses', $y)->whereMonth('detailAdvance.tanggalProses', $m)->get();
         $nama = karyawanModel::whereNull('km')->get()->toArray();
-        $detailAdvance = DB::table('detailAdvance')->select('advance.no_pinjaman',DB::raw('count(detailAdvance.no_pinjaman) as total'))->join('advance','detailAdvance.no_pinjaman','advance.no_pinjaman')->whereDate('tanggalProses','<=',$realDate)->groupBy('advance.no_pinjaman')->get()->toArray();
-        $tmp= [
+        $detailAdvance = DB::table('detailAdvance')->select('advance.no_pinjaman', DB::raw('count(detailAdvance.no_pinjaman) as total'))->join('advance', 'detailAdvance.no_pinjaman', 'advance.no_pinjaman')->whereDate('tanggalProses', '<=', $realDate)->groupBy('advance.no_pinjaman')->get()->toArray();
+        $tmp = [
             'month' => $m,
-            'year' =>$y,
-            'advance'=>$advance,
-            'detail'=>$detailAdvance,
-            'nama'=>$nama,
+            'year' => $y,
+            'advance' => $advance,
+            'detail' => $detailAdvance,
+            'nama' => $nama,
         ];
-        $pdf = Pdf::loadView('advance.laporan',$tmp)->setPaper('A4','landscape');
-     
+        $pdf = Pdf::loadView('advance.laporan', $tmp)->setPaper('A4', 'landscape');
+
         return $pdf->stream("laporan-Advance.pdf");
         // return view('advance.laporan');
     }

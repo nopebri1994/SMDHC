@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-light-orange elevation-4">
 
     <a href="#" class="brand-link bg-gray-dark">
-        <img src="{{ URL::to('/') }}/assets/img/logo.png" alt="LMW Logo" class="brand-image elevation-3"
+        <img src="{{ URL::to('/') }}/assets/img/icon.png" alt="LMW Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">SMDHC</span>
     </a>
@@ -10,7 +10,8 @@
 
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ URL::to('/') }}/assets/img/icon.png" class="img-circle elevation-2 bg-gray-dark"
+
+                <img src="{{ URL::to('/') }}/assets/img/user.png" class="img-circle elevation-2 bg-gray-dark"
                     alt="User Image">
             </div>
             <div class="info">
@@ -72,7 +73,7 @@
                 @can('hc')
                     <li class="nav-item  {{ request()->is('pay/*') ? 'menu-is-opening menu-open' : '' }}">
                         <a href="#" class="nav-link {{ request()->is('pay/*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-money-bill-alt"></i>
+                            <i class="nav-icon fas fa-university"></i>
                             <p>
                                 Payroll
                                 <i class="right fas fa-angle-left"></i>

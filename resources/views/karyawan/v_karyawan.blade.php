@@ -11,6 +11,7 @@
             0% {
                 transition: visibility 0s 2s, opacity 2s linear;
             }
+
             100% {
                 display: none,
             }
@@ -41,7 +42,7 @@
                             {{-- <h5 class="m-0">{{ $title }}</h5> --}}
                             @can('hc')
                                 <div class="d-flex flex-row flex-wrap">
-                                    <div class="p-2"><label for="">Perusahaan</label></div>
+                                    <div class="p-2"><label for="perusahaan">Perusahaan</label></div>
                                     <div class="" style="width: 400px">
                                         <select name="perusahaan" id="perusahaan" class="form-control">
                                             @foreach ($perusahaan as $p)
@@ -87,9 +88,9 @@
     <script>
         $(document).ready(function() {
             loadData();
-            @can('hc')
+            @if (session('status'))
                 alert();
-            @endcan
+            @endif
         })
 
         @can('hc')

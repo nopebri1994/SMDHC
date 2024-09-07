@@ -23,6 +23,7 @@
             left: 0px;
             right: 0px;
             height: 50px;
+            font-size: 10px;
         }
 
         .head {
@@ -160,17 +161,17 @@
                         <td class="center">{{ date('d-m-Y', strtotime($awal)) }}</td>
                         <td class="center">{{ varHelper::hariIndo(date('l', strtotime($awal))) }}</td>
                         <td class="center" style="font-style:italic">
-                            @if (!empty($obj))
+                            @if ($obj !== false)
                                 {{ date('H:i', strtotime($dataisi[$obj]['jadwalMasuk'])) }}
                             @endif
                         </td>
                         <td class="center" style="font-style:italic">
-                            @if (!empty($obj))
+                            @if ($obj !== false)
                                 {{ date('H:i', strtotime($dataisi[$obj]['jadwalPulang'])) }}
                             @endif
                         </td>
                         <td class="center">
-                            @if (!empty($obj))
+                            @if ($obj !== false)
                                 @if ($dataisi[$obj]['jamDatang'] != null)
                                     {{ date('H:i', strtotime($dataisi[$obj]['jamDatang'])) }}
                                 @endif
@@ -178,7 +179,7 @@
 
                         </td>
                         <td class="center">
-                            @if (!empty($obj))
+                            @if ($obj !== false)
                                 @if ($dataisi[$obj]['jamPulang'] != null)
                                     {{ date('H:i', strtotime($dataisi[$obj]['jamPulang'])) }}
                                 @endif
@@ -188,9 +189,9 @@
                             {{ $dataisi[$obj]['keteranganIjin'] }}
                         </td>
                         <td class="center"
-                            @if (!empty($obj)) @if ($dataisi[$obj]['terlambat'] != 'Tidak') style="background-color:yellow" @endif
+                            @if ($obj !== false) @if ($dataisi[$obj]['terlambat'] != 'Tidak') style="background-color:yellow" @endif
                             @endif>
-                            @if (!empty($obj))
+                            @if ($obj !== false)
                                 @if ($dataisi[$obj]['terlambat'] != 'Tidak')
                                     {{ $dataisi[$obj]['terlambat'] }}
                                 @endif

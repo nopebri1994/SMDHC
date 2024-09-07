@@ -190,9 +190,9 @@ class absensiHarianController extends Controller
         $id = $getid->id;
         $tglAkhir = $request->akhir;
         $tglAwal = $request->awal;
-        $awal = date('Y-m-d', strtotime('-1 days', strtotime($tglAwal)));
+        // $awal = date('Y-m-d', strtotime('-1 days', strtotime($tglAwal)));
         $dataHeader = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->where('id', $id)->first();
-        $dataisi = prosesAbsensiHarianModel::where('idKaryawan', $id)->whereBetween('tglAbsen', [$awal, $tglAkhir])->orderBy('tglAbsen')->get()->toArray();
+        $dataisi = prosesAbsensiHarianModel::where('idKaryawan', $id)->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->orderBy('tglAbsen')->get()->toArray();
         $ketijin = DB::table('absensi_keteranganIjin')->where('idKaryawan', $id)->whereBetween('tanggalIjin', [$tglAwal, $tglAkhir])->get()->toArray();
         $sof = groupOffModel::whereBetween('tanggalOff', [$tglAwal, $tglAkhir])->get()->toArray();
         $libur = liburModel::whereBetween('tanggalLibur', [$tglAwal, $tglAkhir])->get()->toArray();

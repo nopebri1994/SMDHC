@@ -120,7 +120,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3 pt-1">
+                                <div class="col-md-3 col-sm-12 pt-1">
                                     <select name="idKaryawan2" id="idKaryawan2" class="select form-control"
                                         data-live-search="true" data-show-subtext="true" required>
                                         <option value="0">Pilih Nama Karyawan</option>
@@ -152,7 +152,7 @@
                                 <div class="col-md-2 pt-1">
 
                                     <select name="year" id="year" class="form-control">
-                                        @for ($i = 2022; $i < 2030; $i++)
+                                        @for ($i = 2024; $i < 2030; $i++)
                                             <option>{{ $i }}</option>
                                         @endfor
                                     </select>

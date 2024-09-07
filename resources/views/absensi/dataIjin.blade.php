@@ -12,7 +12,7 @@
         <thead class="pt-2">
             <tr>
                 <th>#</th>
-                <th>NIK</th>
+                <th class="text-center">NIK</th>
                 <th>Nama Karyawan</th>
                 <th>Bagian</th>
                 <th>Ijin</th>

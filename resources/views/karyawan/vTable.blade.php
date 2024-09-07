@@ -15,7 +15,7 @@
      <tbody>
          @foreach ($karyawan as $key => $k)
              <tr>
-                 <td class="text-center">{{ $key + 1 }}</td>
+                 <td class="text-center my-auto">{{ $key + 1 }}</td>
                  <td class="text-center">{{ $k->nikKerja }}</td>
                  <td>{{ $k->namaKaryawan }}</td>
                  <td class="text-center">{{ $k->jabatan->namaJabatan }}</td>

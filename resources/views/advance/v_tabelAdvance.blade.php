@@ -55,10 +55,13 @@
                         <button type="button" class="btn btn-primary btn-sm" id="btnEdit"
                             onclick="editData('{{ $d->no_pinjaman }}','{{ $d->tanggalRealisasi }}','{{ $d->idKaryawan }}','{{ $d->totalPinjaman }}','{{ $d->totalPotongan }}','{{ $d->sudahDipotong }}','{{ $d->sisaPotongan }}')"><i
                                 class="far fa-edit"></i> Edit</button>
-                        <button type="button" class="btn btn-danger btn-sm" id="btnDelete"
-                            onclick="deleteData('{{ $d->no_pinjaman }}','{{ $d->karyawanModel->namaKaryawan }}')"><i
-                                class="fas fa-trash-alt"></i>
-                            Delete</button>
+                        @can('admin')
+                            <button type="button" class="btn btn-danger btn-sm" id="btnDelete"
+                                onclick="deleteData('{{ $d->no_pinjaman }}','{{ $d->karyawanModel->namaKaryawan }}')"><i
+                                    class="fas fa-trash-alt"></i>
+                                Delete</button>
+                        @endcan
+
                     </div>
                 </td>
         @endforeach
