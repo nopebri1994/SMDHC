@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class detailAdvanceModel extends Model
 {
@@ -15,4 +16,11 @@ class detailAdvanceModel extends Model
         'jumlahPotong',
         'potonganKe'
     ];
+
+    protected $with = ['advanceModel'];
+
+    function advanceModel(): BelongsTo
+    {
+        return $this->belongsTo(advanceModel::class, 'no_pinjaman','no_pinjaman');
+    }
 }

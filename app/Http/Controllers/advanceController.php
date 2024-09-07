@@ -7,6 +7,8 @@ use App\Models\detailAdvanceModel;
 use App\Models\karyawanModel;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+
 class advanceController extends Controller
 {
     function index()
@@ -146,8 +148,23 @@ class advanceController extends Controller
         }
     }
     function cetakLaporan(Request $request){
-        $pdf = Pdf::loadView('advance.laporan');
-        Pdf::setPaper('A4','landscape');
+        $m= $request->m;
+        $y= $request->y;
+        $modifYear = $y.'-'.$m.'-30';
+        $m=date('m',strtotime($modifYear));
+        $realDate=date('Y-m-d',strtotime("-1 Month",strtotime($modifYear)));
+        $advance = DB::table('advance')->join('detailAdvance','detailAdvance.no_pinjaman','advance.no_pinjaman')->whereYear('detailAdvance.tanggalProses',$y)->whereMonth('detailAdvance.tanggalProses',$m)->get();
+        $nama = karyawanModel::whereNull('km')->get()->toArray();
+        $detailAdvance = DB::table('detailAdvance')->select('advance.no_pinjaman',DB::raw('count(detailAdvance.no_pinjaman) as total'))->join('advance','detailAdvance.no_pinjaman','advance.no_pinjaman')->whereDate('tanggalProses','<=',$realDate)->groupBy('advance.no_pinjaman')->get()->toArray();
+        $tmp= [
+            'month' => $m,
+            'year' =>$y,
+            'advance'=>$advance,
+            'detail'=>$detailAdvance,
+            'nama'=>$nama,
+        ];
+        $pdf = Pdf::loadView('advance.laporan',$tmp)->setPaper('A4','landscape');
+     
         return $pdf->stream("laporan-Advance.pdf");
         // return view('advance.laporan');
     }

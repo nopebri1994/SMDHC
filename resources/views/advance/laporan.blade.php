@@ -67,12 +67,14 @@
         }
 
         td.bts {
-            border-top: 1px solid #000000;
+            border-top: 0px;
             border-right: 1px solid #000000;
-            border-bottom: 0px solid #000000;
-            /* border-style: dotted; */
+            border-bottom: 1px solid #000000;
+            border-left: 0px;
+
+            border-style: dotted;
             border-collapse: collapse;
-            font-size: 10px;
+            font-size: 9px;
             text-align: center;
 
         }
@@ -85,15 +87,16 @@
             border-style: dotted;
             border-collapse: collapse;
             text-align: center;
-            font-size: 10px;
+            font-size: 9px;
         }
 
         tr.nd {
             border-left: 0px;
             border-right: 0px;
+            border-top: 1px solid #000000;
             border-bottom: 1px solid #000000;
             /* border-collapse: collapse; */
-            border-style: dotted;
+            /* border-style: dotted; */
 
         }
     </style>
@@ -131,7 +134,7 @@
             </tr>
             <tr>
                 <td align='center'>
-                    Bulan : $namabln, $year
+                    Bulan : {{ varHelper::m($month) }}, {{ $year }}
                 </td>
             </tr>
         </table>
@@ -165,10 +168,10 @@
                     <th>
                         N.I.K.
                     </th>
-                    <th>
+                    <th style="width: 10%;">
                         Nama Karyawan
                     </th>
-                    <th>
+                    <th style="width: 10%;">
                         Dept / Bagian
                     </th>
                     <th style="word-break:break-all;" width="10px">
@@ -198,31 +201,87 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="">
-                    <td class="nr">1</td>
-                    <td class="">1</td>
-                    <td class="">1</td>
-                    <td class="">1</td>
-                    <td class="">1</td>
-                    <td class="">1</td>
-                    <td class="bts">1</td>
-                    <td class="">1</td>
-                    <td class="">1</td>
-                    <td class="">1</td>
-                    <td class="">1</td>
-                    <td class="">1</td>
-                </tr>
+                @php
+                    $allTotalPinjaman = 0;
+                    $allOpenBalance = 0;
+                    $allPotongan = 0;
+                    $allBayar = 0;
+                    $allClose = 0;
+                @endphp
+                @foreach ($advance as $key => $a)
+                    @php
+                        $nx = array_search($a->idKaryawan, array_column($nama, 'id'));
+
+                        $obj = array_search($a->no_pinjaman, array_column($detail, 'no_pinjaman'));
+                        if ($obj !== false) {
+                            $openBalance = ($a->totalPinjaman / $a->totalPotongan) * $detail[$obj]->total;
+                            $countPotongan = $detail[$obj]->total + 1;
+                        } else {
+                            $openBalance = 0;
+                            $countPotongan = 0 + 1;
+                        }
+
+                        $potongan = $a->totalPinjaman / $a->totalPotongan;
+                        $totalBayar = $openBalance + $potongan;
+                        $closeBalance = $a->totalPinjaman - $totalBayar;
+                        $allTotalPinjaman += $a->totalPinjaman;
+                        $allOpenBalance += $openBalance;
+                        $allPotongan += $potongan;
+                        $allBayar += $totalBayar;
+                        $allClose += $closeBalance;
+                    @endphp
+                    <tr class="">
+                        <td class="nr">{{ $key + 1 }}</td>
+                        <td class="nr">{{ $nama[$nx]['nikKerja'] }}</td>
+                        <td class="nr" style="text-align:left">{{ $nama[$nx]['namaKaryawan'] }}</td>
+                        <td class="nr">
+                            @if (empty($nama[$nx]['bagian']['kode']))
+                                {{ $nama[$nx]['departemen']['kode'] }}
+                            @else
+                                {{ $nama[$nx]['departemen']['kode'] }}/ {{ $nama[$nx]['bagian']['kode'] }}
+                            @endif
+                        </td>
+                        <td class="nr">
+                            {{ $a->no_pinjaman }}
+                        </td>
+                        <td class="nr">
+                            Rp.{{ number_format($a->totalPinjaman, 0, ',') }}
+                        </td>
+                        <td class="bts">
+                            {{ varHelper::formatDate($a->tanggalRealisasi) }}
+                        </td>
+
+                        <td class="nr">
+                            Rp.{{ number_format($openBalance, 0, ',') }}
+                        </td>
+                        <td class="nr">
+                            Rp.{{ number_format($potongan, 0, ',') }}
+                        </td>
+                        <td class="nr"> {{ $countPotongan }}/{{ $a->totalPotongan }}</td>
+                        <td class="nr">
+                            Rp.{{ number_format($totalBayar, 0, ',') }}
+                        </td>
+                        <td class="nr">
+                            Rp.{{ number_format($closeBalance, 0, ',') }}
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
             <tfoot>
                 <tr class="nd">
-                    <td style="text-align: center" colspan="5"><b>Total</b></td>
-                    <td class=""></td>
+                    <td class="nr" style="text-align: center" colspan="5"><b>Total</b></td>
+                    <td class="nr" style="width:10%">Rp. {{ number_format($allTotalPinjaman, 0, ',') }}
+                    </td>
                     <td class="bts"></td>
-                    <td class=""></td>
-                    <td class=""></td>
-                    <td class=""></td>
-                    <td class=""></td>
-                    <td class=""></td>
+                    <td class="nr" style="width:10%">Rp. {{ number_format($allOpenBalance, 0, ',') }}</td>
+                    <td class="nr" style="width:10%">Rp. {{ number_format($allPotongan, 0, ',') }}</td>
+                    <td class="nr"></td>
+                    <td class="nr" style="width:10%">
+                        Rp. {{ number_format($allBayar, 0, ',') }}
+                    </td>
+                    <td class="nr" style="width:10%">
+                        Rp. {{ number_format($allClose, 0, ',') }}
+                    </td>
                 </tr>
             </tfoot>
         </table>

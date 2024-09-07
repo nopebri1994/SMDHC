@@ -161,7 +161,7 @@
                                     <button class="btn btn_orange btn-block" id="btnCetak">Cetak</button>
                                 </div>
                                 <div class="col-md-2 pt-1">
-                                    <button class="btn btn-primary btn-block" id="btnProses" disabled>Proses
+                                    <button class="btn btn-primary btn-block" id="btnProses"> Proses
                                         Advance</button>
                                 </div>
                             </div>
@@ -253,7 +253,10 @@
         }
 
         document.getElementById('btnCetak').onclick = () => {
-            window.open("advance/cetakLaporan");
+            let m = $('#month').val();
+            let y = $('#year').val();
+
+            window.open("advance/cetakLaporan?m=" + m + "&y=" + y);
         }
 
         let loadData = () => {

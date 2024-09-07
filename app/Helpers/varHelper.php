@@ -282,4 +282,45 @@ class varHelper
         }
         return $tmp;
     }
+    public static function m($x)
+    {
+        switch ($x) {
+            case '1';
+                $tmp = 'Januari';
+                break;
+            case '2';
+                $tmp = 'Februari';
+                break;
+            case '3';
+                $tmp = 'March';
+                break;
+            case '4';
+                $tmp = 'April';
+                break;
+            case '5';
+                $tmp = 'Mei';
+                break;
+            case '6';
+                $tmp = 'Juni';
+                break;
+            case '7';
+                $tmp = 'Juli';
+                break;
+            case '8';
+                $tmp = 'Agustus';
+                break;
+            case '9';
+                $tmp = 'September';
+                break;
+            case '10';
+                $tmp = 'Oktober';
+                break;
+            case '11';
+                $tmp = 'November';
+                break;
+            default:
+                $tmp = 'Desember';
+        }
+        return $tmp;
+    }
 }

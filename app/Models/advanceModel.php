@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class advanceModel extends Model
 {
@@ -23,5 +24,10 @@ class advanceModel extends Model
     function karyawanModel(): BelongsTo
     {
         return $this->belongsTo(karyawanModel::class, 'idKaryawan');
+    }
+
+    function detailAdvanceModel(): HasOne
+    {
+        return $this->hasOne(detailAdvanceModel::class, 'no_pinjaman','no_pinjaman');
     }
 }
