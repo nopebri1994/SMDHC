@@ -9,6 +9,7 @@ class absensiHarianModel extends Model
 {
     use HasFactory;
 
+    // $guarded='';
     protected $table = 'absensiHarian';
     protected $fillable = [
         'idFinger',
@@ -17,4 +18,3 @@ class absensiHarianModel extends Model
         'idMesin'
     ];
 }
- 

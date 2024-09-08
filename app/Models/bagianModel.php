@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class bagianModel extends Model
 {
@@ -16,6 +17,11 @@ class bagianModel extends Model
         'namaBagian',
         'kode'
     ];
+    
+    public function karyawan(): HasMany
+    {
+        return $this->hasMany(karyawanModel::class, 'idBagian');
+    }
 
     public function departemen(): BelongsTo
     {
