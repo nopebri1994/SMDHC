@@ -136,23 +136,31 @@
                 </tr>
             </thead>
             <tbody>
+
                 @php
                     $awal = $tglAwal;
                     $i = 1;
+                    $isi = collect($dataisi);
+                    $dataLibur = collect($libur);
+                    $dataOff = collect($sof);
                 @endphp
                 @while (strtotime($awal) <= strtotime($tglAkhir))
                     @php
-                        $obj = array_search($awal, array_column($dataisi, 'tglAbsen'));
+                        $detailIsi = $isi->firstWhere('tglAbsen', $awal);
+                        // $obj = array_search($awal, array_column($dataisi, 'tglAbsen'));
                         $keterangan = '';
                         $objLibur = array_search($awal, array_column($libur, 'tanggalLibur'));
-                        if ($objLibur != '') {
-                            $keterangan = $libur[$objLibur]['keterangan'];
+                        $hariLibur = $dataLibur->firstWhere('tanggalLibur', $awal);
+                        if ($hariLibur != null) {
+                            $keterangan = $hariLibur['keterangan'];
                         } elseif (date('l', strtotime($awal)) == 'Sunday') {
                             $keterangan = '#';
                         }
                         $ketSof = '';
-                        $off = array_search($awal, array_column($sof, 'tanggalOff'));
-                        if ($off != '' and $sof[$off]['group'] == $dataHeader->groupOff) {
+                        // $off = array_search($awal, array_column($sof, 'tanggalOff'));
+                        $off = $dataOff->firstWhere('tanggalOff', $awal);
+
+                        if ($off != null and $off['group'] == $dataHeader->groupOff) {
                             $ketSof = 'SOF';
                         }
                     @endphp
@@ -161,39 +169,36 @@
                         <td class="center">{{ date('d-m-Y', strtotime($awal)) }}</td>
                         <td class="center">{{ varHelper::hariIndo(date('l', strtotime($awal))) }}</td>
                         <td class="center" style="font-style:italic">
-                            @if ($obj !== false)
-                                {{ date('H:i', strtotime($dataisi[$obj]['jadwalMasuk'])) }}
+                            @if ($detailIsi != null and $detailIsi['jadwalMasuk'])
+                                {{ date('H:i', strtotime($detailIsi['jadwalMasuk'])) }}
                             @endif
                         </td>
                         <td class="center" style="font-style:italic">
-                            @if ($obj !== false)
-                                {{ date('H:i', strtotime($dataisi[$obj]['jadwalPulang'])) }}
+                            @if ($detailIsi != null and $detailIsi['jadwalPulang'])
+                                {{ date('H:i', strtotime($detailIsi['jadwalPulang'])) }}
                             @endif
                         </td>
                         <td class="center">
-                            @if ($obj !== false)
-                                @if ($dataisi[$obj]['jamDatang'] != null)
-                                    {{ date('H:i', strtotime($dataisi[$obj]['jamDatang'])) }}
-                                @endif
-                            @endif
-
-                        </td>
-                        <td class="center">
-                            @if ($obj !== false)
-                                @if ($dataisi[$obj]['jamPulang'] != null)
-                                    {{ date('H:i', strtotime($dataisi[$obj]['jamPulang'])) }}
-                                @endif
+                            @if ($detailIsi != null and $detailIsi['jamDatang'] != null)
+                                {{ date('H:i', strtotime($detailIsi['jamDatang'])) }}
                             @endif
                         </td>
                         <td class="center">
-                            {{ $dataisi[$obj]['keteranganIjin'] }}
+                            @if ($detailIsi != null and $detailIsi['jamPulang'] != null)
+                                {{ date('H:i', strtotime($detailIsi['jamPulang'])) }}
+                            @endif
+                        </td>
+                        <td class="center">
+                            @if ($detailIsi != null and $detailIsi['keteranganIjin'] != null)
+                                {{ $detailIsi['keteranganIjin'] }}
+                            @endif
                         </td>
                         <td class="center"
-                            @if ($obj !== false) @if ($dataisi[$obj]['terlambat'] != 'Tidak') style="background-color:yellow" @endif
+                            @if ($detailIsi != null) @if ($detailIsi['terlambat'] != 'Tidak') style="background-color:yellow" @endif
                             @endif>
-                            @if ($obj !== false)
-                                @if ($dataisi[$obj]['terlambat'] != 'Tidak')
-                                    {{ $dataisi[$obj]['terlambat'] }}
+                            @if ($detailIsi != null)
+                                @if ($detailIsi['terlambat'] != 'Tidak')
+                                    {{ $detailIsi['terlambat'] }}
                                 @endif
                             @endif
                         </td>
