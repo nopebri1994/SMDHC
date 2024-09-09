@@ -11,6 +11,7 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\hutangCutiController;
 use App\Http\Controllers\jabatanController;
 use App\Http\Controllers\jamKerjaController;
+use App\Http\Controllers\kalkulasiController;
 use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\karyawanKeluarController;
 use App\Http\Controllers\keteranganIjinController;
@@ -205,6 +206,10 @@ Route::middleware('auth')->group(function () {
         Route::get('pay/advance/tabelData', 'tabelData');
         Route::get('pay/advance/cetakLaporan', 'cetakLaporan');
     })->middleware('can:payroll');
+
+    //kalkulasi
+    Route::get('psn/kalkulasi', [kalkulasiController::class, 'index']);
+    Route::get('psn/kalkulasi/tabelData', [kalkulasiController::class, 'tabelData']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');

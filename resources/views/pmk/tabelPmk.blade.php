@@ -3,7 +3,7 @@
         <tr>
             <th rowspan="2" style="padding-bottom:20px; text-align:center;">#</th>
             <th rowspan="2" style="padding-bottom:20px; text-align:center;">NIK</th>
-            <th rowspan="2" style="padding-bottom:20x; text-align:center;">Nama Karyawan</th>
+            <th rowspan="2" style="padding-bottom:20px; text-align:center;">Nama Karyawan</th>
             <th rowspan="2" style="padding-bottom:20px; text-align:center;">Tanggal Masuk</th>
             <th rowspan="2" style="padding-bottom:20px; text-align:center;">Dept / Bagian</th>
             <th colspan="4" style=" text-align:center;">Tahun Ke</th>

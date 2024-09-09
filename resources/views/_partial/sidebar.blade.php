@@ -153,6 +153,13 @@
                                 <p>Hutang Cuti Karyawan</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ URL::to('/') }}/psn/kalkulasi"
+                                class="nav-link {{ request()->is('psn/kalkulasi') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kalkulasi Ijin</p>
+                            </a>
+                        </li>
                         @can('hc')
                             <li class="nav-item">
                                 <a href="{{ URL::to('/') }}/psn/kontrak-karyawan"
