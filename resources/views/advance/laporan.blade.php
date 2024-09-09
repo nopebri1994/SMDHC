@@ -216,10 +216,11 @@
                         $nx = $detailKaryawan->firstWhere('id', $a->idKaryawan);
                         $detailPotong = $detailPinjaman->firstWhere('no_pinjaman', $a->no_pinjaman);
 
+                        // dd($detailPotong);
                         // $obj = array_search($a->no_pinjaman, array_column($detail, 'no_pinjaman'));
                         if ($detailPotong != null) {
-                            $openBalance = ($a->totalPinjaman / $a->totalPotongan) * $detailPotong['total'];
-                            $countPotongan = $detailPotong['total'] + 1;
+                            $openBalance = ($a->totalPinjaman / $a->totalPotongan) * $detailPotong->total;
+                            $countPotongan = $detailPotong->total + 1;
                         } else {
                             $openBalance = 0;
                             $countPotongan = 0 + 1;
