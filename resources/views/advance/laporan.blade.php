@@ -207,15 +207,19 @@
                     $allPotongan = 0;
                     $allBayar = 0;
                     $allClose = 0;
+                    $detailKaryawan = collect($nama);
+                    $detailPinjaman = collect($detail);
                 @endphp
                 @foreach ($advance as $key => $a)
                     @php
-                        $nx = array_search($a->idKaryawan, array_column($nama, 'id'));
+                        // $nx = array_search($a->idKaryawan, array_column($nama, 'id'));
+                        $nx = $detailKaryawan->firstWhere('id', $a->idKaryawan);
+                        $detailPotong = $detailPinjaman->firstWhere('no_pinjaman', $a->no_pinjaman);
 
-                        $obj = array_search($a->no_pinjaman, array_column($detail, 'no_pinjaman'));
-                        if ($obj !== false) {
-                            $openBalance = ($a->totalPinjaman / $a->totalPotongan) * $detail[$obj]->total;
-                            $countPotongan = $detail[$obj]->total + 1;
+                        // $obj = array_search($a->no_pinjaman, array_column($detail, 'no_pinjaman'));
+                        if ($detailPotong != null) {
+                            $openBalance = ($a->totalPinjaman / $a->totalPotongan) * $detailPotong['total'];
+                            $countPotongan = $detailPotong['total'] + 1;
                         } else {
                             $openBalance = 0;
                             $countPotongan = 0 + 1;
@@ -232,13 +236,13 @@
                     @endphp
                     <tr class="">
                         <td class="nr">{{ $key + 1 }}</td>
-                        <td class="nr">{{ $nama[$nx]['nikKerja'] }}</td>
-                        <td class="nr" style="text-align:left">{{ $nama[$nx]['namaKaryawan'] }}</td>
+                        <td class="nr">{{ $nx['nikKerja'] }}</td>
+                        <td class="nr" style="text-align:left">{{ $nx['namaKaryawan'] }}</td>
                         <td class="nr">
-                            @if (empty($nama[$nx]['bagian']['kode']))
-                                {{ $nama[$nx]['departemen']['kode'] }}
+                            @if (empty($nx['bagian']['kode']))
+                                {{ $nx['departemen']['kode'] }}
                             @else
-                                {{ $nama[$nx]['departemen']['kode'] }}/ {{ $nama[$nx]['bagian']['kode'] }}
+                                {{ $nx['departemen']['kode'] }}/ {{ $nx['bagian']['kode'] }}
                             @endif
                         </td>
                         <td class="nr">
