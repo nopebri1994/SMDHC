@@ -21,7 +21,7 @@ class apiLoginController extends BaseController
 
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             $user = Auth::user();
-            $success['token'] =  $user->createToken('SMDHC')->plainTextToken;
+            // $success['token'] =  $user->createToken('SMDHC')->plainTextToken;
             $success['name'] =  $user->username;
             return $this->sendResponse($success, 'User login successfully.');
         } else {
