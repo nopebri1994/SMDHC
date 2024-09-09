@@ -26,15 +26,15 @@
                 <td class="text-center">{{ $k->nikKerja }}</td>
                 <td>{{ $k->namaKaryawan }}</td>
                 <td class="text-center">{{ $k->al }}</td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
+                <td class="text-center">{{ $k->ad }}</td>
+                <td class="text-center">{{ $k->sl }}</td>
+                <td class="text-center">{{ $k->cl }}</td>
+                <td class="text-center">{{ $k->cl2 }}</td>
+                <td class="text-center">{{ $k->isd }}</td>
+                <td class="text-center">{{ $k->ish }}</td>
+                <td class="text-center">{{ $k->npl }}</td>
+                <td class="text-center">{{ $k->a }}</td>
+                <td class="text-center">{{ $k->t }}</td>
             </tr>
         @endforeach
 

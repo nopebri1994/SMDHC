@@ -27,23 +27,18 @@ class kalkulasiController extends Controller
 
     function tabelData(Request $request)
     {
-        $id = $request->id;
         $tglAwal = $request->tglAwal;
         $tglAkhir = $request->tglAkhir;
 
         if (auth()->user()->role == '5') {
-            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
+            $karyawan = DB::table('prosesAbsensiHarian')->select('idKaryawan', 'nikKerja', 'namaKaryawan', DB::raw("count(IF(keteranganIjin='AL',1,NULL)) al"), DB::raw("count(IF(keteranganIjin='AD',1,NULL)) ad"), DB::raw("count(IF(keteranganIjin='SL',1,NULL)) sl"), DB::raw("count(IF(keteranganIjin='CL',1,NULL)) cl"), DB::raw("count(IF(keteranganIjin='CL2',1,NULL)) cl2"), DB::raw("count(IF(keteranganIjin='ISD',1,NULL)) isd"), DB::raw("count(IF(keteranganIjin='ISH',1,NULL)) ish"), DB::raw("count(IF(keteranganIjin='NPL',1,NULL)) npl"), DB::raw("count(IF(keteranganIjin='A',1,NULL)) a"), DB::raw("count(terlambat) t"))->join('dataKaryawan', 'dataKaryawan.id', 'prosesAbsensiHarian.idKaryawan')->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->groupBy('idKaryawan')->where('dataKaryawan.idBagian', auth()->user()->karyawan->idBagian)->get();
         } elseif (auth()->user()->role == '4') {
-            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->where('idDepartemen', auth()->user()->karyawan->idDepartemen)->orderBy('nikKerja')->get();
+            $karyawan = DB::table('prosesAbsensiHarian')->select('idKaryawan', 'nikKerja', 'namaKaryawan', DB::raw("count(IF(keteranganIjin='AL',1,NULL)) al"), DB::raw("count(IF(keteranganIjin='AD',1,NULL)) ad"), DB::raw("count(IF(keteranganIjin='SL',1,NULL)) sl"), DB::raw("count(IF(keteranganIjin='CL',1,NULL)) cl"), DB::raw("count(IF(keteranganIjin='CL2',1,NULL)) cl2"), DB::raw("count(IF(keteranganIjin='ISD',1,NULL)) isd"), DB::raw("count(IF(keteranganIjin='ISH',1,NULL)) ish"), DB::raw("count(IF(keteranganIjin='NPL',1,NULL)) npl"), DB::raw("count(IF(keteranganIjin='A',1,NULL)) a"), DB::raw("count(terlambat) t"))->join('dataKaryawan', 'dataKaryawan.id', 'prosesAbsensiHarian.idKaryawan')->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->groupBy('idKaryawan')->where('dataKaryawan.idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
         } else {
-            $karyawan = DB::table('prosesAbsensiHarian')->select('idKaryawan', 'nikKerja', 'namaKaryawan', DB::raw("count(IF(keteranganIjin='AL',1,NULL)) al"))->join('dataKaryawan', 'dataKaryawan.id', 'prosesAbsensiHarian.idKaryawan')->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->groupBy('idKaryawan')->get();
+            $karyawan = DB::table('prosesAbsensiHarian')->select('idKaryawan', 'nikKerja', 'namaKaryawan', DB::raw("count(IF(keteranganIjin='AL',1,NULL)) al"), DB::raw("count(IF(keteranganIjin='AD',1,NULL)) ad"), DB::raw("count(IF(keteranganIjin='SL',1,NULL)) sl"), DB::raw("count(IF(keteranganIjin='CL',1,NULL)) cl"), DB::raw("count(IF(keteranganIjin='CL2',1,NULL)) cl2"), DB::raw("count(IF(keteranganIjin='ISD',1,NULL)) isd"), DB::raw("count(IF(keteranganIjin='ISH',1,NULL)) ish"), DB::raw("count(IF(keteranganIjin='NPL',1,NULL)) npl"), DB::raw("count(IF(keteranganIjin='A',1,NULL)) a"), DB::raw("count(terlambat) t"))->join('dataKaryawan', 'dataKaryawan.id', 'prosesAbsensiHarian.idKaryawan')->whereBetween('tglAbsen', [$tglAwal, $tglAkhir])->groupBy('idKaryawan')->get();
         }
 
-        if ($id == '' and $tglAkhir != '') {
-            $data = [
-                'karyawan' => $karyawan,
-            ];
-        } elseif ($id != '') {
+        if ($tglAkhir != '') {
             $data = [
                 'karyawan' => $karyawan,
             ];

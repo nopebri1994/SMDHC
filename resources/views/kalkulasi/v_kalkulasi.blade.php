@@ -22,16 +22,6 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <select name="karyawan" class="select" id="karyawan">
-                                        <option value="">Semua Data Karyawan</option>
-                                        @foreach ($karyawan as $k)
-                                            <option value="{{ $k->id }}">
-                                                {{ $k->namaKaryawan }}&nbsp;({{ $k->nikKerja }})
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
                                 <div class="col-md-1 pt-2">
                                     <label for="tglAwal">Periode</label>
                                 </div>
@@ -79,11 +69,9 @@
             loadData();
         }
         let loadData = () => {
-            let id = $('#karyawan').val();
             let tglAwal = $('#tglAwal').val();
             let tglAkhir = $('#tglAkhir').val();
             let data = {
-                'id': id,
                 'tglAwal': tglAwal,
                 'tglAkhir': tglAkhir,
             };
