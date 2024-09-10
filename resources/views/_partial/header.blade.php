@@ -54,7 +54,7 @@
                     <span id="jam" class="nav-link"
                         style="font-size: 16px;color:black;font-decoration:bold"></span>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
                     </a>
@@ -74,7 +74,7 @@
                             </div>
                         </form>
                     </div>
-                </li>
+                </li> --}}
                 {{-- <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-comments"></i>

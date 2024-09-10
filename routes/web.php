@@ -214,6 +214,7 @@ Route::middleware('auth')->group(function () {
 
     //overtime
     Route::get('pay/overtime', [overtimeController::class, 'index']);
+    Route::get('pay/store', [overtimeController::class, 'storeData']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');
