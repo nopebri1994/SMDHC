@@ -53,7 +53,7 @@ class homeController extends Controller
                 $date > $pmk242 and $date <= $pmk25 or
                 $date > $pmk292 and $date <= $pmk30
             ) {
-                $hak = +1;
+                $hak = $hak + 1;
             }
         }
 
