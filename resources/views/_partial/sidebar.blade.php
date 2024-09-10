@@ -97,6 +97,7 @@
                                 class="nav-link {{ request()->is('pay/overtime') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Overtime</p>
+                                <span class="right badge badge-danger">P</span>
                             </a>
                         </li>
                     </ul>

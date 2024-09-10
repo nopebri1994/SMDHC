@@ -42,6 +42,15 @@
 
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="info-box mb-3 bg-danger">
+                                        <span class="info-box-icon"><i class="fas fa-gift"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Penghargaan Masa Kerja</span>
+                                            <span class="info-box-number">{{ $pmk }} Orang</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endcan

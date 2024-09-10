@@ -101,7 +101,10 @@
                                            </Textarea>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-sm"> Add</button>
+                                            <button type="button" class="add btn btn-primary btn-sm" id="set">
+                                                Add</button>
+                                            <button type="button" class="add btn btn-primary btn-sm" id="set">
+                                                Add</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -115,8 +118,10 @@
 @endsection
 @section('js')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function() {});
+        $(document).on('click', '.add', function() {
+            $(this).removeClass('btn-primary').addClass('btn-danger')
 
-        });
+        })
     </script>
 @endsection

@@ -24,7 +24,6 @@ class pmkController extends Controller
         } else {
             $karyawan = karyawanModel::whereNull('km')->where('statusKaryawan', '2')->orderBy('tglMasuk')->get();
         }
-
         $tmp = [
             'karyawan' => $karyawan,
         ];

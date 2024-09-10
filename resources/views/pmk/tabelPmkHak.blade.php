@@ -18,6 +18,7 @@
     <tbody>
         @php
             $day = date('Y-m-d');
+            $no = 1;
         @endphp
         @foreach ($karyawan as $key => $k)
             @php
@@ -47,7 +48,7 @@
                     $day > $pmk242 and $day <= $pmk25 or
                     $day > $pmk292 and $day <= $pmk30)
                 <tr>
-                    <td class="text-center">{{ $key + 1 }}</td>
+                    <td class="text-center">{{ $no }}</td>
                     <td class="text-center">{{ $k->nikKerja }}</td>
                     <td>{{ $k->namaKaryawan }}</td>
                     <td class="text-center">
@@ -113,6 +114,9 @@
                         @endif
                     </td>
                 </tr>
+                @php
+                    $no++;
+                @endphp
             @endif
         @endforeach
     </tbody>
