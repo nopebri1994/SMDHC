@@ -19,6 +19,7 @@ use App\Http\Controllers\kontrakKaryawanController;
 use App\Http\Controllers\liburController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\mesinAbsensiController;
+use App\Http\Controllers\overtimeController;
 use App\Http\Controllers\perusahaanController;
 use App\Http\Controllers\pmkController;
 use App\Http\Controllers\potonganController;
@@ -210,6 +211,9 @@ Route::middleware('auth')->group(function () {
     //kalkulasi
     Route::get('psn/kalkulasi', [kalkulasiController::class, 'index']);
     Route::get('psn/kalkulasi/tabelData', [kalkulasiController::class, 'tabelData']);
+
+    //overtime
+    Route::get('pay/overtime', [overtimeController::class, 'index']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');
