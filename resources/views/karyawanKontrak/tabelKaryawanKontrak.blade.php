@@ -11,14 +11,6 @@
     .dt-paging {
         padding-top: 10px;
     }
-
-    a {
-        color: black;
-    }
-
-    a:hover {
-        color: red;
-    }
 </style>
 <table class="table table-bordered table-sm table-striped shadow display nowrap" style="width: 100%" id="tbl">
     <thead>
@@ -61,7 +53,7 @@
                     {{ varHelper::formatDate($d->sampaiTanggal) }}
                 </td>
                 <td class="align-middle text-center">
-                    <a href="{{ URL::to('storage/pkwt/') }}/{{ $d->file }}" target="_blank">
+                    <a href="{{ URL::to('storage/pkwt/') }}/{{ $d->file }}" class="link" target="_blank">
                         File PKWT</a>
 
                 </td>

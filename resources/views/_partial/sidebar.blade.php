@@ -91,7 +91,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ URL::to('/') }}/pay/overtime"
-                                    class="nav-link {{ request()->is('pay/overtime') ? 'active' : '' }}">
+                                    class="nav-link {{ request()->is('pay/overtime') ? 'active' : '' }} {{ request()->is('pay/overtime/*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Overtime</p>
                                     <span class="right badge badge-danger">P</span>
@@ -189,6 +189,13 @@
                                     class="nav-link {{ request()->is('psn/sp') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Surat Peringatan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/psn/fkp"
+                                    class="nav-link {{ request()->is('psn/fkp') ? 'active' : '' }}{{ request()->is('psn/fkp/*') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Kebutuhan Pelatihan</p>
                                 </a>
                             </li>
                         @endcan

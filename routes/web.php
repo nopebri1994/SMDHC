@@ -6,6 +6,7 @@ use App\Http\Controllers\advanceController;
 use App\Http\Controllers\bagianController;
 use App\Http\Controllers\cutiController;
 use App\Http\Controllers\departemenController;
+use App\Http\Controllers\fkpController;
 use App\Http\Controllers\groupOffController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\hutangCutiController;
@@ -191,6 +192,15 @@ Route::middleware('auth')->group(function () {
     Route::post('psn/sp/delete', [SPController::class, 'delete']);
     Route::post('psn/sp/update', [SPController::class, 'update']);
 
+    //FKP
+    Route::get('psn/fkp', [fkpController::class, 'index'])->middleware('can:hc');
+    Route::get('psn/fkp/addData', [fkpController::class, 'addData']);
+    Route::post('psn/fkp/store', [fkpController::class, 'storeData']);
+    Route::get('psn/fkp/tabelData', [fkpController::class, 'tabelData']);
+    Route::post('psn/fkp/delete', [fkpController::class, 'delete']);
+    Route::post('psn/fkp/update', [fkpController::class, 'update']);
+
+
     //pmk
     Route::get('psn/pmk', [pmkController::class, 'index']);
     Route::get('psn/pmk/tabelData', [pmkController::class, 'tabelData']);
@@ -214,6 +224,7 @@ Route::middleware('auth')->group(function () {
 
     //overtime
     Route::get('pay/overtime', [overtimeController::class, 'index']);
+    Route::get('pay/overtime/addData', [overtimeController::class, 'addData']);
     Route::get('pay/store', [overtimeController::class, 'storeData']);
 
     //Pengguna
