@@ -77,7 +77,7 @@
                                             <td class="text-center"> <a
                                                     href="{{ URL::to('storage/fkp/') }}/{{ $d->file }}"
                                                     class="link" target="_blank">
-                                                    File PKWT</a></td>
+                                                    File FKP</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
