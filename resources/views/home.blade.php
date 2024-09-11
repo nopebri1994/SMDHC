@@ -60,7 +60,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="info-box mb-3 bg-success">
-                                                <span class="info-box-icon"><i class="fas fa-user-injured"></i></span>
+                                                <span class="info-box-icon"><i class="fas fa-user-graduate"></i></span>
                                                 <div class="info-box-content">
                                                     <span class="info-box-text">Monitoring Pelatihan</span>
                                                     <span class="info-box-number">{{ $fkp }} Orang</span>
