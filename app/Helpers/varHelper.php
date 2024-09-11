@@ -323,4 +323,43 @@ class varHelper
         }
         return $tmp;
     }
+
+    static public function typePelatihan($x)
+    {
+        switch ($x) {
+            case '1';
+                $tmp = 'Peningkatan Wawasan dan Pengetahuan dalam Menunjang Prestasi Kerja';
+                break;
+            case '2';
+                $tmp = 'Mutasi';
+                break;
+            case '3';
+                $tmp = 'Promosi';
+                break;
+            default:
+                $tmp = '';
+        }
+        return $tmp;
+    }
+
+    static public function jenisPelatihan($x)
+    {
+        switch ($x) {
+            case '1';
+                $tmp = 'OJT';
+                break;
+            case '2';
+                $tmp = 'Training';
+                break;
+            case '3';
+                $tmp = 'Seminar';
+                break;
+            case '4';
+                $tmp = 'Briefing';
+                break;
+            default:
+                $tmp = 'Workshop';
+        }
+        return $tmp;
+    }
 }

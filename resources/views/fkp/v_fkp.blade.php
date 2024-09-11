@@ -32,17 +32,55 @@
                             <table class="tbl table table-bordered table striped display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>NIK</th>
-                                        <th>Nama Karyawan</th>
-                                        <th>type Pelatihan</th>
-                                        <th>Jenis Pelatihan</th>
-                                        <th>Tgl. Mulai</th>
-                                        <th>Tgl. Selesai</th>
-                                        <th>#</th>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">NIK</th>
+                                        <th class="text-center">Nama Karyawan</th>
+                                        <th class="text-center">Type Pelatihan</th>
+                                        <th class="text-center">Jenis Pelatihan</th>
+                                        <th class="text-center">Tgl. Mulai</th>
+                                        <th class="text-center">Tgl. Selesai</th>
+                                        <th class="text-center">FKP</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    @php
+                                        $date = date('Y-m-d');
+                                    @endphp
+                                    @foreach ($data as $key => $d)
+                                        @php
+                                            $notifikasi = date(
+                                                'Y-m-d',
+                                                strtotime('-31 days', strtotime($d->tglSelesai)),
+                                            );
+                                        @endphp
+                                        <tr @if ($notifikasi < $date) style="background-color: #62B8C5" @endif>
+                                            <td class="text-center">{{ $key + 1 }}</td>
+                                            <td class="text-center">{{ $d->karyawan->nikKerja }}</td>
+                                            <td>{{ $d->karyawan->namaKaryawan }}</td>
+                                            <td>
+                                                @if ($d->typePelatihan == '0')
+                                                    {{ $d->typeLain }}
+                                                @else
+                                                    {{ varHelper::typePelatihan($d->typePelatihan) }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($d->jenisPelatihan == '0')
+                                                    {{ $d->jenisLain }}
+                                                @else
+                                                    {{ varHelper::jenisPelatihan($d->jenisPelatihan) }}
+                                                @endif
+                                            </td>
+
+                                            <td class="text-center">{{ varHelper::formatDate($d->tglMulai) }}</td>
+                                            <td class="text-center">{{ varHelper::formatDate($d->tglSelesai) }}</td>
+                                            <td class="text-center"> <a
+                                                    href="{{ URL::to('storage/fkp/') }}/{{ $d->file }}"
+                                                    class="link" target="_blank">
+                                                    File PKWT</a></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                             </table>
                         </div>
                     </div>

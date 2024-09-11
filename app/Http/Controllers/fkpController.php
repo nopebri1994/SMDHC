@@ -12,7 +12,11 @@ class fkpController extends Controller
 {
     function index()
     {
+        $date = date('Y-m-d');
+        $data = fkpModel::where('tglSelesai', '>=', $date)->orderBy('tglSelesai')->get();
+
         $tmp = [
+            'data' => $data,
             'title' => 'Data Kebutuhan Pelatihan',
         ];
         return view('fkp.v_fkp', $tmp);

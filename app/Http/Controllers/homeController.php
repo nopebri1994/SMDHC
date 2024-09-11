@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\bagianModel;
 use App\Models\departemenModel;
+use App\Models\fkpModel;
 use Illuminate\Http\Request;
 use App\Models\karyawanModel;
 use App\Models\kontrakKaryawanModel;
@@ -22,6 +23,9 @@ class homeController extends Controller
         $metalCount = DB::table('dataKaryawan')->select(DB::raw('count(*) as total,idBagian,bagian.namaBagian,bagian.kode'))->join('bagian', 'bagian.id', 'dataKaryawan.idBagian')->whereNull('km')->whereNotNull('idBagian')->where('idPerusahaan', 1)->groupBy('idBagian')->orderBy('idBagian')->get()->toArray();
         $pkwt = kontrakKaryawanModel::where('status', '1')->whereBetween('sampaiTanggal', [$notifikasi, $akhir])->count();
         $sp = SPModel::where('status', '1')->whereBetween('sampaiTanggal', [$notifikasi, $akhir])->count();
+
+        //fkp
+        $fkp = fkpModel::whereBetween('tglSelesai', [$notifikasi, $akhir])->orderBy('tglSelesai')->count();
 
         //PMK
         $karyawan = karyawanModel::whereNull('km')->where('statusKaryawan', '2')->orderBy('tglMasuk')->get();
@@ -64,7 +68,8 @@ class homeController extends Controller
             'metalC' => $metalCount,
             'pkwt' => $pkwt,
             'sp' => $sp,
-            'pmk' => $hak
+            'pmk' => $hak,
+            'fkp' => $fkp
         ];
 
         return view('home', $data);
