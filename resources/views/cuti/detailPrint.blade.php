@@ -72,8 +72,8 @@
         <tbody>
             @foreach ($detail as $key => $d)
                 <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ varHelper::formatDate($d->tanggalIjin) }}</td>
+                    <td style="text-align: center">{{ $key + 1 }}</td>
+                    <td style="text-align: center">{{ varHelper::formatDate($d->tanggalIjin) }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -81,5 +81,5 @@
 </div>
 
 <script>
-    $('#tbl').DataTable();
+    window.print();
 </script>

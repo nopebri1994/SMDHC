@@ -23,6 +23,11 @@
                     <form action="store" method="get">
                         <div class="card">
                             <div class="card-header">
+                                @if (session('status'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -32,7 +37,7 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <input type="date" name="tglLembur" id="tglLembur"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="row pt-2">
@@ -86,10 +91,10 @@
                                             </td>
                                             <td>
                                                 <input type="number" min="0" max="7" value="1"
-                                                    class="form-control" name="jamLembur[]">
+                                                    class="form-control" name="jamLembur[]" required>
                                             </td>
                                             <td>
-                                                <Textarea class="form-control" name="jp[]" cols="2" rows="1"></Textarea>
+                                                <Textarea class="form-control" name="jp[]" cols="2" rows="1" required></Textarea>
                                             </td>
                                             <td>
                                                 <button type="button" class="add btn btn-primary btn-sm">
@@ -125,9 +130,10 @@
                 @endforeach
             "</select></td>" +
             "<td>" +
-            "<input type='number' min='1' class='form-control' name='jamLembur[" + nomor + "]'></td>" +
+            "<input type='number' min='1' class='form-control' name='jamLembur[" + nomor + "]' required></td>" +
                 "<td>" +
-                "<Textarea class='form-control' name='jp[" + nomor + "]' cols='2' rows='1'></Textarea></td>" +
+                "<Textarea class='form-control' name='jp[" + nomor +
+                "]' cols='2' rows='1' required></Textarea></td>" +
                 "<td>" +
                 "<button type='button' class='add btn btn-primary btn-sm'> <span id='set' class='fas fa-plus'></span></button></td></tr>";
             $('#dataProses').append(newline);

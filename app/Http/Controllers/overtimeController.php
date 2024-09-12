@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\bagianModel;
 use App\Models\karyawanModel;
+use App\Models\overtimeModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class overtimeController extends Controller
 {
@@ -51,6 +53,47 @@ class overtimeController extends Controller
 
     function storeData(Request $request)
     {
-        dd($request);
+        $tmp = [];
+        $idBagian = $request->bagian;
+        $tanggalLembur = $request->tglLembur;
+
+        $isRow = overtimeModel::where('idBagian', $idBagian)->where('tanggalOT', $tanggalLembur)->first();
+
+        if (!empty($isRow)) {
+            return redirect()->back()->with('status', 'Tanggal Lembur sudah ada');
+        }
+        $store = overtimeModel::create([
+            'idBagian' => $idBagian,
+            'tanggalOT' => $tanggalLembur,
+        ]);
+
+        $karyawan = $request->karyawan;
+        $jamLembur = $request->jamLembur;
+        $jp = $request->jp;
+        foreach ($karyawan as $key => $k) {
+            if ($jamLembur[$key] > 1) {
+                $jam1 = 1;
+                $jam2 = $jamLembur[$key] - $jam1;
+            } else {
+                $jam1 = 1;
+                $jam2 = 0;
+            }
+            if (date('D', strtotime($tanggalLembur)) == 'Sun') {
+                $jam1 = 0;
+                $jam2 = $jamLembur[$key];
+            }
+            $tmp[] = [
+                'idOvertime' => $store->id,
+                'idKaryawan' => $k,
+                'jam1' => $jam1,
+                'jam2' => $jam2,
+                'jenisPekerjaan' => $jp[$key],
+                'status' => '1'
+            ];
+        }
+
+        DB::table('overtimeDetail')->insert($tmp);
+
+        return redirect('pay/overtime/')->with('status', 'Data Lembur Berhasil disimpan');
     }
 }

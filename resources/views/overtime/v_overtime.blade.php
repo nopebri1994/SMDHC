@@ -26,9 +26,26 @@
                                         class="fas fa-plus"></span>&nbsp;Tambah
                                     Data Overtime</a>
                             </div>
-
                         </div>
                         <div class="card-body">
+                            <table class="tbl table table-bordered table-stripped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            #
+                                        </th>
+                                        <th>
+                                            Tanggal Lembur
+                                        </th>
+                                        <th>
+                                            Bagian
+                                        </th>
+                                        <th>
+                                            Status Form Lembur
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -37,5 +54,11 @@
     </div>
 @endsection
 @section('js')
-    <script></script>
+    <script>
+        $(document).ready(function() {
+            @if (session('status'))
+                flasher.success('{{ session('status') }}');
+            @endif
+        })
+    </script>
 @endsection

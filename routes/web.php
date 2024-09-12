@@ -113,6 +113,7 @@ Route::middleware('auth')->group(function () {
     Route::get('psn/cuti/tabel-cuti', [cutiController::class, 'tabelCuti']);
     Route::get('psn/cuti/detail-data', [cutiController::class, 'detailData']);
     Route::get('psn/cuti/detail-cuti', [cutiController::class, 'detailCuti']);
+    Route::get('psn/cuti/detail-print', [cutiController::class, 'detailPrint']);
     Route::post('psn/cuti/tambahCuti', [cutiController::class, 'tambahCuti']);
     Route::post('psn/cuti/potongCuti', [cutiController::class, 'potongCuti']);
     Route::get('psn/cuti/listTambah', [cutiController::class, 'listTambah']);
@@ -225,7 +226,7 @@ Route::middleware('auth')->group(function () {
     //overtime
     Route::get('pay/overtime', [overtimeController::class, 'index']);
     Route::get('pay/overtime/addData', [overtimeController::class, 'addData']);
-    Route::get('pay/store', [overtimeController::class, 'storeData']);
+    Route::get('pay/overtime/store', [overtimeController::class, 'storeData']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');

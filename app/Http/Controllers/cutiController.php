@@ -116,7 +116,7 @@ class cutiController extends Controller
             'vCuti'     => $cuti,
             'detail'    => $detail,
             'masaKerja' => $selisih->y,
-            'bulan'     =>$selisih->m,
+            'bulan'     => $selisih->m,
             'potongan' => $potonganTahunan,
             'hutang'    => $detailHutang,
             'tambahan'  => $cekTambah['s'],
@@ -236,5 +236,34 @@ class cutiController extends Controller
         // $pdf = Pdf::loadView('absensiHarian.printAbsensi', $tmp)->save('pdf/Absensi-Harian.pdf');
         // return $pdf->download('users_list.pdf');
         return $pdf->stream("detailCuti.pdf");
+    }
+    function detailPrint(Request $request)
+    {
+        $id     = $request->id;
+        $y      = $request->year;
+
+        $cuti = cutiModel::where('idKaryawan', $id)->where('year', $y)->first();
+        $tglMasuk = date_create($cuti->karyawan->tglMasuk);
+        $m = $cuti->month;
+        $now = date_create(date('Y-m-d', strtotime("$y-$m-01")));
+        $selisih = date_diff($now, $tglMasuk);
+        $detail = detailCutiModel::where('idKaryawan', $id)->where('tahun', $y)->get();
+        $potonganTahunan = potonganCutiModel::where('tahunPotongan', $y)->sum('totalPotongan');
+        $detailHutang = hutangCutiModel::where('idKaryawan', $id)->where('year', $y)->first();
+        $cekTambah = tambahCutiModel::select(DB::raw('SUM(jumlahTambah) as s'))->where('tahunCuti', $y)->where('idKaryawan', $id)->where('status', 'Sudah')->first();
+        $cekPotong = potongCutiModel::select(DB::raw('SUM(jumlahPotong) as s'))->where('tahunCuti', $y)->where('idKaryawan', $id)->where('status', 'Sudah')->first();
+        $data = [
+            'vCuti'     => $cuti,
+            'detail'    => $detail,
+            'masaKerja' => $selisih->y,
+            'bulan'     => $selisih->m,
+            'potongan' => $potonganTahunan,
+            'hutang'    => $detailHutang,
+            'tambahan'  => $cekTambah['s'],
+            'potongCuti' => $cekPotong['s'],
+
+        ];
+
+        return view('cuti.detailPrint', $data);
     }
 }

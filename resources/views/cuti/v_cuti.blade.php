@@ -102,9 +102,9 @@
                                     <div class="col-lg-8">
                                         <div class="card">
                                             <div class="card-header" align="right">
-                                                <a href="cuti/" class="" id="cetakCuti">
+                                                <button class="" id="cetakCuti" disabled>
                                                     <span class="fas fa-print"></span> Cetak
-                                                    Cuti</a>
+                                                    Cuti</Button>
                                             </div>
                                             <div class="card-body">
                                                 <div id="detailTable"></div>
@@ -387,6 +387,13 @@
             getDetail(nik);
         }
 
+        document.getElementById('cetakCuti').onclick = () => {
+            let id = $('#idKaryawan').val();
+            let year = $('#year').val();
+            window.open("cuti/detail-print?id=" + id + '&year=' + year, '_blank');
+
+        }
+
         @can('hc')
             document.getElementById('postingYear').onchange = () => {
                 loadPostingCuti();
@@ -523,6 +530,7 @@
                         $('#nama').val(obj.namaKaryawan);
                         $('#dept').val(obj.deptBagian);
                         $('#idKaryawan').val(obj.idKaryawan);
+
                     }
                 },
             })
@@ -547,6 +555,7 @@
                 data: data,
                 success: function(sdata) {
                     $('#detailTable').html(sdata);
+                    document.getElementById('cetakCuti').disabled = false;
                 },
                 error: function(error) {
                     $('#detailTable').html('');
