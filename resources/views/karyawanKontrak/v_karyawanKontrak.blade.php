@@ -298,6 +298,7 @@
                         url: 'kontrak-karyawan/delete',
                         data: dataId,
                         success: function() {
+                            
                             $('#list').load('kontrak-karyawan/tabelData')
                             flasher.success('Data Berhasil dihapus')
                             closeLoader();

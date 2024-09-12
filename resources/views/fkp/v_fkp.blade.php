@@ -33,6 +33,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
+                                        <td></td>
                                         <th class="text-center">NIK</th>
                                         <th class="text-center">Nama Karyawan</th>
                                         <th class="text-center">Type Pelatihan</th>
@@ -55,6 +56,16 @@
                                         @endphp
                                         <tr @if ($notifikasi < $date) style="background-color: #62B8C5" @endif>
                                             <td class="text-center">{{ $key + 1 }}</td>
+                                            <td>
+                                                <input type="hidden" name="_token" id="token"
+                                                    value="{{ csrf_token() }}" />
+                                                <div class="btn-group" role="group">
+                                                    <button type="button" class="btn btn-danger btn-sm" id="btnDelete"
+                                                        onclick="deleteData('{{ $d->id }}','{{ $d->karyawan->namaKaryawan }}')"><i
+                                                            class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
                                             <td class="text-center">{{ $d->karyawan->nikKerja }}</td>
                                             <td>{{ $d->karyawan->namaKaryawan }}</td>
                                             <td>
@@ -78,6 +89,7 @@
                                                     href="{{ URL::to('storage/fkp/') }}/{{ $d->file }}"
                                                     class="link" target="_blank">
                                                     File FKP</a></td>
+
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -100,5 +112,42 @@
         $('.tbl').DataTable({
             responsive: true
         });
+
+        let deleteData = (id, nama) => {
+            let token = $('#token').val();
+            let dataId = {
+                'id': id,
+                "_token": token,
+            };
+            Swal.fire({
+                title: "Do you want to delete field " + nama + "?",
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: "Delete",
+                denyButtonText: `Cancel`,
+                denyButtonColor: `#636363`,
+                confirmButtonColor: '#ff2c2c',
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'post',
+                        url: 'fkp/delete',
+                        data: dataId,
+                        success: function() {
+
+                            //reload self
+                            location.replace(location.href);
+                        },
+                        error: function() {
+                            flasher.error('Data Gagal dihapus')
+                        }
+
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
+        }
     </script>
 @endsection

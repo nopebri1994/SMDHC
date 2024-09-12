@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\fkpModel;
 use App\Models\karyawanModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -76,5 +77,15 @@ class fkpController extends Controller
         ];
         fkpModel::create($tmp);
         return redirect('/psn/fkp')->with('status', 'Data Berhasil disimpan');
+    }
+
+    function delete(Request $request)
+    {
+        $id = $request->id;
+        $isRow = fkpModel::where('id', $id)->first();
+        if (!empty($isRow->file)) {
+            Storage::disk('fkp')->delete($isRow->file);
+        }
+        fkpModel::where('id', $id)->delete();
     }
 }
