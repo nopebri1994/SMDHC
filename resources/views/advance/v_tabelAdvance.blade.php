@@ -60,18 +60,19 @@
                     {{ $d->sisaPotongan }}
                 </td>
                 <td align="center" width="15%">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-primary btn-sm" id="btnEdit"
-                            onclick="editData('{{ $d->no_pinjaman }}','{{ $d->tanggalRealisasi }}','{{ $d->idKaryawan }}','{{ $d->totalPinjaman }}','{{ $d->totalPotongan }}','{{ $d->sudahDipotong }}','{{ $d->sisaPotongan }}')"><i
-                                class="far fa-edit"></i> Edit</button>
-                        @can('admin')
-                            <button type="button" class="btn btn-danger btn-sm" id="btnDelete"
-                                onclick="deleteData('{{ $d->no_pinjaman }}','{{ $d->karyawanModel->namaKaryawan }}')"><i
-                                    class="fas fa-trash-alt"></i>
-                                Delete</button>
-                        @endcan
-
-                    </div>
+                    @if ($d->status != '2')
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-primary btn-sm" id="btnEdit"
+                                onclick="editData('{{ $d->no_pinjaman }}','{{ $d->tanggalRealisasi }}','{{ $d->idKaryawan }}','{{ $d->totalPinjaman }}','{{ $d->totalPotongan }}','{{ $d->sudahDipotong }}','{{ $d->sisaPotongan }}')"><i
+                                    class="far fa-edit"></i> Edit</button>
+                            @can('admin')
+                                <button type="button" class="btn btn-danger btn-sm" id="btnDelete"
+                                    onclick="deleteData('{{ $d->no_pinjaman }}','{{ $d->karyawanModel->namaKaryawan }}')"><i
+                                        class="fas fa-trash-alt"></i>
+                                    Delete</button>
+                            @endcan
+                        </div>
+                    @endif
                 </td>
         @endforeach
     </tbody>
