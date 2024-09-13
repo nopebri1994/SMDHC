@@ -121,8 +121,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3 col-sm-12 pt-1">
-                                    <select name="idKaryawan2" id="idKaryawan2" class="select form-control"
-                                        data-live-search="true" data-show-subtext="true" required>
+                                    <select name="idKaryawan2" id="idKaryawan2" class="select " data-live-search="true"
+                                        data-show-subtext="true" required>
                                         <option value="0">Pilih Nama Karyawan</option>
                                         @foreach ($karyawan as $k)
                                             <option value="{{ $k->id }}">
@@ -131,7 +131,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-1 text-right">
-                                    <label for="" class="pt-2">Laporan</label>
+                                    <label for="month" class="pt-2">Laporan</label>
                                 </div>
                                 <div class="col-md-2 pt-1">
                                     <select name="month" id="month" class="form-control">
@@ -418,6 +418,46 @@
 
         document.getElementById('btnCancel').onclick = () => {
             btnCancel();
+        }
+
+        let updateStatus = (a, nama) => {
+            let token = $('#token').val();
+            let dataId = {
+                'id': a,
+                "_token": token,
+            }
+            Swal.fire({
+                title: "Konfirmasi Pinjaman atas  nama " + nama + " sudah Lunas ?",
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: "Iya",
+                denyButtonText: `Cancel`,
+                denyButtonColor: `#636363`,
+                confirmButtonColor: '#ff2c2c',
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    $.ajax({
+                        beforeSend: openLoader('memuat data'),
+                        type: 'post',
+                        url: 'advance/updateStatus',
+                        data: dataId,
+                        success: function() {
+                            loadData();
+                            flasher.success('Data Berhasil diperbarui')
+                            closeLoader();
+                        },
+                        error: function() {
+                            flasher.error('Data Gagal diperbarui')
+                            closeLoader();
+
+                        }
+                    });
+                } else if (result.isDenied) {
+                    document.getElementById('status' + a).checked = false;
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
         }
     </script>
 @endsection

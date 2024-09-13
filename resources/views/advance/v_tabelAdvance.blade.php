@@ -16,6 +16,7 @@
     <thead>
         <tr>
             <th class="align-middle  text-center">#</th>
+            <th class="align-middle  text-center">Status</th>
             <th class="align-middle  text-center">No. Pinjaman</th>
             <th class="align-middle  text-center">Tanggal Realisasi</th>
             <th class="align-middle text-center">Nama Karyawan</th>
@@ -24,7 +25,6 @@
             <th class="align-middle  text-center">Total Potongan</th>
             <th class="align-middle  text-center">Sudah Dipotong</th>
             <th class="align-middle  text-center">Sisa Potong</th>
-
             <th></th>
         </tr>
     </thead>
@@ -32,6 +32,15 @@
         @foreach ($data as $key => $d)
             <tr>
                 <td align="center" class="align-middle text-center">{{ $key + 1 }}</td>
+                <td class="align-middle text-center">
+                    <div class="custom-control custom-checkbox mr-sm-2 text-center">
+                        <input type="checkbox" class="custom-control-input" id="status{{ $d->no_pinjaman }}"
+                            name="status"
+                            onclick="updateStatus('{{ $d->no_pinjaman }}','{{ $d->karyawanModel->namaKaryawan }}')"
+                            @if ($d->status == 2) checked disabled @endif>
+                        <label class="custom-control-label" for="status{{ $d->no_pinjaman }}">Lunas</label>
+                    </div>
+                </td>
                 <td class="align-middle text-center">{{ $d->no_pinjaman }}</td>
                 <td class="align-middle text-center">{{ varHelper::formatDate($d->tanggalRealisasi) }}</td>
                 <td class="align-middle" style="width:25%">{{ $d->karyawanModel->namaKaryawan }}</td>

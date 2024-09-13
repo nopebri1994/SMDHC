@@ -120,7 +120,6 @@ Route::middleware('auth')->group(function () {
     Route::get('psn/cuti/listPotong', [cutiController::class, 'listPotong']);
     Route::get('psn/cuti/printCuti', [cutiController::class, 'printCuti']);
 
-
     //hutangCuti
     Route::get('psn/hutang-cuti', [hutangCutiController::class, 'index']);
     Route::get('psn/hutang-cuti/posting-hutang', [hutangCutiController::class, 'postingHutang'])->middleware('can:hc');
@@ -216,6 +215,7 @@ Route::middleware('auth')->group(function () {
         Route::get('pay/advance/get_id', 'getId');
         Route::get('pay/advance/prosesData', 'prosesData');
         Route::get('pay/advance/tabelData', 'tabelData');
+        Route::post('pay/advance/updateStatus', 'updateStatus');
         Route::get('pay/advance/cetakLaporan', 'cetakLaporan');
     })->middleware('can:payroll');
 

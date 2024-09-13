@@ -170,4 +170,9 @@ class advanceController extends Controller
         return $pdf->stream("laporan-Advance.pdf");
         // return view('advance.laporan');
     }
+    function updateStatus(Request $request)
+    {
+        $id = $request->id;
+        advanceModel::where('no_pinjaman', $id)->update(['status' => '2']);
+    }
 }
