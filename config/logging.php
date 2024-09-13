@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    'default' => env('LOG_CHANNEL', 'daily'),
 
     /*
     |--------------------------------------------------------------------------
@@ -128,6 +128,7 @@ return [
         'history' => [
             'driver' => 'daily',
             'facility' => LOG_USER,
+            'days' => 90,
             'path' => storage_path("history/daily.log"),
         ]
     ],
