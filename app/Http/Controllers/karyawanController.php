@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\karyawanModel;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
-
-
+use App\Models\groupKerjaModel;
 
 class karyawanController extends Controller
 {
@@ -48,12 +47,14 @@ class karyawanController extends Controller
         $perusahaan = perusahaanModel::all();
         $jabatan    = jabatanModel::all();
         $jamKerja   = jamKerjaModel::all();
+        $groupKerja = groupKerjaModel::all();
 
         $data = [
             'title'         => 'Tambah Data Karyawan',
             'perusahaan'    => $perusahaan,
             'jabatan'       => $jabatan,
             'jamKerja'      => $jamKerja,
+            'groupKerja'    => $groupKerja,
         ];
 
         return View('karyawan.addDataKaryawan', $data);
@@ -86,6 +87,12 @@ class karyawanController extends Controller
         } else {
             $tmp_bagian = $request->bagian;
         }
+        if ($request->groupKerja ==  'null') {
+            $tmp_groupKerja = null;
+        } else {
+            $tmp_groupKerja = $request->groupKerja;
+        }
+
         $tmpSave = [
             'nikKerja'          => $request->nikKerja,
             'namaKaryawan'      => strtoupper($request->nama),
@@ -98,7 +105,8 @@ class karyawanController extends Controller
             'idJabatan'         => $request->jabatan,
             'statusKaryawan'    => $request->statusKaryawan,
             'idJamKerja'        => $request->jamKerja,
-            'groupOff'          => $request->groupOff
+            'groupOff'          => $request->groupOff,
+            'idGroupKerja'      => $tmp_groupKerja
 
         ];
         karyawanModel::create($tmpSave);
@@ -133,7 +141,11 @@ class karyawanController extends Controller
         } else {
             $tmp_bagian = $request->bagian;
         }
-
+        if ($request->groupKerja ==  'null') {
+            $tmp_groupKerja = null;
+        } else {
+            $tmp_groupKerja = $request->groupKerja;
+        }
         $tmpSave = [
             'nikKerja'          => $request->nikKerja,
             'namaKaryawan'      => strtoupper($request->nama),
@@ -146,9 +158,8 @@ class karyawanController extends Controller
             'idJabatan'         => $request->jabatan,
             'statusKaryawan'    => $request->statusKaryawan,
             'idJamKerja'        => $request->jamKerja,
-            'groupOff'        => $request->groupOff
-
-
+            'groupOff'        => $request->groupOff,
+            'idGroupKerja'      => $tmp_groupKerja
         ];
         karyawanModel::where('uuid', $request->id)->update($tmpSave);
         return redirect('dk/karyawan')->with('status', 'Data berhasil diperbarui');
@@ -177,6 +188,7 @@ class karyawanController extends Controller
         $jabatan    = jabatanModel::all();
         $jamKerja   = jamKerjaModel::all();
         $bagian     = bagianModel::where('idDepartemen', $detailData->idDepartemen)->get();
+        $groupKerja = groupKerjaModel::all();
 
         $data = [
             'title'         => 'Edit Data Karyawan',
@@ -186,6 +198,7 @@ class karyawanController extends Controller
             'jamKerja'      => $jamKerja,
             'departemen'    => $departemen,
             'bagian'        => $bagian,
+            'groupKerja'    => $groupKerja,
         ];
 
         return View('karyawan.editDataKaryawan', $data);

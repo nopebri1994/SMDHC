@@ -175,6 +175,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="row mt-2">
+                                        <div class="col-md-4">
+                                            Group Kerja
+                                        </div>
+                                        <div class="col-md-3">
+                                            @if ($detailData->groupKerja->groupKerja)
+                                                {{ $detailData->groupKerja->groupKerja }}
+                                            @else
+                                                Non Group
+                                            @endif
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

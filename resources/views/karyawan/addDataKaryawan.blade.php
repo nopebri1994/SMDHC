@@ -209,6 +209,21 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">
+                                                Group Kerja
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select name="groupKerja" id="groupKerja" class="form-control">
+                                                    <option value="null">-- none --</option>
+                                                    @foreach ($groupKerja as $g)
+                                                        <option value="{{ $g->id }}">{{ $g->groupKerja }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

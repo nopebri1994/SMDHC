@@ -33,10 +33,11 @@ class karyawanModel extends Model
         'idJabatan',
         'idJamKerja',
         'fpId',
-        'km'
+        'km',
+        'idGroupKerja'
     ];
 
-    protected $with = ['bagian', 'departemen', 'jabatan', 'jamKerja'];
+    protected $with = ['bagian', 'departemen', 'jabatan', 'jamKerja', 'groupKerja'];
 
     public function jabatan(): BelongsTo
     {
@@ -61,6 +62,10 @@ class karyawanModel extends Model
     public function jamKerja(): BelongsTo
     {
         return $this->belongsTo(jamKerjaModel::class, 'idJamKerja');
+    }
+    public function groupKerja(): BelongsTo
+    {
+        return $this->belongsTo(groupKerjaModel::class, 'idGroupKerja')->withDefault();
     }
     public function users(): HasOne
     {

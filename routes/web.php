@@ -7,6 +7,7 @@ use App\Http\Controllers\bagianController;
 use App\Http\Controllers\cutiController;
 use App\Http\Controllers\departemenController;
 use App\Http\Controllers\fkpController;
+use App\Http\Controllers\groupKerjaController;
 use App\Http\Controllers\groupOffController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\hutangCutiController;
@@ -177,6 +178,12 @@ Route::middleware('auth')->group(function () {
     Route::post('dm/groupOff/storeData', [groupOffController::class, 'storeData']);
     Route::get('dm/groupOff/tabelData', [groupOffController::class, 'tabelData']);
     Route::post('dm/groupOff/delete', [groupOffController::class, 'delete']);
+
+    //groupKerja
+    Route::get('dm/groupKerja', [groupKerjaController::class, 'index'])->middleware('can:hc');
+    Route::post('dm/groupKerja/storeData', [groupKerjaController::class, 'storeData']);
+    Route::get('dm/groupKerja/tabelData', [groupKerjaController::class, 'tabelData']);
+    Route::post('dm/groupKerja/delete', [groupKerjaController::class, 'delete']);
 
     //karyawanKontrak
     Route::get('psn/kontrak-karyawan', [kontrakKaryawanController::class, 'index'])->middleware('can:hc');

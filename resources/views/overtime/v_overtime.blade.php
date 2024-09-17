@@ -31,20 +31,30 @@
                             <table class="tbl table table-bordered table-stripped">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th class="text-center">
                                             #
                                         </th>
-                                        <th>
+                                        <th class="text-center">
                                             Tanggal Lembur
                                         </th>
-                                        <th>
+                                        <th class="text-center">
                                             Bagian
                                         </th>
-                                        <th>
+                                        <th class="text-center">
                                             Status Form Lembur
                                         </th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    @foreach ($overtime as $key => $o)
+                                        <tr>
+                                            <td class="text-center" style="width:5%">{{ $key + 1 }}</td>
+                                            <td class="text-center" style="width:12%">{{ $o->tanggalOT }}</td>
+                                            <td class="text-center" style="width:12%">{{ $o->bagian->namaBagian }}</td>
+                                            <td></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -60,5 +70,9 @@
                 flasher.success('{{ session('status') }}');
             @endif
         })
+
+        $('.tbl').DataTable({
+            responsive: true
+        });
     </script>
 @endsection

@@ -67,6 +67,22 @@
                                     <p>Karyawan Keluar</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/dk/komposisiGroupOff"
+                                    class="nav-link  {{ request()->is('dk/komposisiGroupOff') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Komposisi Group OFF</p>
+                                    <span class="right badge badge-danger">P</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/dk/komposisiGroupKerja"
+                                    class="nav-link  {{ request()->is('dk/komposisiGroupOff') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Komposisi Group Kerja</p>
+                                    <span class="right badge badge-danger">P</span>
+                                </a>
+                            </li>
                         @endcan
                     </ul>
                 </li>
@@ -198,6 +214,14 @@
                                     <p>Kebutuhan Pelatihan</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/psn/jadwalGroupKerja"
+                                    class="nav-link {{ request()->is('psn/jadwalGroupkerja') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Jadwal Group Kerja</p>
+                                    <span class="right badge badge-danger">P</span>
+                                </a>
+                            </li>
                         @endcan
                     </ul>
                 </li>
@@ -267,6 +291,13 @@
                                     class="nav-link {{ request()->is('dm/libur') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Hari Libur</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{{ URL::to('/') }}/dm/groupKerja"
+                                    class="nav-link {{ request()->is('dm/groupKerja') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Group Kerja</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
