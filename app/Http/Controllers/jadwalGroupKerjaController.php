@@ -44,7 +44,7 @@ class jadwalGroupKerjaController extends Controller
     function tabelData()
     {
         $tmp = [
-            'data' => jadwalGroupKerjaModel::all(),
+            'data' => jadwalGroupKerjaModel::orderBy('Tanggal', 'DESC')->get(),
         ];
         return view('jadwalGroup.tabelJadwalGroup', $tmp);
     }
