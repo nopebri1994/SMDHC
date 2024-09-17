@@ -218,8 +218,7 @@
                                 <a href="{{ URL::to('/') }}/psn/jadwalGroupKerja"
                                     class="nav-link {{ request()->is('psn/jadwalGroupkerja') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Jadwal Group Kerja</p>
-                                    <span class="right badge badge-danger">P</span>
+                                    <p>Jadwal Group Kerja / Shift</p>
                                 </a>
                             </li>
                         @endcan
