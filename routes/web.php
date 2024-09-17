@@ -12,6 +12,7 @@ use App\Http\Controllers\groupOffController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\hutangCutiController;
 use App\Http\Controllers\jabatanController;
+use App\Http\Controllers\jadwalGroupKerjaController;
 use App\Http\Controllers\jamKerjaController;
 use App\Http\Controllers\kalkulasiController;
 use App\Http\Controllers\karyawanController;
@@ -180,6 +181,12 @@ Route::middleware('auth')->group(function () {
     Route::post('dm/groupOff/delete', [groupOffController::class, 'delete']);
 
     //groupKerja
+    Route::get('psn/jadwalGroupKerja', [jadwalGroupKerjaController::class, 'index'])->middleware('can:hc');
+    Route::post('dm/jadwalGroupKerja/storeData', [jadwalGroupKerjaController::class, 'storeData']);
+    Route::get('dm/jadwalGroupKerja/tabelData', [jadwalGroupKerjaController::class, 'tabelData']);
+    Route::post('dm/jadwalGroupKerja/delete', [jadwalGroupKerjaController::class, 'delete']);
+
+    //jadwalGroupKerja
     Route::get('dm/groupKerja', [groupKerjaController::class, 'index'])->middleware('can:hc');
     Route::post('dm/groupKerja/storeData', [groupKerjaController::class, 'storeData']);
     Route::get('dm/groupKerja/tabelData', [groupKerjaController::class, 'tabelData']);

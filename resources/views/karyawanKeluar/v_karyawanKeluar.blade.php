@@ -34,7 +34,7 @@
                                         <div class="col-md-7">
                                             <select name="idKaryawan" id="idKaryawan"
                                                 class="select {{ $errors->has('idKaryawan') ? 'is-invalid' : '' }}"
-                                                data-live-search="true" data-show-subtext="true" id="idKaryawan">
+                                                id="idKaryawan">
                                                 <option value="">Pilih Nama Karyawan</option>
                                                 @foreach ($karyawan as $k)
                                                     <option value="{{ $k->id }}"
@@ -100,12 +100,12 @@
         $(document).ready(function() {
             $('#listView').load('karyawanKeluar/tabelData')
         });
+
         let editData = (id, idKaryawan, keterangan, tanggalKeluar) => {
             $('#idKaryawanKeluar').val(id);
-            $('#idKaryawan').val(idKaryawan);
+            $('#idKaryawan').val(idKaryawan).trigger('change');
             $('#keterangan').val(keterangan);
             $('#tanggalKeluar').val(tanggalKeluar);
-            $('.select').selectpicker('refresh')
 
             document.getElementById('btnUpdateData').classList.remove('d-none');
             document.getElementById('btnSaveData').classList.add('d-none');

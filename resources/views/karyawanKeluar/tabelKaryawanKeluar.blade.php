@@ -40,9 +40,9 @@
                 </td>
                 <td align="center" width="25%">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-primary btn-sm" id="btnEdit"
+                        {{-- <button type="button" class="btn btn-primary btn-sm" id="btnEdit"
                             onclick="editData('{{ $d->id }}','{{ $d->idKaryawan }}','{{ $d->keterangan }}','{{ $d->tanggalKeluar }}')"><i
-                                class="far fa-edit"></i> Edit</button>
+                                class="far fa-edit"></i> Edit</button> --}}
                         <button type="button" class="btn btn-danger btn-sm" id="btnDelete"
                             onclick="deleteData('{{ $d->id }}','{{ $d->karyawan->namaKaryawan }}','{{ $d->idKaryawan }}')"><i
                                 class="fas fa-trash-alt"></i> Delete</button>
