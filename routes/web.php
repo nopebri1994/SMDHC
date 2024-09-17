@@ -182,9 +182,9 @@ Route::middleware('auth')->group(function () {
 
     //groupKerja
     Route::get('psn/jadwalGroupKerja', [jadwalGroupKerjaController::class, 'index'])->middleware('can:hc');
-    Route::post('dm/jadwalGroupKerja/storeData', [jadwalGroupKerjaController::class, 'storeData']);
-    Route::get('dm/jadwalGroupKerja/tabelData', [jadwalGroupKerjaController::class, 'tabelData']);
-    Route::post('dm/jadwalGroupKerja/delete', [jadwalGroupKerjaController::class, 'delete']);
+    Route::post('psn/jadwalGroupKerja/storeData', [jadwalGroupKerjaController::class, 'storeData']);
+    Route::get('psn/jadwalGroupKerja/tabelData', [jadwalGroupKerjaController::class, 'tabelData']);
+    Route::post('psn/jadwalGroupKerja/delete', [jadwalGroupKerjaController::class, 'delete']);
 
     //jadwalGroupKerja
     Route::get('dm/groupKerja', [groupKerjaController::class, 'index'])->middleware('can:hc');

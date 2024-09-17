@@ -8,6 +8,7 @@ use App\Models\prosesAbsensiHarianModel;
 use App\Models\absensiModel;
 use App\Models\bagianModel;
 use App\Models\groupOffModel;
+use App\Models\jadwalGroupKerjaModel;
 use App\Models\liburModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +52,7 @@ class absensiHarianController extends Controller
         prosesAbsensiHarianModel::where('tglAbsen', $tgl)->delete();
         $dataOff = groupOffModel::where('tanggalOff', $tgl)->first();
         $dataIjin = DB::table('absensi_keteranganIjin')->where('tanggalIjin', $tgl)->get()->toArray();
+        $jadwalGroup = collect(jadwalGroupKerjaModel::with(['jamKerja'])->where('tanggal', $tgl)->get()->toArray());
         $tmp = [];
         $dataKaryawan = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->orderBy('nikKerja')->get();
         $jamAbsen = absensiHarianModel::where('tanggalAbsen', $tgl)->get()->toArray();
@@ -80,49 +82,77 @@ class absensiHarianController extends Controller
             if ($obj != '') {
                 $jamDatang = $jamAbsen[$obj]['jamAbsen'];
             }
+
             $obj2 = array_search($dk->fpId, array_column($absenPulang, 'idFinger'));
             if ($obj2 != '') {
                 $jamPulang = $absenPulang[$obj2]['jamAbsen'];
             }
-            if (date('D', strtotime($tgl)) == 'Sat') {
-                if ($jamDatang > $dk->jamKerja->jamMasukS) {
-                    $t = 'Ya';
-                }
-                $jadwalMasuk = $dk->jamKerja->jamMasukS;
-                $jadwalPulang = $dk->jamKerja->jamPulangS;
-            } else {
-                if ($jamDatang > $dk->jamKerja->jamMasukSJ) {
-                    $t = 'Ya';
-                }
-                $jadwalMasuk = $dk->jamKerja->jamMasukSJ;
-                $jadwalPulang = $dk->jamKerja->jamPulangSJ;
-            }
 
-            if (date('D', strtotime($tgl)) == 'Sat') {
-                if ($jamDatang <= $dk->jamKerja->jamMasukS and $jamPulang >= $dk->jamKerja->jamPulangS) {
-                    $f = 'Ya';
+            $cekJadwalGroup = $jadwalGroup->firstWhere('idGroupKerja', $dk->idGroupKerja);
+
+            //proses cek jadwal masuk/pulang dan shift
+            if ($cekJadwalGroup == null) {
+                if (date('D', strtotime($tgl)) == 'Sat') {
+                    $jadwalMasuk = $dk->jamKerja->jamMasukS;
+                    $jadwalPulang = $dk->jamKerja->jamPulangS;
+
+                    if ($jamDatang > $jadwalMasuk) {
+                        $t = 'Ya';
+                    }
+                    if ($jamDatang <= $jadwalMasuk and $jamPulang >= $jadwalPulang) {
+                        $f = 'Ya';
+                    }
+                } else {
+                    $jadwalMasuk = $dk->jamKerja->jamMasukSJ;
+                    $jadwalPulang = $dk->jamKerja->jamPulangSJ;
+                    if ($jamDatang > $jadwalMasuk) {
+                        $t = 'Ya';
+                    }
+                    if ($jamDatang <= $jadwalMasuk and $jamPulang >= $jadwalPulang) {
+                        $f = 'Ya';
+                    }
                 }
             } else {
-                if ($jamDatang <= $dk->jamKerja->jamMasukSJ and $jamPulang >= $dk->jamKerja->jamPulangSJ) {
-                    $f = 'Ya';
+                if (date('D', strtotime($tgl)) == 'Sat') {
+                    $jadwalMasuk = $cekJadwalGroup['jam_kerja']['jamMasukS'];
+                    $jadwalPulang = $cekJadwalGroup['jam_kerja']['jamPulangS'];
+                    if ($jamDatang > $jadwalMasuk) {
+                        $t = 'Ya';
+                    }
+                    if ($jamDatang <= $jadwalMasuk and $jamPulang >= $jadwalPulang) {
+                        $f = 'Ya';
+                    }
+                } else {
+                    $jadwalMasuk = $cekJadwalGroup['jam_kerja']['jamMasukSJ'];
+                    $jadwalPulang = $cekJadwalGroup['jam_kerja']['jamPulangSJ'];
+
+                    if ($jamDatang > $jadwalMasuk) {
+                        $t = 'Ya';
+                    }
+                    if ($jamDatang <= $jadwalMasuk and $jamPulang >= $jadwalPulang) {
+                        $f = 'Ya';
+                    }
                 }
             }
+            //end cek jamkerja
+
             if (date('D', strtotime($tgl)) == 'Sun') {
                 $f = 'Ya';
                 $t = 'Tidak';
             }
+
+            //cek off atau tuker off
             if (!empty($dataOff)) {
                 if ($dk->groupOff == $dataOff->group) {
                     $f = 'Ya';
                     $t = 'Tidak';
                 }
             };
-
-
             if ($ket == 'TJM') {
                 $f = 'Ya';
                 $t = 'Tidak';
             }
+            //end cek off
             $tmp[] = [
                 'idKaryawan' => $dk->id,
                 'tglAbsen' => $tgl,

@@ -25,16 +25,29 @@
                         </div> --}}
                         <div class="card-body">
                             <div class="col-md-12">
-                                <form action="groupOff/storeData" method="POST">
+                                <form action="jadwalGroupKerja/storeData" method="POST">
                                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" />
                                     <div class="row mt-3">
                                         <div class="col-md-3">
-                                            <label for="group">Group Off</label>
+                                            <label for="group">Group Kerja</label>
                                         </div>
                                         <div class="col-md-4">
                                             <select name="group" id="group" class="form-control">
-                                                <option value="A">Group A</option>
-                                                <option value="B">Group B</option>
+                                                @foreach ($groupKerja as $g)
+                                                    <option value="{{ $g->id }}">{{ $g->groupKerja }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-3">
+                                            <label for="jam">Jam Kerja</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <select name="jam" id="jam" class="form-control">
+                                                @foreach ($jamKerja as $j)
+                                                    <option value="{{ $j->id }}">{{ $j->kodeJamKerja }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -42,10 +55,10 @@
                                         <div class="col-md-3">
                                             <label for="dariTanggal">Dari Tanggal</label>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-6">
                                             <input type="date"
                                                 class="form-control {{ $errors->has('dariTanggal') ? 'is-invalid' : '' }}"
-                                                name="dariTanggal" id="dariTanggal">
+                                                name="dariTanggal" id="dariTanggal" required>
                                             <div class="invalid-feedback">{{ $errors->first('dariTanggal') }}</div>
                                         </div>
                                     </div>
@@ -53,15 +66,14 @@
                                         <div class="col-md-3">
                                             <label for="sampaiTanggal">Sampai Tanggal</label>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-6">
                                             <input type="date"
                                                 class="form-control {{ $errors->has('sampaiTanggal') ? 'is-invalid' : '' }}"
-                                                name="sampaiTanggal" id="sampaiTanggal">
+                                                name="sampaiTanggal" id="sampaiTanggal" required>
                                             <div class="invalid-feedback">{{ $errors->first('sampaiTanggal') }}</div>
                                         </div>
                                     </div>
                                     <div class="mt-3" align="right">
-                                        <input type="hidden" id="id">
                                         <button type="submit" class="btn btn-primary" id="btnSaveData">
                                             <span class="far fa-save" id="load" aria-hidden="true"></span>
                                             Simpan Data</button>
@@ -89,18 +101,21 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            $('#listView').load('groupOff/tabelData')
+            @if (session('status'))
+                flasher.success('{{ session('status') }}');
+            @endif
+            $('#listView').load('jadwalGroupKerja/tabelData')
         });
 
 
-        let deleteData = (id, nama) => {
+        let deleteData = (id, group) => {
             let token = $('#token').val();
             let dataId = {
                 'id': id,
                 "_token": token,
             };
             Swal.fire({
-                title: "Do you want to delete field " + nama + "?",
+                title: "Do you want to delete field " + group + "?",
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: "Delete",
@@ -113,10 +128,10 @@
                     $.ajax({
                         beforeSend: openLoader('memuatdata'),
                         type: 'post',
-                        url: 'groupOff/delete',
+                        url: 'jadwalGroupKerja/delete',
                         data: dataId,
                         success: function() {
-                            $('#listView').load('groupOff/tabelData')
+                            $('#listView').load('jadwalGroupKerja/tabelData')
                             flasher.success('Data Berhasil dihapus')
                             closeLoader();
                         },
