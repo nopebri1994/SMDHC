@@ -101,10 +101,10 @@
 @section('js')
     <script>
         $(document).ready(function() {
+            $('#listView').load('jadwalGroupKerja/tabelData')
             @if (session('status'))
                 flasher.success('{{ session('status') }}');
             @endif
-            $('#listView').load('jadwalGroupKerja/tabelData')
         });
 
 
