@@ -67,7 +67,8 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <table class="tbl table table-bordered table-striped">
+                                                        <table class="tbl table table-bordered table-striped table-sm"
+                                                            style="width:100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center">
@@ -105,7 +106,8 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <table class="tbl table table-bordered table-striped">
+                                                        <table class="tbl table table-bordered table-striped table-sm"
+                                                            style="width:100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center">
@@ -170,7 +172,8 @@
                                                 <div class="col-md-12">
                                                     <div class="card">
                                                         <div class="card-body">
-                                                            <table class="tbl table table-bordered table-striped">
+                                                            <table class="tbl table table-bordered table-striped table-sm"
+                                                                style="width:100%">
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="text-center">
@@ -181,10 +184,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @php
+                                                                        $no = 1;
+                                                                    @endphp
                                                                     @foreach ($karyawanGroup as $key => $kg)
                                                                         @if ($kg->idGroupKerja == $gk->id)
                                                                             <tr>
-                                                                                <td class="text-center">{{ $key + 1 }}
+                                                                                <td class="text-center">
+                                                                                    {{ $no }}
                                                                                 </td>
                                                                                 <td>{{ $kg->namaKaryawan }}</td>
                                                                                 <td class="text-center">
@@ -194,6 +201,9 @@
                                                                                     @endif
                                                                                 </td>
                                                                             </tr>
+                                                                            @php
+                                                                                $no++;
+                                                                            @endphp
                                                                         @endif
                                                                     @endforeach
                                                                 </tbody>
@@ -219,5 +229,9 @@
     </div>
 @endsection
 @section('js')
-    <script></script>
+    <script>
+        $('.tbl').DataTable({
+            responsive: true
+        });
+    </script>
 @endsection
