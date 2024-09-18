@@ -68,18 +68,10 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ URL::to('/') }}/dk/komposisiGroupOff"
-                                    class="nav-link  {{ request()->is('dk/komposisiGroupOff') ? 'active' : '' }}">
+                                <a href="{{ URL::to('/') }}/dk/komposisi"
+                                    class="nav-link  {{ request()->is('dk/komposisi') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Komposisi Group OFF</p>
-                                    <span class="right badge badge-danger">P</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ URL::to('/') }}/dk/komposisiGroupKerja"
-                                    class="nav-link  {{ request()->is('dk/komposisiGroupOff') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Komposisi Group Kerja</p>
+                                    <p>Komposisi Karyawan</p>
                                     <span class="right badge badge-danger">P</span>
                                 </a>
                             </li>

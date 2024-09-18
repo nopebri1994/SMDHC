@@ -18,6 +18,7 @@ use App\Http\Controllers\kalkulasiController;
 use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\karyawanKeluarController;
 use App\Http\Controllers\keteranganIjinController;
+use App\Http\Controllers\komposisiController;
 use App\Http\Controllers\kontrakKaryawanController;
 use App\Http\Controllers\liburController;
 use App\Http\Controllers\loginController;
@@ -101,6 +102,10 @@ Route::middleware('auth')->group(function () {
     Route::get('dk/karyawan/detail-data/{id}', [karyawanController::class, 'detailData'])->name('detail-data');
     Route::get('dk/karyawan/edit-data/{id}', [karyawanController::class, 'editData'])->name('edit-data');
     Route::get('dk/karyawan/update-data/{id}', [karyawanController::class, 'updateData'])->name('edit-data');
+
+    //komposisi
+    Route::get('/dk/komposisi', [komposisiController::class, 'index'])->name('komposisi')->middleware('can:hc');
+
 
     //potongan-cuti
     Route::get('psn/potongan-cuti', [potonganController::class, 'index'])->middleware('can:hc');
