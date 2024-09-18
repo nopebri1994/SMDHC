@@ -72,7 +72,6 @@
                                     class="nav-link  {{ request()->is('dk/komposisi') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Komposisi Karyawan</p>
-                                    <span class="right badge badge-danger">P</span>
                                 </a>
                             </li>
                         @endcan
