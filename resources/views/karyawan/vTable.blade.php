@@ -15,11 +15,11 @@
      <tbody>
          @foreach ($karyawan as $key => $k)
              <tr>
-                 <td class="text-center my-auto">{{ $key + 1 }}</td>
-                 <td class="text-center">{{ $k->nikKerja }}</td>
+                 <td class="text-center my-auto align-middle">{{ $key + 1 }}</td>
+                 <td class="text-center align-middle">{{ $k->nikKerja }}</td>
                  <td>{{ $k->namaKaryawan }}</td>
-                 <td class="text-center">{{ $k->jabatan->namaJabatan }}</td>
-                 <td class="text-center">{{ $k->departemen->kode }}
+                 <td class="text-center align-middle">{{ $k->jabatan->namaJabatan }}</td>
+                 <td class="text-center align-middle">{{ $k->departemen->kode }}
                      @if ($k->bagian->kode != null)
                          <span style="color:coral">&#8658;</span>
                      @endif
@@ -37,22 +37,22 @@
                      @endif
 
                  </td>
-                 <td class="text-center">{{ varHelper::formatDate($k->tglMasuk) }}</td>
-                 <td class="text-center">{{ varHelper::varStatusKaryawan($k->statusKaryawan) }}</td>
+                 <td class="text-center align-middle">{{ varHelper::formatDate($k->tglMasuk) }}</td>
+                 <td class="text-center align-middle">{{ varHelper::varStatusKaryawan($k->statusKaryawan) }}</td>
 
                  <td class="align-middle text-center">
-                     <div class="btn-group" role="group">
-                         <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle btn-sm"
-                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             Action
+                     <div class="btn-group">
+                         <button type="button" class="btn btn-default btn-sm">Action</button>
+                         <button type="button" class="btn btn-default btn-sm dropdown-toggle dropdown-icon"
+                             data-toggle="dropdown">
+                             <span class="sr-only">Toggle Dropdown</span>
                          </button>
-                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                         <div class="dropdown-menu" role="menu">
                              <a class="dropdown-item" href="{{ URL::to("dk/karyawan/detail-data/$k->uuid") }}">Detail
                                  Data</a>
                              @can('hc')
                                  <a class="dropdown-item" href="{{ URL::to("dk/karyawan/edit-data/$k->uuid") }}">Edit</a>
                              @endcan
-                             {{-- <a class="dropdown-item" href="#">Delete</a> --}}
                          </div>
                      </div>
                  </td>

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\bagianModel;
 use App\Models\karyawanModel;
+use App\Models\overtimeDetailModel;
 use App\Models\overtimeModel;
+use App\Models\prosesAbsensiHarianModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class overtimeController extends Controller
@@ -85,5 +88,18 @@ class overtimeController extends Controller
         DB::table('overtimeDetail')->insert($tmp);
 
         return redirect('pay/overtime/')->with('status', 'Data Lembur Berhasil disimpan');
+    }
+    function detail(Request $request)
+    {
+        $id = Crypt::decryptString($request->id);
+        $formLembur = overtimeModel::where('id', $id)->first();
+        $data = overtimeDetailModel::where('idOvertime', $id)->get();
+        $absensi = prosesAbsensiHarianModel::where('tglAbsen', $formLembur->tanggalOT)->get()->toArray();
+        $tmp = [
+            'title' => 'Detail Overtime',
+            'data' => $data,
+            'absensi' => $absensi
+        ];
+        return view('overtime.detailOvertime', $tmp);
     }
 }

@@ -43,15 +43,35 @@
                                         <th class="text-center">
                                             Status Form Lembur
                                         </th>
+                                        <th class="text-center">
+                                            Aksi
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($overtime as $key => $o)
                                         <tr>
                                             <td class="text-center" style="width:5%">{{ $key + 1 }}</td>
-                                            <td class="text-center" style="width:12%">{{ $o->tanggalOT }}</td>
+                                            <td class="text-center" style="width:12%">
+                                                {{ varHelper::formatDate($o->tanggalOT) }}</td>
                                             <td class="text-center" style="width:12%">{{ $o->bagian->namaBagian }}</td>
-                                            <td></td>
+                                            <td>
+                                                @if (!$o->tanggalAcc)
+                                                    <h6>
+                                                        <span class="badge badge-danger"> Menunggu Konfirmasi
+                                                            Bagian/Departemen</span>
+                                                    </h6>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{-- <button class="btn btn-success btn-xs">Konfirmasi Lembur</button> --}}
+                                                <button class="btn btn-primary btn-xs">Accept Lembur</button>
+                                                <a href="overtime/detail/{{ Crypt::encryptString($o->id) }}"
+                                                    class="btn btn-primary btn-xs" target="_blank">Detail
+                                                    Lembur</a>
+                                                {{-- <button class="btn btn-primary btn-xs">Accept Lembur</button>
+                                                <button class="btn btn-danger btn-xs">Cancel Lembur</button> --}}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
