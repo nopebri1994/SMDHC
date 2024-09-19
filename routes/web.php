@@ -247,6 +247,7 @@ Route::middleware('auth')->group(function () {
     Route::get('pay/overtime/addData', [overtimeController::class, 'addData']);
     Route::get('pay/overtime/store', [overtimeController::class, 'storeData']);
     Route::get('pay/overtime/detail/{id}', [overtimeController::class, 'detail']);
+    Route::get('pay/overtime/cetakLaporan', [overtimeController::class, 'cetak']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');

@@ -7,6 +7,7 @@ use App\Models\karyawanModel;
 use App\Models\overtimeDetailModel;
 use App\Models\overtimeModel;
 use App\Models\prosesAbsensiHarianModel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -98,8 +99,18 @@ class overtimeController extends Controller
         $tmp = [
             'title' => 'Detail Overtime',
             'data' => $data,
-            'absensi' => $absensi
+            'absensi' => $absensi,
+            'form' => $formLembur,
         ];
         return view('overtime.detailOvertime', $tmp);
+    }
+
+    function cetak(Request $request)
+    {
+
+        $pdf = Pdf::loadView('overtime.formLembur')->setPaper('A4', 'landscape');
+
+        return $pdf->stream("Form Lembur.pdf");
+        // return view('advance.laporan');
     }
 }
