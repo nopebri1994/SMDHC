@@ -109,8 +109,13 @@ class overtimeController extends Controller
     {
 
         $pdf = Pdf::loadView('overtime.formLembur')->setPaper('A4', 'landscape');
-
+        $domPdf = $pdf->getDomPDF();
+        $pdf->output();
+        $font =  $pdf->getFontMetrics()->getFont(null, "normal");
+        $canvas = $domPdf->get_canvas();
+        $canvas->page_text(760, 113, "{PAGE_NUM} dari {PAGE_COUNT}", $font, 9, [0, 0, 0]);
         return $pdf->stream("Form Lembur.pdf");
+
         // return view('advance.laporan');
     }
 }

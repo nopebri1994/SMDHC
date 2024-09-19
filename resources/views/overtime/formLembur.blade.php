@@ -75,7 +75,7 @@ asas
                     <img src="{{ public_path('/') }}/assets/img/logo.png" width='85' height='35'>
                 </td>
                 <td>
-                    <table style='border-collapse: collapse;'>
+                    <table width="70%" style='border-collapse: collapse;'>
                         <tr>
                             <td style='font-size:12px;padding-top:10px;padding-left:5px;'>
                                 <u>PT. Lion Metal Works Tbk</u>
@@ -85,6 +85,9 @@ asas
                             <td style='font-size:12px;padding-left:5px;'>
                                 Human Capital Dept.
                             </td>
+                            <td style="text-align:center">
+                                <b>PERMOHONAN & REALISASI LEMBUR</b>
+                            </td>
                         </tr>
                     </table>
                 </td>
@@ -93,12 +96,7 @@ asas
         <br>
         <table width='100%'>
             <tr>
-                <td align='center'><b>
-                        PERMOHONAN & REALISASI LEMBUR
-                </td>
-            </tr>
-            <tr>
-                <table width='35%' style="font-size: 12px" align="right">
+                <table width='25%' style="font-size: 12px" align="right">
 
                     <tr>
                         <td>
@@ -126,7 +124,19 @@ asas
                             Tanggal
                         </td>
                         <td>:</td>
-                        <td>1</td>
+                        <td>12-12-2024</td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            Halaman
+                        </td>
+                        <td>:</td>
+                        <td></td>
                     </tr>
                 </table>
             </tr>
@@ -172,7 +182,7 @@ asas
                     </th>
                 </tr>
                 <tr>
-                    <th>URUT</th>
+                    <th width="5%">URUT</th>
                     <th>KERJA</th>
                     <th>DARI</th>
                     <th>SAMPAI</th>
@@ -183,18 +193,20 @@ asas
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                </tr>
+                @for ($i = 1; $i <= 40; $i++)
+                    <tr>
+                        <td>{{ $i }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                @endfor
             </tbody>
             <tfoot>
                 <tr>
