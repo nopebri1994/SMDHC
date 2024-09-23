@@ -163,12 +163,19 @@ class overtimeController extends Controller
         return view('overtime.tabelOvertime', $tmp);
     }
     function updateStatusForm(Request $request)
-    {   
-        
+    {
+
         $id = $request->id;
-        overtimeModel::where('id', $id)->update([
-            'tanggalAcc' => date('Y-m-d H:i:s'),
-        ]);
+        $cek = overtimeDetailModel::where('idOvertime', $id)->where('status', '1')->first();
+
+        if (empty($cek)) {
+            overtimeModel::where('id', $id)->update([
+                'tanggalAcc' => date('Y-m-d H:i:s'),
+            ]);
+            return response()->json(['success' => 'Data Berhasil dikonfirmasi', 'error' => '']);
+        } else {
+            return response()->json(['success' => '', 'error' => 'Data gagal dikonfirmasi, cek detail form']);
+        }
     }
 
     function updateStatusFormHC(Request $request)

@@ -84,9 +84,13 @@
                         type: 'post',
                         url: 'overtime/updateStatusForm',
                         data: dataId,
-                        success: function() {
+                        success: function(sdata) {
                             load();
-                            flasher.success('Form berhasil dikonfirmasi')
+                            if (sdata['error'] == '') {
+                                flasher.success(sdata['success'])
+                            } else {
+                                flasher.error(sdata['error'])
+                            }
                             closeLoader();
                         },
                         error: function() {
@@ -164,7 +168,7 @@
                         type: 'post',
                         url: 'overtime/updateStatusFormReject',
                         data: dataId,
-                        success: function() {
+                        success: function(sdata) {
                             load();
                             flasher.success('Status Updated')
                             closeLoader();
