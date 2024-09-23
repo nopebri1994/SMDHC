@@ -246,8 +246,10 @@ Route::middleware('auth')->group(function () {
     Route::get('pay/overtime', [overtimeController::class, 'index']);
     Route::get('pay/overtime/addData', [overtimeController::class, 'addData']);
     Route::get('pay/overtime/store', [overtimeController::class, 'storeData']);
+    Route::get('pay/overtime/updateStatus', [overtimeController::class, 'updateStatus']);
+    Route::get('pay/overtime/tabelDetail', [overtimeController::class, 'tabelDetail']);
     Route::get('pay/overtime/detail/{id}', [overtimeController::class, 'detail']);
-    Route::get('pay/overtime/cetakLaporan', [overtimeController::class, 'cetak']);
+    Route::get('pay/overtime/cetakLaporan/{id}', [overtimeController::class, 'cetak']);
 
     //Pengguna
     Route::get('admin/users', [usersController::class, 'index'])->middleware('can:admin');

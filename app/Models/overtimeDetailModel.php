@@ -14,7 +14,7 @@ class overtimeDetailModel extends Model
 
     function overtime(): BelongsTo
     {
-        return $this->belongsTo(overtimeModel::class, 'idBagian');
+        return $this->belongsTo(overtimeModel::class, 'idOvertime');
     }
 
     function karyawan(): BelongsTo

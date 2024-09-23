@@ -93,29 +93,58 @@ class overtimeController extends Controller
     function detail(Request $request)
     {
         $id = Crypt::decryptString($request->id);
-        $formLembur = overtimeModel::where('id', $id)->first();
+        $formLembur = overtimeModel::with(['bagian'])->where('id', $id)->first();
         $data = overtimeDetailModel::where('idOvertime', $id)->get();
         $absensi = prosesAbsensiHarianModel::where('tglAbsen', $formLembur->tanggalOT)->get()->toArray();
         $tmp = [
             'title' => 'Detail Overtime',
-            'data' => $data,
-            'absensi' => $absensi,
-            'form' => $formLembur,
+            'form' => $formLembur
         ];
         return view('overtime.detailOvertime', $tmp);
     }
 
     function cetak(Request $request)
     {
-
-        $pdf = Pdf::loadView('overtime.formLembur')->setPaper('A4', 'landscape');
+        $id = Crypt::decryptString($request->id);
+        $data = overtimeDetailModel::with(['karyawan'])->where('idOvertime', $id)->get();
+        $formLembur = overtimeModel::with(['bagian'])->where('id', $id)->first();
+        $absensi = prosesAbsensiHarianModel::where('tglAbsen', $formLembur->tanggalOT)->get()->toArray();
+        $tmp = [
+            'data' => $data,
+            'form' => $formLembur,
+            'absensi' => $absensi
+        ];
+        $pdf = Pdf::loadView('overtime.formLembur', $tmp)->setPaper('A4', 'landscape');
         $domPdf = $pdf->getDomPDF();
         $pdf->output();
         $font =  $pdf->getFontMetrics()->getFont(null, "normal");
         $canvas = $domPdf->get_canvas();
-        $canvas->page_text(760, 113, "{PAGE_NUM} dari {PAGE_COUNT}", $font, 9, [0, 0, 0]);
+        $canvas->page_text(763, 113, "{PAGE_NUM} dari {PAGE_COUNT}", $font, 9, [0, 0, 0]);
         return $pdf->stream("Form Lembur.pdf");
 
         // return view('advance.laporan');
+    }
+
+    function updateStatus(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->status;
+
+        overtimeDetailModel::where('id', $id)->update([
+            'status' => $status,
+        ]);
+    }
+
+    function tabelDetail(Request $request)
+    {
+        $id = Crypt::decryptString($request->id);
+        $formLembur = overtimeModel::with(['bagian'])->where('id', $id)->first();
+        $data = overtimeDetailModel::where('idOvertime', $id)->get();
+        $absensi = prosesAbsensiHarianModel::where('tglAbsen', $formLembur->tanggalOT)->get()->toArray();
+        $tmp = [
+            'data' => $data,
+            'absensi' => $absensi,
+        ];
+        return view('overtime.tabelDetailOvertime', $tmp);
     }
 }

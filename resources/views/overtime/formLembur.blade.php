@@ -96,23 +96,23 @@ asas
         <br>
         <table width='100%'>
             <tr>
-                <table width='25%' style="font-size: 12px" align="right">
+                <table width='100%' style="font-size: 12px">
 
                     <tr>
                         <td>
                             Bagian
                         </td>
-                        <td>
+                        <td width="2%">
                             :
                         </td>
-                        <td> Fabrikasi 1</td>
+                        <td width='75%'>{{ $form->bagian->namaBagian }}</td>
                         <td>
                             Hari
                         </td>
                         <td>
                             :
                         </td>
-                        <td>Senin</td>
+                        <td>{{ varHelper::hariIndo(date('l', strtotime($form->tanggalOT))) }}</td>
                     </tr>
                     <tr>
                         <td>
@@ -123,8 +123,8 @@ asas
                         <td>
                             Tanggal
                         </td>
-                        <td>:</td>
-                        <td>12-12-2024</td>
+                        <td width="2%">:</td>
+                        <td>{{ varHelper::formatDate($form->tanggalOT) }}</td>
                     </tr>
                     <tr>
                         <td>
@@ -168,7 +168,7 @@ asas
                     <th class="" colspan="2">
                         N0
                     </th>
-                    <th style="width: 10%;" rowspan="2">
+                    <th style="width: 15%;" rowspan="2">
                         NAMA KARYAWAN
                     </th>
                     <th style="width: 30%;" rowspan="2">
@@ -182,7 +182,7 @@ asas
                     </th>
                 </tr>
                 <tr>
-                    <th width="5%">URUT</th>
+                    <th width="3%">URUT</th>
                     <th>KERJA</th>
                     <th>DARI</th>
                     <th>SAMPAI</th>
@@ -193,20 +193,39 @@ asas
                 </tr>
             </thead>
             <tbody>
-                @for ($i = 1; $i <= 40; $i++)
+                @php
+                    $abs = collect($absensi);
+                @endphp
+                @foreach ($data as $key => $d)
+                    @php
+                        $detailAbsensi = $abs->firstWhere('idKaryawan', $d->idKaryawan);
+                        $h = $d->jam1 + $d->jam2;
+                    @endphp
                     <tr>
-                        <td>{{ $i }}</td>
+                        <td style="text-align: center">{{ $key + 1 }}</td>
+                        <td style="text-align: center">{{ $d->karyawan->nikKerja }}</td>
+                        <td>{{ $d->karyawan->namaKaryawan }}</td>
+                        <td>{{ $d->jenisPekerjaan }}</td>
+                        <td style="text-align: center">
+                            {{ date('H:i', strtotime('+30 minutes', strtotime($detailAbsensi['jadwalPulang']))) }}</td>
+                        <td style="text-align: center">
+                            {{ date('H:i', strtotime("+$h Hours +30 minutes", strtotime($detailAbsensi['jadwalPulang']))) }}
+                        </td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if ($d->status == 2)
+                            <td style="text-align: center">
+                                {{ date('H:i', strtotime('+30 minutes', strtotime($detailAbsensi['jadwalPulang']))) }}
+                            </td>
+                            <td style="text-align: center">{{ date('H:i', strtotime($detailAbsensi['jamPulang'])) }}
+                            </td>
+                            <td style="text-align: center">{{ $h }} Jam</td>
+                        @else
+                            <td style="text-align: center; background-color:#55535363" colspan="3">
+
+                            </td>
+                        @endif
                     </tr>
-                @endfor
+                @endforeach
             </tbody>
             <tfoot>
                 <tr>
