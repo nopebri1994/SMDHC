@@ -28,8 +28,11 @@
              <th style="text-align:center">
                  Jam Pulang
              </th>
-             <th style="width: :5%">
-             </th>
+             @if (!$form->tanggalAcc)
+                 <th style="width: :5%">
+                 </th>
+             @endif
+
          </tr>
      </thead>
      <tbody>
@@ -69,14 +72,19 @@
                  <td style="text-align:center" class="align-middle">
                      {{ $detailAbsensi['jamPulang'] }}
                  </td>
-                 <td align="center">
-                     <button type="button" class="btn btn-primary btn-xs" onclick="updateStatus({{ $d->id }},2)"
-                         @if ($d->status != 1) disabled @endif><i class="far fa-check-circle"></i>
-                         Accept</button>
-                     <button type="button" class="btn btn-danger btn-xs" onclick="updateStatus({{ $d->id }},0)"
-                         @if ($d->status != 1) disabled @endif><i class="fas fa-times"></i> Cancel</button>
+                 @if (!$form->tanggalAcc)
+                     <td align="center">
+                         <button type="button" class="btn btn-primary btn-xs"
+                             onclick="updateStatus({{ $d->id }},2)"
+                             @if ($d->status != 1) disabled @endif><i class="far fa-check-circle"></i>
+                             Accept</button>
+                         <button type="button" class="btn btn-danger btn-xs"
+                             onclick="updateStatus({{ $d->id }},0)"
+                             @if ($d->status != 1) disabled @endif><i class="fas fa-times"></i>
+                             Cancel</button>
 
-                 </td>
+                     </td>
+                 @endif
              </tr>
          @endforeach
      </tbody>

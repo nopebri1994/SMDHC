@@ -77,15 +77,15 @@
                         @endcan
                     </ul>
                 </li>
-                @can('hc')
-                    <li class="nav-item  {{ request()->is('pay/*') ? 'menu-is-opening menu-open' : '' }}">
-                        <a href="#" class="nav-link {{ request()->is('pay/*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-university"></i>
-                            <p>
-                                Payroll
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
+                <li class="nav-item  {{ request()->is('pay/*') ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('pay/*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-university"></i>
+                        <p>
+                            Payroll
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    @can('hc')
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ URL::to('/') }}/pay/advance"
@@ -95,18 +95,18 @@
                                 </a>
                             </li>
                         </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ URL::to('/') }}/pay/overtime"
-                                    class="nav-link {{ request()->is('pay/overtime') ? 'active' : '' }} {{ request()->is('pay/overtime/*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Overtime</p>
-                                    <span class="right badge badge-danger">P</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                @endcan
+                    @endcan
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ URL::to('/') }}/pay/overtime"
+                                class="nav-link {{ request()->is('pay/overtime') ? 'active' : '' }} {{ request()->is('pay/overtime/*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Overtime</p>
+                                <span class="right badge badge-danger">P</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item  {{ request()->is('psn/*') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link  {{ request()->is('psn/*') ? 'active' : '' }}">
                         <i class="nav-icon fas fas fa-users"></i>

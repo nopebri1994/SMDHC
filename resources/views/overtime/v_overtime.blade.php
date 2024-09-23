@@ -28,54 +28,8 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <table class="tbl table table-bordered table-stripped">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">
-                                            #
-                                        </th>
-                                        <th class="text-center">
-                                            Tanggal Lembur
-                                        </th>
-                                        <th class="text-center">
-                                            Bagian
-                                        </th>
-                                        <th class="text-center">
-                                            Status Form Lembur
-                                        </th>
-                                        <th class="text-center">
-                                            Aksi
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($overtime as $key => $o)
-                                        <tr>
-                                            <td class="text-center" style="width:5%">{{ $key + 1 }}</td>
-                                            <td class="text-center" style="width:12%">
-                                                {{ varHelper::formatDate($o->tanggalOT) }}</td>
-                                            <td class="text-center" style="width:12%">{{ $o->bagian->namaBagian }}</td>
-                                            <td>
-                                                @if (!$o->tanggalAcc)
-                                                    <h6>
-                                                        <span class="badge badge-danger"> Menunggu Konfirmasi
-                                                            Bagian/Departemen</span>
-                                                    </h6>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                {{-- <button class="btn btn-success btn-xs">Konfirmasi Lembur</button> --}}
-                                                <button class="btn btn-primary btn-xs">Accept Lembur</button>
-                                                <a href="overtime/detail/{{ Crypt::encryptString($o->id) }}"
-                                                    class="btn btn-primary btn-xs" target="_blank">Detail
-                                                    Lembur</a>
-                                                {{-- <button class="btn btn-primary btn-xs">Accept Lembur</button>
-                                                <button class="btn btn-danger btn-xs">Cancel Lembur</button> --}}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" />
+                            <div id="list"></div>
                         </div>
                     </div>
                 </div>
@@ -86,13 +40,146 @@
 @section('js')
     <script>
         $(document).ready(function() {
+            load();
             @if (session('status'))
                 flasher.success('{{ session('status') }}');
             @endif
         })
 
-        $('.tbl').DataTable({
-            responsive: true
-        });
+        const load = () => {
+            $.ajax({
+                beforeSend: openLoader('Memuat Data'),
+                type: 'get',
+                url: 'overtime/tabelData',
+                success: function(sdata) {
+                    $('#list').html(sdata);
+                    closeLoader();
+                },
+                error: function(error) {
+                    flasher.error('data not found');
+                    closeLoader();
+                }
+            })
+        }
+
+        let accept = (a) => {
+            let token = $('#token').val();
+            let dataId = {
+                'id': a,
+                "_token": token,
+            };
+            Swal.fire({
+                title: "Konfirmasi Data Lembur ?",
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: "Yes",
+                denyButtonText: `Cancel`,
+                denyButtonColor: `#636363`,
+                confirmButtonColor: '#24943D',
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    $.ajax({
+                        beforeSend: openLoader('memuat data'),
+                        type: 'post',
+                        url: 'overtime/updateStatusForm',
+                        data: dataId,
+                        success: function() {
+                            load();
+                            flasher.success('Form berhasil dikonfirmasi')
+                            closeLoader();
+                        },
+                        error: function() {
+                            flasher.error('Data gagal dikonfirmasi')
+                            closeLoader();
+
+                        }
+
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
+        }
+
+        let confirm = (a) => {
+            let token = $('#token').val();
+            let dataId = {
+                'id': a,
+                "_token": token,
+            };
+            Swal.fire({
+                title: "Terima Form Lembur ?",
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: "Yes",
+                denyButtonText: `Cancel`,
+                denyButtonColor: `#636363`,
+                confirmButtonColor: '#24943D',
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    $.ajax({
+                        beforeSend: openLoader('memuat data'),
+                        type: 'post',
+                        url: 'overtime/updateStatusFormHC',
+                        data: dataId,
+                        success: function() {
+                            load();
+                            flasher.success('Form berhasil diterima')
+                            closeLoader();
+                        },
+                        error: function() {
+                            flasher.error('Data gagal diterima')
+                            closeLoader();
+
+                        }
+
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
+        }
+
+        let reject = (a) => {
+            let token = $('#token').val();
+            let dataId = {
+                'id': a,
+                "_token": token,
+            };
+            Swal.fire({
+                title: "Tolak Form Lembur ?",
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: "Yes",
+                denyButtonText: `Cancel`,
+                denyButtonColor: `#636363`,
+                confirmButtonColor: '#DC3545',
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    $.ajax({
+                        beforeSend: openLoader('memuat data'),
+                        type: 'post',
+                        url: 'overtime/updateStatusFormReject',
+                        data: dataId,
+                        success: function() {
+                            load();
+                            flasher.success('Status Updated')
+                            closeLoader();
+                        },
+                        error: function() {
+                            flasher.error('Data gagal ditolak')
+                            closeLoader();
+
+                        }
+
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
+        }
     </script>
 @endsection

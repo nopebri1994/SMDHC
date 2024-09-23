@@ -248,6 +248,11 @@ Route::middleware('auth')->group(function () {
     Route::get('pay/overtime/store', [overtimeController::class, 'storeData']);
     Route::get('pay/overtime/updateStatus', [overtimeController::class, 'updateStatus']);
     Route::get('pay/overtime/tabelDetail', [overtimeController::class, 'tabelDetail']);
+    Route::get('pay/overtime/tabelData', [overtimeController::class, 'tabelData']);
+    Route::post('pay/overtime/updateStatusForm', [overtimeController::class, 'updateStatusForm']);
+    Route::post('pay/overtime/updateStatusFormHC', [overtimeController::class, 'updateStatusFormHC']);
+    Route::post('pay/overtime/updateStatusFormReject', [overtimeController::class, 'updateStatusFormReject']);
+
     Route::get('pay/overtime/detail/{id}', [overtimeController::class, 'detail']);
     Route::get('pay/overtime/cetakLaporan/{id}', [overtimeController::class, 'cetak']);
 
