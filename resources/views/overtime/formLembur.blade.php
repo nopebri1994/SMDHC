@@ -207,14 +207,10 @@ asas
                         <td>{{ $d->karyawan->namaKaryawan }}</td>
                         <td>{{ $d->jenisPekerjaan }}</td>
                         <td style="text-align: center">
-                            @if ($detailAbsensi)
-                                {{ date('H:i', strtotime('+30 minutes', strtotime($detailAbsensi['jadwalPulang']))) }}
-                            @endif
+                            {{ date('H:i', strtotime($d->jamMulai)) }}
                         </td>
                         <td style="text-align: center">
-                            @if ($detailAbsensi)
-                                {{ date('H:i', strtotime("+$h Hours +30 minutes", strtotime($detailAbsensi['jadwalPulang']))) }}
-                            @endif
+                            {{ date('H:i', strtotime("+$h Hours", strtotime($d->jamMulai))) }}
                         </td>
                         <td></td>
                         @if ($d->status == 2)

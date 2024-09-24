@@ -62,6 +62,7 @@ class overtimeController extends Controller
         $karyawan = $request->karyawan;
         $jamLembur = $request->jamLembur;
         $jp = $request->jp;
+        $jm = $request->jamMulai;
         foreach ($karyawan as $key => $k) {
             if ($jamLembur[$key] > 1) {
                 $jam1 = 1;
@@ -80,7 +81,8 @@ class overtimeController extends Controller
                 'jam1' => $jam1,
                 'jam2' => $jam2,
                 'jenisPekerjaan' => $jp[$key],
-                'status' => '1'
+                'status' => '1',
+                'jamMulai' => $jm[$key],
             ];
         }
 

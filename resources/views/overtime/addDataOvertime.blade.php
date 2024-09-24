@@ -83,7 +83,10 @@
                                                 Nama Karyawan
                                             </th>
                                             <th style="width:10%">
-                                                jam Lembur
+                                                Mulai (jam)
+                                            </th>
+                                            <th style="width:10%">
+                                                Lembur (jam)
                                             </th>
                                             <th style="width: 60%">
                                                 jenis Pekerjaan
@@ -102,6 +105,9 @@
                                                             {{ $k->namaKaryawan }} ({{ $k->nikKerja }})</option>
                                                     @endforeach
                                                 </select>
+                                            </td>
+                                            <td>
+                                                <input type="time" class="form-control" name="jamMulai[]" required>
                                             </td>
                                             <td>
                                                 <input type="number" min="0" max="7" value="1"
@@ -144,7 +150,9 @@
                 @endforeach
             "</select></td>" +
             "<td>" +
-            "<input type='number' min='1' class='form-control' name='jamLembur[" + nomor + "]' required></td>" +
+            " <input type='time' class='form-control' name='jamMulai[" + nomor + "]' required></td>" +
+                "<td>" +
+                "<input type='number' min='1' class='form-control' name='jamLembur[" + nomor + "]' required></td>" +
                 "<td>" +
                 "<Textarea class='form-control' name='jp[" + nomor +
                 "]' cols='2' rows='1' required></Textarea></td>" +

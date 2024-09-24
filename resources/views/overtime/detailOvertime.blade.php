@@ -41,15 +41,19 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row pt-1">
-                                            <div class="col-md-6" align="right">
+                                            <div class="col-md-4" align="right">
                                                 <a href="{{ URL::to('/') }}/pay/overtime" class="btn btn-danger"><i
                                                         class="fas fa-backward"></i>
                                                     Back</a>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <button class="btn btn-primary btn-block" id="btnCetak"><span
                                                         class="fas fa-print"></span>&nbsp;Print
                                                     Form Lembur</button>
+                                            </div>
+                                            <div class="col-md-4" align="left">
+                                                <button class="btn btn-info btn-block" id="tambahData"><span
+                                                        class="fas fa-plus"></span>&nbsp;Tambah Data</button>
                                             </div>
                                         </div>
                                     </div>

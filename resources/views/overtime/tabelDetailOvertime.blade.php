@@ -68,10 +68,7 @@
                      @endif
                  </td>
                  <td style="text-align:center" class="align-middle">
-                     @if ($detailAbsensi)
-                         {{ date('H:i', strtotime('+30 minutes', strtotime($detailAbsensi['jadwalPulang']))) }}
-                     @endif
-
+                     {{ date('H:i', strtotime($d->jamMulai)) }}
                  </td>
                  <td style="text-align:center" class="align-middle">
                      @if ($detailAbsensi)
@@ -80,6 +77,9 @@
                  </td>
 
                  <td align="center">
+                     <button type="button" class="btn btn-info btn-xs" onclick=""
+                         @if ($d->status != 1) disabled @endif><i class="far fa-edit"></i>
+                         Edit</button>
                      <button type="button" class="btn btn-primary btn-xs" onclick="updateStatus({{ $d->id }},2)"
                          @if ($d->status != 1) disabled @endif><i class="far fa-check-circle"></i>
                          Accept</button>
