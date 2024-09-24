@@ -76,22 +76,22 @@
                             </div>
                             <div class="card-body">
 
-                                <table class="table table-striped table-bordered" id="dataProses">
+                                <table class="table table-striped table-bordered table-sm" id="dataProses">
                                     <thead>
                                         <tr>
-                                            <th style="width:25%">
+                                            <th style="width:25%;text-align:center">
                                                 Nama Karyawan
                                             </th>
-                                            <th style="width:10%">
+                                            <th style="width:10%;text-align:center">
                                                 Mulai (jam)
                                             </th>
-                                            <th style="width:10%">
+                                            <th style="width:10%;text-align:center">
                                                 Lembur (jam)
                                             </th>
-                                            <th style="width: 60%">
+                                            <th style="width: 60%;text-align:center">
                                                 jenis Pekerjaan
                                             </th>
-                                            <th style="width: :5%">
+                                            <th style="width: :5%;text-align:center">
                                             </th>
                                         </tr>
                                     </thead>
