@@ -252,6 +252,7 @@ Route::middleware('auth')->group(function () {
     Route::post('pay/overtime/updateStatusForm', [overtimeController::class, 'updateStatusForm']);
     Route::post('pay/overtime/updateStatusFormHC', [overtimeController::class, 'updateStatusFormHC']);
     Route::post('pay/overtime/updateStatusFormReject', [overtimeController::class, 'updateStatusFormReject']);
+    Route::get('pay/overtime/kalkulasi/view', [overtimeController::class, 'kalkulasi']);
 
     Route::get('pay/overtime/detail/{id}', [overtimeController::class, 'detail']);
     Route::get('pay/overtime/cetakLaporan/{id}', [overtimeController::class, 'cetak']);

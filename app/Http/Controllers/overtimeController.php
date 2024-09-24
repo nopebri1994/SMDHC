@@ -50,7 +50,7 @@ class overtimeController extends Controller
         $idBagian = $request->bagian;
         $tanggalLembur = $request->tglLembur;
 
-        $isRow = overtimeModel::where('idBagian', $idBagian)->where('tanggalOT', $tanggalLembur)->first();
+        $isRow = overtimeModel::where('idBagian', $idBagian)->where('tanggalOT', $tanggalLembur)->whereNULL('tanggalCancel')->first();
         if (!empty($isRow)) {
             return redirect()->back()->with('status', 'Tanggal Lembur sudah ada');
         }
@@ -149,13 +149,13 @@ class overtimeController extends Controller
     function tabelData()
     {
         if (auth()->user()->role == '5') {
-            $overtime = overtimeModel::where('idBagian', auth()->user()->karyawan->idBagian)->get();
+            $overtime = overtimeModel::where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('tanggalOT', 'DESC')->get();
         } elseif (auth()->user()->role == '4') {
             $overtime = overtimeModel::with(['bagian'])->whereHas('bagian', function ($q) {
                 $q->where('idDepartemen', auth()->user()->karyawan->idDepartemen);
-            })->get();
+            })->orderBy('tanggalOT', 'DESC')->get();
         } else {
-            $overtime = overtimeModel::all();
+            $overtime = overtimeModel::orderBy('tanggalOT', 'DESC')->get();
         }
         $tmp = [
             'overtime' => $overtime,
@@ -191,5 +191,14 @@ class overtimeController extends Controller
         overtimeModel::where('id', $id)->update([
             'tanggalCancel' => date('Y-m-d H:i:s'),
         ]);
+    }
+
+    //kalkulasi
+    function kalkulasi()
+    {
+        $tmp = [
+            'title' => 'Kalkulasi Lembur Karyawan',
+        ];
+        return view('overtime.v_kalkulasiOvertime', $tmp);
     }
 }

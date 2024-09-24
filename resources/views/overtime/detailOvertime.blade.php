@@ -41,8 +41,10 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row pt-1">
-                                            <div class="col-md-6">
-                                                &nbsp;
+                                            <div class="col-md-6" align="right">
+                                                <a href="{{ URL::to('/') }}/pay/overtime" class="btn btn-danger"><i
+                                                        class="fas fa-backward"></i>
+                                                    Back</a>
                                             </div>
                                             <div class="col-md-6">
                                                 <button class="btn btn-primary btn-block" id="btnCetak"><span

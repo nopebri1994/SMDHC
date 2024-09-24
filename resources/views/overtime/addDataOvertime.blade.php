@@ -55,7 +55,21 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <button type="submit" class="btn btn-success">Save Data</button>
+                                            <div class="row">
+
+                                                <div class="col-md-2 pt-1">
+                                                    <a href="{{ URL::to('/') }}/pay/overtime"
+                                                        class="btn btn-danger btn-block"><i class="fas fa-backward"></i>
+                                                        Back</a>
+                                                </div>
+
+                                                <div class="col-md-6 pt-1">
+                                                    <button type="submit" class="btn btn-success btn-block"><span
+                                                            class="far fa-save"></span>
+                                                        &nbsp; &nbsp;Save Data</button>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

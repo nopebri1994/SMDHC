@@ -55,7 +55,7 @@
                              @if (!$o->tanggalAcc or $o->tanggalApp or $o->tanggalCancel) disabled @endif>Reject
                              Form</button>
                      @endcan
-                     @can('adminBagian')
+                     @can('itAdmin')
                          <button class="btn btn-success btn-xs" onclick="accept({{ $o->id }})"
                              @if ($o->tanggalAcc) disabled @endif>Accept
                              Form</button>

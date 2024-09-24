@@ -23,7 +23,7 @@
                  Jadwal Pulang
              </th>
              <th style="text-align:center">
-                 Jam Masuk
+                 Mulai Lembur
              </th>
              <th style="text-align:center">
                  Jam Pulang
@@ -58,16 +58,25 @@
                      {{ $d->jenisPekerjaan }}
                  </td>
                  <td style="text-align:center" class="align-middle">
-                     {{ $detailAbsensi['jadwalMasuk'] }}
+                     @if ($detailAbsensi)
+                         {{ $detailAbsensi['jadwalMasuk'] }}
+                     @endif
                  </td>
                  <td style="text-align:center" class="align-middle">
-                     {{ $detailAbsensi['jadwalPulang'] }}
+                     @if ($detailAbsensi)
+                         {{ $detailAbsensi['jadwalPulang'] }}
+                     @endif
                  </td>
                  <td style="text-align:center" class="align-middle">
-                     {{ $detailAbsensi['jamDatang'] }}
+                     @if ($detailAbsensi)
+                         {{ date('H:i', strtotime('+30 minutes', strtotime($detailAbsensi['jadwalPulang']))) }}
+                     @endif
+
                  </td>
                  <td style="text-align:center" class="align-middle">
-                     {{ $detailAbsensi['jamPulang'] }}
+                     @if ($detailAbsensi)
+                         {{ $detailAbsensi['jamPulang'] }}
+                     @endif
                  </td>
 
                  <td align="center">

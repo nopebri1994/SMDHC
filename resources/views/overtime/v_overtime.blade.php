@@ -9,6 +9,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">Payroll</li>
+                        <li class="breadcrumb-item">overtime</li>
                         <li class="breadcrumb-item active"><a href="#">{{ $title }}</a></li>
                     </ol>
                 </div>

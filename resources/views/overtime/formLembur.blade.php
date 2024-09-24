@@ -207,16 +207,26 @@ asas
                         <td>{{ $d->karyawan->namaKaryawan }}</td>
                         <td>{{ $d->jenisPekerjaan }}</td>
                         <td style="text-align: center">
-                            {{ date('H:i', strtotime('+30 minutes', strtotime($detailAbsensi['jadwalPulang']))) }}</td>
+                            @if ($detailAbsensi)
+                                {{ date('H:i', strtotime('+30 minutes', strtotime($detailAbsensi['jadwalPulang']))) }}
+                            @endif
+                        </td>
                         <td style="text-align: center">
-                            {{ date('H:i', strtotime("+$h Hours +30 minutes", strtotime($detailAbsensi['jadwalPulang']))) }}
+                            @if ($detailAbsensi)
+                                {{ date('H:i', strtotime("+$h Hours +30 minutes", strtotime($detailAbsensi['jadwalPulang']))) }}
+                            @endif
                         </td>
                         <td></td>
                         @if ($d->status == 2)
                             <td style="text-align: center">
-                                {{ date('H:i', strtotime('+30 minutes', strtotime($detailAbsensi['jadwalPulang']))) }}
+                                @if ($detailAbsensi)
+                                    {{ date('H:i', strtotime('+30 minutes', strtotime($detailAbsensi['jadwalPulang']))) }}
+                                @endif
                             </td>
-                            <td style="text-align: center">{{ date('H:i', strtotime($detailAbsensi['jamPulang'])) }}
+                            <td style="text-align: center">
+                                @if ($detailAbsensi)
+                                    {{ date('H:i', strtotime($detailAbsensi['jamPulang'])) }}
+                                @endif
                             </td>
                             <td style="text-align: center">{{ $h }} Jam</td>
                         @else

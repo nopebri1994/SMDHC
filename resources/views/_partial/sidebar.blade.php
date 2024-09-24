@@ -97,15 +97,36 @@
                         </ul>
                     @endcan
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/') }}/pay/overtime"
+                        <li
+                            class="nav-item  {{ request()->is('pay/overtime') ? 'menu-is-opening menu-open' : '' }} {{ request()->is('pay/overtime/*') ? 'menu-is-opening menu-open' : '' }}">
+                            <a href="#"
                                 class="nav-link {{ request()->is('pay/overtime') ? 'active' : '' }} {{ request()->is('pay/overtime/*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Overtime</p>
-                                <span class="right badge badge-danger">P</span>
+                                <i class="right fas fa-angle-left"></i>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ URL::to('/') }}/pay/overtime"
+                                        class="nav-link {{ request()->is('pay/overtime') ? 'active' : '' }} {{ request()->is('pay/overtime/detail/*') ? 'active' : '' }} {{ request()->is('pay/overtime/addData') ? 'active' : '' }}">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>Form Lembur</p>
+
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ URL::to('/') }}/pay/overtime/kalkulasi/view"
+                                        class="nav-link {{ request()->is('pay/overtime/kalkulasi/*') ? 'active' : '' }}">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>Kalkulasi Lembur</p>
+                                        <span class="right badge badge-danger">P</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
+
+
                 </li>
                 <li class="nav-item  {{ request()->is('psn/*') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link  {{ request()->is('psn/*') ? 'active' : '' }}">
