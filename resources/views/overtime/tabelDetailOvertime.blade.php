@@ -4,6 +4,8 @@
              <th style="width:3%;text-align:center">
                  #
              </th>
+             <th style="width: :5%">
+             </th>
              <th style="width:8%;text-align:center">
                  NIK
              </th>
@@ -12,9 +14,6 @@
              </th>
              <th style="width:8%;text-align:center">
                  Lembur
-             </th>
-             <th style="">
-                 jenis Pekerjaan
              </th>
              <th style="text-align:center">
                  Jadwal Masuk
@@ -28,7 +27,8 @@
              <th style="text-align:center">
                  Jam Pulang
              </th>
-             <th style="width: :5%">
+             <th style="">
+                 jenis Pekerjaan
              </th>
          </tr>
      </thead>
@@ -44,6 +44,17 @@
                  <td style="text-align:center" class="align-middle">
                      {{ $key + 1 }}
                  </td>
+                 <td align="center">
+                     <button type="button" class="btn btn-info btn-xs" onclick=""
+                         @if ($d->status != 1) disabled @endif><i class="far fa-edit"></i>
+                         Edit</button>
+                     <button type="button" class="btn btn-primary btn-xs" onclick="updateStatus({{ $d->id }},2)"
+                         @if ($d->status != 1) disabled @endif><i class="far fa-check-circle"></i>
+                         Accept</button>
+                     <button type="button" class="btn btn-danger btn-xs" onclick="updateStatus({{ $d->id }},0)"
+                         @if ($d->status != 1) disabled @endif><i class="fas fa-times"></i>
+                         Cancel</button>
+                 </td>
                  <td style="text-align:center" class="align-middle">
                      {{ $d->karyawan->nikKerja }}
                  </td>
@@ -54,9 +65,7 @@
                      class="align-middle">
                      {{ $d->jam1 + $d->jam2 }} Jam
                  </td>
-                 <td class="align-middle">
-                     {{ $d->jenisPekerjaan }}
-                 </td>
+
                  <td style="text-align:center" class="align-middle">
                      @if ($detailAbsensi)
                          {{ $detailAbsensi['jadwalMasuk'] }}
@@ -75,20 +84,9 @@
                          {{ $detailAbsensi['jamPulang'] }}
                      @endif
                  </td>
-
-                 <td align="center">
-                     <button type="button" class="btn btn-info btn-xs" onclick=""
-                         @if ($d->status != 1) disabled @endif><i class="far fa-edit"></i>
-                         Edit</button>
-                     <button type="button" class="btn btn-primary btn-xs" onclick="updateStatus({{ $d->id }},2)"
-                         @if ($d->status != 1) disabled @endif><i class="far fa-check-circle"></i>
-                         Accept</button>
-                     <button type="button" class="btn btn-danger btn-xs" onclick="updateStatus({{ $d->id }},0)"
-                         @if ($d->status != 1) disabled @endif><i class="fas fa-times"></i>
-                         Cancel</button>
-
+                 <td class="align-middle">
+                     {{ $d->jenisPekerjaan }}
                  </td>
-
              </tr>
          @endforeach
      </tbody>

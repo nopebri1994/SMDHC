@@ -1,4 +1,4 @@
- <table class="tbl table table-bordered table-stripped display nowrap" style="width:100%">
+ <table class="tbl table table-bordered table-stripped table-sm display nowrap" style="width:100%">
      <thead>
          <tr>
              <th class="text-center">
@@ -21,11 +21,11 @@
      <tbody>
          @foreach ($overtime as $key => $o)
              <tr>
-                 <td class="text-center" style="width:5%">{{ $key + 1 }}</td>
-                 <td class="text-center" style="width:12%">
+                 <td class="text-center align-middle" style="width:5%">{{ $key + 1 }}</td>
+                 <td class="text-center align-middle" style="width:12%">
                      {{ varHelper::formatDate($o->tanggalOT) }}</td>
-                 <td class="text-center" style="width:12%">{{ $o->bagian->namaBagian }}</td>
-                 <td>
+                 <td class="text-center align-middle" style="width:12%">{{ $o->bagian->namaBagian }}</td>
+                 <td class="align-middle">
                      @if (!$o->tanggalAcc and !$o->tanggalApp)
                          <h6>
                              <span class="badge badge-primary"> Menunggu Konfirmasi
@@ -46,7 +46,7 @@
                          </h6>
                      @endif
                  </td>
-                 <td align="center">
+                 <td align="center" class="align-middle">
                      @can('hc')
                          <button class="btn btn-success btn-xs" onclick="confirm({{ $o->id }})"
                              @if (!$o->tanggalAcc or $o->tanggalApp or $o->tanggalCancel) disabled @endif>Confirm
