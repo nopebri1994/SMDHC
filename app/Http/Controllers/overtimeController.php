@@ -90,15 +90,99 @@ class overtimeController extends Controller
 
         return redirect('pay/overtime/')->with('status', 'Data Lembur Berhasil disimpan');
     }
+
+
+    function storeDataDetail(Request $request)
+    {
+        $id = Crypt::decryptString($request->idForm);
+        $karyawan = $request->idKaryawan;
+        $jamLembur = $request->jamOT;
+        $jm = $request->jamMulail;
+        $jp = $request->jp;
+        $jm = $request->jamMulai;
+        $tgl = $request->tgl;
+
+        $isRow = overtimeDetailModel::where('idOvertime', $id)->where('idKaryawan', $karyawan)->first();
+        if (!empty($isRow)) {
+            return response()->json(['success' => '', 'error' => 'Data Karyawan sudah tersedia di form ini']);
+        }
+
+        if ($jamLembur > 1) {
+            $jam1 = 1;
+            $jam2 = $jamLembur - $jam1;
+        } else {
+            $jam1 = 1;
+            $jam2 = 0;
+        }
+        if (date('D', strtotime($tgl)) == 'Sun') {
+            $jam1 = 0;
+            $jam2 = $jamLembur;
+        }
+
+        $tmp[] = [
+            'idOvertime' => $id,
+            'idKaryawan' => $karyawan,
+            'jam1' => $jam1,
+            'jam2' => $jam2,
+            'jenisPekerjaan' => $jp,
+            'status' => '1',
+            'jamMulai' => $jm,
+        ];
+        DB::table('overtimeDetail')->insert($tmp);
+        return response()->json(['success' => 'Data Berhasil ditambahkan', 'error' => '']);
+    }
+
+    function updateDataDetail(Request $request)
+    {
+        $id = $request->idDetail;
+        $jamLembur = $request->jamOT;
+        $jm = $request->jamMulail;
+        $jp = $request->jp;
+        $jm = $request->jamMulai;
+        $tgl = $request->tgl;
+        if ($jamLembur > 1) {
+            $jam1 = 1;
+            $jam2 = $jamLembur - $jam1;
+        } else {
+            $jam1 = 1;
+            $jam2 = 0;
+        }
+        if (date('D', strtotime($tgl)) == 'Sun') {
+            $jam1 = 0;
+            $jam2 = $jamLembur;
+        }
+
+        $tmp = [
+            'jam1' => $jam1,
+            'jam2' => $jam2,
+            'jenisPekerjaan' => $jp,
+            'status' => '1',
+            'jamMulai' => $jm,
+        ];
+        overtimeDetailModel::where('id', $id)->update($tmp);
+        return response()->json(['success' => 'Data Berhasil diperbarui', 'error' => '']);
+    }
+
     function detail(Request $request)
     {
         $id = Crypt::decryptString($request->id);
         $formLembur = overtimeModel::with(['bagian'])->where('id', $id)->first();
+        if (auth()->user()->role == '5') {
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->where('idBagian', auth()->user()->karyawan->idBagian)->orderBy('nikKerja')->get();
+            $bagian = bagianModel::with(['departemen'])->where('id', auth()->user()->karyawan->idBagian)->get();
+        } elseif (auth()->user()->role == '4') {
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->where('idDepartemen', auth()->user()->karyawan->idDepartemen)->orderBy('nikKerja')->get();
+            $bagian = bagianModel::with(['departemen'])->where('idDepartemen', auth()->user()->karyawan->idDepartemen)->get();
+        } else {
+            $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->orderBy('nikKerja')->get();
+            $bagian = bagianModel::with(['departemen'])->get();
+        }
         $data = overtimeDetailModel::where('idOvertime', $id)->get();
         $absensi = prosesAbsensiHarianModel::where('tglAbsen', $formLembur->tanggalOT)->get()->toArray();
         $tmp = [
             'title' => 'Detail Overtime',
-            'form' => $formLembur
+            'form' => $formLembur,
+            'karyawan' => $karyawan,
         ];
         return view('overtime.detailOvertime', $tmp);
     }
@@ -173,6 +257,8 @@ class overtimeController extends Controller
         if (empty($cek)) {
             overtimeModel::where('id', $id)->update([
                 'tanggalAcc' => date('Y-m-d H:i:s'),
+                'tanggalCancel' => null,
+                'tanggalApp' => null,
             ]);
             return response()->json(['success' => 'Data Berhasil dikonfirmasi', 'error' => '']);
         } else {
@@ -192,6 +278,7 @@ class overtimeController extends Controller
         $id = $request->id;
         overtimeModel::where('id', $id)->update([
             'tanggalCancel' => date('Y-m-d H:i:s'),
+            'tanggalAcc' => null
         ]);
     }
 

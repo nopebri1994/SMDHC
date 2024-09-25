@@ -245,7 +245,9 @@ Route::middleware('auth')->group(function () {
     //overtime
     Route::get('pay/overtime', [overtimeController::class, 'index']);
     Route::get('pay/overtime/addData', [overtimeController::class, 'addData']);
-    Route::get('pay/overtime/store', [overtimeController::class, 'storeData']);
+    Route::post('pay/overtime/store', [overtimeController::class, 'storeData']);
+    Route::post('pay/overtime/storeDetail', [overtimeController::class, 'storeDataDetail']);
+    Route::post('pay/overtime/updateDetail', [overtimeController::class, 'updateDataDetail']);
     Route::get('pay/overtime/updateStatus', [overtimeController::class, 'updateStatus']);
     Route::get('pay/overtime/tabelDetail', [overtimeController::class, 'tabelDetail']);
     Route::get('pay/overtime/tabelData', [overtimeController::class, 'tabelData']);

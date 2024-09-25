@@ -20,7 +20,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <form action="store" method="get">
+                    <form action="store" method="post">
+                        @csrf
                         <div class="card">
                             <div class="card-header">
                                 @if (session('status'))
@@ -152,7 +153,8 @@
             "<td>" +
             " <input type='time' class='form-control' name='jamMulai[" + nomor + "]' required></td>" +
                 "<td>" +
-                "<input type='number' min='1' class='form-control' name='jamLembur[" + nomor + "]' required></td>" +
+                "<input type='number' min='1' max='7' class='form-control' name='jamLembur[" + nomor +
+                "]' required></td>" +
                 "<td>" +
                 "<Textarea class='form-control' name='jp[" + nomor +
                 "]' cols='2' rows='1' required></Textarea></td>" +

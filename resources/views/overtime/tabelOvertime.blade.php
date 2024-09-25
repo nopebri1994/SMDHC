@@ -26,7 +26,7 @@
                      {{ varHelper::formatDate($o->tanggalOT) }}</td>
                  <td class="text-center align-middle" style="width:12%">{{ $o->bagian->namaBagian }}</td>
                  <td class="align-middle">
-                     @if (!$o->tanggalAcc and !$o->tanggalApp)
+                     @if (!$o->tanggalAcc and !$o->tanggalApp and !$o->tanggalCancel)
                          <h6>
                              <span class="badge badge-primary"> Menunggu Konfirmasi
                                  Bagian/Departemen</span>

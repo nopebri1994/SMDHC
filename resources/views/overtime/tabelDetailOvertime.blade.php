@@ -45,7 +45,9 @@
                      {{ $key + 1 }}
                  </td>
                  <td align="center">
-                     <button type="button" class="btn btn-info btn-xs" onclick=""
+                     <button type="button" class="btn btn-info btn-xs"
+                         onclick="edit('{{ $d->karyawan->namaKaryawan }}','{{ date('H:i', strtotime($d->jamMulai)) }}','{{ $d->jam1 + $d->jam2 }}','{{ $d->jenisPekerjaan }}','{{ $d->id }}')"
+                         data-target="#editDataModal" data-toggle="modal"
                          @if ($d->status != 1) disabled @endif><i class="far fa-edit"></i>
                          Edit</button>
                      <button type="button" class="btn btn-primary btn-xs" onclick="updateStatus({{ $d->id }},2)"
