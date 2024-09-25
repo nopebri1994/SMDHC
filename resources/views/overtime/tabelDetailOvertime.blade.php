@@ -30,7 +30,7 @@
                  Jam Pulang
              </th>
              <th style="">
-                 jenis Pekerjaan
+                 Jenis Pekerjaan
              </th>
          </tr>
      </thead>
@@ -49,7 +49,7 @@
                  @can('itAdmin')
                      <td align="center">
                          <button type="button" class="btn btn-info btn-xs"
-                             onclick="edit('{{ $d->karyawan->namaKaryawan }}','{{ date('H:i', strtotime($d->jamMulai)) }}','{{ $d->jam1 + $d->jam2 }}','{{ $d->jenisPekerjaan }}','{{ $d->id }}')"
+                             onclick='edit("{{ $d->karyawan->namaKaryawan }}","{{ $d->jamMulai }}","{{ $d->jam1 + $d->jam2 }}","{{ $d->jenisPekerjaan }}","{{ $d->id }}")'
                              data-target="#editDataModal" data-toggle="modal"
                              @if ($d->status != 1) disabled @endif><i class="far fa-edit"></i>
                              Edit</button>

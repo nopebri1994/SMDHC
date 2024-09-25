@@ -90,7 +90,7 @@
                                                 Lembur (jam)
                                             </th>
                                             <th style="width: 60%;text-align:center">
-                                                jenis Pekerjaan
+                                                Jenis Pekerjaan
                                             </th>
                                             <th style="width: :5%;text-align:center">
                                             </th>
