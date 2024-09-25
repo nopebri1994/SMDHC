@@ -4,8 +4,10 @@
              <th style="width:3%;text-align:center">
                  #
              </th>
-             <th style="width: :5%">
-             </th>
+             @can('itAdmin')
+                 <th style="width: :5%">
+                 </th>
+             @endcan
              <th style="width:8%;text-align:center">
                  NIK
              </th>
@@ -44,19 +46,21 @@
                  <td style="text-align:center" class="align-middle">
                      {{ $key + 1 }}
                  </td>
-                 <td align="center">
-                     <button type="button" class="btn btn-info btn-xs"
-                         onclick="edit('{{ $d->karyawan->namaKaryawan }}','{{ date('H:i', strtotime($d->jamMulai)) }}','{{ $d->jam1 + $d->jam2 }}','{{ $d->jenisPekerjaan }}','{{ $d->id }}')"
-                         data-target="#editDataModal" data-toggle="modal"
-                         @if ($d->status != 1) disabled @endif><i class="far fa-edit"></i>
-                         Edit</button>
-                     <button type="button" class="btn btn-primary btn-xs" onclick="updateStatus({{ $d->id }},2)"
-                         @if ($d->status != 1) disabled @endif><i class="far fa-check-circle"></i>
-                         Accept</button>
-                     <button type="button" class="btn btn-danger btn-xs" onclick="updateStatus({{ $d->id }},0)"
-                         @if ($d->status != 1) disabled @endif><i class="fas fa-times"></i>
-                         Cancel</button>
-                 </td>
+                 @can('itAdmin')
+                     <td align="center">
+                         <button type="button" class="btn btn-info btn-xs"
+                             onclick="edit('{{ $d->karyawan->namaKaryawan }}','{{ date('H:i', strtotime($d->jamMulai)) }}','{{ $d->jam1 + $d->jam2 }}','{{ $d->jenisPekerjaan }}','{{ $d->id }}')"
+                             data-target="#editDataModal" data-toggle="modal"
+                             @if ($d->status != 1) disabled @endif><i class="far fa-edit"></i>
+                             Edit</button>
+                         <button type="button" class="btn btn-primary btn-xs" onclick="updateStatus({{ $d->id }},2)"
+                             @if ($d->status != 1) disabled @endif><i class="far fa-check-circle"></i>
+                             Accept</button>
+                         <button type="button" class="btn btn-danger btn-xs" onclick="updateStatus({{ $d->id }},0)"
+                             @if ($d->status != 1) disabled @endif><i class="fas fa-times"></i>
+                             Cancel</button>
+                     </td>
+                 @endcan
                  <td style="text-align:center" class="align-middle">
                      {{ $d->karyawan->nikKerja }}
                  </td>

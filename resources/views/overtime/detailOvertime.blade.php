@@ -55,12 +55,14 @@
                                                         class="fas fa-print"></span>&nbsp;Print
                                                     Form Lembur</button>
                                             </div>
-                                            <div class="col-md-4 pt-1" align="left">
-                                                <button class="btn btn-info btn-block" id="tambahData" data-toggle="modal"
-                                                    data-target="#tambahDataModal"
-                                                    @if ($form->tanggalAcc) disabled @endif><span
-                                                        class="fas fa-plus"></span>&nbsp;Tambah Data</button>
-                                            </div>
+                                            @can('itAdmin')
+                                                <div class="col-md-4 pt-1" align="left">
+                                                    <button class="btn btn-info btn-block" id="tambahData" data-toggle="modal"
+                                                        data-target="#tambahDataModal"
+                                                        @if ($form->tanggalAcc) disabled @endif><span
+                                                            class="fas fa-plus"></span>&nbsp;Tambah Data</button>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </div>
                                 </div>

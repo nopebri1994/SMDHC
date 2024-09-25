@@ -8,6 +8,7 @@ use App\Models\overtimeDetailModel;
 use App\Models\overtimeModel;
 use App\Models\prosesAbsensiHarianModel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -177,7 +178,7 @@ class overtimeController extends Controller
             $karyawan   = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->orderBy('nikKerja')->get();
             $bagian = bagianModel::with(['departemen'])->get();
         }
-        $data = overtimeDetailModel::where('idOvertime', $id)->get();
+
         $absensi = prosesAbsensiHarianModel::where('tglAbsen', $formLembur->tanggalOT)->get()->toArray();
         $tmp = [
             'title' => 'Detail Overtime',
@@ -190,7 +191,7 @@ class overtimeController extends Controller
     function cetak(Request $request)
     {
         $id = Crypt::decryptString($request->id);
-        $data = overtimeDetailModel::with(['karyawan'])->where('idOvertime', $id)->get();
+        $data = overtimeDetailModel::with(['karyawan'])->where('idOvertime', $id)->where('status', '>', '0')->get();
         $formLembur = overtimeModel::with(['bagian'])->where('id', $id)->first();
         $absensi = prosesAbsensiHarianModel::where('tglAbsen', $formLembur->tanggalOT)->get()->toArray();
         $tmp = [
@@ -223,8 +224,16 @@ class overtimeController extends Controller
     {
         $id = Crypt::decryptString($request->id);
         $formLembur = overtimeModel::with(['bagian'])->where('id', $id)->first();
-        $data = overtimeDetailModel::where('idOvertime', $id)->get();
         $absensi = prosesAbsensiHarianModel::where('tglAbsen', $formLembur->tanggalOT)->get()->toArray();
+
+        if (auth()->user()->role == '5') {
+            $data = overtimeDetailModel::where('idOvertime', $id)->get();
+        } elseif (auth()->user()->role == '4') {
+            $data = overtimeDetailModel::where('idOvertime', $id)->get();
+        } else {
+            $data = overtimeDetailModel::where('idOvertime', $id)->where('status', '>', '0')->get();
+        }
+
         $tmp = [
             'data' => $data,
             'absensi' => $absensi,
