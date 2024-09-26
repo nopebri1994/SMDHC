@@ -299,4 +299,41 @@ class overtimeController extends Controller
         ];
         return view('overtime.v_kalkulasiOvertime', $tmp);
     }
+
+    function tabelKalkulasi(Request $request)
+    {
+        $tglAwal = $request->awal;
+        $tglAkhir = $request->akhir;
+        $overtime = DB::table('overtimeDetail')->select('idKaryawan', 'nikKerja', 'namaKaryawan', 'dataKaryawan.idBagian as idBagian', DB::raw("SUM(jam1) jam1"), DB::raw("sum(jam2) jam2"))
+            ->join('dataKaryawan', 'dataKaryawan.id', 'overtimeDetail.idKaryawan')
+            ->join('overtime', 'overtime.id', 'overtimeDetail.idOvertime')
+            ->whereBetween('tanggalOT', [$tglAwal, $tglAkhir])
+            ->where('overtimeDetail.status', '2')
+            ->whereNotNull('overtime.tanggalApp')
+            ->groupBy('overtimeDetail.idKaryawan')
+            ->get();
+
+        $bagian = bagianModel::with(['departemen'])->get()->toArray();
+        $tmp = [
+            'overtime' => $overtime,
+            'bagian' => $bagian,
+        ];
+        return view('overtime.tabelKalkulasi', $tmp);
+    }
+
+    function detailKalkulasi(Request $request)
+    {
+        $id = $request->id;
+        $tglAwal = $request->awal;
+        $tglAkhir = $request->akhir;
+        $overtime = overtimeModel::whereBetween('tanggalOT', [$tglAwal, $tglAkhir])->whereNotNull('overtime.tanggalApp')->get();
+        $detailOvertime = overtimeDetailModel::whereBelongsTo($overtime)->where('status', '2')->where('idKaryawan', $id)->get();
+
+        $karyawan = karyawanModel::where('id', $id)->first();
+        $tmp = [
+            'overtime' => $detailOvertime,
+            'karyawan' => $karyawan,
+        ];
+        return view('overtime.detailKalkulasi', $tmp);
+    }
 }

@@ -143,7 +143,7 @@
     </div>
     {{-- end --}}
 
-    <!-- Modal TambahData-->
+    <!-- Modal UpdateData-->
     <div class="modal fade" id="editDataModal" role="dialog" aria-labelledby="editDataModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">

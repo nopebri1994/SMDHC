@@ -119,7 +119,7 @@
                                         class="nav-link {{ request()->is('pay/overtime/kalkulasi/*') ? 'active' : '' }}">
                                         <i class="far fa-dot-circle nav-icon"></i>
                                         <p>Kalkulasi Lembur</p>
-                                        <span class="right badge badge-danger">P</span>
+
                                     </a>
                                 </li>
                             </ul>
