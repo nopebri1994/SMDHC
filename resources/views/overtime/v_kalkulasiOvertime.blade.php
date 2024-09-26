@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-7">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label for="tglAwal" class="pt-2">
@@ -38,7 +38,8 @@
                                             <input type="date" class="form-control" name="tglAkhir" id="tglAkhir">
                                         </div>
                                         <div class="col-md-3">
-                                            <button class="btn btn-info btn-block" id="btnKalkulasi">Kalkulasi Data</button>
+                                            <button class="btn btn-info btn-block" id="btnKalkulasi"><span
+                                                    class="fa fa-table"></span>&nbsp;Kalkulasi Data</button>
                                         </div>
                                     </div>
                                 </div>
