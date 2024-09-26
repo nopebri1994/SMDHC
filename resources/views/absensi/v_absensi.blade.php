@@ -370,23 +370,38 @@
                 'tgl': z,
                 'idKaryawan': a
             }
-            $.ajax({
-                beforeSend: function() {
-                    openLoader('Memuat Data');
-                },
-                type: 'get',
-                url: 'absensi/deleteStatus',
-                data: data,
-                success: function(sdata) {
-                    closeLoader()
-                    dataIjin();
-                    flasher.success('Delete Data Success');
-                },
-                error: function(error) {
-                    closeLoader();
-                    flasher.error('server Not Found');
+
+            Swal.fire({
+                title: "Do you want to delete field  ? ",
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: "Delete",
+                denyButtonText: `Cancel`,
+                denyButtonColor: `#636363`,
+                confirmButtonColor: '#ff2c2c',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        beforeSend: function() {
+                            openLoader('Memuat Data');
+                        },
+                        type: 'get',
+                        url: 'absensi/deleteStatus',
+                        data: data,
+                        success: function(sdata) {
+                            closeLoader()
+                            dataIjin();
+                            flasher.success('Delete Data Success');
+                        },
+                        error: function(error) {
+                            closeLoader();
+                            flasher.error('server Not Found');
+                        }
+                    })
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
                 }
-            })
+            });
         }
     </script>
 @endsection
