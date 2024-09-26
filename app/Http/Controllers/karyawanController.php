@@ -93,6 +93,11 @@ class karyawanController extends Controller
             $tmp_groupKerja = $request->groupKerja;
         }
 
+        if ($request->email == '') {
+            $email = NULL;
+        } else {
+            $email = $request->email;
+        }
         $tmpSave = [
             'nikKerja'          => $request->nikKerja,
             'namaKaryawan'      => strtoupper($request->nama),
@@ -106,7 +111,8 @@ class karyawanController extends Controller
             'statusKaryawan'    => $request->statusKaryawan,
             'idJamKerja'        => $request->jamKerja,
             'groupOff'          => $request->groupOff,
-            'idGroupKerja'      => $tmp_groupKerja
+            'idGroupKerja'      => $tmp_groupKerja,
+            'email'             => $email,
 
         ];
         karyawanModel::create($tmpSave);
@@ -146,6 +152,11 @@ class karyawanController extends Controller
         } else {
             $tmp_groupKerja = $request->groupKerja;
         }
+        if ($request->email == '') {
+            $email = NULL;
+        } else {
+            $email = $request->email;
+        }
         $tmpSave = [
             'nikKerja'          => $request->nikKerja,
             'namaKaryawan'      => strtoupper($request->nama),
@@ -159,7 +170,8 @@ class karyawanController extends Controller
             'statusKaryawan'    => $request->statusKaryawan,
             'idJamKerja'        => $request->jamKerja,
             'groupOff'        => $request->groupOff,
-            'idGroupKerja'      => $tmp_groupKerja
+            'idGroupKerja'      => $tmp_groupKerja,
+            'email'             => $email,
         ];
         karyawanModel::where('uuid', $request->id)->update($tmpSave);
         return redirect('dk/karyawan')->with('status', 'Data berhasil diperbarui');

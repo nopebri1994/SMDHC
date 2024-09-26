@@ -66,10 +66,17 @@
                                             Tanggal Masuk
                                         </div>
                                         <div class="col-md-5">
-                                            <p>{{ varHelper::formatDate($detailData->tglMasuk) }}</p>
+                                            {{ varHelper::formatDate($detailData->tglMasuk) }}
                                         </div>
                                     </div>
-
+                                    <div class="row mt-2">
+                                        <div class="col-md-4">
+                                            Email
+                                        </div>
+                                        <div class="col-md-5">
+                                            {{ $detailData->email }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

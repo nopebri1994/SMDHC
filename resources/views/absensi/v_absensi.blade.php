@@ -143,28 +143,31 @@
             dataIjin();
         })
 
-        setInterval(() => {
-            cekRows();
-        }, 5000);
+        @can('itAdmin')
+            setInterval(() => {
+                cekRows();
+            }, 5000);
 
-        let cekRows = () => {
-            let data = {
-                'filterTanggal': $('#filterTanggal').val(),
+            let cekRows = () => {
+                let data = {
+                    'filterTanggal': $('#filterTanggal').val(),
+                }
+                $.ajax({
+                    type: 'get',
+                    url: 'absensi/cekRows',
+                    data: data,
+                    success: function(sdata) {
+                        let rows = $('#rows').val();
+                        if (rows != sdata['data']) {
+                            flasher.warning('data absensi updated')
+                            dataIjin();
+                        }
+
+                    },
+                })
             }
-            $.ajax({
-                type: 'get',
-                url: 'absensi/cekRows',
-                data: data,
-                success: function(sdata) {
-                    let rows = $('#rows').val();
-                    if (rows != sdata['data']) {
-                        flasher.warning('data absensi updated')
-                        dataIjin();
-                    }
+        @endcan
 
-                },
-            })
-        }
 
         @can('hc')
             document.getElementById('kodeIjin').onchange = () => {

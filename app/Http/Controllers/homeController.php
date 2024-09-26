@@ -11,6 +11,7 @@ use App\Models\kontrakKaryawanModel;
 use App\Models\SPModel;
 use Illuminate\Support\Facades\DB;
 
+
 class homeController extends Controller
 {
     public function index()

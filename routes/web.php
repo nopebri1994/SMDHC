@@ -31,11 +31,11 @@ use App\Http\Controllers\SPController;
 use App\Http\Controllers\usersController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('home', [
-//         'title' => 'Dashboard'
-//     ]);
-// });
+Route::get('/mail', function () {
+    return view('mail/emailAbsensi', [
+        'title' => 'Dashboard'
+    ]);
+});
 
 
 //login

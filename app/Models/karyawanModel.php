@@ -34,7 +34,8 @@ class karyawanModel extends Model
         'idJamKerja',
         'fpId',
         'km',
-        'idGroupKerja'
+        'idGroupKerja',
+        'email'
     ];
 
     protected $with = ['bagian', 'departemen', 'jabatan', 'jamKerja', 'groupKerja'];

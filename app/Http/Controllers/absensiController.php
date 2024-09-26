@@ -13,6 +13,8 @@ use App\Models\liburModel;
 use App\Models\prosesAbsensiHarianModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\absensiEmail;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\RC4;
 use varHelper;
 
@@ -94,7 +96,7 @@ Bisa digunakan sebelum $exp",
         $tglAkhir = $request->akhir;
         $bagian = karyawanModel::where('id', $request->id)->first();
         $detailbagian = $bagian->bagian->kode;
-
+        $tglAwalMail = $tglAwal;
         if ($tglAkhir == '') {
             $libur = liburModel::where('tanggalLibur', $tglAwal)->first();
             $skipHoliday = date('l', strtotime($tglAwal));
@@ -106,6 +108,19 @@ Bisa digunakan sebelum $exp",
                     'tglAwal'    => $tglAwal,
                 ];
                 $json = $this->saveData($parsing);
+
+                //mail
+                if ($bagian->email) {
+                    Mail::to($bagian->email)->send(new absensiEmail([
+                        'tanggalIjin' => varHelper::formatDate($tglAwal),
+                        'nik' => $bagian->nikKerja,
+                        'nama' => $bagian->namaKaryawan,
+                        'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
+                        'keteranganIjin' => $request->kode,
+                    ]));
+                }
+                //end
+
             } else {
                 $sendToView = array(
                     'status'        => 0,
@@ -128,6 +143,19 @@ Bisa digunakan sebelum $exp",
                 }
                 $tglAwal = date('Y-m-d', strtotime("+1 day", strtotime($tglAwal)));
             }
+
+            //mail
+            if ($bagian->email) {
+                Mail::to($bagian->email)->send(new absensiEmail([
+                    'tanggalIjin' => varHelper::formatDate($tglAwalMail) . ' s/d ' . varHelper::formatDate($tglAkhir),
+                    'nik' => $bagian->nikKerja,
+                    'nama' => $bagian->namaKaryawan,
+                    'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
+                    'keteranganIjin' => $request->kode,
+                ]));
+            }
+            //end
+
         }
 
         echo $json;
@@ -269,18 +297,18 @@ Bisa digunakan sebelum $exp",
                     'status'            => '0'
                 ];
                 absensiModel::create($tmpSave);
-                if($parsing['kode'] == 'TJM'){
+                if ($parsing['kode'] == 'TJM') {
                     prosesAbsensiHarianModel::where('idKaryawan', $parsing['id'])->where('tglAbsen', $parsing['tglAwal'])->update([
                         'keteranganIjin' => $parsing['kode'],
                         'terlambat' => 'Tidak',
                         'full' => 'Ya',
                     ]);
-                }else{
+                } else {
                     prosesAbsensiHarianModel::where('idKaryawan', $parsing['id'])->where('tglAbsen', $parsing['tglAwal'])->update([
                         'keteranganIjin' => $parsing['kode'],
                     ]);
                 }
-            
+
                 //log
                 $msg = "Id Karyawan = " . $parsing['id'] . " kode KeteranganIjin = " . $parsing['kode'] . " Tanggal Ijin = " . $parsing['tglAwal'] . " User = " . auth()->user()->karyawan->namaKaryawan;
                 Log::channel('history')->info("Tambah data Ijin => " . $msg);

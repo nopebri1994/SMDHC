@@ -81,7 +81,14 @@
                                                 <div class="invalid-feedback">{{ $errors->first('tmt') }}</div>
                                             </div>
                                         </div>
-
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">
+                                                Email
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="email" name="email" id="email" class="form-control">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
