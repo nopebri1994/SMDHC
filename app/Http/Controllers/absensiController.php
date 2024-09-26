@@ -111,13 +111,16 @@ Bisa digunakan sebelum $exp",
 
                 //mail
                 if ($bagian->email) {
-                    Mail::to($bagian->email)->send(new absensiEmail([
-                        'tanggalIjin' => varHelper::formatDate($tglAwal),
-                        'nik' => $bagian->nikKerja,
-                        'nama' => $bagian->namaKaryawan,
-                        'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
-                        'keteranganIjin' => $request->kode,
-                    ]));
+                    $connected = @fsockopen("www.google.com", 80);
+                    if ($connected) {
+                        Mail::to($bagian->email)->send(new absensiEmail([
+                            'tanggalIjin' => varHelper::formatDate($tglAwal),
+                            'nik' => $bagian->nikKerja,
+                            'nama' => $bagian->namaKaryawan,
+                            'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
+                            'keteranganIjin' => $request->kode,
+                        ]));
+                    }
                 }
                 //end
 
@@ -145,14 +148,18 @@ Bisa digunakan sebelum $exp",
             }
 
             //mail
+
             if ($bagian->email) {
-                Mail::to($bagian->email)->send(new absensiEmail([
-                    'tanggalIjin' => varHelper::formatDate($tglAwalMail) . ' s/d ' . varHelper::formatDate($tglAkhir),
-                    'nik' => $bagian->nikKerja,
-                    'nama' => $bagian->namaKaryawan,
-                    'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
-                    'keteranganIjin' => $request->kode,
-                ]));
+                $connected = @fsockopen("www.google.com", 80);
+                if ($connected) {
+                    Mail::to($bagian->email)->send(new absensiEmail([
+                        'tanggalIjin' => varHelper::formatDate($tglAwalMail) . ' s/d ' . varHelper::formatDate($tglAkhir),
+                        'nik' => $bagian->nikKerja,
+                        'nama' => $bagian->namaKaryawan,
+                        'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
+                        'keteranganIjin' => $request->kode,
+                    ]));
+                }
             }
             //end
 
