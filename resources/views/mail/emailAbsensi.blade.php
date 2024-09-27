@@ -1,93 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <style>
-        .container {
-            width: 80%;
-            /* border: 1px solid black; */
-            background-color: rgb(244, 246, 249);
-            margin: auto;
-            padding: 10px;
-            border-radius: 5px;
-            font-family: sans-serif;
-        }
+        @media screen and (max-width: 600px) {
+            .content {
+                width: 100% !important;
+                display: block !important;
+                padding: 10px !important;
+            }
 
-        .notes {
-            font-size: 12px;
-            padding-top: 8px;
-            margin-left: 50%;
-        }
+            .table,
+            .body {
+                font-size: 10px !important;
+            }
 
-        td {
-            padding: 5px;
-            border: 0.5px solid black;
+            .header,
+            .footer {
+                font-size: 12px !important;
+            }
 
-        }
-
-        .body {
-            width: 100%;
-            font-size: 13px;
-            border: 0.5px solid black;
-            border-collapse: collapse;
+            .header,
+            .body,
+            .footer {
+                padding: 20px !important;
+            }
         }
     </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Confirmation</title>
 </head>
 
 <body>
-    <div class="container">
-        <h3 style="text-align: center;">Email Confirmation!!</h3>
-        <div style="margin:auto;  width: 50%;">
-            <table class="body">
-                <tr>
-                    <td>
-                        NIK
-                    </td>
-                    <td style="text-align: center">
-                        {{ $data['nik'] }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nama Karyawan
-                    </td>
-                    <td style="text-align: center">
-                        {{ $data['nama'] }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Tanggal Ijin
-                    </td>
-                    <td style="text-align: center">
-                        {{ $data['tanggalIjin'] }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Tanggal Proses Ijin
-                    </td>
-                    <td style="text-align: center">
-                        {{ $data['tanggalProses'] }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Keterangan Ijin
-                    </td>
-                    <td style="text-align: center">
-                        {{ $data['keteranganIjin'] }}
-                    </td>
-                </tr>
 
-            </table>
-        </div>
-        <div class="notes">
-            PT Lion Metal Works Tbk - Purwakarta (HC Departemen)
-        </div>
-    </div>
+    <body style="font-family: 'Poppins', Arial, sans-serif">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td align="center" style="padding: 20px;">
+                    <table class="content" width="600" border="0" cellspacing="0" cellpadding="0"
+                        style="border-collapse: collapse; border: 1px solid #cccccc;">
+                        <!-- Header -->
+                        <tr>
+                            <td class="header"
+                                style="background-color: #F56954; padding: 40px; text-align: center; color: white; font-size: 24px;">
+                                Email Confirmation
+                            </td>
+                        </tr>
+
+                        <!-- Body -->
+                        <tr>
+                            <td class="body"
+                                style="padding: 40px; text-align: left; font-size: 16px; line-height: 1.6;">
+                                Informasi Proses Absensi Karyawan <br>
+                                Email ini dikirimkan setelah staf Human Capital melakukan proses input absensi anda.
+                                <br><br>
+                                <table style="font-size: 14px; margin:auto; width:100%" class="table">
+                                    <tr>
+                                        <td style="width:40%">NIK</td>
+                                        <td style="">
+                                            {{ $data['nik'] }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nama Karyawan</td>
+                                        <td style="">
+                                            {{ $data['nama'] }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tanggal Ijin</td>
+                                        <td style="">
+                                            {{ $data['tanggalIjin'] }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tanggal Proses Ijin</td>
+                                        <td style="">
+                                            {{ $data['tanggalProses'] }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Keterangan Ijin</td>
+                                        <td style="">
+                                            {{ $data['keteranganIjin'] }}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="body"
+                                style="padding: 10px; text-align: center; font-size: 14px; line-height: 1.6;">
+                                PT Lion Metal Works Tbk - Purwakarta / Human Capital Departemen.
+                            </td>
+                        </tr>
+                        <!-- Footer -->
+                        <tr>
+                            <td class="footer"
+                                style="background-color: #f14a31; padding: 40px; text-align: center; color: white; font-size: 14px;">
+                                Copyright &copy; 2024 | GA/IT
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
 </body>
 
 </html>

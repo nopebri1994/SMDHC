@@ -109,9 +109,9 @@ Bisa digunakan sebelum $exp",
                     'tglAwal'    => $tglAwal,
                 ];
                 $json = $this->saveData($parsing);
-
+                $sento = json_decode($json);
                 //mail
-                if ($bagian->email) {
+                if ($bagian->email and $sento->status == 1) {
                     $sendMail = [
                         'tanggalIjin' => varHelper::formatDate($tglAwal),
                         'nik' => $bagian->nikKerja,
@@ -120,7 +120,7 @@ Bisa digunakan sebelum $exp",
                         'keteranganIjin' => $request->kode,
                         'email' => $bagian->email
                     ];
-                    sendEmailJob::dispatch($sendMail);
+                    sendEmailJob::dispatch($sendMail)->onQueue('emails');
                 }
                 //end 
 
@@ -148,7 +148,6 @@ Bisa digunakan sebelum $exp",
             }
 
             //mail
-
             if ($bagian->email) {
                 $sendMail = [
                     'tanggalIjin' => varHelper::formatDate($tglAwalMail) . ' s/d ' . varHelper::formatDate($tglAkhir),
@@ -158,7 +157,7 @@ Bisa digunakan sebelum $exp",
                     'keteranganIjin' => $request->kode,
                     'email' => $bagian->email
                 ];
-                sendEmailJob::dispatch($sendMail);
+                sendEmailJob::dispatch($sendMail)->onQueue('emails');
             }
             //end
         }

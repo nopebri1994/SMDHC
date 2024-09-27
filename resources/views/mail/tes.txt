@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+        />
+        <style>
+            .container {
+                width: 80%;
+                /* border: 1px solid black; */
+                background-color: rgb(244, 246, 249);
+                margin: auto;
+                padding: 10px;
+                border-radius: 5px;
+                font-family: sans-serif;
+            }
+
+            .notes {
+                font-size: 12px;
+                padding-top: 8px;
+                margin-left: 50%;
+            }
+
+            td {
+                padding: 5px;
+                border: 0.5px solid black;
+            }
+
+            .body {
+                width: 100%;
+                font-size: 13px;
+                border: 0.5px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <h3 style="text-align: center">Email Confirmation!!</h3>
+            <div style="margin: auto; width: 50%">
+                <table class="body">
+                    <tr>
+                        <td>NIK</td>
+                        <td style="text-align: center">
+                            {{ $data["nik"] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nama Karyawan</td>
+                        <td style="text-align: center">
+                            {{ $data["nama"] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Ijin</td>
+                        <td style="text-align: center">
+                            {{ $data["tanggalIjin"] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Proses Ijin</td>
+                        <td style="text-align: center">
+                            {{ $data["tanggalProses"] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Keterangan Ijin</td>
+                        <td style="text-align: center">
+                            {{ $data["keteranganIjin"] }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="notes">
+                PT Lion Metal Works Tbk - Purwakarta (HC Departemen)
+            </div>
+        </div>
+    </body>
+</html>
