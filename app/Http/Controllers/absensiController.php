@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\sendEmailJob;
 use App\Models\absensiModel;
 use App\Models\cutiModel;
 use App\Models\detailCutiModel;
@@ -111,18 +112,17 @@ Bisa digunakan sebelum $exp",
 
                 //mail
                 if ($bagian->email) {
-                    $connected = @fsockopen("www.google.com", 80);
-                    if ($connected) {
-                        Mail::to($bagian->email)->send(new absensiEmail([
-                            'tanggalIjin' => varHelper::formatDate($tglAwal),
-                            'nik' => $bagian->nikKerja,
-                            'nama' => $bagian->namaKaryawan,
-                            'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
-                            'keteranganIjin' => $request->kode,
-                        ]));
-                    }
+                    $sendMail = [
+                        'tanggalIjin' => varHelper::formatDate($tglAwal),
+                        'nik' => $bagian->nikKerja,
+                        'nama' => $bagian->namaKaryawan,
+                        'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
+                        'keteranganIjin' => $request->kode,
+                        'email' => $bagian->email
+                    ];
+                    sendEmailJob::dispatch($sendMail);
                 }
-                //end
+                //end 
 
             } else {
                 $sendToView = array(
@@ -150,19 +150,17 @@ Bisa digunakan sebelum $exp",
             //mail
 
             if ($bagian->email) {
-                $connected = @fsockopen("www.google.com", 80);
-                if ($connected) {
-                    Mail::to($bagian->email)->send(new absensiEmail([
-                        'tanggalIjin' => varHelper::formatDate($tglAwalMail) . ' s/d ' . varHelper::formatDate($tglAkhir),
-                        'nik' => $bagian->nikKerja,
-                        'nama' => $bagian->namaKaryawan,
-                        'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
-                        'keteranganIjin' => $request->kode,
-                    ]));
-                }
+                $sendMail = [
+                    'tanggalIjin' => varHelper::formatDate($tglAwalMail) . ' s/d ' . varHelper::formatDate($tglAkhir),
+                    'nik' => $bagian->nikKerja,
+                    'nama' => $bagian->namaKaryawan,
+                    'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
+                    'keteranganIjin' => $request->kode,
+                    'email' => $bagian->email
+                ];
+                sendEmailJob::dispatch($sendMail);
             }
             //end
-
         }
 
         echo $json;

@@ -17,7 +17,7 @@
              <tr>
                  <td class="text-center my-auto align-middle">{{ $key + 1 }}</td>
                  <td class="text-center align-middle">{{ $k->nikKerja }}</td>
-                 <td>{{ $k->namaKaryawan }}</td>
+                 <td class="align-middle">{{ $k->namaKaryawan }}</td>
                  <td class="text-center align-middle">{{ $k->jabatan->namaJabatan }}</td>
                  <td class="text-center align-middle">{{ $k->departemen->kode }}
                      @if ($k->bagian->kode != null)
