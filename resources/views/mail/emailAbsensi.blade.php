@@ -83,7 +83,7 @@
                                     <tr>
                                         <td>Keterangan Ijin</td>
                                         <td style="">
-                                            {{ $data['keteranganIjin'] }}
+                                            {{ $data['keteranganIjin'] }} ({{ $data['ket'] }})
                                         </td>
                                     </tr>
                                 </table>

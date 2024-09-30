@@ -97,6 +97,7 @@ Bisa digunakan sebelum $exp",
         $tglAkhir = $request->akhir;
         $bagian = karyawanModel::where('id', $request->id)->first();
         $detailbagian = $bagian->bagian->kode;
+        $idKode = keteranganIjinModel::where('kode', $request->kode)->first();
         $tglAwalMail = $tglAwal;
         if ($tglAkhir == '') {
             $libur = liburModel::where('tanggalLibur', $tglAwal)->first();
@@ -118,6 +119,7 @@ Bisa digunakan sebelum $exp",
                         'nama' => $bagian->namaKaryawan,
                         'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
                         'keteranganIjin' => $request->kode,
+                        'ket' => $idKode->keterangan,
                         'email' => $bagian->email
                     ];
                     sendEmailJob::dispatch($sendMail)->onQueue('emails');
@@ -155,6 +157,7 @@ Bisa digunakan sebelum $exp",
                     'nama' => $bagian->namaKaryawan,
                     'tanggalProses' => varHelper::formatDate(date('Y-m-d')),
                     'keteranganIjin' => $request->kode,
+                    'ket' => $idKode->keterangan,
                     'email' => $bagian->email
                 ];
                 sendEmailJob::dispatch($sendMail)->onQueue('emails');
