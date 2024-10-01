@@ -29,11 +29,13 @@ class cutiController extends Controller
         $m = $request->m;
         $y = $request->y;
         $now = date_create(date('Y-m-d', strtotime("$y-$m-01")));
-        $karyawan = karyawanModel::whereMonth('tglMasuk', $m)->whereYear('tglMasuk', '<', $y)->get();
+        $karyawan = karyawanModel::whereMonth('tglMasuk', $m)->whereNULL('km')->whereYear('tglMasuk', '<', $y)->get();
 
         foreach ($karyawan as $k) {
             $hutang = 0;
-            $tglMasuk = date_create($k->tglMasuk);
+            $tglMonth = date('m', strtotime($k->tglMasuk));
+            $tglYear = date('Y', strtotime($k->tglMasuk));
+            $tglMasuk = date_create(date('Y-m-d', strtotime("$tglYear-$tglMonth-01")));
             $selisih = date_diff($now, $tglMasuk);
             $hasilCuti = varHelper::varCuti($selisih->y);
             $potonganTahunan = potonganCutiModel::where('tahunPotongan', $y)->sum('totalPotongan');
