@@ -46,6 +46,21 @@ class cutiController extends Controller
             if (!empty($cekHutang)) {
                 $hutang = $cekHutang->ambilHutangCuti;
             }
+
+            if (!empty($cekTambah)) {
+                $tmptambah = [
+                    'status' => 'Sudah',
+                ];
+                tambahCutiModel::where('idKaryawan', $k->id)->where('tahunCuti', $y)->update($tmptambah);
+            }
+
+            if (!empty($cekPotong)) {
+                $tmpPotong = [
+                    'status' => 'Sudah',
+                ];
+                potongCutiModel::where('idKaryawan', $k->id)->where('tahunCuti', $y)->update($tmpPotong);
+            }
+
             if (empty($cekData)) {
                 $sisaCuti = $hasilCuti['hak'] - $potonganTahunan - $hutang + $cekTambah['s'] - $cekPotong['s'];
                 $tmpSave = [
@@ -105,7 +120,9 @@ class cutiController extends Controller
         $y      = $request->year;
 
         $cuti = cutiModel::where('idKaryawan', $id)->where('year', $y)->first();
-        $tglMasuk = date_create($cuti->karyawan->tglMasuk);
+        $tglMonth = date('m', strtotime($cuti->karyawan->tglMasuk));
+        $tglYear = date('Y', strtotime($cuti->karyawan->tglMasuk));
+        $tglMasuk = date_create(date('Y-m-d', strtotime("$tglYear-$tglMonth-01")));
         $m = $cuti->month;
         $now = date_create(date('Y-m-d', strtotime("$y-$m-01")));
         $selisih = date_diff($now, $tglMasuk);
@@ -123,7 +140,7 @@ class cutiController extends Controller
             'hutang'    => $detailHutang,
             'tambahan'  => $cekTambah['s'],
             'potongCuti' => $cekPotong['s'],
-
+            'tanggalMasuk' => varHelper::formatDate($cuti->karyawan->tglMasuk),
         ];
 
         return view('cuti.detailCuti', $data);
@@ -245,7 +262,9 @@ class cutiController extends Controller
         $y      = $request->year;
 
         $cuti = cutiModel::where('idKaryawan', $id)->where('year', $y)->first();
-        $tglMasuk = date_create($cuti->karyawan->tglMasuk);
+        $tglMonth = date('m', strtotime($cuti->karyawan->tglMasuk));
+        $tglYear = date('Y', strtotime($cuti->karyawan->tglMasuk));
+        $tglMasuk = date_create(date('Y-m-d', strtotime("$tglYear-$tglMonth-01")));
         $m = $cuti->month;
         $now = date_create(date('Y-m-d', strtotime("$y-$m-01")));
         $selisih = date_diff($now, $tglMasuk);
@@ -263,7 +282,7 @@ class cutiController extends Controller
             'hutang'    => $detailHutang,
             'tambahan'  => $cekTambah['s'],
             'potongCuti' => $cekPotong['s'],
-
+            'tanggalMasuk' => varHelper::formatDate($cuti->karyawan->tglMasuk),
         ];
 
         return view('cuti.detailPrint', $data);

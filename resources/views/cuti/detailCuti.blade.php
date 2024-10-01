@@ -59,6 +59,12 @@
             <i>(dihitung per tanggal 1 turun cuti)</i>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">Tangal Masuk</div>
+        <div class="col-md-8">
+            <strong>{{ $tanggalMasuk }}</strong>
+        </div>
+    </div>
 </div>
 <hr>
 <div class="col-md-12 mt-2">
