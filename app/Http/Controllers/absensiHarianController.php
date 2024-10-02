@@ -56,8 +56,8 @@ class absensiHarianController extends Controller
         $tmp = [];
         $dataKaryawan = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->orderBy('nikKerja')->get();
         $jamAbsen = absensiHarianModel::where('tanggalAbsen', $tgl)->get()->toArray();
-        $tglsebelum = date('Y-m-d', strtotime("-1 day", strtotime($tgl)));
-        $jamAbsenSebelum = collect(absensiHarianModel::where('tanggalAbsen', $tglsebelum)->get()->toArray());
+        $tglsesudah = date('Y-m-d', strtotime("+1 day", strtotime($tgl)));
+        $jamAbsenSesudah = collect(absensiHarianModel::where('tanggalAbsen', $tglsesudah)->get()->toArray());
 
         if (empty($jamAbsen)) {
             $sendToView = array(
@@ -166,13 +166,11 @@ class absensiHarianController extends Controller
                     $jadwalMasuk = $cekJadwalGroup['jam_kerja']['jamMasukSJ'];
                     $jadwalPulang = $cekJadwalGroup['jam_kerja']['jamPulangSJ'];
                     if ($jadwalMasuk > $jadwalPulang) {
-                        $jamPulang = $jamDatang;
-                        $jamDatang = NULL;
-                        if ($jamAbsenSebelum != null) {
-                            $cekJadwalMasukMalam = $jamAbsenSebelum->reverse();
-                            $JamMasukMalam = $cekJadwalMasukMalam->firstWhere('idFinger', $dk->fpId);
-                            if ($JamMasukMalam != null) {
-                                $jamDatang = $JamMasukMalam['jamAbsen'];
+                        $jamDatang = $jamPulang;
+                        if ($jamAbsenSesudah != null) {
+                            $JamPulangMalam = $jamAbsenSesudah->firstWhere('idFinger', $dk->fpId);
+                            if ($JamPulangMalam != null) {
+                                $jamPulang = $JamPulangMalam['jamAbsen'];
                             } else {
                                 $jamPulang = NULL;
                             }
