@@ -19,241 +19,355 @@
     <div class="content">
         <div class="container-fluid">
 
-            {{-- {{ $errors->first('nikKerja') }} --}}
-            <form action="{{ URL::to('/dk/karyawan/update-data/') }}/{{ $detailData->uuid }}" method="get">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="d-flex justify-content-between">
-                                    <a href="{{ URL::to('/') }}/dk/karyawan" class="btn btn-danger"><i
-                                            class="fas fa-backward"></i>
-                                        Back</a>
-                                    <button class="btn btn-primary"><i class="fas fa-update"></i> Update Data
-                                        Karyawan</button>
-                                    <input type="hidden" name="idn" value="{{ $detailData->id }}">
+            <ul class="nav nav-tabs" id="group" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="umum-tab" data-toggle="tab" href="#umum" role="tab"
+                        aria-controls="groupOffA" aria-selected="true">Data Umum</a>
+                </li>
+                @can('payroll')
+                    <li class="nav-item">
+                        <a class="nav-link" id="tunjangan-tab" data-toggle="tab" href="#tunjangan" role="tab"
+                            aria-controls="groupOffB" aria-selected="true">Tunjangan</a>
+                    </li>
+                @endcan
+            </ul>
+            <div class="tab-content" id="myTabGroup">
+                <div class="tab-pane fade show active" id="umum" role="tabpanel" aria-labelledby="umum-tab">
+                    <form action="{{ URL::to('/dk/karyawan/update-data/') }}/{{ $detailData->uuid }}" method="get">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <div class="row mt-3">
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="d-flex justify-content-between">
+                                            <a href="{{ URL::to('/') }}/dk/karyawan" class="btn btn-danger"><i
+                                                    class="fas fa-backward"></i>
+                                                Back</a>
+                                            <button class="btn btn-primary"><i class="fas fa-update"></i> Update Data
+                                                Karyawan</button>
+                                            <input type="hidden" name="idn" value="{{ $detailData->id }}">
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        Nomor Induk Kerja (NIK)
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type='text' name="nikKerja" id="nikKerja"
+                                                            placeholder="Nomor Induk Kerja" value="{{ old('nikKerja') }}"
+                                                            class="form-control {{ $errors->has('nikKerja') ? 'is-invalid' : '' }}">
+                                                        <div class="invalid-feedback">{{ $errors->first('nikKerja') }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Nama Karyawan
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" name="nama" id="nama"
+                                                            placeholder="Nama Lengkap" value="{{ old('nama') }}"
+                                                            class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}">
+                                                        <div class="invalid-feedback">{{ $errors->first('nama') }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Jenis Kelamin
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <select name="JK" id="JK" class="form-control">
+                                                            <option value="1"
+                                                                {{ $detailData->jenisKelamin == 1 ? 'selected' : '' }}>Laki
+                                                                - Laki
+                                                            </option>
+                                                            <option value="2"
+                                                                {{ $detailData->jenisKelamin == 2 ? 'selected' : '' }}>
+                                                                Perempuan
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Tanggal Masuk
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input type="date" name="tmt" id="tmt"
+                                                            value="{{ old('tmt') }}"
+                                                            class="form-control {{ $errors->has('tmt') ? 'is-invalid' : '' }}">
+                                                        <div class="invalid-feedback">{{ $errors->first('tmt') }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Email
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input type="email" name="email" id="email"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
+
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    {{-- <div class="card-header">
+                                <h5 class="m-0"></h5>
+                            </div> --}}
+                                    <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                Nomor Induk Kerja (NIK)
+                                            <div class="col-md-12">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Finger Print ID
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="number" placeholder="Finger/SA ID" name="fpId"
+                                                            id="fpId" value="{{ old('fpId') }}"
+                                                            class="form-control {{ $errors->has('fpId') ? 'is-invalid' : '' }}">
+                                                        <div class="invalid-feedback">{{ $errors->first('fpId') }}</div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <input type='text' name="nikKerja" id="nikKerja"
-                                                    placeholder="Nomor Induk Kerja" value="{{ old('nikKerja') }}"
-                                                    class="form-control {{ $errors->has('nikKerja') ? 'is-invalid' : '' }}">
-                                                <div class="invalid-feedback">{{ $errors->first('nikKerja') }}</div>
+                                            <div class="col-md-12">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Perusahaan
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <select name="perusahaan" id="perusahaan" class="form-control">
+                                                            @foreach ($perusahaan as $p)
+                                                                <option value="{{ $p->id }}"
+                                                                    {{ $detailData->idPerusahaan == $p->id ? 'selected' : '' }}>
+                                                                    {{ $p->namaPerusahaan }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Nama Karyawan
+                                            <div class="col-md-12">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Departemen
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <select name="departemen" id="departemen" class="form-control">
+                                                            @foreach ($departemen as $d)
+                                                                <option value="{{ $d->id }}"
+                                                                    {{ $detailData->idDepartemen == $d->id ? 'selected' : '' }}>
+                                                                    {{ $d->namaDepartemen }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-8">
-                                                <input type="text" name="nama" id="nama"
-                                                    placeholder="Nama Lengkap" value="{{ old('nama') }}"
-                                                    class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}">
-                                                <div class="invalid-feedback">{{ $errors->first('nama') }}</div>
+                                            <div class="col-md-12">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Bagian
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select name="bagian" id="bagian" class="form-control">
+                                                            <option value="null">-- none --</option>
+                                                            @foreach ($bagian as $b)
+                                                                <option value="{{ $b->id }}"
+                                                                    {{ $detailData->idBagian == $b->id ? 'selected' : '' }}>
+                                                                    {{ $b->namaBagian }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Jenis Kelamin
+                                            <div class="col-md-12">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Status Karyawan
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select name="statusKaryawan" id="statusKaryawan"
+                                                            class="form-control">
+                                                            <option value="1"
+                                                                {{ $detailData->statusKaryawan == 1 ? 'selected' : '' }}>
+                                                                Kontrak
+                                                            </option>
+                                                            <option value="2"
+                                                                {{ $detailData->statusKaryawan == 2 ? 'selected' : '' }}>
+                                                                Tetap
+                                                            </option>
+                                                            <option value="3"
+                                                                {{ $detailData->statusKaryawan == 3 ? 'selected' : '' }}>
+                                                                Honorer
+                                                            </option>
+                                                            <option value="4"
+                                                                {{ $detailData->statusKaryawan == 4 ? 'selected' : '' }}>
+                                                                Harian
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <select name="JK" id="JK" class="form-control">
-                                                    <option value="1"
-                                                        {{ $detailData->jenisKelamin == 1 ? 'selected' : '' }}>Laki - Laki
-                                                    </option>
-                                                    <option value="2"
-                                                        {{ $detailData->jenisKelamin == 2 ? 'selected' : '' }}>Perempuan
-                                                    </option>
-                                                </select>
+                                            <div class="col-md-12">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Kode Jabatan
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <select name="jabatan" id="jabatan" class="form-control">
+                                                            @foreach ($jabatan as $j)
+                                                                <option value="{{ $j->id }}">{{ $j->kodeJabatan }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" id="namaJabatan" class="form-control"
+                                                            disabled>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Tanggal Masuk
+                                            <div class="col-md-12">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Kode Jam Kerja
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <select name="jamKerja" id="jamKerja" class="form-control">
+                                                            @foreach ($jamKerja as $jk)
+                                                                <option value="{{ $jk->id }}">
+                                                                    {{ $jk->kodeJamKerja }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-5">
-                                                <input type="date" name="tmt" id="tmt"
-                                                    value="{{ old('tmt') }}"
-                                                    class="form-control {{ $errors->has('tmt') ? 'is-invalid' : '' }}">
-                                                <div class="invalid-feedback">{{ $errors->first('tmt') }}</div>
+                                            <div class="col-md-12">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Group Sabtu OFF
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <select name="groupOff" id="groupOff" class="form-control">
+                                                            <option value="0">Non Off</option>
+                                                            <option value="A">Group Off A</option>
+                                                            <option value="B">Group Off B</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Email
-                                            </div>
-                                            <div class="col-md-5">
-                                                <input type="email" name="email" id="email" class="form-control">
+                                            <div class="col-md-12">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">
+                                                        Group Kerja
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select name="groupKerja" id="groupKerja" class="form-control">
+                                                            <option value="null">-- none --</option>
+                                                            @foreach ($groupKerja as $g)
+                                                                <option value="{{ $g->id }}">{{ $g->groupKerja }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="card">
-                            {{-- <div class="card-header">
-                                <h5 class="m-0"></h5>
-                            </div> --}}
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Finger Print ID
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="number" placeholder="Finger/SA ID" name="fpId"
-                                                    id="fpId" value="{{ old('fpId') }}"
-                                                    class="form-control {{ $errors->has('fpId') ? 'is-invalid' : '' }}">
-                                                <div class="invalid-feedback">{{ $errors->first('fpId') }}</div>
-                                            </div>
-                                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade show" id="tunjangan" role="tabpanel" aria-labelledby="tunjangan-tab">
+                    <div class="mt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Tunjangan / Salary Karyawan
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="card-body">
                                         <div class="row mt-2">
                                             <div class="col-md-4">
-                                                Perusahaan
+                                                Gaji Pokok
                                             </div>
                                             <div class="col-md-6">
-                                                <select name="perusahaan" id="perusahaan" class="form-control">
-                                                    @foreach ($perusahaan as $p)
-                                                        <option value="{{ $p->id }}"
-                                                            {{ $detailData->idPerusahaan == $p->id ? 'selected' : '' }}>
-                                                            {{ $p->namaPerusahaan }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" name="gp" placeholder="" id="gp"
+                                                    class="form-control">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
                                         <div class="row mt-2">
                                             <div class="col-md-4">
-                                                Departemen
+                                                UMP
                                             </div>
                                             <div class="col-md-5">
-                                                <select name="departemen" id="departemen" class="form-control">
-                                                    @foreach ($departemen as $d)
-                                                        <option value="{{ $d->id }}"
-                                                            {{ $detailData->idDepartemen == $d->id ? 'selected' : '' }}>
-                                                            {{ $d->namaDepartemen }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" name="ump" placeholder="" id="ump"
+                                                    class="form-control" disabled>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
                                         <div class="row mt-2">
                                             <div class="col-md-4">
-                                                Bagian
-                                            </div>
-                                            <div class="col-md-7">
-                                                <select name="bagian" id="bagian" class="form-control">
-                                                    <option value="null">-- none --</option>
-                                                    @foreach ($bagian as $b)
-                                                        <option value="{{ $b->id }}"
-                                                            {{ $detailData->idBagian == $b->id ? 'selected' : '' }}>
-                                                            {{ $b->namaBagian }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Status Karyawan
-                                            </div>
-                                            <div class="col-md-4">
-                                                <select name="statusKaryawan" id="statusKaryawan" class="form-control">
-                                                    <option value="1"
-                                                        {{ $detailData->statusKaryawan == 1 ? 'selected' : '' }}>Kontrak
-                                                    </option>
-                                                    <option value="2"
-                                                        {{ $detailData->statusKaryawan == 2 ? 'selected' : '' }}>Tetap
-                                                    </option>
-                                                    <option value="3"
-                                                        {{ $detailData->statusKaryawan == 3 ? 'selected' : '' }}>Honorer
-                                                    </option>
-                                                    <option value="4"
-                                                        {{ $detailData->statusKaryawan == 4 ? 'selected' : '' }}>Harian
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Kode Jabatan
-                                            </div>
-                                            <div class="col-md-2">
-                                                <select name="jabatan" id="jabatan" class="form-control">
-                                                    @foreach ($jabatan as $j)
-                                                        <option value="{{ $j->id }}">{{ $j->kodeJabatan }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" id="namaJabatan" class="form-control" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Kode Jam Kerja
-                                            </div>
-                                            <div class="col-md-3">
-                                                <select name="jamKerja" id="jamKerja" class="form-control">
-                                                    @foreach ($jamKerja as $jk)
-                                                        <option value="{{ $jk->id }}">{{ $jk->kodeJamKerja }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Group Sabtu OFF
+                                                Transport
                                             </div>
                                             <div class="col-md-5">
-                                                <select name="groupOff" id="groupOff" class="form-control">
-                                                    <option value="0">Non Off</option>
-                                                    <option value="A">Group Off A</option>
-                                                    <option value="B">Group Off B</option>
-                                                </select>
+                                                <input type="text" name="ump" placeholder="" id="ump"
+                                                    class="form-control" disabled>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
                                         <div class="row mt-2">
                                             <div class="col-md-4">
-                                                Group Kerja
+                                                Transport 1
                                             </div>
+                                            <div class="col-md-5">
+                                                <input type="text" name="ump" placeholder="" id="ump"
+                                                    class="form-control" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
                                             <div class="col-md-4">
-                                                <select name="groupKerja" id="groupKerja" class="form-control">
-                                                    <option value="null">-- none --</option>
-                                                    @foreach ($groupKerja as $g)
-                                                        <option value="{{ $g->id }}">{{ $g->groupKerja }}</option>
-                                                    @endforeach
-                                                </select>
+                                                Makan
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" name="ump" placeholder="" id="ump"
+                                                    class="form-control" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">
+                                                Tj. Jabatan
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" name="ump" placeholder="" id="ump"
+                                                    class="form-control" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">
+                                                Tj. Shift
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" name="ump" placeholder="" id="ump"
+                                                    class="form-control" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">
+                                                Pot. SPSI
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" name="ump" placeholder="" id="ump"
+                                                    class="form-control" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -262,7 +376,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 @endsection

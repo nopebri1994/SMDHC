@@ -54,7 +54,7 @@
                                     <div class="pt-2 ml-auto">
                                         <a href="{{ URL::to('/') }}/dk/karyawan/addData"
                                             class="btn-sm btn-block btn-primary"><i class="fa fa-plus"></i>
-                                            Add Data</a>
+                                            Tambah Data Karyawan</a>
                                     </div>
                                 </div>
                             @endcan
