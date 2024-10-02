@@ -11,7 +11,7 @@ class jadwalGroupKerjaController extends Controller
 {
     function index()
     {
-        $groupKerja = groupKerjaModel::all();
+        $groupKerja = groupKerjaModel::limit(500)->get();
         $jamKerja = jamKerjaModel::all();
         $tmp = [
             'title' => 'Jadwal Group Kerja / Shift',

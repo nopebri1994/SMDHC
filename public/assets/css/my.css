@@ -47,7 +47,7 @@
     background: rgb(237, 213, 118);
     border-bottom: 2px solid green;
     margin-right: 5px;
-    margin-top: 5px;
+    margin-top: 2px;
 }
 
 .nav-tabs .nav-item.show .nav-link,
@@ -56,5 +56,5 @@
     border-bottom: 2px solid green;
     color: black;
     margin-right: 5px;
-    margin-top: 5px;
+    margin-top: 2px;
 }
