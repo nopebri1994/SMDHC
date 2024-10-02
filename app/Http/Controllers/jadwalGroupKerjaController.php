@@ -26,18 +26,40 @@ class jadwalGroupKerjaController extends Controller
         $jamKerja = $request->jam;
         $awal = $request->dariTanggal;
         $akhir = $request->sampaiTanggal;
+        $sct = $request->sct;
+        if ($sct == '1') {
+            $skip = 0;
+            while (strtotime($awal) <= strtotime($akhir)) {
+                if ($skip < 2) {
+                    $tmp = [
+                        'idGroupKerja' => $group,
+                        'idJamKerja' => $jamKerja,
+                        'tanggal' => $awal
+                    ];
+                    jadwalGroupKerjaModel::create($tmp);
+                    $skip++;
+                } else {
+                    if ($skip < 5) {
+                        $skip++;
+                    } else {
+                        $skip = 0;
+                    }
+                }
+                $awal = date('Y-m-d', strtotime("+1 day", strtotime($awal)));
+            }
+        } else {
+            while (strtotime($awal) <= strtotime($akhir)) {
 
-        while (strtotime($awal) <= strtotime($akhir)) {
+                $tmp = [
+                    'idGroupKerja' => $group,
+                    'idJamKerja' => $jamKerja,
+                    'tanggal' => $awal
+                ];
 
-            $tmp = [
-                'idGroupKerja' => $group,
-                'idJamKerja' => $jamKerja,
-                'tanggal' => $awal
-            ];
+                jadwalGroupKerjaModel::create($tmp);
 
-            jadwalGroupKerjaModel::create($tmp);
-
-            $awal = date('Y-m-d', strtotime("+1 day", strtotime($awal)));
+                $awal = date('Y-m-d', strtotime("+1 day", strtotime($awal)));
+            }
         }
         return redirect()->back()->with('status', 'Data Berhasil disimpan');
     }

@@ -56,6 +56,9 @@ class absensiHarianController extends Controller
         $tmp = [];
         $dataKaryawan = karyawanModel::with(['jabatan', 'departemen', 'bagian', 'perusahaan', 'jamKerja'])->whereNull('km')->orderBy('nikKerja')->get();
         $jamAbsen = absensiHarianModel::where('tanggalAbsen', $tgl)->get()->toArray();
+        $tglsebelum = date('Y-m-d', strtotime("-1 day", strtotime($tgl)));
+        $jamAbsenSebelum = collect(absensiHarianModel::where('tanggalAbsen', $tglsebelum)->get()->toArray());
+
         if (empty($jamAbsen)) {
             $sendToView = array(
                 'status'        => 0,
@@ -87,9 +90,7 @@ class absensiHarianController extends Controller
             if ($obj2 != '') {
                 $jamPulang = $absenPulang[$obj2]['jamAbsen'];
             }
-
             $cekJadwalGroup = $jadwalGroup->firstWhere('idGroupKerja', $dk->idGroupKerja);
-
             //proses cek jadwal masuk/pulang dan shift
             if ($cekJadwalGroup == null) {
                 if (date('D', strtotime($tgl)) == 'Sat') {
@@ -135,7 +136,6 @@ class absensiHarianController extends Controller
                 }
             }
             //end cek jamkerja
-
             if (date('D', strtotime($tgl)) == 'Sun') {
                 $f = 'Ya';
                 $t = 'Tidak';
@@ -151,6 +151,40 @@ class absensiHarianController extends Controller
             if ($ket == 'TJM') {
                 $f = 'Ya';
                 $t = 'Tidak';
+            }
+
+            if ($dk->bagian->kode == 'SCT') {
+                if ($cekJadwalGroup == null) {
+                    $jamDatang = NULL;
+                    $jamPulang = NULL;
+                    $t = 'Tidak';
+                    $f = 'Ya';
+                    $ket = 'OFF';
+                    $jadwalMasuk = NULL;
+                    $jadwalPulang = NULL;
+                } else {
+                    $jadwalMasuk = $cekJadwalGroup['jam_kerja']['jamMasukSJ'];
+                    $jadwalPulang = $cekJadwalGroup['jam_kerja']['jamPulangSJ'];
+                    if ($jadwalMasuk > $jadwalPulang) {
+                        $jamPulang = $jamDatang;
+                        $jamDatang = NULL;
+                        if ($jamAbsenSebelum != null) {
+                            $cekJadwalMasukMalam = $jamAbsenSebelum->reverse();
+                            $JamMasukMalam = $cekJadwalMasukMalam->firstWhere('idFinger', $dk->fpId);
+                            if ($JamMasukMalam != null) {
+                                $jamDatang = $JamMasukMalam['jamAbsen'];
+                            } else {
+                                $jamPulang = NULL;
+                            }
+                            if ($jamDatang > $jadwalMasuk) {
+                                $t = 'Ya';
+                            }
+                            if ($jamDatang <= $jadwalMasuk and $jamPulang >= $jadwalPulang) {
+                                $f = 'Ya';
+                            }
+                        }
+                    }
+                }
             }
             //end cek off
             $tmp[] = [

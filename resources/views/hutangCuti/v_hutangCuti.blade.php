@@ -1,12 +1,6 @@
 @extends('_main/main')
 @section('container')
-    <style>
-        .nav-tabs .nav-item.show .nav-link,
-        .nav-tabs .nav-link.active {
-            background: rgb(237, 213, 118);
-            border-bottom: 2px solid green;
-        }
-    </style>
+
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">

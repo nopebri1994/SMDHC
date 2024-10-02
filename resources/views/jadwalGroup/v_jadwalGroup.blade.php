@@ -28,7 +28,7 @@
                                 <form action="jadwalGroupKerja/storeData" method="POST">
                                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" />
                                     <div class="row mt-3">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="group">Group Kerja</label>
                                         </div>
                                         <div class="col-md-4">
@@ -40,7 +40,7 @@
                                         </div>
                                     </div>
                                     <div class="row mt-3">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="jam">Jam Kerja</label>
                                         </div>
                                         <div class="col-md-5">
@@ -52,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div class="row mt-3">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="dariTanggal">Dari Tanggal</label>
                                         </div>
                                         <div class="col-md-6">
@@ -63,13 +63,25 @@
                                         </div>
                                     </div>
                                     <div class="row mt-3">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="sampaiTanggal">Sampai Tanggal</label>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="date"
                                                 class="form-control {{ $errors->has('sampaiTanggal') ? 'is-invalid' : '' }}"
                                                 name="sampaiTanggal" id="sampaiTanggal" required>
+                                            <div class="invalid-feedback">{{ $errors->first('sampaiTanggal') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-4">
+                                            <label for="sampaiTanggal">Anggota Security</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name="sct" id="sct" class="form-control">
+                                                <option value="0">Bukan</option>
+                                                <option value="1">Ya</option>
+                                            </select>
                                             <div class="invalid-feedback">{{ $errors->first('sampaiTanggal') }}</div>
                                         </div>
                                     </div>
