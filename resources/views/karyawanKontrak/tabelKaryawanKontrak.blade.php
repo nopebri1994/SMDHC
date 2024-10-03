@@ -32,7 +32,7 @@
         @endphp
         @foreach ($data as $key => $d)
             @php
-                $notifikasi = date('Y-m-d', strtotime('-31 days', strtotime($d->sampaiTanggal)));
+                $notifikasi = date('Y-m-d', strtotime('-48 days', strtotime($d->sampaiTanggal)));
             @endphp
             <tr @if ($notifikasi < $date) style="background-color: #62B8C5" @endif>
                 <td align="center" class="align-middle text-center">{{ $key + 1 }}</td>

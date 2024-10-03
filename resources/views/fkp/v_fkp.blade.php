@@ -51,7 +51,7 @@
                                         @php
                                             $notifikasi = date(
                                                 'Y-m-d',
-                                                strtotime('-31 days', strtotime($d->tglSelesai)),
+                                                strtotime('-48 days', strtotime($d->tglSelesai)),
                                             );
                                         @endphp
                                         <tr @if ($notifikasi < $date) style="background-color: #62B8C5" @endif>
