@@ -295,9 +295,9 @@
                         flasher.error(obj.message);
                     } else {
                         flasher.success(obj.message);
+                        reset();
+                        dataIjin();
                     }
-                    reset();
-                    dataIjin();
                     closeLoader();
                 },
                 error: function(error) {
