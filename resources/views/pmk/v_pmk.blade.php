@@ -39,7 +39,7 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            loadData();
+            loadData2();
         });
 
         let loadData = () => {
