@@ -28,6 +28,7 @@ use App\Http\Controllers\perusahaanController;
 use App\Http\Controllers\pmkController;
 use App\Http\Controllers\potonganController;
 use App\Http\Controllers\SPController;
+use App\Http\Controllers\tunjanganPotonganController;
 use App\Http\Controllers\usersController;
 use Illuminate\Support\Facades\Route;
 
@@ -237,6 +238,12 @@ Route::middleware('auth')->group(function () {
         Route::post('pay/advance/updateStatus', 'updateStatus');
         Route::get('pay/advance/cetakLaporan', 'cetakLaporan');
     })->middleware('can:payroll');
+
+    //payroll Tunjangan / Potongan
+    Route::controller(tunjanganPotonganController::class)->group(function () {
+        Route::get('pay/tunjangan-potongan', 'index');
+    })->middleware('can:payroll');
+
 
     //kalkulasi
     Route::get('psn/kalkulasi', [kalkulasiController::class, 'index']);

@@ -125,8 +125,17 @@
                             </ul>
                         </li>
                     </ul>
-
-
+                    @can('hc')
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ URL::to('/') }}/pay/tunjangan-potongan"
+                                    class="nav-link  {{ request()->is('pay/tunjangan-potongan') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Tunjangan / Pototongan</p>
+                                </a>
+                            </li>
+                        </ul>
+                    @endcan
                 </li>
                 <li class="nav-item  {{ request()->is('psn/*') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link  {{ request()->is('psn/*') ? 'active' : '' }}">

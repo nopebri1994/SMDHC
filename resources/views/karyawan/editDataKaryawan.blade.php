@@ -1,5 +1,16 @@
 @extends('_main/main')
 @section('container')
+    <style>
+        .checkbox-lg {
+            top: .5rem;
+            scale: 1.4;
+            margin-right: 1.4rem;
+        }
+
+        .ck-label {
+            margin-top: 9px;
+        }
+    </style>
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -300,73 +311,37 @@
                                     <div class="card-body">
                                         <div class="row mt-2">
                                             <div class="col-md-4">
-                                                Gaji Pokok
+                                                <label for="umk">Gaji Pokok</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-10">
                                                 <input type="text" name="gp" placeholder="" id="gp"
                                                     class="form-control">
                                             </div>
+                                            <div class="col-md-2 col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input checkbox-lg" type="checkbox"
+                                                        name="umk" id="umk" value="umk">
+                                                    <label class="form-check-label ck-label" for="umk">
+                                                        UMK
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-md-4">
-                                                UMP
+                                              <label for="tjMakan">Tunjangan Makan</label>
                                             </div>
                                             <div class="col-md-5">
-                                                <input type="text" name="ump" placeholder="" id="ump"
+                                                <input type="text" name="tjMakan" placeholder="" id="tjMakan"
                                                     class="form-control" disabled>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-md-4">
-                                                Transport
+                                             <label for="tjTransport">Tunjangan Transport</label>
                                             </div>
                                             <div class="col-md-5">
-                                                <input type="text" name="ump" placeholder="" id="ump"
-                                                    class="form-control" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Transport 1
-                                            </div>
-                                            <div class="col-md-5">
-                                                <input type="text" name="ump" placeholder="" id="ump"
-                                                    class="form-control" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Makan
-                                            </div>
-                                            <div class="col-md-5">
-                                                <input type="text" name="ump" placeholder="" id="ump"
-                                                    class="form-control" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Tj. Jabatan
-                                            </div>
-                                            <div class="col-md-5">
-                                                <input type="text" name="ump" placeholder="" id="ump"
-                                                    class="form-control" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Tj. Shift
-                                            </div>
-                                            <div class="col-md-5">
-                                                <input type="text" name="ump" placeholder="" id="ump"
-                                                    class="form-control" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                Pot. SPSI
-                                            </div>
-                                            <div class="col-md-5">
-                                                <input type="text" name="ump" placeholder="" id="ump"
+                                                <input type="text" name="tjTransport" placeholder="" id="tjTransport"
                                                     class="form-control" disabled>
                                             </div>
                                         </div>
