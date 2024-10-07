@@ -242,6 +242,7 @@ Route::middleware('auth')->group(function () {
     //payroll Tunjangan / Potongan
     Route::controller(tunjanganPotonganController::class)->group(function () {
         Route::get('pay/tunjangan-potongan', 'index');
+        Route::post('pay/tunjangan-potongan/store', 'store');
     })->middleware('can:payroll');
 
 

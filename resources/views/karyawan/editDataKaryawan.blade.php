@@ -329,20 +329,47 @@
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-md-4">
-                                              <label for="tjMakan">Tunjangan Makan</label>
+                                                <label for="tjMakan">Tunjangan Makan</label>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-5 col-10">
                                                 <input type="text" name="tjMakan" placeholder="" id="tjMakan"
                                                     class="form-control" disabled>
+                                            </div>
+                                            <div class="col-md-2 col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input checkbox-lg" type="checkbox"
+                                                        name="tjMakanCek" id="tjMakanCek" value="1">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-md-4">
-                                             <label for="tjTransport">Tunjangan Transport</label>
+                                                <label for="tjTransport">Tunjangan Transport</label>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-5 col-10">
                                                 <input type="text" name="tjTransport" placeholder="" id="tjTransport"
                                                     class="form-control" disabled>
+                                            </div>
+                                            <div class="col-md-2 col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input checkbox-lg" type="checkbox"
+                                                        name="tjTransportCek" id="umk" value="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-4">
+                                                <label for="tjJabatan">Tunjangan Jabatan</label>
+                                            </div>
+                                            <div class="col-md-5 col-10">
+                                                <input type="text" name="tjJabatan" placeholder="" id="tjJabatan"
+                                                    class="form-control" disabled>
+                                            </div>
+                                            <div class="col-md-2 col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input checkbox-lg" type="checkbox"
+                                                        name="tjJabatanCek" id="tjJabatanCek" value="1">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

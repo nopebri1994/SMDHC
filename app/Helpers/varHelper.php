@@ -362,4 +362,15 @@ class varHelper
         }
         return $tmp;
     }
+
+    static public function rupiahImplode($x)
+    {
+        $x = explode('.', $x);
+        $x = implode($x);
+        $x = explode('_', $x);
+        $x = implode($x);
+        $x = explode('Rp', $x);
+        $x = implode($x);
+        return $x;
+    }
 }
