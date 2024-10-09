@@ -38,14 +38,14 @@
                 @can('payroll')
                     <li class="nav-item">
                         <a class="nav-link" id="tunjangan-tab" data-toggle="tab" href="#tunjangan" role="tab"
-                            aria-controls="groupOffB" aria-selected="true">Tunjangan</a>
+                            aria-controls="groupOffB" aria-selected="true">Tunjangan / Salary Karyawan</a>
                     </li>
                 @endcan
             </ul>
             <div class="tab-content" id="myTabGroup">
                 <div class="tab-pane fade show active" id="umum" role="tabpanel" aria-labelledby="umum-tab">
                     <form action="{{ URL::to('/dk/karyawan/update-data/') }}/{{ $detailData->uuid }}" method="get">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" />
                         <div class="row mt-3">
                             <div class="col-lg-6">
                                 <div class="card">
@@ -54,9 +54,10 @@
                                             <a href="{{ URL::to('/') }}/dk/karyawan" class="btn btn-danger"><i
                                                     class="fas fa-backward"></i>
                                                 Back</a>
-                                            <button class="btn btn-primary"><i class="fas fa-update"></i> Update Data
+                                            <button class="btn btn-primary"><i class="far fa-edit"></i> Update Data
                                                 Karyawan</button>
-                                            <input type="hidden" name="idn" value="{{ $detailData->id }}">
+                                            <input type="hidden" name="idn" id="idn"
+                                                value="{{ $detailData->id }}">
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -306,7 +307,12 @@
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-header">
-                                        Tunjangan / Salary Karyawan
+
+                                        <div class="d-flex justify-content-between">
+                                            <button class="btn btn-primary" id="btnUpdateSalary"><i
+                                                    class="far fa-edit"></i> Update Data
+                                                Salary</button>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row mt-2">
@@ -315,7 +321,7 @@
                                             </div>
                                             <div class="col-md-6 col-10">
                                                 <input type="text" name="gp" placeholder="" id="gp"
-                                                    class="form-control">
+                                                    class="form-control rp">
                                             </div>
                                             <div class="col-md-2 col-2">
                                                 <div class="form-check">
@@ -333,7 +339,7 @@
                                             </div>
                                             <div class="col-md-5 col-10">
                                                 <input type="text" name="tjMakan" placeholder="" id="tjMakan"
-                                                    class="form-control" disabled>
+                                                    class="form-control rp" disabled>
                                             </div>
                                             <div class="col-md-2 col-2">
                                                 <div class="form-check">
@@ -348,12 +354,12 @@
                                             </div>
                                             <div class="col-md-5 col-10">
                                                 <input type="text" name="tjTransport" placeholder="" id="tjTransport"
-                                                    class="form-control" disabled>
+                                                    class="form-control rp" disabled>
                                             </div>
                                             <div class="col-md-2 col-2">
                                                 <div class="form-check">
                                                     <input class="form-check-input checkbox-lg" type="checkbox"
-                                                        name="tjTransportCek" id="umk" value="1">
+                                                        name="tjTransportCek" id="tjTransportCek" value="1">
                                                 </div>
                                             </div>
                                         </div>
@@ -363,7 +369,7 @@
                                             </div>
                                             <div class="col-md-5 col-10">
                                                 <input type="text" name="tjJabatan" placeholder="" id="tjJabatan"
-                                                    class="form-control" disabled>
+                                                    class="form-control rp" disabled>
                                             </div>
                                             <div class="col-md-2 col-2">
                                                 <div class="form-check">
@@ -383,8 +389,11 @@
     </div>
 @endsection
 @section('js')
+    <script src="{{ URL::to('/') }}/assets/adminlte/js/jquery.inputmask.min.js"></script>
+
     <script>
         $(document).ready(function() {
+            rupiah();
             $('#tmt').val('{{ $detailData->tglMasuk }}');
             $('#nama').val('{{ $detailData->namaKaryawan }}');
             $('#email').val('{{ $detailData->email }}');
@@ -402,6 +411,14 @@
                 flasher.error('Data tidak boleh kosonng / tidak sesuai.');
             }
         });
+
+        let rupiah = () => {
+            $('.rp').inputmask("Rp 999.999.999", {
+                numericInput: true,
+                righyAlign: true,
+                oncleared: true
+            })
+        }
 
         document.getElementById('perusahaan').onchange = () => {
             listDepartemen();
@@ -472,6 +489,84 @@
                 }
 
             });
+        }
+
+        document.getElementById('tjMakanCek').onclick = () => {
+            let cek = document.getElementById('tjMakanCek').checked;
+            let input = document.getElementById('tjMakan');
+
+            if (cek) {
+                // input.disabled = false;
+                input.value = '{{ $tunjangan->tjMakan }}';
+            } else {
+                // input.disabled = true;
+                input.value = '';
+
+            }
+        }
+
+        document.getElementById('tjTransportCek').onclick = () => {
+            let cek = document.getElementById('tjTransportCek').checked;
+            let input = document.getElementById('tjTransport');
+
+            if (cek) {
+                // input.disabled = false;
+                input.value = '{{ $tunjangan->tjTransport }}';
+            } else {
+                // input.disabled = true;
+                input.value = '';
+            }
+        }
+
+        document.getElementById('tjJabatanCek').onclick = () => {
+            let cek = document.getElementById('tjJabatanCek').checked;
+            let input = document.getElementById('tjJabatan');
+
+            if (cek) {
+                input.disabled = false;
+            } else {
+                input.disabled = true;
+                input.value = '';
+            }
+        }
+
+
+        document.getElementById('umk').onclick = () => {
+            let cek = document.getElementById('umk').checked;
+            let input = document.getElementById('gp');
+
+            if (cek) {
+                input.value = '{{ $tunjangan->gp }}';
+                input.disabled = true;
+            } else {
+                input.value = '';
+                input.disabled = false;
+            }
+        }
+
+        document.getElementById('btnUpdateSalary').onclick = () => {
+            let gpCek = document.getElementById('umk').checked;
+            let gp = document.getElementById('gp').value;
+            let id = document.getElementById('idn').value;
+
+            let data = {
+                '_token': $('#token').val(),
+                'gpCek': gpCek,
+                'gp': gp,
+                'id': id
+            };
+            $.ajax({
+                type: 'post',
+                url: '../updateSalary',
+                data: data,
+                success: function() {
+                    flasher.success('update salary success')
+                },
+                error: function() {
+                    flasher.error('server eror');
+                }
+            })
+            console.log(data);
         }
     </script>
 @endsection

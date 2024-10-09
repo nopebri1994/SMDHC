@@ -103,6 +103,8 @@ Route::middleware('auth')->group(function () {
     Route::get('dk/karyawan/detail-data/{id}', [karyawanController::class, 'detailData'])->name('detail-data');
     Route::get('dk/karyawan/edit-data/{id}', [karyawanController::class, 'editData'])->name('edit-data');
     Route::get('dk/karyawan/update-data/{id}', [karyawanController::class, 'updateData'])->name('edit-data');
+    Route::post('dk/karyawan/updateSalary', [karyawanController::class, 'updateSalary']);
+
 
     //komposisi
     Route::get('/dk/komposisi', [komposisiController::class, 'index'])->name('komposisi')->middleware('can:hc');

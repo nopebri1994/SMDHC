@@ -14,6 +14,9 @@ use App\Models\karyawanModel;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Models\groupKerjaModel;
+use App\Models\salaryModel;
+use App\Models\tunjaganPotonganModel;
+use varHelper;
 
 class karyawanController extends Controller
 {
@@ -201,6 +204,7 @@ class karyawanController extends Controller
         $jamKerja   = jamKerjaModel::all();
         $bagian     = bagianModel::where('idDepartemen', $detailData->idDepartemen)->get();
         $groupKerja = groupKerjaModel::all();
+        $tunj       = tunjaganPotonganModel::get()->first();
 
         $data = [
             'title'         => 'Edit Data Karyawan',
@@ -211,6 +215,7 @@ class karyawanController extends Controller
             'departemen'    => $departemen,
             'bagian'        => $bagian,
             'groupKerja'    => $groupKerja,
+            'tunjangan'     => $tunj,
         ];
 
         return View('karyawan.editDataKaryawan', $data);
@@ -221,5 +226,39 @@ class karyawanController extends Controller
         $nama_file = rand() . $file->getClientOriginalName();
         $file->move('assets/upload/file_karyawan', $nama_file);
         Excel::import(new karyawanImport, public_path('/assets/upload/file_karyawan/' . $nama_file));
+    }
+
+    function updateSalary(Request $request)
+    {
+        $tunj       = tunjaganPotonganModel::get()->first();
+        $gpCek = $request->gpCek;
+        $gp = $request->gp;
+        $id = $request->id;
+
+        $up = [
+            'status' => 'Tidak',
+        ];
+        salaryModel::where('idKaryawan', $id)->update($up);
+
+        if ($gpCek === true) {
+            $gpStatus = '1';
+            $gp = $tunj->gp;
+        } else {
+            $gpStatus = '0';
+            $gp = varHelper::rupiahImplode($gp);
+        }
+
+        $tmp = [
+            'gpCek' => $gpStatus,
+            'gp' => $gp,
+            'idKaryawan' => $id,
+            'tjMakan' => '0',
+            'tjMakanCek' => '0',
+            'tjTransport' => '0',
+            'tjTransportCek' => '0',
+            'status' => 'Aktif',
+            'tjJabatan' => '0',
+        ];
+        salaryModel::create($tmp);
     }
 }
